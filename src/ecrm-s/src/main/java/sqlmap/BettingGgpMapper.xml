@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingGgp" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingGgp" >
+    <result column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="gamedate" property="gamedate" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="ngr" property="ngr" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="createtime !=null">and createtime = #{createtime}</if>
+	  <if test="startDate !=null">and gamedate <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> and gamedate <![CDATA[ <= ]]> #{endDate}</if>
+	  
+	  <!-- 前端查询使用 -->
+	  <if test="StartDate != null" >and gamedate <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and gamedate <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_ggp
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_ggp <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney
+    
+    from betting_ggp
+    <include refid="rangecondition"></include>
+  </select>
+  
+  <sql id="Base_Column_List" >
+    lsh, gamedate, username, 
+      ngr, createtime, betmoney, 
+      enterprisecode, brandcode, employeecode, 
+      parentemployeecode, loginaccount, gamebigtype, 
+      status
+  </sql>
+  
+  
+  <insert id="insert" parameterType="com.maven.entity.BettingGgp" >
+    insert into betting_ggp (lsh, gamedate, username, 
+      ngr, createtime, betmoney, 
+      enterprisecode, brandcode, employeecode, 
+      parentemployeecode, loginaccount, gamebigtype, 
+      status)
+    values (#{lsh,jdbcType=VARCHAR}, #{gamedate,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{ngr,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{betmoney,jdbcType=DOUBLE}, 
+      #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, 
+      #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingGgp" >
+    insert into betting_ggp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="gamedate != null" >
+        gamedate,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="ngr != null" >
+        ngr,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="gamedate != null" >
+        #{gamedate,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="ngr != null" >
+        #{ngr,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

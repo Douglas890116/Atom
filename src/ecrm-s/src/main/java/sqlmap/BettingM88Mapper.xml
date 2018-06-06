@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingM88" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingM88" >
+    <id column="transid" property="transid" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="VARCHAR" />
+    <result column="operatorid" property="operatorid" jdbcType="VARCHAR" />
+    <result column="sitecode" property="sitecode" jdbcType="VARCHAR" />
+    <result column="leagueid" property="leagueid" jdbcType="VARCHAR" />
+    <result column="homeid" property="homeid" jdbcType="VARCHAR" />
+    <result column="awayid" property="awayid" jdbcType="VARCHAR" />
+    <result column="matchdatetime" property="matchdatetime" jdbcType="VARCHAR" />
+    <result column="bettype" property="bettype" jdbcType="VARCHAR" />
+    <result column="parlayrefno" property="parlayrefno" jdbcType="VARCHAR" />
+    <result column="odds" property="odds" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="stake" property="stake" jdbcType="VARCHAR" />
+    <result column="winlostamount" property="winlostamount" jdbcType="VARCHAR" />
+    <result column="transactiontime" property="transactiontime" jdbcType="VARCHAR" />
+    <result column="ticketstatus" property="ticketstatus" jdbcType="VARCHAR" />
+    <result column="versionkey" property="versionkey" jdbcType="VARCHAR" />
+    <result column="winlostdatetime" property="winlostdatetime" jdbcType="VARCHAR" />
+    <result column="oddstype" property="oddstype" jdbcType="VARCHAR" />
+    <result column="sportstype" property="sportstype" jdbcType="VARCHAR" />
+    <result column="betteam" property="betteam" jdbcType="VARCHAR" />
+    <result column="homehdp" property="homehdp" jdbcType="VARCHAR" />
+    <result column="awayhdp" property="awayhdp" jdbcType="VARCHAR" />
+    <result column="matchid" property="matchid" jdbcType="VARCHAR" />
+    <result column="islive" property="islive" jdbcType="VARCHAR" />
+    <result column="homescore" property="homescore" jdbcType="VARCHAR" />
+    <result column="awayscore" property="awayscore" jdbcType="VARCHAR" />
+    <result column="choicecode" property="choicecode" jdbcType="VARCHAR" />
+    <result column="choicename" property="choicename" jdbcType="VARCHAR" />
+    <result column="txntype" property="txntype" jdbcType="VARCHAR" />
+    <result column="lastupdate" property="lastupdate" jdbcType="VARCHAR" />
+    <result column="leaguename" property="leaguename" jdbcType="VARCHAR" />
+    <result column="homename" property="homename" jdbcType="VARCHAR" />
+    <result column="awayname" property="awayname" jdbcType="VARCHAR" />
+    <result column="sportname" property="sportname" jdbcType="VARCHAR" />
+    <result column="oddsname" property="oddsname" jdbcType="VARCHAR" />
+    <result column="bettypename" property="bettypename" jdbcType="VARCHAR" />
+    <result column="winloststatus" property="winloststatus" jdbcType="VARCHAR" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="netmoney" property="netmoney" jdbcType="DOUBLE" />
+    <result column="bettime" property="bettime" jdbcType="TIMESTAMP" />
+    <result column="nettime" property="nettime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="createtime !=null">and createtime = #{createtime}</if>
+	  <if test="startDate !=null">and bettime <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> and bettime <![CDATA[ <= ]]> #{endDate}</if>
+	  
+	  <if test="oddsname !=null">and oddsname = #{oddsname}</if>
+	  <if test="winloststatus !=null">and winloststatus = #{winloststatus}</if>
+	  <if test="transid !=null">and transid = #{transid}</if>
+	  <if test="bettypename !=null">and bettypename = #{bettypename}</if>
+	  <if test="sportname !=null">and sportname = #{sportname}</if>
+	  
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bettime <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bettime <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+  
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_m88
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_m88 <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney,
+    sum(netmoney) netmoney
+    
+    from betting_m88
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    transid, memberid, operatorid, sitecode, leagueid, homeid, awayid, matchdatetime, 
+    bettype, parlayrefno, odds, currency, stake, winlostamount, transactiontime, ticketstatus, 
+    versionkey, winlostdatetime, oddstype, sportstype, betteam, homehdp, awayhdp, matchid, 
+    islive, homescore, awayscore, choicecode, choicename, txntype, lastupdate, leaguename, 
+    homename, awayname, sportname, oddsname, bettypename, winloststatus, betmoney, netmoney, 
+    bettime, nettime, createtime, enterprisecode, brandcode, employeecode, parentemployeecode, 
+    loginaccount, gamebigtype, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_m88
+    where transid = #{transid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_m88
+    where transid = #{transid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingM88" >
+    insert into betting_m88 (transid, memberid, operatorid, 
+      sitecode, leagueid, homeid, 
+      awayid, matchdatetime, bettype, 
+      parlayrefno, odds, currency, 
+      stake, winlostamount, transactiontime, 
+      ticketstatus, versionkey, winlostdatetime, 
+      oddstype, sportstype, betteam, 
+      homehdp, awayhdp, matchid, 
+      islive, homescore, awayscore, 
+      choicecode, choicename, txntype, 
+      lastupdate, leaguename, homename, 
+      awayname, sportname, oddsname, 
+      bettypename, winloststatus, betmoney, 
+      netmoney, bettime, nettime, 
+      createtime, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gamebigtype, status)
+    values (#{transid,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{operatorid,jdbcType=VARCHAR}, 
+      #{sitecode,jdbcType=VARCHAR}, #{leagueid,jdbcType=VARCHAR}, #{homeid,jdbcType=VARCHAR}, 
+      #{awayid,jdbcType=VARCHAR}, #{matchdatetime,jdbcType=VARCHAR}, #{bettype,jdbcType=VARCHAR}, 
+      #{parlayrefno,jdbcType=VARCHAR}, #{odds,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, 
+      #{stake,jdbcType=VARCHAR}, #{winlostamount,jdbcType=VARCHAR}, #{transactiontime,jdbcType=VARCHAR}, 
+      #{ticketstatus,jdbcType=VARCHAR}, #{versionkey,jdbcType=VARCHAR}, #{winlostdatetime,jdbcType=VARCHAR}, 
+      #{oddstype,jdbcType=VARCHAR}, #{sportstype,jdbcType=VARCHAR}, #{betteam,jdbcType=VARCHAR}, 
+      #{homehdp,jdbcType=VARCHAR}, #{awayhdp,jdbcType=VARCHAR}, #{matchid,jdbcType=VARCHAR}, 
+      #{islive,jdbcType=VARCHAR}, #{homescore,jdbcType=VARCHAR}, #{awayscore,jdbcType=VARCHAR}, 
+      #{choicecode,jdbcType=VARCHAR}, #{choicename,jdbcType=VARCHAR}, #{txntype,jdbcType=VARCHAR}, 
+      #{lastupdate,jdbcType=VARCHAR}, #{leaguename,jdbcType=VARCHAR}, #{homename,jdbcType=VARCHAR}, 
+      #{awayname,jdbcType=VARCHAR}, #{sportname,jdbcType=VARCHAR}, #{oddsname,jdbcType=VARCHAR}, 
+      #{bettypename,jdbcType=VARCHAR}, #{winloststatus,jdbcType=VARCHAR}, #{betmoney,jdbcType=DOUBLE}, 
+      #{netmoney,jdbcType=DOUBLE}, #{bettime,jdbcType=TIMESTAMP}, #{nettime,jdbcType=TIMESTAMP}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingM88" >
+    insert into betting_m88
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transid != null" >
+        transid,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="operatorid != null" >
+        operatorid,
+      </if>
+      <if test="sitecode != null" >
+        sitecode,
+      </if>
+      <if test="leagueid != null" >
+        leagueid,
+      </if>
+      <if test="homeid != null" >
+        homeid,
+      </if>
+      <if test="awayid != null" >
+        awayid,
+      </if>
+      <if test="matchdatetime != null" >
+        matchdatetime,
+      </if>
+      <if test="bettype != null" >
+        bettype,
+      </if>
+      <if test="parlayrefno != null" >
+        parlayrefno,
+      </if>
+      <if test="odds != null" >
+        odds,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="stake != null" >
+        stake,
+      </if>
+      <if test="winlostamount != null" >
+        winlostamount,
+      </if>
+      <if test="transactiontime != null" >
+        transactiontime,
+      </if>
+      <if test="ticketstatus != null" >
+        ticketstatus,
+      </if>
+      <if test="versionkey != null" >
+        versionkey,
+      </if>
+      <if test="winlostdatetime != null" >
+        winlostdatetime,
+      </if>
+      <if test="oddstype != null" >
+        oddstype,
+      </if>
+      <if test="sportstype != null" >
+        sportstype,
+      </if>
+      <if test="betteam != null" >
+        betteam,
+      </if>
+      <if test="homehdp != null" >
+        homehdp,
+      </if>
+      <if test="awayhdp != null" >
+        awayhdp,
+      </if>
+      <if test="matchid != null" >
+        matchid,
+      </if>
+      <if test="islive != null" >
+        islive,
+      </if>
+      <if test="homescore != null" >
+        homescore,
+      </if>
+      <if test="awayscore != null" >
+        awayscore,
+      </if>
+      <if test="choicecode != null" >
+        choicecode,
+      </if>
+      <if test="choicename != null" >
+        choicename,
+      </if>
+      <if test="txntype != null" >
+        txntype,
+      </if>
+      <if test="lastupdate != null" >
+        lastupdate,
+      </if>
+      <if test="leaguename != null" >
+        leaguename,
+      </if>
+      <if test="homename != null" >
+        homename,
+      </if>
+      <if test="awayname != null" >
+        awayname,
+      </if>
+      <if test="sportname != null" >
+        sportname,
+      </if>
+      <if test="oddsname != null" >
+        oddsname,
+      </if>
+      <if test="bettypename != null" >
+        bettypename,
+      </if>
+      <if test="winloststatus != null" >
+        winloststatus,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="netmoney != null" >
+        netmoney,
+      </if>
+      <if test="bettime != null" >
+        bettime,
+      </if>
+      <if test="nettime != null" >
+        nettime,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transid != null" >
+        #{transid,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null" >
+        #{operatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="sitecode != null" >
+        #{sitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="leagueid != null" >
+        #{leagueid,jdbcType=VARCHAR},
+      </if>
+      <if test="homeid != null" >
+        #{homeid,jdbcType=VARCHAR},
+      </if>
+      <if test="awayid != null" >
+        #{awayid,jdbcType=VARCHAR},
+      </if>
+      <if test="matchdatetime != null" >
+        #{matchdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bettype != null" >
+        #{bettype,jdbcType=VARCHAR},
+      </if>
+      <if test="parlayrefno != null" >
+        #{parlayrefno,jdbcType=VARCHAR},
+      </if>
+      <if test="odds != null" >
+        #{odds,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="stake != null" >
+        #{stake,jdbcType=VARCHAR},
+      </if>
+      <if test="winlostamount != null" >
+        #{winlostamount,jdbcType=VARCHAR},
+      </if>
+      <if test="transactiontime != null" >
+        #{transactiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketstatus != null" >
+        #{ticketstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="versionkey != null" >
+        #{versionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="winlostdatetime != null" >
+        #{winlostdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="oddstype != null" >
+        #{oddstype,jdbcType=VARCHAR},
+      </if>
+      <if test="sportstype != null" >
+        #{sportstype,jdbcType=VARCHAR},
+      </if>
+      <if test="betteam != null" >
+        #{betteam,jdbcType=VARCHAR},
+      </if>
+      <if test="homehdp != null" >
+        #{homehdp,jdbcType=VARCHAR},
+      </if>
+      <if test="awayhdp != null" >
+        #{awayhdp,jdbcType=VARCHAR},
+      </if>
+      <if test="matchid != null" >
+        #{matchid,jdbcType=VARCHAR},
+      </if>
+      <if test="islive != null" >
+        #{islive,jdbcType=VARCHAR},
+      </if>
+      <if test="homescore != null" >
+        #{homescore,jdbcType=VARCHAR},
+      </if>
+      <if test="awayscore != null" >
+        #{awayscore,jdbcType=VARCHAR},
+      </if>
+      <if test="choicecode != null" >
+        #{choicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="choicename != null" >
+        #{choicename,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null" >
+        #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdate != null" >
+        #{lastupdate,jdbcType=VARCHAR},
+      </if>
+      <if test="leaguename != null" >
+        #{leaguename,jdbcType=VARCHAR},
+      </if>
+      <if test="homename != null" >
+        #{homename,jdbcType=VARCHAR},
+      </if>
+      <if test="awayname != null" >
+        #{awayname,jdbcType=VARCHAR},
+      </if>
+      <if test="sportname != null" >
+        #{sportname,jdbcType=VARCHAR},
+      </if>
+      <if test="oddsname != null" >
+        #{oddsname,jdbcType=VARCHAR},
+      </if>
+      <if test="bettypename != null" >
+        #{bettypename,jdbcType=VARCHAR},
+      </if>
+      <if test="winloststatus != null" >
+        #{winloststatus,jdbcType=VARCHAR},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bettime != null" >
+        #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nettime != null" >
+        #{nettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingM88" >
+    update betting_m88
+    <set >
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null" >
+        operatorid = #{operatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="sitecode != null" >
+        sitecode = #{sitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="leagueid != null" >
+        leagueid = #{leagueid,jdbcType=VARCHAR},
+      </if>
+      <if test="homeid != null" >
+        homeid = #{homeid,jdbcType=VARCHAR},
+      </if>
+      <if test="awayid != null" >
+        awayid = #{awayid,jdbcType=VARCHAR},
+      </if>
+      <if test="matchdatetime != null" >
+        matchdatetime = #{matchdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bettype != null" >
+        bettype = #{bettype,jdbcType=VARCHAR},
+      </if>
+      <if test="parlayrefno != null" >
+        parlayrefno = #{parlayrefno,jdbcType=VARCHAR},
+      </if>
+      <if test="odds != null" >
+        odds = #{odds,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="stake != null" >
+        stake = #{stake,jdbcType=VARCHAR},
+      </if>
+      <if test="winlostamount != null" >
+        winlostamount = #{winlostamount,jdbcType=VARCHAR},
+      </if>
+      <if test="transactiontime != null" >
+        transactiontime = #{transactiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketstatus != null" >
+        ticketstatus = #{ticketstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="versionkey != null" >
+        versionkey = #{versionkey,jdbcType=VARCHAR},
+      </if>
+      <if test="winlostdatetime != null" >
+        winlostdatetime = #{winlostdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="oddstype != null" >
+        oddstype = #{oddstype,jdbcType=VARCHAR},
+      </if>
+      <if test="sportstype != null" >
+        sportstype = #{sportstype,jdbcType=VARCHAR},
+      </if>
+      <if test="betteam != null" >
+        betteam = #{betteam,jdbcType=VARCHAR},
+      </if>
+      <if test="homehdp != null" >
+        homehdp = #{homehdp,jdbcType=VARCHAR},
+      </if>
+      <if test="awayhdp != null" >
+        awayhdp = #{awayhdp,jdbcType=VARCHAR},
+      </if>
+      <if test="matchid != null" >
+        matchid = #{matchid,jdbcType=VARCHAR},
+      </if>
+      <if test="islive != null" >
+        islive = #{islive,jdbcType=VARCHAR},
+      </if>
+      <if test="homescore != null" >
+        homescore = #{homescore,jdbcType=VARCHAR},
+      </if>
+      <if test="awayscore != null" >
+        awayscore = #{awayscore,jdbcType=VARCHAR},
+      </if>
+      <if test="choicecode != null" >
+        choicecode = #{choicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="choicename != null" >
+        choicename = #{choicename,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null" >
+        txntype = #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdate != null" >
+        lastupdate = #{lastupdate,jdbcType=VARCHAR},
+      </if>
+      <if test="leaguename != null" >
+        leaguename = #{leaguename,jdbcType=VARCHAR},
+      </if>
+      <if test="homename != null" >
+        homename = #{homename,jdbcType=VARCHAR},
+      </if>
+      <if test="awayname != null" >
+        awayname = #{awayname,jdbcType=VARCHAR},
+      </if>
+      <if test="sportname != null" >
+        sportname = #{sportname,jdbcType=VARCHAR},
+      </if>
+      <if test="oddsname != null" >
+        oddsname = #{oddsname,jdbcType=VARCHAR},
+      </if>
+      <if test="bettypename != null" >
+        bettypename = #{bettypename,jdbcType=VARCHAR},
+      </if>
+      <if test="winloststatus != null" >
+        winloststatus = #{winloststatus,jdbcType=VARCHAR},
+      </if>
+      <if test="betmoney != null" >
+        betmoney = #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        netmoney = #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bettime != null" >
+        bettime = #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nettime != null" >
+        nettime = #{nettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where transid = #{transid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingM88" >
+    update betting_m88
+    set memberid = #{memberid,jdbcType=VARCHAR},
+      operatorid = #{operatorid,jdbcType=VARCHAR},
+      sitecode = #{sitecode,jdbcType=VARCHAR},
+      leagueid = #{leagueid,jdbcType=VARCHAR},
+      homeid = #{homeid,jdbcType=VARCHAR},
+      awayid = #{awayid,jdbcType=VARCHAR},
+      matchdatetime = #{matchdatetime,jdbcType=VARCHAR},
+      bettype = #{bettype,jdbcType=VARCHAR},
+      parlayrefno = #{parlayrefno,jdbcType=VARCHAR},
+      odds = #{odds,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      stake = #{stake,jdbcType=VARCHAR},
+      winlostamount = #{winlostamount,jdbcType=VARCHAR},
+      transactiontime = #{transactiontime,jdbcType=VARCHAR},
+      ticketstatus = #{ticketstatus,jdbcType=VARCHAR},
+      versionkey = #{versionkey,jdbcType=VARCHAR},
+      winlostdatetime = #{winlostdatetime,jdbcType=VARCHAR},
+      oddstype = #{oddstype,jdbcType=VARCHAR},
+      sportstype = #{sportstype,jdbcType=VARCHAR},
+      betteam = #{betteam,jdbcType=VARCHAR},
+      homehdp = #{homehdp,jdbcType=VARCHAR},
+      awayhdp = #{awayhdp,jdbcType=VARCHAR},
+      matchid = #{matchid,jdbcType=VARCHAR},
+      islive = #{islive,jdbcType=VARCHAR},
+      homescore = #{homescore,jdbcType=VARCHAR},
+      awayscore = #{awayscore,jdbcType=VARCHAR},
+      choicecode = #{choicecode,jdbcType=VARCHAR},
+      choicename = #{choicename,jdbcType=VARCHAR},
+      txntype = #{txntype,jdbcType=VARCHAR},
+      lastupdate = #{lastupdate,jdbcType=VARCHAR},
+      leaguename = #{leaguename,jdbcType=VARCHAR},
+      homename = #{homename,jdbcType=VARCHAR},
+      awayname = #{awayname,jdbcType=VARCHAR},
+      sportname = #{sportname,jdbcType=VARCHAR},
+      oddsname = #{oddsname,jdbcType=VARCHAR},
+      bettypename = #{bettypename,jdbcType=VARCHAR},
+      winloststatus = #{winloststatus,jdbcType=VARCHAR},
+      betmoney = #{betmoney,jdbcType=DOUBLE},
+      netmoney = #{netmoney,jdbcType=DOUBLE},
+      bettime = #{bettime,jdbcType=TIMESTAMP},
+      nettime = #{nettime,jdbcType=TIMESTAMP},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where transid = #{transid,jdbcType=VARCHAR}
+  </update>
+</mapper>

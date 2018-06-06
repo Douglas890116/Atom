@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingKrAv">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingKrAv">
+    <id column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="enterprisecode" jdbcType="VARCHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="VARCHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="VARCHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="transtype" jdbcType="VARCHAR" property="transtype" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="transtype2" jdbcType="VARCHAR" property="transtype2" />
+    <result column="amount2" jdbcType="DOUBLE" property="amount2" />
+    <result column="provider" jdbcType="VARCHAR" property="provider" />
+    <result column="roundid" jdbcType="VARCHAR" property="roundid" />
+    <result column="gameinfo" jdbcType="VARCHAR" property="gameinfo" />
+    <result column="gamebigtype" jdbcType="VARCHAR" property="gamebigtype" />
+    <result column="history" jdbcType="VARCHAR" property="history" />
+    <result column="isroundfinished" jdbcType="VARCHAR" property="isroundfinished" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tid, enterprisecode, brandcode, employeecode, parentemployeecode, loginaccount, transtype, 
+    amount, transtype2, amount2, provider, roundid, gameinfo, gamebigtype, history, isroundfinished, 
+    time, userid, createtime
+  </sql>
+  <sql id="rangecondition">
+  	<where>
+  		<if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  		<if test="tid != null"> and tid = #{tid}</if>
+  		<if test="enterprisecode != null"> and enterprisecode = #{enterprisecode}</if>
+  		<if test="brandcode != null"> and brandcode = #{brandcode}</if>
+  		<if test="employeecode != null"> and employeecode = #{employeecode}</if>
+  		<if test="parentemployeecode != null"> and parentemployeecode = #{parentemployeecode}</if>
+  		<if test="loginaccount != null"> and loginaccount = #{loginaccount}</if>
+  		<if test="transtype != null"> and transtype = #{transtype}</if>
+  		<if test="amount != null"> and amount = #{amount}</if>
+  		<if test="transtype2 != null"> and transtype2 = #{transtype2}</if>
+  		<if test="amount2 != null"> and amount2 = #{amount2}</if>
+  		<if test="provider != null"> and provider = #{provider}</if>
+  		<if test="roundid != null"> and roundid = #{roundid}</if>
+  		<if test="gameinfo != null"> and gameinfo = #{gameinfo}</if>
+  		<if test="gamebigtype != null"> and gamebigtype = #{gamebigtype}</if>
+  		<if test="history != null"> and history = #{history}</if>
+  		<if test="isroundfinished != null"> and isroundfinished = #{isroundfinished}</if>
+  		<if test="startDate != null"> and time <![CDATA[ >= ]]> #{startDate}</if>
+  		<if test="endDate != null"> and time <![CDATA[ <= ]]> #{endDate}</if>
+  		<if test="userid != null"> and userid = #{userid}</if>
+  		<if test="startcreatetime != null"> and createtime <![CDATA[ >= ]]> #{startcreatetime}</if>
+  		<if test="endcreatetime != null"> and createtime <![CDATA[ <= ]]> #{endcreatetime}</if>
+  	</where>
+  </sql>
+<!-- =============================================精确查找==================================================== -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from betting_kr_av
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_kr_av
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_kr_av
+    <include refid="rangecondition"></include>
+  </select>
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(amount) amount
+    
+    from betting_kr_av
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =============================================删除语句==================================================== -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from betting_kr_av
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+<!-- =============================================新增语句==================================================== -->
+  <insert id="insert" parameterType="com.maven.entity.BettingKrAv">
+    insert into betting_kr_av (tid, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      transtype, amount, transtype2, 
+      amount2, provider, roundid, 
+      gameinfo, gamebigtype, history, 
+      isroundfinished, time, userid, 
+      createtime)
+    values (#{tid,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=VARCHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=VARCHAR}, #{parentemployeecode,jdbcType=VARCHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{transtype,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, #{transtype2,jdbcType=VARCHAR}, 
+      #{amount2,jdbcType=DOUBLE}, #{provider,jdbcType=VARCHAR}, #{roundid,jdbcType=VARCHAR}, 
+      #{gameinfo,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, #{history,jdbcType=VARCHAR}, 
+      #{isroundfinished,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{userid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingKrAv">
+    insert into betting_kr_av
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="enterprisecode != null">
+        enterprisecode,
+      </if>
+      <if test="brandcode != null">
+        brandcode,
+      </if>
+      <if test="employeecode != null">
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null">
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null">
+        loginaccount,
+      </if>
+      <if test="transtype != null">
+        transtype,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="transtype2 != null">
+        transtype2,
+      </if>
+      <if test="amount2 != null">
+        amount2,
+      </if>
+      <if test="provider != null">
+        provider,
+      </if>
+      <if test="roundid != null">
+        roundid,
+      </if>
+      <if test="gameinfo != null">
+        gameinfo,
+      </if>
+      <if test="gamebigtype != null">
+        gamebigtype,
+      </if>
+      <if test="history != null">
+        history,
+      </if>
+      <if test="isroundfinished != null">
+        isroundfinished,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null">
+        #{enterprisecode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandcode != null">
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null">
+        #{employeecode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeecode != null">
+        #{parentemployeecode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginaccount != null">
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="transtype != null">
+        #{transtype,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="transtype2 != null">
+        #{transtype2,jdbcType=VARCHAR},
+      </if>
+      <if test="amount2 != null">
+        #{amount2,jdbcType=DOUBLE},
+      </if>
+      <if test="provider != null">
+        #{provider,jdbcType=VARCHAR},
+      </if>
+      <if test="roundid != null">
+        #{roundid,jdbcType=VARCHAR},
+      </if>
+      <if test="gameinfo != null">
+        #{gameinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null">
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="history != null">
+        #{history,jdbcType=VARCHAR},
+      </if>
+      <if test="isroundfinished != null">
+        #{isroundfinished,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+<!-- =============================================更新语句==================================================== -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingKrAv">
+    update betting_kr_av
+    <set>
+      <if test="enterprisecode != null">
+        enterprisecode = #{enterprisecode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandcode != null">
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null">
+        employeecode = #{employeecode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeecode != null">
+        parentemployeecode = #{parentemployeecode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginaccount != null">
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="transtype != null">
+        transtype = #{transtype,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="transtype2 != null">
+        transtype2 = #{transtype2,jdbcType=VARCHAR},
+      </if>
+      <if test="amount2 != null">
+        amount2 = #{amount2,jdbcType=DOUBLE},
+      </if>
+      <if test="provider != null">
+        provider = #{provider,jdbcType=VARCHAR},
+      </if>
+      <if test="roundid != null">
+        roundid = #{roundid,jdbcType=VARCHAR},
+      </if>
+      <if test="gameinfo != null">
+        gameinfo = #{gameinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null">
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="history != null">
+        history = #{history,jdbcType=VARCHAR},
+      </if>
+      <if test="isroundfinished != null">
+        isroundfinished = #{isroundfinished,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingKrAv">
+    update betting_kr_av
+    set enterprisecode = #{enterprisecode,jdbcType=VARCHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=VARCHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=VARCHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      transtype = #{transtype,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      transtype2 = #{transtype2,jdbcType=VARCHAR},
+      amount2 = #{amount2,jdbcType=DOUBLE},
+      provider = #{provider,jdbcType=VARCHAR},
+      roundid = #{roundid,jdbcType=VARCHAR},
+      gameinfo = #{gameinfo,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      history = #{history,jdbcType=VARCHAR},
+      isroundfinished = #{isroundfinished,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+</mapper>

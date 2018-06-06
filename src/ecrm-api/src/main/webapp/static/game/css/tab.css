@@ -1,0 +1,145 @@
+@charset "utf-8";
+blockquote,body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,legend,li,ol,p,pre,td,textarea,th,ul {
+    margin: 0;
+    padding: 0
+}
+div{ display:block;}
+button,input,select,textarea {
+    font-size: 100%;
+    font-family: inherit
+}
+
+iframe,img {
+    border: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+ol,ul {
+    list-style: none
+}
+
+a {
+    color: #fff;
+    text-decoration: none
+}
+
+a:hover {
+    color: #f8c72b;
+    text-decoration: none;
+}
+
+a:hover,a:link,input:focus {
+    outline: 0
+}
+
+::-moz-focus-inner {
+    border: 0
+}
+
+body {
+    color: #333;
+    font: 12px Verdana,Tahoma,Arial,"Microsoft YaHei";
+	min-width:1000px;
+	background:#000;
+}
+.hidden {
+    display: none
+}
+
+.pa {
+    position: absolute
+}
+
+.pr {
+    position: relative
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.clear {
+    clear: both
+}
+
+.oh {
+    overflow: hidden
+}
+
+.fb {
+    font-weight: 700
+}
+
+.vm {
+    vertical-align: middle
+}
+
+.vtt {
+    vertical-align: text-top
+}
+
+.tc {
+    text-align: center
+}
+
+.tl {
+    text-align: left
+}
+
+.tr {
+    text-align: right
+}
+
+.tu {
+    text-decoration: underline
+}
+
+.ttc {
+    text-transform: capitalize
+}
+
+.white {
+    color: #fff
+}
+
+/*上面部分是公共样式，嵌入到网站的时候可以去掉*/
+/*老虎机*/
+.w { width: 1000px;margin: 0 auto;}
+/*slot-game-title_begin*/
+.slot-game-title{ width:100%; background: #3e3c5f; margin-top:6px;}
+.slot-game-title .top{ width:100%; background: #201e39; }
+.slot-game-title .top .tabs{ width:750px; float: left;}
+.slot-game-title .top .tabs .item{ height: 50px; line-height: 50px; font-weight: bold; padding: 0px 32px; font-size: 15px; float: left; color:#c6bece;
+	cursor: pointer; transition: .3s;}
+.slot-game-title .top .tabs .item.active,.slot-game-title .top .tabs .item:hover{ background: #3e3c5f; color:#fff;}
+.slot-game-title .top .search-box{ position:relative; width:200px; height:32px; float:right;  margin-top:10px; margin-right:20px;}
+.search-box input { width:200px; height:32px; line-height: 32px; cursor: text; background:#31304f; text-indent: 12px;border-radius: 10px; border:0; color:#fff;}
+.search-box span{ position:absolute; right:0px; top:0px; display: inline-block; width:32px; height:32px; cursor: pointer;background: url(../images/slot-bg.png) no-repeat -116px -75px;}
+.slot-game-title .btm .list{ display: none;}
+.slot-game-title .btm .list.active{ display: block;}
+.slot-game-title .btm .item{ float:left; height: 45px; line-height: 48px; padding: 0 25px; cursor: pointer; font-weight:bold; transition: .3s; color:#d8d2de; font-size:13px;}
+.slot-game-title .btm .item.active,.slot-game-title .btm .item:hover{ color:#ffce34;}
+/*slot-game-title_end*/
+
+.slot-game-cont{ background: url(../images/about_bg1.png); border:3px solid #3e3c5f; margin-bottom:30px;}
+.con_cen{width: 994px;}
+.con_cen p{ color:#ababab;padding-top:7px;height:54px; overflow:hidden;}
+.con_cen ul{}
+.con_cen ul li{ float:left; margin-right:12px; margin-left:13px; margin-top:25px; width:140px; font-size:14px}
+.con_cen ul li .pt_img{ width:140px; height:210px; overflow:hidden; position:relative; z-index:99}
+.con_cen ul li .pt_img img{width:140px; height:210px; }
+.con_cen ul li .rsp{width:140px;height:210px;overflow:hidden;position: absolute;background:#000;top:0px;left:0px; z-index:100}
+.con_cen ul li .text{position:absolute;width:140px;height:210px;left:-140px;top:0px;overflow:hidden; z-index:8888;}
+.con_cen ul li h3{ width:104px; height:34px; line-height:34px; margin:0 auto; background:url(../images/pt_btn_1.png) no-repeat; text-align:center; margin-top:7px; color:#000; font-weight:normal; cursor:pointer; font-size:15px}
+.con_cen ul li h2{ width:104px; height:34px; line-height:34px; margin:0 auto; background:url(../images/pt_btn_1.png) no-repeat; text-align:center; margin-top:70px; color:#000; font-weight:normal; cursor:pointer; font-size:15px;}
+.con_cen ul li h3:hover{ background:url(../images/pt_btn.png) no-repeat}
+.con_cen ul li h2:hover{ background:url(../images/pt_btn.png) no-repeat}
+

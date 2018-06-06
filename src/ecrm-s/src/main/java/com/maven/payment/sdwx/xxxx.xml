@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dinpay>
+	<response>
+		<interface_version>V3.1</interface_version>
+		<merchant_code>4000001349</merchant_code>
+		<order_amount>100.0</order_amount>
+		<order_no>69748091-d0a7-4e29-8ba0-7e9405e01ef6</order_no>
+		<order_time>2017-05-18 21:07:55</order_time>
+		<qrcode>weixin://wxpay/bizpayurl?pr=fmCdXY6</qrcode>
+		<resp_code>SUCCESS</resp_code>
+		<resp_desc>通讯成功</resp_desc>
+		<result_code>0</result_code>
+		<sign>iD7c7/HlAxjp29z0pN/8cIn88ZqZCVGwxpUqHMNStP91pjUQhceCgxe7WLtoMAgnXWgzcgTEeeuaVBXgP80yLbnV1an3hreTlK4pWyVQOHMSCJR4eSdOXZWjngTn6SpuLVofIMhofFnPG9PCrOweg0JDDZS7oqyMqISx9NEQIF8=
+		</sign>
+		<sign_type>RSA-S</sign_type>
+		<trade_no>1472685423</trade_no>
+		<trade_time>2017-05-18 21:08:06</trade_time>
+	</response>
+</dinpay>

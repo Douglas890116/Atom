@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployeeCapitalAccount" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseEmployeeCapitalAccount" >
+    <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="upintegralbalance" property="upintegralbalance" jdbcType="DECIMAL" />
+    <result column="accumulateddeposit  " property="accumulateddeposit  " jdbcType="DECIMAL" />
+    <result column="accumulatedwithdraw  " property="accumulatedwithdraw  " jdbcType="DECIMAL" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="CHAR" property="loginaccount" />
+    <result column="parentemployeeaccount" jdbcType="CHAR" property="parentemployeeaccount" />
+  </resultMap>
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+     EMPLOYEECODE,BALANCE,UPINTEGRALBALANCE,PARENTEMPLOYEECODE,ACCUMULATEDDEPOSIT,ACCUMULATEDWITHDRAW
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  		<if test="employeecode !=null" > AND  eeca.employeecode = #{employeecode} </if>
+  		<if test="parentemployeecode != null" >AND eeca.parentemployeecode = #{parentemployeecode} </if>
+  		<if test="balance !=null" > AND  eeca.balance = #{balance} </if>
+  		<if test="upintegralbalance !=null" > AND  eeca.upintegralbalance = #{upintegralbalance} </if>
+  		<if test="accumulateddeposit !=null" > AND  eeca.accumulateddeposit = #{accumulateddeposit} </if>
+  		<if test="accumulatedwithdraw !=null" > AND  eeca.accumulatedwithdraw = #{accumulatedwithdraw} </if>
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where> 
+  		1=1
+  		<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (eeca.parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="teamLeaderCode != null" > or eeca.employeecode = #{teamLeaderCode} </if>)
+		</if>
+  		<if test="employeecode !=null" > AND  eeca.employeecode = #{employeecode} </if>
+  		<if test="parentemployeecode != null" >AND eeca.parentemployeecode = #{parentemployeecode} </if>
+  		<if test="balance !=null" > AND  eeca.balance = #{balance} </if>
+  		<if test="upintegralbalance !=null" > AND  eeca.upintegralbalance = #{upintegralbalance} </if>
+  		<if test="accumulateddeposit !=null" > AND  eeca.accumulateddeposit = #{accumulateddeposit} </if>
+  		<if test="accumulatedwithdraw !=null" > AND  eeca.accumulatedwithdraw = #{accumulatedwithdraw} </if>
+  		<if test="enterprisecode !=null" > AND  eeca.enterprisecode = #{enterprisecode} </if>
+  		<!-- 关联属性 -->
+  		<if test="loginaccount !=null" > AND  ee.loginaccount = #{loginaccount} </if>
+  		<if test="parentemployeeaccount !=null" > AND  ee.parentemployeeaccount = #{parentemployeeaccount}  </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!--   创建资金帐户 -->
+	<insert id="save" parameterType="com.maven.entity.EnterpriseEmployeeCapitalAccount">
+		INSERT INTO enterprise_employee_capital_account(employeecode,parentemployeecode,balance,upintegralbalance,accumulateddeposit,accumulatedwithdraw) 
+		VALUES(#{employeecode},#{parentemployeecode},0.00,0.00 ,0.00,0.00);
+	</insert>
+<!-- =================================================精确查询================================================================ -->
+<!-- 根据用户编码查询 资金账户-->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select <include refid="columnList" /> , (SELECT ee.loginaccount FROM enterprise_employee ee WHERE ee.employeecode = #{employeecode} ) loginaccount 
+	    from enterprise_employee_capital_account 
+	    where employeecode = #{employeecode}
+  </select>
+<!-- 查询用户账户余额 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="Map" >
+	    select <include refid="columnList" /> from enterprise_employee_capital_account eeca <include refid="exactCondition" />
+  </select>
+  
+  
+   
+  
+<!-- =================================================模糊查询================================================================ -->
+<!-- 查询客户输赢分析-->
+	<select id="queryUserLoseWinAnalysis" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+	   <!-- 
+	   SELECT 
+				eeca.employeecode,
+				ee.loginaccount,
+				eeca.parentemployeecode,
+				ee.parentemployeeaccount,
+				eeca.accumulateddeposit,
+				eeca.accumulatedwithdraw,
+				eeca.balance,
+		(eeca.accumulateddeposit+eeca.accumulatedwithdraw-eeca.balance) AS summoney 
+		FROM enterprise_employee_capital_account eeca
+		LEFT JOIN enterprise_employee ee ON eeca.employeecode=ee.employeecode
+		and ee.employeestatus=1
+		<include refid="rangeCondition" /> 
+		 -->
+		select employeecode,loginaccount ,parentemployeecode  ,parentemployeeaccount,savemoney as accumulateddeposit,getmoney as accumulatedwithdraw,(savemoney+getmoney) summoney from (
+
+select ee.employeecode,ee.loginaccount ,ee.parentemployeecode  ,ee.parentemployeeaccount,
+SUM(CASE  WHEN eeca.ordertype=1 THEN eeca.orderamount ELSE 0 END ) AS savemoney , 
+SUM(CASE  WHEN eeca.ordertype=2 THEN eeca.orderamount ELSE 0 END ) AS getmoney
+from deposit_withdraw_order eeca INNER JOIN enterprise_employee ee ON eeca.employeecode=ee.employeecode and ee.employeestatus=1 
+<include refid="rangeCondition" />  
+and eeca.orderstatus=2 
+GROUP BY eeca.employeecode
+) re
+
+		<include refid="ABasic.page" />
+    </select>
+     <!-- 查询客户输赢分析统计-->
+   <select id="countUserLoseWinAnalysis" resultType="Map" parameterType="java.util.HashMap" >
+	   SELECT COUNT(1) count,
+	   sum(savemoney) as accumulateddeposit,
+	   sum(getmoney) as accumulatedwithdraw,
+	   sum(savemoney+getmoney) summoney from (
+
+select ee.employeecode,ee.loginaccount ,ee.parentemployeecode  ,ee.parentemployeeaccount,
+SUM(CASE  WHEN eeca.ordertype=1 THEN eeca.orderamount ELSE 0 END ) AS savemoney , 
+SUM(CASE  WHEN eeca.ordertype=2 THEN eeca.orderamount ELSE 0 END ) AS getmoney
+from deposit_withdraw_order eeca INNER JOIN enterprise_employee ee ON eeca.employeecode=ee.employeecode and ee.employeestatus=1 
+<include refid="rangeCondition" />
+and eeca.orderstatus=2  
+
+GROUP BY eeca.employeecode
+) re
+
+
+   </select>
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<!--   修改账户余额 -->
+	<update id="updateEmployeeAccount" parameterType="com.maven.entity.EnterpriseEmployeeCapitalAccount">
+	  		update enterprise_employee_capital_account 
+	  		<set>
+	  			balance = balance + #{balance},
+	  			<if test="upintegralbalance !=null " >upintegralbalance = #{upintegralbalance},</if>
+	  			<if test="accumulateddeposit !=null " >accumulateddeposit = accumulateddeposit + #{accumulateddeposit},</if>
+	  			<if test="accumulatedwithdraw !=null " >accumulatedwithdraw = accumulatedwithdraw + #{accumulatedwithdraw},</if>
+	  		</set> 
+	  	 	where employeecode = #{employeecode} and (balance + #{balance})>=0
+	</update>
+</mapper>

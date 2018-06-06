@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseBrandActivity" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseBrandActivity" >
+    <id column="enterprisebrandactivitycode" property="enterprisebrandactivitycode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    enterprisebrandactivitycode, enterprisecode, brandcode, employeecode, ecactivitycode, 
+    begintime, endtime, status
+  </sql>
+  <sql id="Base_Column_List_Isl" >
+    eba.enterprisebrandactivitycode, eba.enterprisecode, eba.brandcode, eba.employeecode, eba.ecactivitycode, 
+    eba.begintime, eba.endtime, eba.status
+  </sql>
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="enterprisecode != null" > and eba.enterprisecode = #{enterprisecode}</if>
+      <if test="brandcode != null" > and eba.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and eba.employeecode = #{employeecode}</if>
+      <if test="ecactivitycode != null" > and eba.ecactivitycode = #{ecactivitycode}</if>
+      <if test="begintime != null" > and eba.begintime = #{begintime}</if>
+      <if test="endtime != null" > and eba.endtime = #{endtime}</if>
+      <if test="status != null" > and eba.status = #{status}</if>
+      <!-- 关联字段 -->
+      <if test="enterprisename != null" > and eba.enterprisename like concat('%', #{enterprisename}, '%')</if>
+      <if test="brandname != null" > and eob.brandname like concat('%', #{brandname}, '%')</if>
+      <if test="activityname != null" > and a.name like concat('%', #{activityname}, '%')</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EnterpriseBrandActivity" >
+    insert into enterprise_brand_activity ( enterprisecode, brandcode, employeecode,
+     ecactivitycode, begintime, endtime, status)
+    values (#{enterprisecode},#{brandcode}, #{employeecode},
+     #{ecactivitycode},#{begintime}, #{endtime}, #{status})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseBrandActivity" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_brand_activity eba 
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_brand_activity
+    where enterprisebrandactivitycode = #{enterprisebrandactivitycode}
+  </select>
+  <select id="selectByTwoCode" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_brand_activity
+    where brandcode = #{brandcode} and ecactivitycode in
+    <foreach collection="ecactivitycode" item="item" open="(" close=")" separator=",">
+		#{item}
+	</foreach>
+  </select>
+  <!-- 查询活动参数 -->
+  <select id="selectActivityAgument" parameterType="INT" resultType="Map">
+  	SELECT ats.agementname, eacs.agementvalue, ats.agementdesc FROM enterprise_brand_activity eba 
+  LEFT JOIN enterprise_activity_customization_setting eacs ON eba.ecactivitycode = eacs.ecactivitycode 
+  LEFT JOIN activity_template_setting ats ON eacs.activitysettingcode = ats.activitysettingcode
+  WHERE eba.enterprisebrandactivitycode=#{enterprisebrandactivitycode}
+  </select>
+  
+  <!-- 查询品牌所有活动 -->
+  <select id="selectActivityByBrand" parameterType="String" resultType="Map">
+  	SELECT eba.enterprisebrandactivitycode,eba.brandcode,eba.ecactivitycode,eba.begintime,eba.endtime,
+  	eac.activityname,eac.activityimage,eac.activitycontent,
+  	at1.activitynature 
+  FROM enterprise_brand_activity eba 
+  LEFT JOIN enterprise_activity_customization eac ON eba.ecactivitycode = eac.ecactivitycode 
+  LEFT JOIN activity_template at1 ON eac.activitytemplatecode = at1.activitycode
+  WHERE eba.brandcode=#{brandcode} and eba.status=1
+  order by eac.ord asc
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    SELECT ac.*,ee.loginaccount FROM (select <include refid="Base_Column_List_Isl" />,e.enterprisename,eob.brandname,a.activityname activityname 
+    from enterprise_brand_activity eba LEFT JOIN enterprise e ON eba.enterprisecode = e.enterprisecode 
+    LEFT JOIN enterprise_operating_brand eob ON eba.brandcode = eob.brandcode 
+    LEFT JOIN enterprise_activity_customization a ON eba.ecactivitycode = a.ecactivitycode 
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>) AS ac 
+    LEFT JOIN enterprise_employee ee ON ac.employeecode = ee.employeecode
+  </select>
+  
+  
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) 
+    from (SELECT ac.*,ee.loginaccount FROM (select <include refid="Base_Column_List_Isl" />,e.enterprisename,eob.brandname,a.activityname activityname 
+    from enterprise_brand_activity eba LEFT JOIN enterprise e ON eba.enterprisecode = e.enterprisecode 
+    LEFT JOIN enterprise_operating_brand eob ON eba.brandcode = eob.brandcode 
+    LEFT JOIN enterprise_activity_customization a ON eba.ecactivitycode = a.ecactivitycode 
+    <include refid="rangecondition"></include>) AS ac 
+    LEFT JOIN enterprise_employee ee ON ac.employeecode = ee.employeecode) counts
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from enterprise_brand_activity
+    where enterprisebrandactivitycode = #{enterprisebrandactivitycode}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.util.List" >
+	  <if test="list != null">
+	  	delete from enterprise_brand_activity where enterprisebrandactivitycode in 
+	  	<foreach collection="list" item="item" open="(" close=")" separator=",">
+	  		#{item}
+	  	</foreach>
+	  </if>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EnterpriseBrandActivity" >
+    update enterprise_brand_activity
+    <set >
+      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+      <if test="brandcode != null" >brandcode = #{brandcode},</if>
+      <if test="employeecode != null" >employeecode = #{employeecode},</if>
+      <if test="ecactivitycode != null" >ecactivitycode = #{ecactivitycode},</if>
+      <if test="begintime != null" >begintime = #{begintime},</if>
+      <if test="endtime != null" >endtime = #{endtime},</if>
+      <if test="status != null" >status = #{status},</if>
+    </set>
+    where enterprisebrandactivitycode = #{enterprisebrandactivitycode}
+  </update>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityTemplateSetting" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityTemplateSetting" >
+    <id column="activitysettingcode" property="activitysettingcode" jdbcType="INTEGER" />
+    <result column="activitycode" property="activitycode" jdbcType="INTEGER" />
+    <result column="agementname" property="agementname" jdbcType="VARCHAR" />
+    <result column="agementdesc" property="agementdesc" jdbcType="VARCHAR" />
+    
+    <!-- 关联属性 -->
+    <result column="activityname" property="activityname" jdbcType="VARCHAR" />
+    <result column="unsharedesc" property="unsharedesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activitysettingcode, activitycode, agementname, agementdesc
+  </sql>
+  <sql id="Base_Column_List_Isl" >
+    ats.activitysettingcode, ats.activitycode, ats.agementname, ats.agementdesc
+  </sql>
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="activitycode != null" > and ats.activitycode = #{activitycode}</if>
+      <if test="agementname != null" > and ats.agementname like concat('%', #{agementname}, '%')</if>
+      <if test="agementdesc != null" > and ats.agementdesc like concat('%', #{agementdesc}, '%')</if>
+  	</where>
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="activitycode != null" > and activitycode = #{activitycode}</if>
+      <if test="agementname != null" > and agementname = #{agementname}</if>
+      <if test="agementdesc != null" > and agementdesc = #{agementdesc}</if>
+     </where>
+    </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.ActivityTemplateSetting" >
+    insert into activity_template_setting (activitysettingcode, activitycode,agementname, agementdesc)
+    values (#{activitysettingcode}, #{activitycode}, #{agementname}, #{agementdesc})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_template_setting
+    where activitysettingcode = #{activitysettingcode}
+  </select>
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_template_setting
+    <include refid="exactCondition"></include>
+  </select> 
+<select id="selectSettingByTemplateId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_template_setting
+    where activitycode in (select activitytemplatecode from enterprise_activity_customization where ecactivitycode=#{ecactivitycode})
+  </select>  
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+  select <include refid="Base_Column_List_Isl" />,a.name activityname
+  	from activity_template_setting ats INNER JOIN activity_template a ON ats.activitycode = a.activitycode 
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) 
+    from activity_template_setting ats
+    <include refid="rangecondition"></include>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from activity_template_setting
+    where activitysettingcode = #{activitysettingcode}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.util.List" >
+	  <if test="list != null">
+	  	delete from activity_template_setting where activitysettingcode in 
+	  	<foreach collection="list" item="item" open="(" close=")" separator=",">
+	  		#{item}
+	  	</foreach>
+	  </if>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.ActivityTemplateSetting" >
+    update activity_template_setting
+    <set >
+      <if test="activitycode != null" >activitycode = #{activitycode},</if>
+      <if test="agementname != null" >agementname = #{agementname},</if>
+      <if test="agementdesc != null" >agementdesc = #{agementdesc},</if>
+    </set>
+    where activitysettingcode = #{activitysettingcode}
+  </update>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ApiSoltGametypeEnterprise" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ApiSoltGametypeEnterprise" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="biggametype" property="biggametype" jdbcType="VARCHAR" />
+    <result column="gametype_id" property="gametypeId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="rangeCondition">
+	<where>
+	 and ei.isweb=0 and ee.status=1
+	  <if test="biggametype != null" > and ee.biggametype = #{biggametype} </if>
+	  <if test="enterprisecode != null" > and ee.enterprisecode = #{enterprisecode} </if>
+	  
+	  <if test="enname != null" > and ei.enname like concat(concat('%',#{enname}),'%') </if>
+	  <if test="cnname != null" > and ei.cnname like concat(concat('%',#{cnname}),'%')  </if>
+	  <if test="trname != null" > and ei.trname = #{trname} </if>
+	  <if test="gamecodeweb != null" > and ei.gamecodeweb = #{gamecodeweb} </if>
+      <if test="gamecodeh5 != null" > and ei.gamecodeh5  =  #{gamecodeh5} </if>
+      <if test="isweb != null" > and ei.isweb  =  #{isweb} </if>
+      <if test="ish5 != null" > and ei.ish5  =  #{ish5} </if>
+	  <if test="stype != null" > 	 and ei.stype = #{stype} </if>
+	  <if test="category != null" >  and ei.category = #{category} </if>
+	  <if test="category2 != null" > and ei.category2 = #{category2} </if>
+	  <if test="category3 != null" > and ei.category3 = #{category3} </if>
+	  
+	</where>
+  </sql>
+  
+  
+  <sql id="rangeCondition2">
+	<where>
+	  and ei.isweb=0 and ee.status=1
+	  <if test="biggametype != null" > and ee.biggametype = #{biggametype} </if>
+	  <if test="enterprisecode != null" > and ee.enterprisecode = #{enterprisecode} </if>
+	  
+	  <if test="enname != null" > and ei.enname = #{enname} </if>
+	  <if test="cnname != null" > and ei.cnname = #{cnname} </if>
+	  <if test="trname != null" > and ei.trname = #{trname} </if>
+	  <if test="gamecodeweb != null" > and ei.gamecodeweb = #{gamecodeweb} </if>
+      <if test="gamecodeh5 != null" > and ei.gamecodeh5  =  #{gamecodeh5} </if>
+      <if test="isweb != null" > and ei.isweb  =  #{isweb} </if>
+      <if test="ish5 != null" > and ei.ish5  =  #{ish5} </if>
+	  <if test="stype != null" > 	 and ei.stype = #{stype} </if>
+	  <if test="category != null" >  and ei.category = #{category} </if>
+	  <if test="category2 != null" > and ei.category2 = #{category2} </if>
+	  <if test="category3 != null" > and ei.category3 = #{category3} </if>
+	  
+	</where>
+  </sql>
+  
+  <!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select  ee.lsh,ee.status,
+    ei.biggametype, ei.enname, ei.cnname, ei.trname, ei.japname, ei.krname, ei.stype, ei.category, ei.category2, ei.category3, 
+    ei.imagename, ei.gamecodeweb, ei.gamecodeh5, ei.isweb, ei.ish5, ei.remark, ei.ord
+    
+    from api_solt_gametype_enterprise ee left join api_solt_gametype ei on ei.lsh=ee.gametype_id
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="Integer" parameterType="Map" >
+    select count(1) 
+    from api_solt_gametype_enterprise ee left join api_solt_gametype ei on ei.lsh=ee.gametype_id
+    <include refid="rangeCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map" >
+    select  ee.lsh,ee.status,
+    ei.biggametype, ei.enname, ei.cnname, ei.trname, ei.japname, ei.krname, ei.stype, ei.category, ei.category2, ei.category3, 
+    ei.imagename, ei.gamecodeweb, ei.gamecodeh5, ei.isweb, ei.ish5, ei.remark, ei.ord
+    
+    from api_solt_gametype_enterprise ee left join api_solt_gametype ei on ei.lsh=ee.gametype_id
+    <include refid="rangeCondition" /> 
+  </select>
+  
+  <select id="selectAdd" resultMap="BaseResultMap" parameterType="Map" >
+    select ei.* from api_solt_gametype ei where ei.lsh not in(select gametype_id from api_solt_gametype_enterprise ee <include refid="rangeCondition" />  ) 
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAddCount" resultType="Integer" parameterType="Map" >
+   select count(1) from api_solt_gametype ei where ei.lsh not in(select gametype_id from api_solt_gametype_enterprise ee <include refid="rangeCondition" />  ) 
+  </select>
+  
+  <select id="selectAllType" resultMap="BaseResultMap" parameterType="Map" >
+   select biggametype from api_solt_gametype_enterprise where enterprisecode=#{enterprisecode} and status=1 group by biggametype
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, biggametype, gametype_id, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from api_solt_gametype_enterprise
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByEnterprisecode" parameterType="java.lang.String" >
+    delete from api_solt_gametype_enterprise
+    where enterprisecode = #{enterprisecode}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.ApiSoltGametypeEnterprise" >
+    insert into api_solt_gametype_enterprise (lsh, enterprisecode, biggametype, 
+      gametype_id, status)
+    values (#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{biggametype,jdbcType=VARCHAR}, 
+      #{gametypeId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ApiSoltGametypeEnterprise" >
+    insert into api_solt_gametype_enterprise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="biggametype != null" >
+        biggametype,
+      </if>
+      <if test="gametypeId != null" >
+        gametype_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="biggametype != null" >
+        #{biggametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gametypeId != null" >
+        #{gametypeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ApiSoltGametypeEnterprise" >
+    update api_solt_gametype_enterprise
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="biggametype != null" >
+        biggametype = #{biggametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gametypeId != null" >
+        gametype_id = #{gametypeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ApiSoltGametypeEnterprise" >
+    update api_solt_gametype_enterprise
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      biggametype = #{biggametype,jdbcType=VARCHAR},
+      gametype_id = #{gametypeId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

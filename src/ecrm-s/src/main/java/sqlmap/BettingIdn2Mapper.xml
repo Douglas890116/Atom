@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingIdn2" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingIdn2" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="turnoverdate" property="turnoverdate" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="totalturnover" property="totalturnover" jdbcType="VARCHAR" />
+    <result column="turnoverpoker" property="turnoverpoker" jdbcType="VARCHAR" />
+    <result column="turnoverdomino" property="turnoverdomino" jdbcType="VARCHAR" />
+    <result column="turnoverceme" property="turnoverceme" jdbcType="VARCHAR" />
+    <result column="turnoverblackjack" property="turnoverblackjack" jdbcType="VARCHAR" />
+    <result column="turnovercapsa" property="turnovercapsa" jdbcType="VARCHAR" />
+    <result column="turnoverlivepoker" property="turnoverlivepoker" jdbcType="VARCHAR" />
+    <result column="texaspoker" property="texaspoker" jdbcType="VARCHAR" />
+    <result column="domino" property="domino" jdbcType="VARCHAR" />
+    <result column="ceme" property="ceme" jdbcType="VARCHAR" />
+    <result column="blackjack" property="blackjack" jdbcType="VARCHAR" />
+    <result column="capsa" property="capsa" jdbcType="VARCHAR" />
+    <result column="livepoker" property="livepoker" jdbcType="VARCHAR" />
+    <result column="pokertournament" property="pokertournament" jdbcType="VARCHAR" />
+    <result column="agentcommission" property="agentcommission" jdbcType="VARCHAR" />
+    <result column="agentbill" property="agentbill" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="createtime !=null">and createtime = #{createtime}</if>
+	  <if test="startDate !=null">and date(turnoverdate) <![CDATA[ >= ]]>date(#{startDate})</if>
+	  <if test="endDate !=null"> and date(turnoverdate) <![CDATA[ <= ]]> date(#{endDate})</if>
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and date(turnoverdate) <![CDATA[ >= ]]> date(#{StartDate}) </if>
+      <if test="EndDate != null" >and date(turnoverdate) <![CDATA[ <= ]]> date(#{EndDate}) </if>
+      
+  	</where>
+  </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_idn2
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_idn2 <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(agentcommission) agentcommission,
+    sum(agentbill) agentbill
+    
+    from betting_idn2
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, turnoverdate, userid, totalturnover, turnoverpoker, turnoverdomino, turnoverceme, 
+    turnoverblackjack, turnovercapsa, turnoverlivepoker, texaspoker, domino, ceme, blackjack, 
+    capsa, livepoker, pokertournament, agentcommission, agentbill, createtime, enterprisecode, 
+    brandcode, employeecode, parentemployeecode, loginaccount, gamebigtype, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_idn2
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_idn2
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingIdn2" >
+    insert into betting_idn2 (lsh, turnoverdate, userid, 
+      totalturnover, turnoverpoker, turnoverdomino, 
+      turnoverceme, turnoverblackjack, turnovercapsa, 
+      turnoverlivepoker, texaspoker, domino, 
+      ceme, blackjack, capsa, 
+      livepoker, pokertournament, agentcommission, 
+      agentbill, createtime, enterprisecode, 
+      brandcode, employeecode, parentemployeecode, 
+      loginaccount, gamebigtype, status
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{turnoverdate,jdbcType=TIMESTAMP}, #{userid,jdbcType=VARCHAR}, 
+      #{totalturnover,jdbcType=VARCHAR}, #{turnoverpoker,jdbcType=VARCHAR}, #{turnoverdomino,jdbcType=VARCHAR}, 
+      #{turnoverceme,jdbcType=VARCHAR}, #{turnoverblackjack,jdbcType=VARCHAR}, #{turnovercapsa,jdbcType=VARCHAR}, 
+      #{turnoverlivepoker,jdbcType=VARCHAR}, #{texaspoker,jdbcType=VARCHAR}, #{domino,jdbcType=VARCHAR}, 
+      #{ceme,jdbcType=VARCHAR}, #{blackjack,jdbcType=VARCHAR}, #{capsa,jdbcType=VARCHAR}, 
+      #{livepoker,jdbcType=VARCHAR}, #{pokertournament,jdbcType=VARCHAR}, #{agentcommission,jdbcType=VARCHAR}, 
+      #{agentbill,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{enterprisecode,jdbcType=CHAR}, 
+      #{brandcode,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingIdn2" >
+    insert into betting_idn2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="turnoverdate != null" >
+        turnoverdate,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="totalturnover != null" >
+        totalturnover,
+      </if>
+      <if test="turnoverpoker != null" >
+        turnoverpoker,
+      </if>
+      <if test="turnoverdomino != null" >
+        turnoverdomino,
+      </if>
+      <if test="turnoverceme != null" >
+        turnoverceme,
+      </if>
+      <if test="turnoverblackjack != null" >
+        turnoverblackjack,
+      </if>
+      <if test="turnovercapsa != null" >
+        turnovercapsa,
+      </if>
+      <if test="turnoverlivepoker != null" >
+        turnoverlivepoker,
+      </if>
+      <if test="texaspoker != null" >
+        texaspoker,
+      </if>
+      <if test="domino != null" >
+        domino,
+      </if>
+      <if test="ceme != null" >
+        ceme,
+      </if>
+      <if test="blackjack != null" >
+        blackjack,
+      </if>
+      <if test="capsa != null" >
+        capsa,
+      </if>
+      <if test="livepoker != null" >
+        livepoker,
+      </if>
+      <if test="pokertournament != null" >
+        pokertournament,
+      </if>
+      <if test="agentcommission != null" >
+        agentcommission,
+      </if>
+      <if test="agentbill != null" >
+        agentbill,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverdate != null" >
+        #{turnoverdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalturnover != null" >
+        #{totalturnover,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverpoker != null" >
+        #{turnoverpoker,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverdomino != null" >
+        #{turnoverdomino,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverceme != null" >
+        #{turnoverceme,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverblackjack != null" >
+        #{turnoverblackjack,jdbcType=VARCHAR},
+      </if>
+      <if test="turnovercapsa != null" >
+        #{turnovercapsa,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverlivepoker != null" >
+        #{turnoverlivepoker,jdbcType=VARCHAR},
+      </if>
+      <if test="texaspoker != null" >
+        #{texaspoker,jdbcType=VARCHAR},
+      </if>
+      <if test="domino != null" >
+        #{domino,jdbcType=VARCHAR},
+      </if>
+      <if test="ceme != null" >
+        #{ceme,jdbcType=VARCHAR},
+      </if>
+      <if test="blackjack != null" >
+        #{blackjack,jdbcType=VARCHAR},
+      </if>
+      <if test="capsa != null" >
+        #{capsa,jdbcType=VARCHAR},
+      </if>
+      <if test="livepoker != null" >
+        #{livepoker,jdbcType=VARCHAR},
+      </if>
+      <if test="pokertournament != null" >
+        #{pokertournament,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcommission != null" >
+        #{agentcommission,jdbcType=VARCHAR},
+      </if>
+      <if test="agentbill != null" >
+        #{agentbill,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingIdn2" >
+    update betting_idn2
+    <set >
+      <if test="turnoverdate != null" >
+        turnoverdate = #{turnoverdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalturnover != null" >
+        totalturnover = #{totalturnover,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverpoker != null" >
+        turnoverpoker = #{turnoverpoker,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverdomino != null" >
+        turnoverdomino = #{turnoverdomino,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverceme != null" >
+        turnoverceme = #{turnoverceme,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverblackjack != null" >
+        turnoverblackjack = #{turnoverblackjack,jdbcType=VARCHAR},
+      </if>
+      <if test="turnovercapsa != null" >
+        turnovercapsa = #{turnovercapsa,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverlivepoker != null" >
+        turnoverlivepoker = #{turnoverlivepoker,jdbcType=VARCHAR},
+      </if>
+      <if test="texaspoker != null" >
+        texaspoker = #{texaspoker,jdbcType=VARCHAR},
+      </if>
+      <if test="domino != null" >
+        domino = #{domino,jdbcType=VARCHAR},
+      </if>
+      <if test="ceme != null" >
+        ceme = #{ceme,jdbcType=VARCHAR},
+      </if>
+      <if test="blackjack != null" >
+        blackjack = #{blackjack,jdbcType=VARCHAR},
+      </if>
+      <if test="capsa != null" >
+        capsa = #{capsa,jdbcType=VARCHAR},
+      </if>
+      <if test="livepoker != null" >
+        livepoker = #{livepoker,jdbcType=VARCHAR},
+      </if>
+      <if test="pokertournament != null" >
+        pokertournament = #{pokertournament,jdbcType=VARCHAR},
+      </if>
+      <if test="agentcommission != null" >
+        agentcommission = #{agentcommission,jdbcType=VARCHAR},
+      </if>
+      <if test="agentbill != null" >
+        agentbill = #{agentbill,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingIdn2" >
+    update betting_idn2
+    set turnoverdate = #{turnoverdate,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      totalturnover = #{totalturnover,jdbcType=VARCHAR},
+      turnoverpoker = #{turnoverpoker,jdbcType=VARCHAR},
+      turnoverdomino = #{turnoverdomino,jdbcType=VARCHAR},
+      turnoverceme = #{turnoverceme,jdbcType=VARCHAR},
+      turnoverblackjack = #{turnoverblackjack,jdbcType=VARCHAR},
+      turnovercapsa = #{turnovercapsa,jdbcType=VARCHAR},
+      turnoverlivepoker = #{turnoverlivepoker,jdbcType=VARCHAR},
+      texaspoker = #{texaspoker,jdbcType=VARCHAR},
+      domino = #{domino,jdbcType=VARCHAR},
+      ceme = #{ceme,jdbcType=VARCHAR},
+      blackjack = #{blackjack,jdbcType=VARCHAR},
+      capsa = #{capsa,jdbcType=VARCHAR},
+      livepoker = #{livepoker,jdbcType=VARCHAR},
+      pokertournament = #{pokertournament,jdbcType=VARCHAR},
+      agentcommission = #{agentcommission,jdbcType=VARCHAR},
+      agentbill = #{agentbill,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

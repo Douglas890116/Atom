@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GameApiInput" >
+  <resultMap id="resultMap" type="com.maven.entity.GameApiInput" >
+    <id column="apicode" property="apicode" jdbcType="CHAR" />
+    <result column="platformcode" property="platformcode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="apiurl" property="apiurl" jdbcType="VARCHAR" />
+    <result column="outputapistatus" property="outputapistatus" jdbcType="TINYINT" />
+    <result column="apikey1" property="apikey1" jdbcType="VARCHAR" />
+    <result column="apikey2" property="apikey2" jdbcType="VARCHAR" />
+    <result column="apiuser" property="apiuser" jdbcType="VARCHAR" />
+    <result column="apipassword" property="apipassword" jdbcType="VARCHAR" />
+    <result column="apicomment" property="apicomment" jdbcType="VARCHAR" />
+    <result column="trytime" property="trytime" jdbcType="SMALLINT" />
+  </resultMap>
+  
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+    APICODE, PLATFORMCODE, ENTERPRISECODE, APIURL, OUTPUTAPISTATUS, APIKEY1, APIKEY2, 
+    APIUSER, APIPASSWORD, APICOMMENT,TRYTIME
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  	  <if test="platformcode !=  null" > and platformcode = #{platformcode} </if>
+      <if test="enterprisecode !=  null" > and enterprisecode = #{enterprisecode} </if>
+      <if test="apiurl !=  null" > and apiurl = #{apiurl} </if>
+      <if test="outputapistatus !=  null" > and outputapistatus = #{outputapistatus} </if>
+      <if test="apikey1 !=  null" > and apikey1 = #{apikey1} </if>
+      <if test="apikey2 !=  null" > and apikey2 = #{apikey2} </if>
+      <if test="apiuser !=  null" > and apiuser = #{apiuser} </if>
+      <if test="apipassword !=  null" > and apipassword = #{apipassword} </if>
+      <if test="apicomment !=  null" > and apicomment = #{apicomment} </if>
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where> 
+  	  <if test="platformcode !=  null" > and platformcode = #{platformcode} </if>
+      <if test="enterprisecode !=  null" > and enterprisecode = #{enterprisecode} </if>
+      <if test="apiurl !=  null" > and apiurl = #{apiurl} </if>
+      <if test="outputapistatus !=  null" > and outputapistatus = #{outputapistatus} </if>
+      <if test="apikey1 !=  null" > and apikey1 = #{apikey1} </if>
+      <if test="apikey2 !=  null" > and apikey2 = #{apikey2} </if>
+      <if test="apiuser !=  null" > and apiuser = #{apiuser} </if>
+      <if test="apipassword !=  null" > and apipassword = #{apipassword} </if>
+      <if test="apicomment !=  null" > and apicomment = #{apicomment} </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.GameApiInput" >
+    insert into game_api_input
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      apicode,platformcode,enterprisecode,apiurl,outputapistatus,apikey1,apikey2,
+      <if test="apiuser != null" >apiuser,</if>
+      <if test="apipassword != null" >apipassword,</if>
+      <if test="apicomment != null" >apicomment,</if>
+      <if test="trytime != null" >trytime,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ufn_get_next_string_by_tablename('game_api_input',0),#{platformcode},#{enterprisecode},#{apiurl},#{outputapistatus},#{apikey1},#{apikey2},
+      <if test="apiuser != null" >#{apiuser},</if>
+      <if test="apipassword != null" >#{apipassword},</if>
+      <if test="trytime != null" >#{trytime},</if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="columnList" />
+    from game_api_input
+    where apicode = #{apicode}
+  </select>
+  <select id="select" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" />
+    from game_api_input
+    <include refid="exactCondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" />
+    from game_api_input
+    <include refid="rangeCondition" />
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="long" parameterType="Map" >
+    select count(1)
+    from game_api_input
+    <include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.String" >
+    delete from game_api_input
+    where apicode = #{apicode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update game_api_input
+    <set >
+      <if test="platformcode != null" >platformcode = #{platformcode}, </if>
+      <if test="apiurl != null" >apiurl = #{apiurl}, </if>
+      <if test="outputapistatus != null" >outputapistatus = #{outputapistatus}, </if>
+      <if test="apikey1 != null" >apikey1 = #{apikey1}, </if>
+      <if test="apikey2 != null" >apikey2 = #{apikey2}, </if>
+      <if test="apiuser != null" >apiuser = #{apiuser}, </if>
+      <if test="apipassword != null" >apipassword = #{apipassword}, </if>
+      <if test="apicomment != null" >apicomment = #{apicomment}, </if>
+    </set>
+    where apicode = #{apicode}
+  </update>
+</mapper>

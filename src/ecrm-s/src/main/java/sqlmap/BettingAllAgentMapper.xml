@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingAllAgent" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingAllAgent" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="betday" property="betday" jdbcType="INTEGER" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="netmoney" property="netmoney" jdbcType="DOUBLE" />
+    <result column="validmoney" property="validmoney" jdbcType="DOUBLE" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, employeecode, parentemployeecode, loginaccount, gametype, 
+    gamebigtype, betday, betmoney, netmoney, validmoney, createtime, patchno, rate, amount, 
+    status
+  </sql>
+  
+  
+  
+  <sql id="rangeCondition">
+  	<where>
+	 <if test="teamCodes !=null and teamCodes.length > 0">
+	 	  	and (parentemployeecode in 
+	 	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and bad.enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" > and bad.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and bad.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" >and bad.parentemployeecode = #{parentemployeecode} </if>
+      <if test="loginaccount != null" > and bad.loginaccount = #{loginaccount}</if>
+      <if test="gametype != null" > and bad.gametype = #{gametype}</if>
+      <if test="gamebigtype != null" > and bad.gamebigtype = #{gamebigtype}</if>
+      <if test="betday != null" > and bad.betday = #{betday}</if>
+      
+      <if test="startDate != null" > and date(bad.betday) <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and date(bad.betday) <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="startdate != null" > and date(bad.betday) <![CDATA[ >= ]]> #{startdate}</if>
+      <if test="enddate != null" > and date(bad.betday) <![CDATA[ <= ]]> #{enddate}</if>
+      
+      <if test="iditems != null">
+      	and bad.lsh in
+      	<foreach collection="iditems" index="index" item="iditems" open="(" separator="," close=")">
+			#{iditems}
+		</foreach> 
+      </if>
+      <if test="parentemployeecodes != null" >
+      	and bad.parentemployeecode in
+      	<foreach collection="parentemployeecodes" index="index" item="code" open="(" separator="," close=")">
+			#{code}
+		</foreach> 
+      </if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+  	</where>
+  </sql>
+  
+  <select id="selectForPage" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_agent bad 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectForPageCount" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM betting_all_agent bad 
+    <include refid="rangeCondition" />
+</select>
+<!-- 数据统计之金额 -->  
+<select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney,
+    sum(netmoney) netmoney,
+    sum(validmoney) validmoney,
+    sum(amount) amount
+    
+    FROM betting_all_agent bad
+    <include refid="rangeCondition" />
+</select>
+  
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_agent bad 
+    <include refid="rangeCondition" />
+</select>
+
+<insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   insert into betting_all_agent (enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gametype, gamebigtype, betday, 
+      betmoney, netmoney, validmoney, 
+      createtime, patchno, rate, 
+      amount, status
+	      ) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=VARCHAR}, 
+      #{item.employeecode,jdbcType=CHAR}, #{item.parentemployeecode,jdbcType=CHAR}, #{item.loginaccount,jdbcType=VARCHAR}, 
+      #{item.gametype,jdbcType=VARCHAR}, #{item.gamebigtype,jdbcType=VARCHAR}, #{item.betday,jdbcType=INTEGER}, 
+      #{item.betmoney,jdbcType=DOUBLE}, #{item.netmoney,jdbcType=DOUBLE}, #{item.validmoney,jdbcType=DOUBLE}, 
+      #{item.createtime,jdbcType=TIMESTAMP}, #{item.patchno,jdbcType=VARCHAR}, #{item.rate,jdbcType=DOUBLE}, 
+      #{item.amount,jdbcType=DOUBLE}, #{item.status,jdbcType=INTEGER}
+	      )
+	    </foreach>
+	  </if>
+ </insert>
+ <!-- 取消计划：根据批次号删除数据 -->
+  <delete id="deletePatchno" parameterType="com.maven.entity.BettingAllPlan">
+    delete from betting_all_agent
+    where patchno=#{patchno,jdbcType=VARCHAR} and enterprisecode=#{enterprisecode,jdbcType=CHAR}
+  </delete>
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_all_agent
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from betting_all_agent
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingAllAgent" >
+    insert into betting_all_agent (lsh, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gametype, gamebigtype, betday, 
+      betmoney, netmoney, validmoney, 
+      createtime, patchno, rate, 
+      amount, status)
+    values (#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{gametype,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, #{betday,jdbcType=INTEGER}, 
+      #{betmoney,jdbcType=DOUBLE}, #{netmoney,jdbcType=DOUBLE}, #{validmoney,jdbcType=DOUBLE}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{patchno,jdbcType=VARCHAR}, #{rate,jdbcType=DOUBLE}, 
+      #{amount,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingAllAgent" >
+    insert into betting_all_agent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="betday != null" >
+        betday,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="netmoney != null" >
+        netmoney,
+      </if>
+      <if test="validmoney != null" >
+        validmoney,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="patchno != null" >
+        patchno,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="betday != null" >
+        #{betday,jdbcType=INTEGER},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validmoney != null" >
+        #{validmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingAllAgent" >
+    update betting_all_agent
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="betday != null" >
+        betday = #{betday,jdbcType=INTEGER},
+      </if>
+      <if test="betmoney != null" >
+        betmoney = #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        netmoney = #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validmoney != null" >
+        validmoney = #{validmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patchno != null" >
+        patchno = #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingAllAgent" >
+    update betting_all_agent
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gametype = #{gametype,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      betday = #{betday,jdbcType=INTEGER},
+      betmoney = #{betmoney,jdbcType=DOUBLE},
+      netmoney = #{netmoney,jdbcType=DOUBLE},
+      validmoney = #{validmoney,jdbcType=DOUBLE},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      patchno = #{patchno,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=DOUBLE},
+      amount = #{amount,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PrivateDataAccess" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.PrivateDataAccess" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="employeetypename" property="employeetypename" jdbcType="VARCHAR" />
+    <result column="onlinestatus" property="onlinestatus" jdbcType="TINYINT" />
+    <result column="employeestatus" property="employeestatus" jdbcType="TINYINT" />
+    <result column="lastlogintime" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="logindatetime" property="logindatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enterprisecode, employeecode
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  		<if test="enterprisecode !=null"> and pa.enterprisecode = #{enterprisecode}</if>
+  		<if test="employeecode !=null"> and pa.employeecode = #{employeecode}</if>
+  		<if test="loginaccount !=null"> and loginaccount = #{loginaccount} </if>
+  		<if test="employeetypename !=null"> and employeetypename = #{employeetypename}</if>
+  		<if test="onlinestatus !=null"> and onlinestatus = #{onlinestatus}</if>
+  		<if test="employeestatus !=null"> and employeestatus = #{employeestatus}</if>
+  		<if test="lastlogintime !=null"> and lastlogintime = #{lastlogintime}</if>
+  		<if test="logindatetime !=null"> and logindatetime = #{logindatetime}</if>
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where>
+  		<if test="enterprisecode !=null"> and pa.enterprisecode = #{enterprisecode}</if>
+  		<if test="employeecode !=null"> and pa.employeecode = #{employeecode}</if>
+  		<if test="loginaccount !=null"> and loginaccount like concat('%',#{loginaccount},'%') </if>
+  		<if test="employeetypename !=null"> and employeetypename = #{employeetypename}</if>
+  		<if test="onlinestatus !=null"> and onlinestatus = #{onlinestatus}</if>
+  		<if test="employeestatus !=null"> and employeestatus = #{employeestatus}</if>
+  		<if test="lastlogintime !=null"> and lastlogintime = #{lastlogintime}</if>
+  		<if test="logindatetime !=null"> and logindatetime = #{logindatetime}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="com.maven.entity.PrivateDataAccess" >
+    insert into private_data_access (id, enterprisecode, employeecode)
+    values (#{id}, #{enterprisecode}, #{employeecode})
+  </insert>
+ <insert id="saveRecordBatch" parameterType="java.util.List" >
+    insert into private_data_access (enterprisecode, employeecode)
+    values 
+     <foreach collection="list" item="item"  separator=",">
+    	(#{item.enterprisecode}, #{item.employeecode})
+    </foreach>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from private_data_access
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map" >
+    SELECT id,ee.employeecode,ee.loginaccount,ee.employeetypename,ee.onlinestatus,ee.employeestatus,ee.lastlogintime,ee.logindatetime 
+    FROM private_data_access pa LEFT JOIN view_enterprise_employee  ee ON pa.employeecode = ee.employeecode 
+    <include refid="exactCondition"></include>
+  </select>
+  <!-- 查询用户是否有隐私数据查询权限 -->
+  <select id="checkAuthority" parameterType="Map" resultType="long">
+	SELECT COUNT(1) FROM private_data_access WHERE enterprisecode = #{enterprisecode} AND employeecode = #{employeecode}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    SELECT id,ee.employeecode,ee.loginaccount,ee.employeetypename,ee.onlinestatus,ee.employeestatus,ee.lastlogintime,ee.logindatetime 
+    FROM private_data_access pa LEFT JOIN view_enterprise_employee  ee ON pa.employeecode = ee.employeecode 
+    <include refid="rangeCondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="long" parameterType="Map" >
+    SELECT count(1)  
+    FROM private_data_access pa LEFT JOIN view_enterprise_employee  ee ON pa.employeecode = ee.employeecode 
+    <include refid="rangeCondition"></include>
+  </select>
+  <select id="selectAccredit" resultMap="BaseResultMap" parameterType="Map" >
+    SELECT * FROM (SELECT ee.enterprisecode,ee.employeecode,ee.loginaccount,ee.displayalias,ee.employeetypename,ee.onlinestatus,ee.employeestatus,ee.lastlogintime,ee.logindatetime 
+    FROM view_enterprise_employee ee WHERE ee.employeetypecode!='T003' and ee.employeecode NOT IN (SELECT p.employeecode FROM private_data_access p)) pa
+    <include refid="rangeCondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAccreditCount" resultType="long" parameterType="Map" >
+    SELECT COUNT(1) FROM (SELECT ee.enterprisecode,ee.employeecode,ee.loginaccount,ee.displayalias,ee.employeetypename,ee.onlinestatus,ee.employeestatus,ee.lastlogintime,ee.logindatetime 
+    FROM view_enterprise_employee ee WHERE ee.employeetypecode!='T003' and ee.employeecode NOT IN (SELECT p.employeecode FROM private_data_access p)) pa
+    <include refid="rangeCondition"></include>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="java.util.List" >
+    delete from private_data_access
+    where id in 
+    <foreach collection="list" item="id" open="(" close=")" separator=",">
+    	${id}
+    </foreach>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  
+</mapper>

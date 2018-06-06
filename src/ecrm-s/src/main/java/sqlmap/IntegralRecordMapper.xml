@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="IntegralRecord" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.IntegralRecord" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="platformid" property="platformid" jdbcType="VARCHAR" />
+    <result column="betmoney" property="betmoney" jdbcType="DECIMAL" />
+    <result column="rebatemoney" property="rebatemoney" jdbcType="DECIMAL" />
+    <result column="m2i_rate" property="m2iRate" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="exchangetime" property="exchangetime" jdbcType="TIMESTAMP" />
+    <result column="exchangetype" property="exchangetype" jdbcType="INTEGER" />
+    <result column="exchangedesc" property="exchangedesc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="gametype != null" > and gametype = #{gametype}</if>
+		<if test="gamebigtype != null" > and gamebigtype = #{gamebigtype}</if>
+		<if test="platformid != null" > and platformid = #{platformid}</if>
+		<if test="status != null" > and status = #{status}</if>
+		<if test="exchangetype != null" > and exchangetype = #{exchangetype}</if>
+		<if test="startDate !=null">and createtime <![CDATA[ >= ]]>#{startDate}</if>
+	  	<if test="endDate !=null"> and createtime <![CDATA[ <= ]]> #{endDate}</if>
+	</where>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from integral_record
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from integral_record
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.IntegralRecord">
+  	select <include refid="Base_Column_List" /> from integral_record
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, employeecode, loginaccount, gametype, gamebigtype, 
+    platformid, betmoney, rebatemoney, m2i_rate, amount, status, createtime, exchangetime, 
+    exchangetype, exchangedesc, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from integral_record
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from integral_record
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.IntegralRecord" >
+    insert into integral_record (lsh, enterprisecode, brandcode, 
+      employeecode, loginaccount, gametype, 
+      gamebigtype, platformid, betmoney, 
+      rebatemoney, m2i_rate, amount, 
+      status, createtime, exchangetime, 
+      exchangetype, exchangedesc, remark
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, 
+      #{gamebigtype,jdbcType=VARCHAR}, #{platformid,jdbcType=VARCHAR}, #{betmoney,jdbcType=DECIMAL}, 
+      #{rebatemoney,jdbcType=DECIMAL}, #{m2iRate,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{exchangetime,jdbcType=TIMESTAMP}, 
+      #{exchangetype,jdbcType=INTEGER}, #{exchangedesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.IntegralRecord" >
+    insert into integral_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="platformid != null" >
+        platformid,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="rebatemoney != null" >
+        rebatemoney,
+      </if>
+      <if test="m2iRate != null" >
+        m2i_rate,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="exchangetime != null" >
+        exchangetime,
+      </if>
+      <if test="exchangetype != null" >
+        exchangetype,
+      </if>
+      <if test="exchangedesc != null" >
+        exchangedesc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="platformid != null" >
+        #{platformid,jdbcType=VARCHAR},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatemoney != null" >
+        #{rebatemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="m2iRate != null" >
+        #{m2iRate,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangetime != null" >
+        #{exchangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangetype != null" >
+        #{exchangetype,jdbcType=INTEGER},
+      </if>
+      <if test="exchangedesc != null" >
+        #{exchangedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.IntegralRecord" >
+    update integral_record
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="platformid != null" >
+        platformid = #{platformid,jdbcType=VARCHAR},
+      </if>
+      <if test="betmoney != null" >
+        betmoney = #{betmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatemoney != null" >
+        rebatemoney = #{rebatemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="m2iRate != null" >
+        m2i_rate = #{m2iRate,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangetime != null" >
+        exchangetime = #{exchangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangetype != null" >
+        exchangetype = #{exchangetype,jdbcType=INTEGER},
+      </if>
+      <if test="exchangedesc != null" >
+        exchangedesc = #{exchangedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.IntegralRecord" >
+    update integral_record
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gametype = #{gametype,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      platformid = #{platformid,jdbcType=VARCHAR},
+      betmoney = #{betmoney,jdbcType=DECIMAL},
+      rebatemoney = #{rebatemoney,jdbcType=DECIMAL},
+      m2i_rate = #{m2iRate,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      exchangetime = #{exchangetime,jdbcType=TIMESTAMP},
+      exchangetype = #{exchangetype,jdbcType=INTEGER},
+      exchangedesc = #{exchangedesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

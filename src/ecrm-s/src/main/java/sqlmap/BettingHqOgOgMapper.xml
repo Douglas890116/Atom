@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqOgOg">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqOgOg">
+    <id column="aoi_Product_Id" jdbcType="VARCHAR" property="aoiProductId" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="aoi_User_Name" jdbcType="VARCHAR" property="aoiUserName" />
+    <result column="aoi_Game_Record_Id" jdbcType="VARCHAR" property="aoiGameRecordId" />
+    <result column="aoi_Order_Number" jdbcType="VARCHAR" property="aoiOrderNumber" />
+    <result column="aoi_Table_Id" jdbcType="VARCHAR" property="aoiTableId" />
+    <result column="aoi_Stage" jdbcType="VARCHAR" property="aoiStage" />
+    <result column="aoi_Inning" jdbcType="VARCHAR" property="aoiInning" />
+    <result column="aoi_Game_Name_Id" jdbcType="VARCHAR" property="aoiGameNameId" />
+    <result column="aoi_Game_Betting_Kind" jdbcType="VARCHAR" property="aoiGameBettingKind" />
+    <result column="aoi_Game_Betting_Content" jdbcType="VARCHAR" property="aoiGameBettingContent" />
+    <result column="aoi_Result_Type" jdbcType="VARCHAR" property="aoiResultType" />
+    <result column="aoi_Betting_Amount" jdbcType="DOUBLE" property="aoiBettingAmount" />
+    <result column="aoi_Compensate_Rate" jdbcType="VARCHAR" property="aoiCompensateRate" />
+    <result column="aoi_Win_Lose_Amount" jdbcType="DOUBLE" property="aoiWinLoseAmount" />
+    <result column="aoi_Balance" jdbcType="DOUBLE" property="aoiBalance" />
+    <result column="aoi_Add_Time" jdbcType="TIMESTAMP" property="aoiAddTime" />
+    <result column="aoi_Vendor_Id" jdbcType="VARCHAR" property="aoiVendorId" />
+    <result column="aoi_Valid_Amount" jdbcType="DOUBLE" property="aoiValidAmount" />
+    <result column="aoi_Platform_ID" jdbcType="VARCHAR" property="aoiPlatformId" />
+    <result column="aoi_createtime" jdbcType="TIMESTAMP" property="aoiCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	 <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="aoiProductId != null" >and aoi_Product_Id = #{aoiProductId}</if>
+      <if test="aoiUserName != null" >and aoi_User_Name = #{aoiUserName}</if>
+      <if test="aoiGameRecordId != null" >and aoi_Game_Record_Id = #{aoiGameRecordId}</if>
+      <if test="aoiOrderNumber != null" >and aoi_Order_Number = #{aoiOrderNumber}</if>
+      <if test="aoiTableId != null" >and aoi_Table_Id = #{aoiTableId}</if>
+      <if test="aoiStage != null" >and aoi_Stage = #{aoiStage}</if>
+      <if test="aoiInning != null" >and aoi_Inning = #{aoiInning}</if>
+      <if test="aoiGameNameId != null" >and aoi_Game_Name_Id = #{aoiGameNameId}</if>
+      <if test="aoiGameBettingKind != null" >and aoi_Game_Betting_Kind = #{aoiGameBettingKind}</if>
+      <if test="aoiGameBettingContent != null" >and aoi_Game_Betting_Content = #{aoiGameBettingContent}</if>
+      <if test="aoiResultType != null" >and aoi_Result_Type = #{aoiResultType}</if>
+      <if test="aoiBettingAmount != null" >and aoi_Betting_Amount = #{aoiBettingAmount}</if>
+      <if test="aoiCompensateRate != null" >and aoi_Compensate_Rate = #{aoiCompensateRate}</if>
+      <if test="aoiWinLoseAmount != null" >and aoi_Win_Lose_Amount = #{aoiWinLoseAmount}</if>
+      <if test="aoiBalance != null" >and aoi_Balance = #{aoiBalance}</if>
+      <if test="aoiAddTime != null" >and  aoi_Add_Time <![CDATA[ >= ]]>  #{aoiAddTime} </if>
+      <if test="startDate != null" >and  aoi_Add_Time <![CDATA[ >= ]]>  #{startDate}</if>
+      <if test="endDate != null" >and  aoi_Add_Time <![CDATA[ <= ]]>  #{endDate} </if>
+      <if test="aoiVendorId != null" >and aoi_Vendor_Id = #{aoiVendorId}</if>
+      <if test="aoiValidAmount != null" >and aoi_Valid_Amount = #{aoiValidAmount}</if>
+      <if test="aoiPlatformId != null" >and aoi_Platform_ID = #{aoiPlatformId}</if>
+      <if test="aoiCreatetime != null" >and aoi_createtime = #{aoiCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and aoi_Add_Time <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and aoi_Add_Time <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    AOI_PRODUCT_ID,ENTERPRISECODE, BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE,LOGINACCOUNT, AOI_USER_NAME, AOI_GAME_RECORD_ID, AOI_ORDER_NUMBER, AOI_TABLE_ID, 
+    AOI_STAGE, AOI_INNING, AOI_GAME_NAME_ID, AOI_GAME_BETTING_KIND, AOI_GAME_BETTING_CONTENT, 
+    AOI_RESULT_TYPE, AOI_BETTING_AMOUNT, AOI_COMPENSATE_RATE, AOI_WIN_LOSE_AMOUNT, AOI_BALANCE, 
+    AOI_ADD_TIME, AOI_VENDOR_ID, AOI_VALID_AMOUNT, AOI_PLATFORM_ID, AOI_CREATETIME, LAST_TIME
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_og_og
+    where aoi_Product_Id = #{aoiProductId,jdbcType=VARCHAR}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_og_og
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_og_og
+    <include refid="rangecondition"></include>
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(aoi_Betting_Amount) aoiBettingAmount,
+    sum(aoi_Compensate_Rate) aoiCompensateRate,
+    sum(aoi_Valid_Amount) aoiValidAmount,
+    sum(aoi_Win_Lose_Amount) aoiWinLoseAmount
+    
+    from betting_hq_og_og
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  
+  
+</mapper>

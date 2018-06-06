@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseGame" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseGame" >
+    <id column="code" property="code" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="gamecode" property="gamecode" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    code, enterprisecode, gamecode
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="code !=null "> and code = #{code}</if>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+      <if test="gamecode != null" > and gamecode = #{gamecode}</if>
+  	</where>
+  </sql>
+  
+  <sql id="viewCondition">
+  	<where>
+  		ee.enterprisecode=eg.enterprisecode and gg.gamecode=eg.gamecode 
+  	  <if test="code !=null "> and code = #{code}</if>
+  	  <if test="enterprisecode != null" > and eg.enterprisecode = #{enterprisecode}</if>
+      <if test="gamecode != null" > and eg.gamecode = #{gamecode}</if>
+  	</where>
+  </sql>
+  
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EnterpriseGame" >
+   insert into enterprise_game (code, enterprisecode, gamecode)
+   values (#{code}, #{enterprisecode}, #{gamecode})
+ </insert>
+ <insert id="saveRecordBatch" parameterType="java.util.List" >
+   insert into enterprise_game ( enterprisecode, gamecode) values 
+ 	<foreach collection="list" item="item" index="index" open="" close="" separator="," >  
+   (#{item.enterprisecode}, #{item.gamecode})
+   </foreach>
+ </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_game
+    where code = #{code}
+  </select>
+   <select id="select" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from enterprise_game
+    <include refid="exactCondition"></include>
+  </select>
+  
+  
+  <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+	select eg.code, ee.enterprisecode, eg.gamecode ,ee.enterprisename,gg.gametype,gg.gamename
+	from enterprise_game eg,game gg ,enterprise ee 
+	<include refid="viewCondition" />
+	<include refid="ABasic.orderby"></include>
+	<include refid="ABasic.page"></include>
+</select>
+<select id="selectAllCount" resultType="long" parameterType="Map">
+	select count(1)
+	from enterprise_game eg,game gg ,enterprise ee 
+	<include refid="viewCondition" />
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.String" >
+    delete from enterprise_game
+    where enterprisecode = #{enterprisecode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EnterpriseGame" >
+    update enterprise_game
+    <set >
+      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+      <if test="gamecode != null" >gamecode = #{gamecode},</if>
+    </set>
+    where code = #{code}
+  </update>
+</mapper>

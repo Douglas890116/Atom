@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WebviewTemplate" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.WebviewTemplate" >
+    <id column="webtemplatecode" property="webtemplatecode" jdbcType="CHAR" />
+    <result column="templatename" property="templatename" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="templatetype" property="templatetype" jdbcType="VARCHAR" />
+    <result column="sitetype" property="sitetype" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    WEBTEMPLATECODE, TEMPLATENAME, SIGN, TEMPLATETYPE
+  </sql>
+  <sql id="conditions">
+  	<where>
+  		<if test="webtemplatecode !=null">AND webtemplatecode=#{webtemplatecode}</if>
+  		<if test="templatename !=null">AND templatename=#{templatename}</if>
+  		<if test="sign !=null">AND sign=#{sign}</if>
+  		<if test="templatetype !=null">AND templatetype=#{templatetype}</if>
+  		<if test="sitetype !=null">AND sitetype=#{sitetype}</if>
+  	</where>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from webview_template
+    where webtemplatecode = #{webtemplatecode}
+  </select>
+  <select id="getWebviewTemplate" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" />FROM webview_template WHERE webtemplatecode=#{webtemplatecode}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" />FROM webview_template <include refid="conditions" /> <include refid="ABasic.page"/>
+  </select>
+  <select id="selectWithIn" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" />FROM webview_template WHERE webtemplatecode IN 
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT COUNT(*) FROM webview_template <include refid="conditions" />
+  </select>
+  
+  
+  <delete id="deleteTemplate" parameterType="java.lang.String" >
+    DELETE FROM webview_template WHERE webtemplatecode IN
+    <foreach collection="array" index="templatecode" item="webtemplatecode" open="(" separator="," close=")">
+    	#{webtemplatecode}
+    </foreach>
+  </delete>
+  
+  <insert id="saveTemplate" parameterType="com.maven.entity.WebviewTemplate" >
+    INSERT INTO webview_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        webtemplatecode,
+      <if test="templatename != null" >
+        templatename,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="templatetype != null" >
+        templatetype,
+      </if>
+      <if test="sitetype != null" >
+        sitetype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ufn_get_next_string_by_tablename('webview_template',0),
+      <if test="templatename != null" >
+        #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="templatetype != null" >
+        #{templatetype,jdbcType=VARCHAR},
+      </if>
+      <if test="sitetype != null" >
+        #{sitetype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateTemplate" parameterType="com.maven.entity.WebviewTemplate" >
+    UPDATE webview_template
+    <set >
+      <if test="templatename != null" >
+        templatename = #{templatename,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="templatetype != null" >
+        templatetype = #{templatetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE webtemplatecode = #{webtemplatecode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.WebviewTemplate" >
+    UPDATE webview_template
+    SET templatename = #{templatename,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      templatetype = #{templatetype,jdbcType=VARCHAR}
+    WHERE webtemplatecode = #{webtemplatecode,jdbcType=CHAR}
+  </update>
+</mapper>

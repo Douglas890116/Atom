@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="billNo" name2="billNo" />
+	<column name1="playerName" name2="playerName" />
+	<column name1="agentCode" name2="agentCode" />
+	<column name1="gameCode" name2="gameCode" />
+	<column name1="netAmount" name2="netAmount" />
+	<column name1="betTime" name2="betTime" />
+	<column name1="gameType" name2="gameType" />
+	<column name1="betAmount" name2="betAmount" />
+	<column name1="validBetAmount" name2="validBetAmount" />
+	<column name1="flag" name2="flag" />
+	<column name1="playType" name2="playType" />
+	<column name1="currency" name2="currency" />
+	<column name1="tableCode" name2="tableCode" />
+	<column name1="loginIP" name2="loginIP" />	
+	<column name1="recalcuTime" name2="recalcuTime" />
+	<column name1="platformId" name2="platformId" />
+	<column name1="platformType" name2="platformType" />
+	<column name1="stringex" name2="stringex" />
+	<column name1="remark" name2="remark" />
+	<column name1="round" name2="round" />	
+	<column name1="result" name2="result" />
+	<column name1="beforeCredit" name2="beforeCredit" />
+	<column name1="deviceType" name2="deviceType" />
+	<column name1="betAmountBase" name2="betAmountBase" />
+	<column name1="betAmountBonus" name2="betAmountBonus" />
+	<column name1="netAmountBase" name2="netAmountBase" />	
+	<column name1="netAmountBonus" name2="netAmountBonus" />
+	<column name1="slottype" name2="slottype" />
+	<column name1="mainbillno" name2="mainbillno" />
+	<column name1="createtime" name2="createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

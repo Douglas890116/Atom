@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ExchangeRate" >
+  <resultMap id="ExchangeRateResult" type="com.maven.entity.ExchangeRate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="currencyname" property="currencyname" jdbcType="VARCHAR" />
+    <result column="currencycode" property="currencycode" jdbcType="CHAR" />
+    <result column="exchangerate" property="exchangerate" jdbcType="DECIMAL" />
+    <result column="oprationtime" property="oprationtime" jdbcType="INTEGER" />
+    <result column="oprationperson" property="oprationperson" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="column_List">
+  	ID,CURRENCYNAME,CURRENCYCODE,EXCHANGERATE,OPRATIONTIME,OPRATIONPERSON
+  </sql>
+  <sql id="condition">
+  
+  </sql>
+  <!-- =================================================新增语句================================================================ -->
+  <insert id="save" parameterType="com.maven.entity.ExchangeRate">
+	insert into exchange_rate (currencyname, currencycode, exchangerate, oprationtime, oprationperson)
+	values (#{currencyname}, #{currencycode}, #{exchangerate}, #{oprationtime}, #{oprationperson})
+  </insert>
+  
+  <!-- =================================================精确查询================================================================ -->
+  <!--   查询所有的汇率信息 -->
+  <select id="getAll" resultMap="ExchangeRateResult">
+  	SELECT <include refid="column_List" /> FROM exchange_rate ORDER BY ID DESC
+  </select>
+  
+  <!-- 根据货币ID查询该货币对人民币汇率 -->
+  <select id="getExchangeRateById" resultType="com.maven.entity.ExchangeRate" parameterType="java.lang.Integer">
+  	SELECT <include refid="column_List" /> FROM exchange_rate WHERE id = #{id}
+  </select>
+  
+  <!-- 根据货币名称查询该货币对人民币汇率 -->
+  <select id="getExchangeRateByCurrencyName" resultType="com.maven.entity.ExchangeRate" parameterType="java.lang.String">
+  	SELECT <include refid="column_List" /> FROM exchange_rate WHERE currencyname = #{CurrencyName} 
+  </select>
+  
+  <!-- 根据货币的英文代码查询该货币对人民币汇率 -->
+  <select id="getExchangeRateByCurrencyCode" resultType="com.maven.entity.ExchangeRate" parameterType="java.lang.String">
+  	SELECT <include refid="column_List" /> FROM exchange_rate WHERE currencycode = #{CurrencyCode}
+  </select>
+  
+<!-- =================================================模糊查询================================================================ -->
+  <select id="getExchangeRateByCondition" resultMap="ExchangeRateResult" parameterType="java.util.HashMap">
+  	SELECT <include refid="column_List" /> FROM exchange_rate
+	<where>
+	  	<if test="currencyname != null"> or currencyname like '%${currencyname}%' </if>
+  		<if test="currencycode != null"> or currencycode like '%${currencycode}%' </if>
+	</where>
+  	ORDER BY ID DESC
+  </select>
+  
+  <!-- 查找总数 -->
+  <select id="count" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+  	SELECT count(1) FROM exchange_rate
+	<where>
+	  	<if test="currencyname != null"> or currencyname like '%${currencyname}%' </if>
+  		<if test="currencycode != null"> or currencycode like '%${currencycode}%' </if>
+	</where>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <!-- 单个删除 -->
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from exchange_rate where id = #{id}
+  </delete>
+  
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="java.lang.Integer" >
+    delete from exchange_rate where id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+		#{id}
+	</foreach>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.ExchangeRate" >
+    update exchange_rate
+    <set>
+		<if test="currencyname != null">currencyname = #{currencyname},</if>
+		<if test="currencycode != null">currencycode = #{currencycode},</if>
+		<if test="exchangerate != null">exchangerate = #{exchangerate},</if>
+		<if test="oprationtime != null">oprationtime = #{oprationtime},</if>
+		<if test="oprationperson != null">oprationperson = #{oprationperson},</if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>

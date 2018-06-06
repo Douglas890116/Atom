@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseOperatingBrandGame" >
+  <resultMap id="resultMap" type="com.maven.entity.EnterpriseOperatingBrandGame" >
+    <id column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <id column="gamecode" property="gamecode" jdbcType="CHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="columnList" >
+    BRANDCODE, GAMECODE,FLAG
+  </sql>
+  <sql id="exactCondition">
+	<where> 
+	  <if test="brandcode != null" > and brandcode = #{brandcode} </if>
+      <if test="gamecode != null" > and gamecode = #{gamecode}  </if>
+      <if test="flag != null" > and flag = #{flag}  </if>
+	</where>
+  </sql>
+  <sql id="rangeCondition">
+	<where> 
+	  <if test="brandcode != null" > and brandcode = #{brandcode} </if>
+      <if test="gamecode != null" > and gamecode = #{gamecode}  </if>
+      <if test="flag != null" > and flag = #{flag}  </if>
+	</where>
+  </sql>
+   
+<!-- =================================================新增语句================================================================ -->
+<insert id="saveRecordBatch" parameterType="java.util.List" >
+  	insert into enterprise_operating_brand_game (brandcode,gamecode,flag) 
+	values 
+  	<foreach item="item" index="index" collection="list" separator=",">
+    (#{item.brandcode}, #{item.gamecode} , #{item.flag})
+    </foreach>
+  </insert>
+  
+  <update id="updateListData" parameterType="java.util.List" >
+  	replace into enterprise_operating_brand_game (brandcode,gamecode,flag) 
+	values 
+  	<foreach collection="list" item="item" index="index" open="" close="" separator="," >  
+    (#{item.brandcode}, #{item.gamecode} , #{item.flag})
+    </foreach>
+  </update>
+  
+  <update id="update" parameterType="com.maven.entity.EnterpriseOperatingBrandGame" >
+  	update enterprise_operating_brand_game set flag = #{flag} where brandcode = #{brandcode} and gamecode = #{gamecode}
+  </update>
+  
+<!-- =================================================精确查询================================================================ -->
+ <select id="select" resultMap="resultMap">
+    select <include refid="columnList" />
+    from enterprise_operating_brand_game
+    <include refid="exactCondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" /> 
+    from enterprise_operating_brand_game
+    <include refid="rangeCondition" />
+  </select>
+  <select id="selectAllCount" resultType="long" parameterType="Map" >
+    select count(1)
+    from enterprise_operating_brand_game
+    <include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteGamecode" parameterType="java.lang.String" >
+    delete from enterprise_operating_brand_game
+    where gamecode = #{gamecode}
+  </delete>
+  
+ <delete id="delete" parameterType="java.lang.String" >
+    delete from enterprise_operating_brand_game
+    where brandcode = #{brandcode}
+  </delete>
+  <delete id="deleteEnterpriseGame" parameterType="java.lang.String">
+  	DELETE FROM enterprise_operating_brand_game 
+ 	 	WHERE brandcode IN (SELECT eob.brandcode FROM enterprise_operating_brand eob WHERE eob.enterprisecode=#{enterprisecode}) 
+  			AND gamecode NOT IN (SELECT eg.gamecode FROM enterprise_game eg WHERE eg.enterprisecode = #{enterprisecode});
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+</mapper>

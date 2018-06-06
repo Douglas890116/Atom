@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Baccarath5Balance" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.Baccarath5Balance" >
+    <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="levelcode" property="levelcode" jdbcType="INTEGER" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+	  	<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+	  	<if test="levelcode != null" > and levelcode = #{levelcode}</if>
+	  	
+	  	<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="createDate ==null">
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>
+			</if>
+			)
+		  </if>
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_balance
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from baccarath5_balance
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(balance) balance
+  	 from baccarath5_balance
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_balance
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    employeecode, loginaccount, enterprisecode, brandcode, parentemployeecode, balance, levelcode,
+    updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from baccarath5_balance
+    where employeecode = #{employeecode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from baccarath5_balance
+    where employeecode = #{employeecode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.Baccarath5Balance" >
+    insert into baccarath5_balance (employeecode, loginaccount, enterprisecode, 
+      brandcode, parentemployeecode, balance, 
+      updatetime, levelcode)
+    values (#{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, 
+      #{brandcode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{balance,jdbcType=DOUBLE}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{levelcode,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.Baccarath5Balance" >
+    insert into baccarath5_balance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="levelcode != null" >
+        levelcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="levelcode != null" >
+        #{levelcode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.Baccarath5Balance" >
+    update baccarath5_balance
+    <set >
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="levelcode != null" >
+        levelcode = #{levelcode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where employeecode = #{employeecode,jdbcType=CHAR}
+  </update>
+  <update id="update" parameterType="com.maven.entity.Baccarath5Balance" >
+    update baccarath5_balance
+    set  balance = balance + #{balance,jdbcType=DOUBLE}
+    where employeecode = #{employeecode,jdbcType=CHAR}
+  </update>
+  
+</mapper>

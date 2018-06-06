@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseReportDates" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseReportDates" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="reportdate" property="reportdate" jdbcType="INTEGER" />
+    <result column="member_regedit_count" property="memberRegeditCount" jdbcType="INTEGER" />
+    <result column="agent_regedit_count" property="agentRegeditCount" jdbcType="INTEGER" />
+    <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="first_deposit_count" property="firstDepositCount" jdbcType="INTEGER" />
+    <result column="first_deposit_money" property="firstDepositMoney" jdbcType="DOUBLE" />
+    <result column="second_deposit_count" property="secondDepositCount" jdbcType="INTEGER" />
+    <result column="second_deposit_money" property="secondDepositMoney" jdbcType="DOUBLE" />
+    <result column="no_second_count" property="noSecondCount" jdbcType="INTEGER" />
+    <result column="no_three_count" property="noThreeCount" jdbcType="INTEGER" />
+    <result column="today_deposit_count" property="todayDepositCount" jdbcType="INTEGER" />
+    <result column="today_deposit_count1" property="todayDepositCount1" jdbcType="INTEGER" />
+    <result column="today_deposit_money" property="todayDepositMoney" jdbcType="DOUBLE" />
+    <result column="today_take_count" property="todayTakeCount" jdbcType="INTEGER" />
+    <result column="today_take_count1" property="todayTakeCount1" jdbcType="INTEGER" />
+    <result column="today_take_money" property="todayTakeMoney" jdbcType="DOUBLE" />
+    <result column="today_betmoney" property="todayBetmoney" jdbcType="DOUBLE" />
+    <result column="today_netmoney" property="todayNetmoney" jdbcType="DOUBLE" />
+    <result column="today_vaildmoney" property="todayVaildmoney" jdbcType="DOUBLE" />
+    <result column="today_prosmoney" property="todayProsmoney" jdbcType="DOUBLE" />
+    <result column="today_consmoney" property="todayConsmoney" jdbcType="DOUBLE" />
+    <result column="today_preferential_count" property="todayPreferentialCount" jdbcType="INTEGER" />
+    <result column="today_preferential_money" property="todayPreferentialMoney" jdbcType="DOUBLE" />
+    <result column="today_wash_count" property="todayWashCount" jdbcType="INTEGER" />
+    <result column="today_wash_money" property="todayWashMoney" jdbcType="DOUBLE" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, reportdate, member_regedit_count, agent_regedit_count, login_count, 
+    first_deposit_count, first_deposit_money, second_deposit_count, second_deposit_money, 
+    no_second_count, no_three_count, today_deposit_count, today_deposit_count1, today_deposit_money, 
+    today_take_count, today_take_count1, today_take_money, today_betmoney, today_netmoney, 
+    today_vaildmoney, today_prosmoney, today_consmoney, today_preferential_count, today_preferential_money, 
+    today_wash_count, today_wash_money, createtime
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="reportdate != null" >and reportdate = #{reportdate} </if>
+	  <if test="startDate !=null">and reportdate <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> AND reportdate <![CDATA[ <=]]> #{endDate}</if>
+  	</where>
+  </sql>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from enterprise_report_dates 
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from enterprise_report_dates <include refid="rangecondition" />
+  </select>
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(member_regedit_count) memberRegeditCount,
+    sum(agent_regedit_count) agentRegeditCount,
+    sum(login_count) loginCount,
+    
+    sum(first_deposit_count) firstDepositCount,
+    sum(first_deposit_money) firstDepositMoney,
+    sum(second_deposit_count) secondDepositCount,
+    sum(second_deposit_money) secondDepositMoney,
+    
+    sum(today_deposit_count) todayDepositCount,
+    sum(today_deposit_count1) todayDepositCount1,
+    sum(today_deposit_money) todayDepositMoney,
+    
+    sum(today_take_count) todayTakeCount,
+    sum(today_take_count1) todayTakeCount1,
+    sum(today_take_money) todayTakeMoney,
+    
+    sum(today_betmoney) todayBetmoney,
+    sum(today_netmoney) todayNetmoney,
+    sum(today_vaildmoney) todayVaildmoney,
+    
+    sum(today_prosmoney) todayProsmoney,
+    sum(today_consmoney) todayConsmoney,
+    sum(today_preferential_count) todayPreferentialCount,
+    sum(today_preferential_money) todayPreferentialMoney,
+    
+    sum(today_wash_count) todayWashCount,
+    sum(today_wash_money) todayWashMoney
+    
+    from enterprise_report_dates
+    <include refid="rangecondition"></include>
+  </select>  
+  
+  <!-- 	用户存取款统计 -->
+<select id="userDepositTakeReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_tn_enterprise_report_dates (#{in_enterprisecode,mode=IN,jdbcType=VARCHAR},
+														#{in_reportdate,mode=IN,jdbcType=TINYINT},
+														
+														#{memberRegeditCount,mode=OUT,jdbcType=TINYINT},
+														#{agentRegeditCount,mode=OUT,jdbcType=TINYINT},
+														#{loginCount,mode=OUT,jdbcType=TINYINT},
+														#{todayDepositCount,mode=OUT,jdbcType=TINYINT},
+														#{todayTakeCount,mode=OUT,jdbcType=TINYINT},
+														#{todayBetmoney,mode=OUT,jdbcType=DOUBLE},
+														#{todayNetmoney,mode=OUT,jdbcType=DOUBLE},
+														#{todayVaildmoney,mode=OUT,jdbcType=DOUBLE},
+														#{firstDepositCount,mode=OUT,jdbcType=TINYINT},
+														#{firstDepositMoney,mode=OUT,jdbcType=DOUBLE},
+														#{secondDepositCount,mode=OUT,jdbcType=TINYINT},
+														#{secondDepositMoney,mode=OUT,jdbcType=DOUBLE},
+														#{noSecondCount,mode=OUT,jdbcType=TINYINT},
+														#{noThreeCount,mode=OUT,jdbcType=TINYINT}
+														)}]]>
+ </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_report_dates
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_report_dates
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.EnterpriseReportDates" >
+    insert into enterprise_report_dates (lsh, enterprisecode, reportdate, 
+      member_regedit_count, agent_regedit_count, 
+      login_count, first_deposit_count, first_deposit_money, 
+      second_deposit_count, second_deposit_money, 
+      no_second_count, no_three_count, today_deposit_count, 
+      today_deposit_count1, today_deposit_money, today_take_count, 
+      today_take_count1, today_take_money, today_betmoney, 
+      today_netmoney, today_vaildmoney, today_prosmoney, 
+      today_consmoney, today_preferential_count, 
+      today_preferential_money, today_wash_count, 
+      today_wash_money, createtime)
+    values (#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{reportdate,jdbcType=INTEGER}, 
+      #{memberRegeditCount,jdbcType=INTEGER}, #{agentRegeditCount,jdbcType=INTEGER}, 
+      #{loginCount,jdbcType=INTEGER}, #{firstDepositCount,jdbcType=INTEGER}, #{firstDepositMoney,jdbcType=DOUBLE}, 
+      #{secondDepositCount,jdbcType=INTEGER}, #{secondDepositMoney,jdbcType=DOUBLE}, 
+      #{noSecondCount,jdbcType=INTEGER}, #{noThreeCount,jdbcType=INTEGER}, #{todayDepositCount,jdbcType=INTEGER}, 
+      #{todayDepositCount1,jdbcType=INTEGER}, #{todayDepositMoney,jdbcType=DOUBLE}, #{todayTakeCount,jdbcType=INTEGER}, 
+      #{todayTakeCount1,jdbcType=INTEGER}, #{todayTakeMoney,jdbcType=DOUBLE}, #{todayBetmoney,jdbcType=DOUBLE}, 
+      #{todayNetmoney,jdbcType=DOUBLE}, #{todayVaildmoney,jdbcType=DOUBLE}, #{todayProsmoney,jdbcType=DOUBLE}, 
+      #{todayConsmoney,jdbcType=DOUBLE}, #{todayPreferentialCount,jdbcType=INTEGER}, 
+      #{todayPreferentialMoney,jdbcType=DOUBLE}, #{todayWashCount,jdbcType=INTEGER}, 
+      #{todayWashMoney,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="saveRecordBatch" parameterType="java.util.List" >
+  	insert into enterprise_report_dates ( enterprisecode, reportdate, 
+      member_regedit_count, agent_regedit_count, 
+      login_count, first_deposit_count, first_deposit_money, 
+      second_deposit_count, second_deposit_money, 
+      no_second_count, no_three_count, today_deposit_count, 
+      today_deposit_count1, today_deposit_money, today_take_count, 
+      today_take_count1, today_take_money, today_betmoney, 
+      today_netmoney, today_vaildmoney, today_prosmoney, 
+      today_consmoney, today_preferential_count, 
+      today_preferential_money, today_wash_count, 
+      today_wash_money, createtime) values
+  	<foreach item="item" index="index" collection="list" separator=",">
+    ( #{item.enterprisecode,jdbcType=CHAR}, #{item.reportdate,jdbcType=INTEGER}, 
+      #{item.memberRegeditCount,jdbcType=INTEGER}, #{item.agentRegeditCount,jdbcType=INTEGER}, 
+      #{item.loginCount,jdbcType=INTEGER}, #{item.firstDepositCount,jdbcType=INTEGER}, #{item.firstDepositMoney,jdbcType=DOUBLE}, 
+      #{item.secondDepositCount,jdbcType=INTEGER}, #{item.secondDepositMoney,jdbcType=DOUBLE}, 
+      #{item.noSecondCount,jdbcType=INTEGER}, #{item.noThreeCount,jdbcType=INTEGER}, #{item.todayDepositCount,jdbcType=INTEGER}, 
+      #{item.todayDepositCount1,jdbcType=INTEGER}, #{item.todayDepositMoney,jdbcType=DOUBLE}, #{item.todayTakeCount,jdbcType=INTEGER}, 
+      #{item.todayTakeCount1,jdbcType=INTEGER}, #{item.todayTakeMoney,jdbcType=DOUBLE}, #{item.todayBetmoney,jdbcType=DOUBLE}, 
+      #{item.todayNetmoney,jdbcType=DOUBLE}, #{item.todayVaildmoney,jdbcType=DOUBLE}, #{item.todayProsmoney,jdbcType=DOUBLE}, 
+      #{item.todayConsmoney,jdbcType=DOUBLE}, #{item.todayPreferentialCount,jdbcType=INTEGER}, 
+      #{item.todayPreferentialMoney,jdbcType=DOUBLE}, #{item.todayWashCount,jdbcType=INTEGER}, 
+      #{item.todayWashMoney,jdbcType=DOUBLE}, #{item.createtime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseReportDates" >
+    insert into enterprise_report_dates
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="reportdate != null" >
+        reportdate,
+      </if>
+      <if test="memberRegeditCount != null" >
+        member_regedit_count,
+      </if>
+      <if test="agentRegeditCount != null" >
+        agent_regedit_count,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="firstDepositCount != null" >
+        first_deposit_count,
+      </if>
+      <if test="firstDepositMoney != null" >
+        first_deposit_money,
+      </if>
+      <if test="secondDepositCount != null" >
+        second_deposit_count,
+      </if>
+      <if test="secondDepositMoney != null" >
+        second_deposit_money,
+      </if>
+      <if test="noSecondCount != null" >
+        no_second_count,
+      </if>
+      <if test="noThreeCount != null" >
+        no_three_count,
+      </if>
+      <if test="todayDepositCount != null" >
+        today_deposit_count,
+      </if>
+      <if test="todayDepositCount1 != null" >
+        today_deposit_count1,
+      </if>
+      <if test="todayDepositMoney != null" >
+        today_deposit_money,
+      </if>
+      <if test="todayTakeCount != null" >
+        today_take_count,
+      </if>
+      <if test="todayTakeCount1 != null" >
+        today_take_count1,
+      </if>
+      <if test="todayTakeMoney != null" >
+        today_take_money,
+      </if>
+      <if test="todayBetmoney != null" >
+        today_betmoney,
+      </if>
+      <if test="todayNetmoney != null" >
+        today_netmoney,
+      </if>
+      <if test="todayVaildmoney != null" >
+        today_vaildmoney,
+      </if>
+      <if test="todayProsmoney != null" >
+        today_prosmoney,
+      </if>
+      <if test="todayConsmoney != null" >
+        today_consmoney,
+      </if>
+      <if test="todayPreferentialCount != null" >
+        today_preferential_count,
+      </if>
+      <if test="todayPreferentialMoney != null" >
+        today_preferential_money,
+      </if>
+      <if test="todayWashCount != null" >
+        today_wash_count,
+      </if>
+      <if test="todayWashMoney != null" >
+        today_wash_money,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="reportdate != null" >
+        #{reportdate,jdbcType=INTEGER},
+      </if>
+      <if test="memberRegeditCount != null" >
+        #{memberRegeditCount,jdbcType=INTEGER},
+      </if>
+      <if test="agentRegeditCount != null" >
+        #{agentRegeditCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="firstDepositCount != null" >
+        #{firstDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="firstDepositMoney != null" >
+        #{firstDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="secondDepositCount != null" >
+        #{secondDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="secondDepositMoney != null" >
+        #{secondDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="noSecondCount != null" >
+        #{noSecondCount,jdbcType=INTEGER},
+      </if>
+      <if test="noThreeCount != null" >
+        #{noThreeCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositCount != null" >
+        #{todayDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositCount1 != null" >
+        #{todayDepositCount1,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositMoney != null" >
+        #{todayDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayTakeCount != null" >
+        #{todayTakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayTakeCount1 != null" >
+        #{todayTakeCount1,jdbcType=INTEGER},
+      </if>
+      <if test="todayTakeMoney != null" >
+        #{todayTakeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayBetmoney != null" >
+        #{todayBetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayNetmoney != null" >
+        #{todayNetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayVaildmoney != null" >
+        #{todayVaildmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayProsmoney != null" >
+        #{todayProsmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayConsmoney != null" >
+        #{todayConsmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayPreferentialCount != null" >
+        #{todayPreferentialCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayPreferentialMoney != null" >
+        #{todayPreferentialMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayWashCount != null" >
+        #{todayWashCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayWashMoney != null" >
+        #{todayWashMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseReportDates" >
+    update enterprise_report_dates
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="reportdate != null" >
+        reportdate = #{reportdate,jdbcType=INTEGER},
+      </if>
+      <if test="memberRegeditCount != null" >
+        member_regedit_count = #{memberRegeditCount,jdbcType=INTEGER},
+      </if>
+      <if test="agentRegeditCount != null" >
+        agent_regedit_count = #{agentRegeditCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="firstDepositCount != null" >
+        first_deposit_count = #{firstDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="firstDepositMoney != null" >
+        first_deposit_money = #{firstDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="secondDepositCount != null" >
+        second_deposit_count = #{secondDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="secondDepositMoney != null" >
+        second_deposit_money = #{secondDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="noSecondCount != null" >
+        no_second_count = #{noSecondCount,jdbcType=INTEGER},
+      </if>
+      <if test="noThreeCount != null" >
+        no_three_count = #{noThreeCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositCount != null" >
+        today_deposit_count = #{todayDepositCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositCount1 != null" >
+        today_deposit_count1 = #{todayDepositCount1,jdbcType=INTEGER},
+      </if>
+      <if test="todayDepositMoney != null" >
+        today_deposit_money = #{todayDepositMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayTakeCount != null" >
+        today_take_count = #{todayTakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayTakeCount1 != null" >
+        today_take_count1 = #{todayTakeCount1,jdbcType=INTEGER},
+      </if>
+      <if test="todayTakeMoney != null" >
+        today_take_money = #{todayTakeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayBetmoney != null" >
+        today_betmoney = #{todayBetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayNetmoney != null" >
+        today_netmoney = #{todayNetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayVaildmoney != null" >
+        today_vaildmoney = #{todayVaildmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayProsmoney != null" >
+        today_prosmoney = #{todayProsmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayConsmoney != null" >
+        today_consmoney = #{todayConsmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayPreferentialCount != null" >
+        today_preferential_count = #{todayPreferentialCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayPreferentialMoney != null" >
+        today_preferential_money = #{todayPreferentialMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="todayWashCount != null" >
+        today_wash_count = #{todayWashCount,jdbcType=INTEGER},
+      </if>
+      <if test="todayWashMoney != null" >
+        today_wash_money = #{todayWashMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.EnterpriseReportDates" >
+    update enterprise_report_dates
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      reportdate = #{reportdate,jdbcType=INTEGER},
+      member_regedit_count = #{memberRegeditCount,jdbcType=INTEGER},
+      agent_regedit_count = #{agentRegeditCount,jdbcType=INTEGER},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      first_deposit_count = #{firstDepositCount,jdbcType=INTEGER},
+      first_deposit_money = #{firstDepositMoney,jdbcType=DOUBLE},
+      second_deposit_count = #{secondDepositCount,jdbcType=INTEGER},
+      second_deposit_money = #{secondDepositMoney,jdbcType=DOUBLE},
+      no_second_count = #{noSecondCount,jdbcType=INTEGER},
+      no_three_count = #{noThreeCount,jdbcType=INTEGER},
+      today_deposit_count = #{todayDepositCount,jdbcType=INTEGER},
+      today_deposit_count1 = #{todayDepositCount1,jdbcType=INTEGER},
+      today_deposit_money = #{todayDepositMoney,jdbcType=DOUBLE},
+      today_take_count = #{todayTakeCount,jdbcType=INTEGER},
+      today_take_count1 = #{todayTakeCount1,jdbcType=INTEGER},
+      today_take_money = #{todayTakeMoney,jdbcType=DOUBLE},
+      today_betmoney = #{todayBetmoney,jdbcType=DOUBLE},
+      today_netmoney = #{todayNetmoney,jdbcType=DOUBLE},
+      today_vaildmoney = #{todayVaildmoney,jdbcType=DOUBLE},
+      today_prosmoney = #{todayProsmoney,jdbcType=DOUBLE},
+      today_consmoney = #{todayConsmoney,jdbcType=DOUBLE},
+      today_preferential_count = #{todayPreferentialCount,jdbcType=INTEGER},
+      today_preferential_money = #{todayPreferentialMoney,jdbcType=DOUBLE},
+      today_wash_count = #{todayWashCount,jdbcType=INTEGER},
+      today_wash_money = #{todayWashMoney,jdbcType=DOUBLE},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

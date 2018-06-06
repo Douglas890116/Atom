@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseInformationQrcode" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseInformationQrcode" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="qrtype" property="qrtype" jdbcType="INTEGER" />
+    <result column="qrurl" property="qrurl" jdbcType="VARCHAR" />
+    <result column="qraccountno" property="qraccountno" jdbcType="VARCHAR" />
+    <result column="qraccountname" property="qraccountname" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, qrtype, qrurl, qraccountno, qraccountname, status
+  </sql>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="qrtype != null" > and qrtype = #{qrtype}</if>
+		<if test="status != null" > and status = #{status}</if>
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from enterprise_information_qrcode
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from enterprise_information_qrcode
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from enterprise_information_qrcode
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_information_qrcode
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from enterprise_information_qrcode
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteBetRecord" parameterType="List">
+  	 delete from enterprise_information_qrcode where lsh in
+  	 <foreach collection="list" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	 </foreach>
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.maven.entity.EnterpriseInformationQrcode" >
+    insert into enterprise_information_qrcode (lsh, enterprisecode, brandcode, 
+      qrtype, qrurl, qraccountno, 
+      qraccountname, status)
+    values (#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{qrtype,jdbcType=INTEGER}, #{qrurl,jdbcType=VARCHAR}, #{qraccountno,jdbcType=VARCHAR}, 
+      #{qraccountname,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseInformationQrcode" >
+    insert into enterprise_information_qrcode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="qrtype != null" >
+        qrtype,
+      </if>
+      <if test="qrurl != null" >
+        qrurl,
+      </if>
+      <if test="qraccountno != null" >
+        qraccountno,
+      </if>
+      <if test="qraccountname != null" >
+        qraccountname,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="qrtype != null" >
+        #{qrtype,jdbcType=INTEGER},
+      </if>
+      <if test="qrurl != null" >
+        #{qrurl,jdbcType=VARCHAR},
+      </if>
+      <if test="qraccountno != null" >
+        #{qraccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="qraccountname != null" >
+        #{qraccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseInformationQrcode" >
+    update enterprise_information_qrcode
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="qrtype != null" >
+        qrtype = #{qrtype,jdbcType=INTEGER},
+      </if>
+      <if test="qrurl != null" >
+        qrurl = #{qrurl,jdbcType=VARCHAR},
+      </if>
+      <if test="qraccountno != null" >
+        qraccountno = #{qraccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="qraccountname != null" >
+        qraccountname = #{qraccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.EnterpriseInformationQrcode" >
+    update enterprise_information_qrcode
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      qrtype = #{qrtype,jdbcType=INTEGER},
+      qrurl = #{qrurl,jdbcType=VARCHAR},
+      qraccountno = #{qraccountno,jdbcType=VARCHAR},
+      qraccountname = #{qraccountname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

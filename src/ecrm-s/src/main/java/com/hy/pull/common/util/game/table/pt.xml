@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="pt_gamecode" name2="pt_gamecode" />
+	<column name1="pt_username" name2="pt_username" />
+	<column name1="pt_windowcode" name2="pt_windowcode" />
+	<column name1="pt_gameid" name2="pt_gameid" />
+	<column name1="pt_gametype" name2="pt_gametype" />	
+	<column name1="pt_gamename" name2="pt_gamename" />
+	<column name1="pt_bet" name2="pt_bet" />
+	<column name1="pt_win" name2="pt_win" />
+	<column name1="pt_balance" name2="pt_balance" />	
+	<column name1="pt_gamedate" name2="pt_gamedate" />
+	<column name1="pt_info" name2="pt_info" />
+	<column name1="pt_sessionid" name2="pt_sessionid" />
+	<column name1="pt_progressivebet" name2="pt_progressivebet" />	
+	<column name1="pt_progressivewin" name2="pt_progressivewin" />
+	<column name1="pt_currentbet" name2="pt_currentbet" />
+	<column name1="pt_livenetwork" name2="pt_livenetwork" />
+	<column name1="pt_rnum" name2="pt_rnum" />
+	<column name1="pt_createtime" name2="pt_createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

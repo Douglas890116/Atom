@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityBetRecord" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityBetRecord" >
+    <id column="betrecordcode" property="betrecordcode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="CHAR" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="mustbet" property="mustbet" jdbcType="DECIMAL" />
+    <result column="alreadybet" property="alreadybet" jdbcType="DECIMAL" />
+    <result column="recharge" property="recharge" jdbcType="DECIMAL" />
+    <result column="betrecordstatus" property="betrecordstatus" jdbcType="CHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="finishtime" property="finishtime" jdbcType="TIMESTAMP" />
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+	<result column="brandcode" property="brandcode" jdbcType="CHAR" />
+	<result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+	<result column="parentemployeeaccount" property="parentemployeeaccount" jdbcType="VARCHAR" />
+	  
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ac.betrecordcode, ac.loginaccount, ac.employeecode, ac.ecactivitycode, ac.mustbet, ac.alreadybet, ac.betrecordstatus, 
+    ac.createtime, ac.finishtime, ac.recharge,
+    ac.enterprisecode,ac.brandcode,ac.parentemployeecode,ac.parentemployeeaccount, ac.ordernumber
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and ac.employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and ac.loginaccount = #{loginaccount}</if>
+		<if test="ecactivitycode != null" > and ac.ecactivitycode = #{ecactivitycode}</if>
+		<if test="alreadybet != null" > and ac.alreadybet = #{alreadybet}</if>
+		<if test="betrecordstatus != null" > and ac.betrecordstatus = #{betrecordstatus}</if>
+		<if test="createtime_begin != null" > and ac.createtime <![CDATA[ >= ]]> #{createtime_begin}</if>
+		<if test="createtime_end != null" > and ac.createtime <![CDATA[ <= ]]> #{createtime_end}</if>
+		<if test="finishtime_begin != null" > and ac.finishtime <![CDATA[ >= ]]> #{finishtime_begin}</if>
+		<if test="finishtime_end != null" > and ac.finishtime <![CDATA[ <= ]]> #{finishtime_end}</if>
+		<if test="parentemployeecode != null" > and ac.parentemployeecode = #{parentemployeecode}</if>
+		<if test="ordernumber != null" > and ac.ordernumber = #{ordernumber}</if>
+		
+		<if test="enterprisecode != null" > and ac.enterprisecode = #{enterprisecode}</if>
+	  	<if test="brandcode != null" > and ac.brandcode = #{brandcode}</if>
+	  	<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="createDate ==null">
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>
+			</if>
+			)
+		  </if>
+		  
+	</where>
+  </sql>
+  
+  <sql id="deleteCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="ecactivitycode != null" > and ecactivitycode = #{ecactivitycode}</if>
+		<if test="alreadybet != null" > and alreadybet = #{alreadybet}</if>
+		<if test="betrecordstatus != null" > and betrecordstatus = #{betrecordstatus}</if>
+		<if test="createtime_begin != null" > and createtime <![CDATA[ >= ]]> #{createtime_begin}</if>
+		<if test="createtime_end != null" > and createtime <![CDATA[ <= ]]> #{createtime_end}</if>
+		<if test="finishtime_begin != null" > and finishtime <![CDATA[ >= ]]> #{finishtime_begin}</if>
+		<if test="finishtime_end != null" > and finishtime <![CDATA[ <= ]]> #{finishtime_end}</if>
+		<if test="parentemployeecode != null" > and parentemployeecode = #{parentemployeecode}</if>
+		<if test="ordernumber != null" > and ordernumber = #{ordernumber}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+	  	<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+	</where>
+  </sql>
+  
+<!-- ===================================精确查询=========================================== -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_bet_record
+    where betrecordcode = #{betrecordcode,jdbcType=INTEGER}
+  </select>
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from activity_bet_record ac LEFT JOIN enterprise_activity_customization eac ON ac.ecactivitycode=eac.ecactivitycode
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from activity_bet_record ac LEFT JOIN enterprise_activity_customization eac ON ac.ecactivitycode=eac.ecactivitycode
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(mustbet) mustbet,
+  	sum(alreadybet) alreadybet
+  	 from activity_bet_record ac LEFT JOIN enterprise_activity_customization eac ON ac.ecactivitycode=eac.ecactivitycode
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from activity_bet_record ac LEFT JOIN enterprise_activity_customization eac ON ac.ecactivitycode=eac.ecactivitycode
+  	<include refid="exactCondition" /> 
+  </select>
+  
+<!-- ===================================删除语句=========================================== -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_bet_record
+    where betrecordcode = #{betrecordcode,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteByConditions" parameterType="Map" >
+    delete from activity_bet_record
+    <include refid="deleteCondition" /> 
+  </delete>
+  
+<!-- ===================================新增语句=========================================== -->
+  <insert id="insert" parameterType="com.maven.entity.ActivityBetRecord" >
+    insert into activity_bet_record (betrecordcode, employeecode, loginaccount, ecactivitycode, 
+      mustbet, alreadybet, betrecordstatus, 
+      createtime, finishtime, recharge, enterprisecode, brandcode, parentemployeecode, parentemployeeaccount, ordernumber)
+      
+    values (#{betrecordcode,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=CHAR}, #{ecactivitycode,jdbcType=INTEGER}, 
+      #{mustbet,jdbcType=DECIMAL}, #{alreadybet,jdbcType=DECIMAL}, #{betrecordstatus,jdbcType=CHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=TIMESTAMP}  , #{recharge,jdbcType=DECIMAL}, #{recharge}, #{brandcode}, #{parentemployeecode}, #{parentemployeeaccount}, #{ordernumber})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityBetRecord" >
+    insert into activity_bet_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="betrecordcode != null" >
+        betrecordcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="ecactivitycode != null" >
+        ecactivitycode,
+      </if>
+      <if test="mustbet != null" >
+        mustbet,
+      </if>
+      <if test="alreadybet != null" >
+        alreadybet,
+      </if>
+      <if test="betrecordstatus != null" >
+        betrecordstatus,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="finishtime != null" >
+        finishtime,
+      </if>
+      <if test="recharge != null" >
+        recharge,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="parentemployeeaccount != null" >
+        parentemployeeaccount,
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="betrecordcode != null" >
+        #{betrecordcode,jdbcType=INTEGER},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=CHAR},
+      </if>
+      <if test="ecactivitycode != null" >
+        #{ecactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="mustbet != null" >
+        #{mustbet,jdbcType=DECIMAL},
+      </if>
+      <if test="alreadybet != null" >
+        #{alreadybet,jdbcType=DECIMAL},
+      </if>
+      <if test="betrecordstatus != null" >
+        #{betrecordstatus,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishtime != null" >
+        #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recharge != null" >
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode},
+      </if>
+      <if test="parentemployeeaccount != null" >
+        #{parentemployeeaccount},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber},
+      </if>
+    </trim>
+  </insert>
+<!-- ===================================修改语句=========================================== -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityBetRecord" >
+    update activity_bet_record
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=CHAR},
+      </if>
+      <if test="ecactivitycode != null" >
+        ecactivitycode = #{ecactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="mustbet != null" >
+        mustbet = #{mustbet,jdbcType=DECIMAL},
+      </if>
+      <if test="alreadybet != null" >
+        alreadybet = #{alreadybet,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="betrecordstatus != null" >
+        betrecordstatus = #{betrecordstatus,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishtime != null" >
+        finishtime = #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber = #{ordernumber},
+      </if>
+    </set>
+    where betrecordcode = #{betrecordcode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityBetRecord" >
+    update activity_bet_record
+    set employeecode = #{employeecode,jdbcType=CHAR},
+   	  loginaccount = #{loginaccount,jdbcType=CHAR},
+      ecactivitycode = #{ecactivitycode,jdbcType=INTEGER},
+      mustbet = #{mustbet,jdbcType=DECIMAL},
+      alreadybet = #{alreadybet,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      betrecordstatus = #{betrecordstatus,jdbcType=CHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      finishtime = #{finishtime,jdbcType=TIMESTAMP},
+      enterprisecode = #{enterprisecode},
+      brandcode = #{brandcode},
+      parentemployeecode = #{parentemployeecode},
+      ordernumber = #{ordernumber},
+      parentemployeeaccount = #{parentemployeeaccount}
+    where betrecordcode = #{betrecordcode,jdbcType=INTEGER}
+  </update>
+</mapper>

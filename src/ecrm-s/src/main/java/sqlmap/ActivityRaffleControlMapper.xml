@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityRaffleControl" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityRaffleControl" >
+  	<id column="rafflecontrolcode" property="rafflecontrolcode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="availabletimes" property="availabletimes" jdbcType="INTEGER" />
+    <result column="finishtimes" property="finishtimes" jdbcType="INTEGER" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="donatedate"  property="donatedate" jdbcType="TIMESTAMP"/>
+    <result column="createdate" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="createtime"  property="donatedate" jdbcType="TIMESTAMP"/>
+    <result column="fingerprintcode" property="fingerprintcode" jdbcType="VARCHAR" />
+    <result column="loginip" property="loginip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+     rafflecontrolcode,employeecode, parentemployeecode, loginaccount, availabletimes, finishtimes, donatedate, ecactivitycode, createdate, createtime, fingerprintcode, loginip
+  </sql>
+  
+  <!-- 范围查询条件 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount}</if>
+	  <if test="donatedate != null" >and date(donatedate) = date(#{donatedate}) </if>
+	  <if test="startTime != null" >and donatedate <![CDATA[ > ]]> #{donatedate} </if>
+	  <if test="endTime != null" >and donatedate <![CDATA[ <= ]]> #{donatedate} </if>
+	  <if test="rafflecontrolcode != null" >and rafflecontrolcode = #{rafflecontrolcode} </if>
+	  <if test="ecactivitycode != null" >and ecactivitycode = #{ecactivitycode} </if>
+	  <if test="createdate != null" >and createdate = #{createdate} </if>
+	  
+	  <if test="loginip != null" >and loginip = #{loginip} </if>
+	  <if test="fingerprintcode != null" >and fingerprintcode = #{fingerprintcode} </if>
+  	</where>
+  </sql>
+
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.ActivityRaffleControl" >
+    insert into activity_raffle_control ( employeecode, parentemployeecode,loginaccount, availabletimes, finishtimes,donatedate, ecactivitycode, createdate, createtime, loginip, fingerprintcode)
+    values (#{employeecode}, #{parentemployeecode}, 
+      #{loginaccount}, #{availabletimes}, #{finishtimes},NOW(), #{ecactivitycode}, #{createdate}, NOW() , #{loginip} , #{fingerprintcode})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_raffle_control
+    where rafflecontrolcode = #{rafflecontrolcode}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_raffle_control
+    where rafflecontrolcode = #{rafflecontrolcode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.ActivityRaffleControl" >
+    update activity_raffle_control
+    <set >
+      <if test="parentemployeecode != null" >parentemployeecode = #{parentemployeecode},</if>
+      <if test="loginaccount != null" >loginaccount = #{loginaccount},</if>
+      <if test="availabletimes != null" >availabletimes = #{availabletimes},</if>
+      <if test="finishtimes != null" >finishtimes = #{finishtimes},</if>
+      <if test="donatedate != null" >donatedate = #{donatedate},</if>
+	  <if test="ecactivitycode != null" > ecactivitycode = #{ecactivitycode}, </if>
+	  <if test="createdate != null" > createdate = #{createdate}, </if>
+	  <if test="loginip != null" > loginip = #{loginip}, </if>
+	  <if test="fingerprintcode != null" > fingerprintcode = #{fingerprintcode}, </if>
+    </set>
+    where rafflecontrolcode = #{rafflecontrolcode}
+  </update>
+  <update id="updateRaffleTime" parameterType="com.maven.entity.ActivityRaffleControl" >
+    update activity_raffle_control
+    <set >
+      <if test="availabletimes != null" >availabletimes = availabletimes-#{availabletimes},</if>
+      <if test="finishtimes != null" >finishtimes = finishtimes+#{finishtimes},</if>
+    </set>
+    where rafflecontrolcode = #{rafflecontrolcode}
+  </update>
+  
+  <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from activity_raffle_control
+    <include refid="rangecondition"></include> order by donatedate desc
+  </select>
+  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from activity_raffle_control
+    <include refid="rangecondition"></include> order by donatedate desc
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from activity_raffle_control
+    <include refid="rangecondition"></include>
+  </select>
+  
+</mapper>

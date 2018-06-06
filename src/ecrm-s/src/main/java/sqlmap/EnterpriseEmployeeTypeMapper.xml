@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployeeType" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseEmployeeType" >
+    <id column="employeetypecode" property="employeetypecode" jdbcType="CHAR" />
+    <result column="employeetype" property="employeetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columnList" >
+    EMPLOYEETYPECODE, EMPLOYEETYPE
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  		<if test="employeetypecode !=null">and employeetypecode = #{employeetypecode}</if>
+  		<if test="employeetype !=null">and employeetype = #{employeetype}</if>
+  		and datastatus = 1
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where>
+  		<if test="employeetypecode !=null">and employeetypecode = #{employeetypecode}</if>
+  		<if test="employeetype !=null">and employeetype = #{employeetype}</if>
+  		and datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="save" parameterType="Map">
+  		insert into enterprise_employee_type(employeetypecode,employeetype) values(ufn_get_next_string_by_tablename('enterprise_employee_type',0),#{employeetype})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<!--   查询除企业类型之外的所有员工类型 where employeetypecode !='T001'-->
+   <select id="select" resultMap="BaseResultMap" >
+    	select <include refid="columnList" /> from enterprise_employee_type <include refid="exactCondition"/>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="query" resultMap="BaseResultMap" parameterType="Map">
+  		select <include refid="columnList" /> from enterprise_employee_type 
+  		<include refid="rangeCondition"/> 
+  		<include refid="ABasic.orderby"></include>
+  		<include refid="ABasic.page"></include>
+  </select>
+  <select id="queryCount" resultType="Integer" parameterType="Map">
+  		select count(*) from enterprise_employee_type 
+  		<include refid="rangeCondition"/>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="java.lang.String">
+  		update enterprise_employee_type set datastatus = -1 where employeetypecode=#{employeetypecode}
+  </delete>
+  <delete id="deleteSelect" parameterType="java.lang.String">
+  		update enterprise_employee_type set datastatus = -1 where employeetypecode in
+  		<foreach collection="array" item="employeetypecode" open="(" separator="," close=")">
+  			#{employeetypecode}
+  		</foreach>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map">
+  		update enterprise_employee_type set employeetype = #{employeetype} where employeetypecode=#{employeetypecode}
+  </update>
+</mapper>

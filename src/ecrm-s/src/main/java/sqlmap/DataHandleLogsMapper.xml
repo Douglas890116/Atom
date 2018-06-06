@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DataHandleLogs" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.DataHandleLogs" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="dataparams" property="dataparams" jdbcType="VARCHAR" />
+    <result column="datalog" property="datalog" jdbcType="VARCHAR" />
+    <result column="agentaccount" property="agentaccount" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, gametype, lasttime, dataparams, datalog, agentaccount, flag, remark
+  </sql>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="gametype != null" > and gametype = #{gametype}</if>
+		<if test="flag != null" > and flag = #{flag}</if>
+	</where>
+</sql>
+
+<select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from data_handle_logs
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from data_handle_logs
+  	<include refid="exactCondition" />
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_handle_logs
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from data_handle_logs
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.DataHandleLogs" >
+    insert into data_handle_logs (lsh, gametype, lasttime, 
+      dataparams, datalog, agentaccount, 
+      flag, remark)
+    values (#{lsh,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{dataparams,jdbcType=VARCHAR}, #{datalog,jdbcType=VARCHAR}, #{agentaccount,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.DataHandleLogs" >
+    insert into data_handle_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="lasttime != null" >
+        lasttime,
+      </if>
+      <if test="dataparams != null" >
+        dataparams,
+      </if>
+      <if test="datalog != null" >
+        datalog,
+      </if>
+      <if test="agentaccount != null" >
+        agentaccount,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataparams != null" >
+        #{dataparams,jdbcType=VARCHAR},
+      </if>
+      <if test="datalog != null" >
+        #{datalog,jdbcType=VARCHAR},
+      </if>
+      <if test="agentaccount != null" >
+        #{agentaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.DataHandleLogs" >
+    update data_handle_logs
+    <set >
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataparams != null" >
+        dataparams = #{dataparams,jdbcType=VARCHAR},
+      </if>
+      <if test="datalog != null" >
+        datalog = #{datalog,jdbcType=VARCHAR},
+      </if>
+      <if test="agentaccount != null" >
+        agentaccount = #{agentaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.DataHandleLogs" >
+    update data_handle_logs
+    set gametype = #{gametype,jdbcType=VARCHAR},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      dataparams = #{dataparams,jdbcType=VARCHAR},
+      datalog = #{datalog,jdbcType=VARCHAR},
+      agentaccount = #{agentaccount,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

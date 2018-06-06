@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingMg" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingMg" >
+    <id column="mg_trans_Id" property="mgTransId" jdbcType="VARCHAR" />
+    <result column="mg_key" property="mgKey" jdbcType="VARCHAR" />
+    <result column="mg_col_Id" property="mgColId" jdbcType="VARCHAR" />
+    <result column="mg_agent_Id" property="mgAgentId" jdbcType="VARCHAR" />
+    <result column="mg_mbr_Id" property="mgMbrId" jdbcType="VARCHAR" />
+    <result column="mg_mbr_Code" property="mgMbrCode" jdbcType="VARCHAR" />
+    <result column="mg_game_Id" property="mgGameId" jdbcType="VARCHAR" />
+    <result column="mg_trans_Type" property="mgTransType" jdbcType="VARCHAR" />
+    <result column="mg_trans_Time" property="mgTransTime" jdbcType="VARCHAR" />
+    <result column="mg_mgs_Game_Id" property="mgMgsGameId" jdbcType="VARCHAR" />
+    <result column="mg_mgs_Action_Id" property="mgMgsActionId" jdbcType="VARCHAR" />
+    <result column="mg_amnt" property="mgAmnt" jdbcType="VARCHAR" />
+    <result column="mg_clrng_Amnt" property="mgClrngAmnt" jdbcType="VARCHAR" />
+    <result column="mg_balance" property="mgBalance" jdbcType="VARCHAR" />
+    <result column="mg_ref_Trans_Id" property="mgRefTransId" jdbcType="VARCHAR" />
+    <result column="mg_ref_Trans_Type" property="mgRefTransType" jdbcType="VARCHAR" />
+    <result column="mg_win" property="mgWin" jdbcType="VARCHAR" />
+    <result column="mg_createtime" property="mgCreatetime" jdbcType="TIMESTAMP" />
+    <result column="Platformflag" property="platformflag" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="bettime" property="bettime" jdbcType="TIMESTAMP" />
+    <result column="net_money" property="netMoney" jdbcType="DOUBLE" />
+    <result column="mg_amount" property="mgAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mg_trans_Id, mg_key, mg_col_Id, mg_agent_Id, mg_mbr_Id, mg_mbr_Code, mg_game_Id, 
+    mg_trans_Type, mg_trans_Time, mg_mgs_Game_Id, mg_mgs_Action_Id, mg_amnt, mg_clrng_Amnt, 
+    mg_balance, mg_ref_Trans_Id, mg_ref_Trans_Type, mg_win, mg_createtime, Platformflag, 
+    enterprisecode, brandcode, employeecode, parentemployeecode, loginaccount, gamebigtype, 
+    status, bettime, net_money, mg_amount
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+	  <if test="startDate !=null">and bettime <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> AND bettime <![CDATA[ <=]]> #{endDate}</if>
+	  <if test="mgGameId != null" >and mg_game_Id = #{mgGameId} </if>
+	  <if test="mgColId != null" >and mg_col_Id = #{mgColId} </if>
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bettime <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bettime <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_mg 
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_mg <include refid="rangecondition" />
+  </select>
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(mg_amount) betAmount,
+    sum(net_money) netAmount,
+    sum(mg_balance) mgBalance
+    
+    from betting_mg
+    <include refid="rangecondition"></include>
+  </select>  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_mg
+    where mg_trans_Id = #{mgTransId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_mg
+    where mg_trans_Id = #{mgTransId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingMg" >
+    insert into betting_mg (mg_trans_Id, mg_key, mg_col_Id, 
+      mg_agent_Id, mg_mbr_Id, mg_mbr_Code, 
+      mg_game_Id, mg_trans_Type, mg_trans_Time, 
+      mg_mgs_Game_Id, mg_mgs_Action_Id, mg_amnt, 
+      mg_clrng_Amnt, mg_balance, mg_ref_Trans_Id, 
+      mg_ref_Trans_Type, mg_win, mg_createtime, 
+      Platformflag, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gamebigtype, status, bettime, 
+      net_money, mg_amount)
+    values (#{mgTransId,jdbcType=VARCHAR}, #{mgKey,jdbcType=VARCHAR}, #{mgColId,jdbcType=VARCHAR}, 
+      #{mgAgentId,jdbcType=VARCHAR}, #{mgMbrId,jdbcType=VARCHAR}, #{mgMbrCode,jdbcType=VARCHAR}, 
+      #{mgGameId,jdbcType=VARCHAR}, #{mgTransType,jdbcType=VARCHAR}, #{mgTransTime,jdbcType=VARCHAR}, 
+      #{mgMgsGameId,jdbcType=VARCHAR}, #{mgMgsActionId,jdbcType=VARCHAR}, #{mgAmnt,jdbcType=VARCHAR}, 
+      #{mgClrngAmnt,jdbcType=VARCHAR}, #{mgBalance,jdbcType=VARCHAR}, #{mgRefTransId,jdbcType=VARCHAR}, 
+      #{mgRefTransType,jdbcType=VARCHAR}, #{mgWin,jdbcType=VARCHAR}, #{mgCreatetime,jdbcType=TIMESTAMP}, 
+      #{platformflag,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{bettime,jdbcType=TIMESTAMP}, 
+      #{netMoney,jdbcType=DOUBLE}, #{mgAmount,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingMg" >
+    insert into betting_mg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mgTransId != null" >
+        mg_trans_Id,
+      </if>
+      <if test="mgKey != null" >
+        mg_key,
+      </if>
+      <if test="mgColId != null" >
+        mg_col_Id,
+      </if>
+      <if test="mgAgentId != null" >
+        mg_agent_Id,
+      </if>
+      <if test="mgMbrId != null" >
+        mg_mbr_Id,
+      </if>
+      <if test="mgMbrCode != null" >
+        mg_mbr_Code,
+      </if>
+      <if test="mgGameId != null" >
+        mg_game_Id,
+      </if>
+      <if test="mgTransType != null" >
+        mg_trans_Type,
+      </if>
+      <if test="mgTransTime != null" >
+        mg_trans_Time,
+      </if>
+      <if test="mgMgsGameId != null" >
+        mg_mgs_Game_Id,
+      </if>
+      <if test="mgMgsActionId != null" >
+        mg_mgs_Action_Id,
+      </if>
+      <if test="mgAmnt != null" >
+        mg_amnt,
+      </if>
+      <if test="mgClrngAmnt != null" >
+        mg_clrng_Amnt,
+      </if>
+      <if test="mgBalance != null" >
+        mg_balance,
+      </if>
+      <if test="mgRefTransId != null" >
+        mg_ref_Trans_Id,
+      </if>
+      <if test="mgRefTransType != null" >
+        mg_ref_Trans_Type,
+      </if>
+      <if test="mgWin != null" >
+        mg_win,
+      </if>
+      <if test="mgCreatetime != null" >
+        mg_createtime,
+      </if>
+      <if test="platformflag != null" >
+        Platformflag,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="bettime != null" >
+        bettime,
+      </if>
+      <if test="netMoney != null" >
+        net_money,
+      </if>
+      <if test="mgAmount != null" >
+        mg_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mgTransId != null" >
+        #{mgTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgKey != null" >
+        #{mgKey,jdbcType=VARCHAR},
+      </if>
+      <if test="mgColId != null" >
+        #{mgColId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgAgentId != null" >
+        #{mgAgentId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMbrId != null" >
+        #{mgMbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMbrCode != null" >
+        #{mgMbrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mgGameId != null" >
+        #{mgGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgTransType != null" >
+        #{mgTransType,jdbcType=VARCHAR},
+      </if>
+      <if test="mgTransTime != null" >
+        #{mgTransTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMgsGameId != null" >
+        #{mgMgsGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMgsActionId != null" >
+        #{mgMgsActionId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgAmnt != null" >
+        #{mgAmnt,jdbcType=VARCHAR},
+      </if>
+      <if test="mgClrngAmnt != null" >
+        #{mgClrngAmnt,jdbcType=VARCHAR},
+      </if>
+      <if test="mgBalance != null" >
+        #{mgBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="mgRefTransId != null" >
+        #{mgRefTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgRefTransType != null" >
+        #{mgRefTransType,jdbcType=VARCHAR},
+      </if>
+      <if test="mgWin != null" >
+        #{mgWin,jdbcType=VARCHAR},
+      </if>
+      <if test="mgCreatetime != null" >
+        #{mgCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformflag != null" >
+        #{platformflag,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bettime != null" >
+        #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="netMoney != null" >
+        #{netMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="mgAmount != null" >
+        #{mgAmount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingMg" >
+    update betting_mg
+    <set >
+      <if test="mgKey != null" >
+        mg_key = #{mgKey,jdbcType=VARCHAR},
+      </if>
+      <if test="mgColId != null" >
+        mg_col_Id = #{mgColId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgAgentId != null" >
+        mg_agent_Id = #{mgAgentId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMbrId != null" >
+        mg_mbr_Id = #{mgMbrId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMbrCode != null" >
+        mg_mbr_Code = #{mgMbrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mgGameId != null" >
+        mg_game_Id = #{mgGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgTransType != null" >
+        mg_trans_Type = #{mgTransType,jdbcType=VARCHAR},
+      </if>
+      <if test="mgTransTime != null" >
+        mg_trans_Time = #{mgTransTime,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMgsGameId != null" >
+        mg_mgs_Game_Id = #{mgMgsGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgMgsActionId != null" >
+        mg_mgs_Action_Id = #{mgMgsActionId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgAmnt != null" >
+        mg_amnt = #{mgAmnt,jdbcType=VARCHAR},
+      </if>
+      <if test="mgClrngAmnt != null" >
+        mg_clrng_Amnt = #{mgClrngAmnt,jdbcType=VARCHAR},
+      </if>
+      <if test="mgBalance != null" >
+        mg_balance = #{mgBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="mgRefTransId != null" >
+        mg_ref_Trans_Id = #{mgRefTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="mgRefTransType != null" >
+        mg_ref_Trans_Type = #{mgRefTransType,jdbcType=VARCHAR},
+      </if>
+      <if test="mgWin != null" >
+        mg_win = #{mgWin,jdbcType=VARCHAR},
+      </if>
+      <if test="mgCreatetime != null" >
+        mg_createtime = #{mgCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformflag != null" >
+        Platformflag = #{platformflag,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bettime != null" >
+        bettime = #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="netMoney != null" >
+        net_money = #{netMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="mgAmount != null" >
+        mg_amount = #{mgAmount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where mg_trans_Id = #{mgTransId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingMg" >
+    update betting_mg
+    set mg_key = #{mgKey,jdbcType=VARCHAR},
+      mg_col_Id = #{mgColId,jdbcType=VARCHAR},
+      mg_agent_Id = #{mgAgentId,jdbcType=VARCHAR},
+      mg_mbr_Id = #{mgMbrId,jdbcType=VARCHAR},
+      mg_mbr_Code = #{mgMbrCode,jdbcType=VARCHAR},
+      mg_game_Id = #{mgGameId,jdbcType=VARCHAR},
+      mg_trans_Type = #{mgTransType,jdbcType=VARCHAR},
+      mg_trans_Time = #{mgTransTime,jdbcType=VARCHAR},
+      mg_mgs_Game_Id = #{mgMgsGameId,jdbcType=VARCHAR},
+      mg_mgs_Action_Id = #{mgMgsActionId,jdbcType=VARCHAR},
+      mg_amnt = #{mgAmnt,jdbcType=VARCHAR},
+      mg_clrng_Amnt = #{mgClrngAmnt,jdbcType=VARCHAR},
+      mg_balance = #{mgBalance,jdbcType=VARCHAR},
+      mg_ref_Trans_Id = #{mgRefTransId,jdbcType=VARCHAR},
+      mg_ref_Trans_Type = #{mgRefTransType,jdbcType=VARCHAR},
+      mg_win = #{mgWin,jdbcType=VARCHAR},
+      mg_createtime = #{mgCreatetime,jdbcType=TIMESTAMP},
+      Platformflag = #{platformflag,jdbcType=VARCHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      bettime = #{bettime,jdbcType=TIMESTAMP},
+      net_money = #{netMoney,jdbcType=DOUBLE},
+      mg_amount = #{mgAmount,jdbcType=DOUBLE}
+    where mg_trans_Id = #{mgTransId,jdbcType=VARCHAR}
+  </update>
+</mapper>

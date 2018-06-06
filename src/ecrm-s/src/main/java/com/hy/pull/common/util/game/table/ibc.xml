@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="ibc_rowguid" name2="ibc_rowguid" />
+	<column name1="ibc_ballid" name2="ibc_ballid" />
+	<column name1="ibc_balltime" name2="ibc_balltime" />
+	<column name1="ibc_content" name2="ibc_content" />
+	<column name1="ibc_curpl" name2="ibc_curpl" />	
+	<column name1="ibc_ds" name2="ibc_ds" />
+	<column name1="ibc_dxc" name2="ibc_dxc" />
+	<column name1="ibc_isbk" name2="ibc_isbk" />
+	<column name1="ibc_iscancel" name2="ibc_iscancel" />	
+	<column name1="ibc_isdanger" name2="ibc_isdanger" />
+	<column name1="ibc_isjs" name2="ibc_isjs" />
+	<column name1="ibc_lose" name2="ibc_lose" />
+	<column name1="ibc_matchid" name2="ibc_matchid" />	
+	<column name1="ibc_moneyrate" name2="ibc_moneyrate" />
+	<column name1="ibc_orderid" name2="ibc_orderid" />
+	<column name1="ibc_recard" name2="ibc_recard" />
+	<column name1="ibc_result" name2="ibc_result" />
+	<column name1="ibc_rqc" name2="ibc_rqc" />	
+	<column name1="ibc_rqteam" name2="ibc_rqteam" />
+	<column name1="ibc_sportid" name2="ibc_sportid" />
+	<column name1="ibc_tballtime" name2="ibc_tballtime" />	
+	<column name1="ibc_thisdate" name2="ibc_thisdate" />
+	<column name1="ibc_truewin" name2="ibc_truewin" />	
+	<column name1="ibc_tzip" name2="ibc_tzip" />
+	<column name1="ibc_tzmoney" name2="ibc_tzmoney" />
+	<column name1="ibc_tzteam" name2="ibc_tzteam" />	
+	<column name1="ibc_tztype" name2="ibc_tztype" />
+	<column name1="ibc_updatetime" name2="ibc_updatetime" />	
+	<column name1="ibc_username" name2="ibc_username" />
+	<column name1="ibc_win" name2="ibc_win" />
+	<column name1="ibc_zdbf" name2="ibc_zdbf" />	
+	<column name1="ibc_vendorid" name2="ibc_vendorid" />
+	<column name1="ibc_createtime" name2="ibc_createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ThirdpartyPaymentBank" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ThirdpartyPaymentBank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bankcode" property="bankcode" jdbcType="CHAR" />
+    <result column="thirdpartypaymenttypecode" property="thirdpartypaymenttypecode" jdbcType="CHAR" />
+    <result column="paymenttypebankcode" property="paymenttypebankcode" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="exactCondition">
+  	<where>
+	  	  <if test="bankcode != null" > and tpb.bankcode = #{bankcode} </if>
+	      <if test="thirdpartypaymenttypecode != null" > and tpb.thirdpartypaymenttypecode = #{thirdpartypaymenttypecode} </if>
+	      <if test="paymenttypebankcode != null" > and tpb.paymenttypebankcode = #{paymenttypebankcode} </if>
+	      <if test="enable != null" > and tpb.enable = #{enable} </if>
+      </where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where>
+  		<if test="bankname !=null " >and bk.bankname like concat('%',#{bankname},'%') </if>
+  		<if test="thirdpartypaymenttypename !=null " >and paymenttype.thirdpartypaymenttypename like concat('%',#{thirdpartypaymenttypename},'%')</if>
+  		<if test="thirdpartypaymenttypecode !=null " >and paymentbank.thirdpartypaymenttypecode = #{thirdpartypaymenttypecode} </if>
+  	</where>
+  </sql>
+  
+  
+<!-- =================================================新增语句================================================================ -->
+<insert id="save" parameterType="com.maven.entity.ThirdpartyPaymentBank" >
+    insert into thirdparty_payment_bank (id, bankcode, thirdpartypaymenttypecode, 
+      paymenttypebankcode, enable)
+    values (#{id}, #{bankcode}, #{thirdpartypaymenttypecode}, 
+      #{paymenttypebankcode}, #{enable})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="getPaymentBankCode" resultType="com.maven.entity.ThirdpartyPaymentBank" parameterType="java.lang.String" >
+    select id,thirdpartypaymenttypecode,bankcode,paymenttypebankcode,enable from thirdparty_payment_bank where id = #{paymentbankCode}
+</select>
+<!-- 查询第三方支付支持银行 -->
+<select id="select" resultMap="BaseResultMap" parameterType="Map">
+	SELECT b.bankname,tpb.id,tpb.thirdpartypaymenttypecode,tpb.bankcode,tpb.paymenttypebankcode
+	FROM thirdparty_payment_bank tpb LEFT JOIN bank b ON tpb.bankcode = b.bankcode
+	<include refid="exactCondition"></include>
+</select>
+<select id="selectPaymentBank" resultType="Map" parameterType="java.lang.String">
+	SELECT b.bankname,tpb.bankcode,tpb.paymenttypebankcode 
+	FROM thirdparty_payment_bank tpb LEFT JOIN bank b ON tpb.bankcode = b.bankcode 
+	where thirdpartypaymenttypecode=#{thirdpartypaymenttypecode} and enable=1
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="findAll" resultMap="BaseResultMap" parameterType="com.maven.entity.ThirdpartyPaymentBank" >
+    select 
+    paymentbank.id as id,bk.bankname as bankname,paymenttype.thirdpartypaymenttypename as thirdpartypaymenttypename,paymentbank.paymenttypebankcode as paymenttypebankcode,
+    paymentbank.`enable` as enable FROM thirdparty_payment_bank paymentbank left join bank bk on paymentbank.bankcode = bk.bankcode left join thirdparty_payment_type paymenttype
+    on paymentbank.thirdpartypaymenttypecode = paymenttype.thirdpartypaymenttypecode 
+    
+    <include refid="rangeCondition"></include>
+    <include refid="ABasic.page" />
+  </select>
+  <select id="findCountAll" resultType="int" parameterType="Map">
+	SELECT COUNT(*) FROM thirdparty_payment_bank paymentbank left join bank bk on paymentbank.bankcode = bk.bankcode left join thirdparty_payment_type paymenttype
+    on paymentbank.thirdpartypaymenttypecode = paymenttype.thirdpartypaymenttypecode
+    
+    <include refid="rangeCondition"></include>
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from thirdparty_payment_bank
+    where id = #{enterpriseThirdpartyCode}
+</delete>
+<delete id="deleteSelect" parameterType="java.lang.String">
+ 	delete from thirdparty_payment_bank where id in
+ 	<foreach collection="array" item="enterpriseThirdpartyCode" open="(" separator="," close=")">
+ 		#{enterpriseThirdpartyCode}
+ 	</foreach>
+</delete>
+
+<!-- =================================================修改语句================================================================ -->
+  <update id="updatesave" parameterType="com.maven.entity.ThirdpartyPaymentBank" >
+    update thirdparty_payment_bank
+    <set >
+      <if test="bankcode != null" >bankcode = #{bankcode},</if>
+      <if test="thirdpartypaymenttypecode != null" >thirdpartypaymenttypecode = #{thirdpartypaymenttypecode},</if>
+      <if test="paymenttypebankcode != null" >paymenttypebankcode = #{paymenttypebankcode},</if>
+      <if test="enable != null" >enable = #{enable},</if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  
+  
+</mapper>

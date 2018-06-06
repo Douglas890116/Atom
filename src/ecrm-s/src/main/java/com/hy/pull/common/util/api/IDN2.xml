@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+	<id>8</id>
+	<data type="array">
+		<detail>
+			<userid>EGGAWONG23</userid>
+			<total_turnover>411.102</total_turnover>
+			<turnover_poker>0</turnover_poker>
+			<turnover_domino>0</turnover_domino>
+			<turnover_ceme>64.555</turnover_ceme>
+			<turnover_blackjack>0</turnover_blackjack>
+			<turnover_capsa>97.297</turnover_capsa>
+			<turnover_livepoker>249.249</turnover_livepoker>
+			<texaspoker>0</texaspoker>
+			<domino>0</domino>
+			<ceme>-22.659</ceme>
+			<blackjack>0</blackjack>
+			<capsa>-1.459</capsa>
+			<livepoker>4.794</livepoker>
+			<poker_tournament>0</poker_tournament>
+			<agent_commission>8.419</agent_commission>
+			<agent_bill>-10.904</agent_bill>
+		</detail>
+		<detail>
+			<userid>HYEEGG0123</userid>
+			<total_turnover>8.242</total_turnover>
+			<turnover_poker>8.242</turnover_poker>
+			<turnover_domino>0</turnover_domino>
+			<turnover_ceme>0</turnover_ceme>
+			<turnover_blackjack>0</turnover_blackjack>
+			<turnover_capsa>0</turnover_capsa>
+			<turnover_livepoker>0</turnover_livepoker>
+			<texaspoker>-8.242</texaspoker>
+			<domino>0</domino>
+			<ceme>0</ceme>
+			<blackjack>0</blackjack>
+			<capsa>0</capsa>
+			<livepoker>0</livepoker>
+			<poker_tournament>0</poker_tournament>
+			<agent_commission>0.210</agent_commission>
+			<agent_bill>-8.032</agent_bill>
+		</detail>
+	</data>
+</response>

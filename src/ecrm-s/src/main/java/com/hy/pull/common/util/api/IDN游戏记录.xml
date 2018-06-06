@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+	<row>
+		<transaction_no>11</transaction_no>
+		<tableno>2</tableno>
+		<userid>Lorem</userid>
+		<date>Aug/13/2015 11:44:43</date>
+		<game>BJK</game>
+		<table>Smaller 1</table>
+		<periode>12927</periode>
+		<room>1</room>
+		<bet>30000</bet>
+		<curr_bet>200</curr_bet>
+		<r_bet>20000</r_bet>
+		<status>Win</status>
+		<card>hq h7 X X X X X</card>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<curr_amount>19400</curr_amount>
+		<amount>19400</amount>
+		<total>100000</total>
+		<agent_comission>97.11</agent_comission>
+		<agent_bill>6285.11</agent_bill>
+	</row>
+	<row>
+		<transaction_no>16</transaction_no>
+		<tableno>55</tableno>
+		<userid>Lorem</userid>
+		<date>Aug/13/2015 11:43:22</date>
+		<game>EBN</game>
+		<table>Smaller 1</table>
+		<periode>5769</periode>
+		<room>1</room>
+		<bet>100</bet>
+		<curr_bet>5</curr_bet>
+		<r_bet>5000</r_bet>
+		<status>Lose</status>
+		<card>01 00</card>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<curr_amount>5000</curr_amount>
+		<amount>5000</amount>
+		<total>100000</total>
+		<agent_comission>87.15</agent_comission>
+		<agent_bill>-3802.89</agent_bill>
+	</row>
+	<row>
+		<transaction_no>15</transaction_no>
+		<tableno>1003</tableno>
+		<userid>Ipsum</userid>
+		<date>Aug/13/2015 11:40:30</date>
+		<game>TXH</game>
+		<table>Smallest 1</table>
+		<periode>5262</periode>
+		<room>41</room>
+		<bet>15400</bet>
+		<curr_bet>15</curr_bet>
+		<status>win</status>
+		<card>H7 S9 C4 H6 S1 D3 C9</card>
+		<hand>One Pair</hand>
+		<prize>One Pair</prize>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<curr_amount>5000</curr_amount>
+		<amount>5000</amount>
+		<total>100000</total>
+		<agent_comission>97.11</agent_comission>
+		<agent_bill>6285.11</agent_bill>
+	</row>
+	<row>
+		<transaction_no>24</transaction_no>
+		<tableno>27</tableno>
+		<userid>Lorem</userid>
+		<date>Aug/13/2015 11:40:30</date>
+		<game>DMM</game>
+		<table>Smallest 1</table>
+		<periode>13621</periode>
+		<room>1</room>
+		<bet>4466</bet>
+		<curr_bet>25</curr_bet>
+		<status>Win</status>
+		<card>25 11 33 00</card>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<curr_amount>9985.06</curr_amount>
+		<amount>9985.06</amount>
+		<total>100000</total>
+		<agent_comission>2.49</agent_comission>
+		<agent_bill>193.49</agent_bill>
+	</row>
+	<row>
+		<transaction_no> (transaction_no) </transaction_no>
+		<tableno>0</tableno>
+		<userid>LOREM</userid>
+		<date>Oct/05/2015 12:33:28</date>
+		<game>CAP</game>
+		<table>-</table>
+		<periode>0</periode>
+		<room>0</room>
+		<bet>100000</bet>
+		<curr_bet>50</curr_bet>
+		<status>Deposit</status>
+		<hand>-</hand>
+		<card>-</card>
+		<prize>-</prize>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<amount>0</amount>
+		<curr_amount>0</curr_amount>
+		<total>100000</total>
+		<agent_comission>0</agent_comission>
+		<agent_bill>0</agent_bill>
+	</row>
+	<row>
+		<transaction_no>15</transaction_no>
+		<tableno>1003</tableno>
+		<userid>Ipsum</userid>
+		<date>Aug/13/2015 11:40:30</date>
+		<game>LPK</game>
+		<table>Smallest 1</table>
+		<periode>5262</periode>
+		<room>41</room>
+		<bet>15400</bet>
+		<curr_bet>15</curr_bet>
+		<status>win</status>
+		<card>H7 S9 C4 H6 S1 D3 C9</card>
+		<hand>One Pair</hand>
+		<prize>One Pair</prize>
+		<curr>IDR</curr>
+		<curr_player>RMB</curr_player>
+		<curr_amount>5000</curr_amount>
+		<amount>5000</amount>
+		<total>100000</total>
+		<agent_comission>97.11</agent_comission>
+		<agent_bill>6285.11</agent_bill>
+	</row>
+</response>

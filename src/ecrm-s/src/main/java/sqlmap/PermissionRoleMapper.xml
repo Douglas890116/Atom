@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PermissionRole" >
+  <resultMap id="resultMap" type="com.maven.entity.PermissionRole" >
+    <id column="rolecode" property="rolecode" jdbcType="CHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+    <result column="permissions" property="permissions" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <!--  Common SQL Area -->
+  <sql id="columnList">
+		rolecode, rolename, enterprisecode, datastatus, permissions
+  </sql>
+  <sql id="rangeCondition">
+	<where> 
+	  <choose>
+  			<when test=" rolecodes !=null ">
+  				rolecode in 
+  				<foreach collection="rolecodes" item="item"  separator="," open="(" close=")">
+  					#{item}
+  				</foreach>
+  			</when>
+  			<otherwise>
+  				<if test="rolecode != null">and rolecode = #{rolecode}</if>
+  			</otherwise>
+  	  </choose> 
+      <if test="rolename != null" > and rolename = #{rolename}</if>
+      <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+      and datastatus = 1 
+	</where>
+   </sql>
+   <sql id="exactCondition">
+	<where> 
+  	  <if test="rolecode != null"> and rolecode = #{rolecode}</if>
+      <if test="rolename != null" > and rolename = #{rolename}</if>
+      <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+      and datastatus = 1 
+	</where>
+   </sql>
+   
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="com.maven.entity.PermissionRole">
+    insert into permission_role(rolecode,rolename,enterprisecode,datastatus,permissions)
+    value(ufn_get_next_string_by_tablename('permission_role',0), #{rolename}, #{enterprisecode}, #{datastatus}, #{permissions})
+  </insert>
+<!-- =================================================删除语句================================================================ -->
+  <!-- 物理删除 -->
+  <delete id="delete">
+    delete from permission_role where rolecode = #{rolecode}
+  </delete>
+  <!-- 逻辑删除 -->
+  <update id="logicDelete">
+  	update permission_role set datastatus = -1 where rolecode = #{rolecode}
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update permission_role
+    <set >
+      <if test="rolename != null "> rolename = #{rolename},</if>
+      <if test="permissions != null "> permissions = #{permissions},</if>
+    </set>
+    where rolecode = #{rolecode}
+  </update>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_role where rolecode = #{rolecode}
+  </select>
+  
+  <select id="select" parameterType="com.maven.entity.PermissionRole" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_role
+	<include refid="exactCondition" />
+	<include refid="ABasic.orderby" />
+	<include refid="ABasic.page" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" parameterType="Map" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_role
+	<include refid="rangeCondition" />
+	<include refid="ABasic.orderby" />
+	<include refid="ABasic.page" />
+  </select>
+  
+  <select id="selectAllCount" resultType="long">
+	SELECT count(1) FROM permission_role <include refid="rangeCondition" />
+  </select>
+</mapper>

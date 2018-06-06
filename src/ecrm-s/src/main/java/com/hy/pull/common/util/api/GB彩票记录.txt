@@ -1,0 +1,121 @@
+  "SettleID": "5746847",
+  "BetID": "5606714" ,
+  "BetGrpNO": "2015122915440044573528" ,
+  "TPCode": "99999",
+  "GBSN": "1193141",
+  "MemberID": "wantbet",
+  "CurCode": "cny",
+  "BetDT": "2015-12-29 15:44:05",
+  "BetType": "1",
+  "BetTypeParam1": "1",
+  "BetTypeParam2": "1",
+  "Wintype": "1",
+  "HxMGUID": "0",
+  "InitBetAmt": "200",
+  "RealBetAmt": "200",
+  "HoldingAmt": "200",
+  "InitBetRate": "25100",
+  "RealBetRate": "0",
+  "PreWinAmt": "50200",
+  "BetResult": "0",
+  "WLAmt": "0",
+  "RefundBetAmt": "0",
+  "TicketBetAmt": "200",
+  "TicketResult": "0",
+  "TicketWLAmt": "0",
+  "SettleDT": "2015-12-29 15:44:41",
+  
+"KenoList": {
+            "SettleOID": "3764386",
+            "DetailID": "3761343",
+            "SrcCode": "00021",
+            "DrawNo": "94836",
+            "OptCode": "001",
+            "OptParam1": "5",
+            "MaxRate": "25100",
+            "RealRate": "0",
+            "DrawDT": "2015-12-29 15:44:23",
+            "OptResult": "0",
+            "KenoBalls": [
+              {
+                "SettleODID": "239591",
+                "BallID": "244060",
+                "BallNum ": "1",
+                "OptResult": "0"
+              },
+              {
+                "SettleODID": "239595",
+                "BallID": "244064",
+                "BallNum ": "41",
+                "OptResult": "0"
+              }
+            ]
+}
+
+
+
+"LottoList": {
+              "SettleOID": "2088116",
+              "DetailID": "1937956",
+              "SrcCode": "00008",
+              "DrawNo": "15/150",
+              "OptCode": "001",
+              "BallCnt": "1",
+              "Zodiacs": "0",
+              "MaxRate": "4710",
+              "RealRate": "0",
+              "DrawDT": "2015-12-26 21:43:49",
+              "OptResult": "0",
+              "LottoBalls": {
+                "SettleODID": "3693001",
+                "BallID": "3547851",
+                "BallNumr": "8",
+                "BallZodiac": "8",
+                "OptResult": "0"
+              }
+            }
+
+"SscList": {
+            "SettleOID": "2924",
+            "DetailID": "2934",
+            "SrcCode": "29",
+            "DrawNo": "100199350",
+            "OptCode": "142",
+            "MaxRate": "196",
+            "RealRate": "0",
+            "DrawDT": "2015-12-26 21:43:49",
+            "OptResult": "0",
+            "SPV": "XZ1;B",
+            "Bets": -1,
+            "PerBetAmt": -100,
+            "Times": -1
+          }
+
+  "settleid": "5746847",
+  "betid": "5606714" ,
+  "betgrpno": "2015122915440044573528" ,
+  "tpcode": "99999",
+  "gbsn": "1193141",
+  "memberid": "wantbet",
+  "curcode": "cny",
+  "betdt": "2015-12-29 15:44:05",
+  "bettype": "1",
+  "bettypeparam1": "1",
+  "bettypeparam2": "1",
+  "wintype": "1",
+  "hxmguid": "0",
+  "initbetamt": "200",
+  "realbetamt": "200",
+  "holdingamt": "200",
+  "initbetrate": "25100",
+  "realbetrate": "0",
+  "prewinamt": "50200",
+  "betresult": "0",
+  "wlamt": "0",
+  "refundbetamt": "0",
+  "ticketbetamt": "200",
+  "ticketresult": "0",
+  "ticketwlamt": "0",
+  "settledt": "2015-12-29 15:44:41",
+  
+  

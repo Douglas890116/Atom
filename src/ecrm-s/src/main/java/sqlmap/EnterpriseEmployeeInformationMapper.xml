@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployeeInformation" >
+	<resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseEmployeeInformation" >
+	  <id column="informationcode" property="informationcode" jdbcType="CHAR" />
+	  <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+	  <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+	  <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+	  <result column="bankcode" property="bankcode" jdbcType="CHAR" />
+	  <result column="bankname" property="bankname" jdbcType="CHAR" />
+	  <result column="paymentaccount" property="paymentaccount" jdbcType="VARCHAR" />
+	  <result column="accountname" property="accountname" jdbcType="VARCHAR" />
+	  <result column="openningbank" property="openningbank" jdbcType="VARCHAR" />
+	  <result column="phonenumber" property="phonenumber" jdbcType="VARCHAR" />
+	  <result column="QQ" property="qq" jdbcType="VARCHAR" />
+	  <result column="skype" property="skype" jdbcType="VARCHAR" />
+	  <result column="email" property="email" jdbcType="VARCHAR" />
+	  <result column="infomationcomment" property="infomationcomment" jdbcType="VARCHAR" />
+	  <result column="status" property="status" jdbcType="CHAR" />
+	  <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+	</resultMap>
+<!--   将表字段定义成一个公用的sql语块 -->
+	<sql id="Column_List" >
+	    e.INFORMATIONCODE,e.ENTERPRISECODE,e.PARENTEMPLOYEECODE,e.EMPLOYEECODE,e.BANKCODE, e.PAYMENTACCOUNT, e.ACCOUNTNAME, 
+	    e.OPENNINGBANK, e.PHONENUMBER, e.QQ, e.SKYPE, e.EMAIL, e.INFOMATIONCOMMENT,e.STATUS,e.BRANDCODE
+	</sql>
+<!--   查询条件拼接 -->
+	<sql id="exactCondition">
+	<where>
+	  <if test="informationcode != null" > AND e.informationcode = #{informationcode} </if>
+	  <if test="employeecode != null" > AND e.employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" > AND e.parentemployeecode = #{parentemployeecode} </if>
+	  <if test="enterprisecode != null" > AND e.enterprisecode = #{enterprisecode} </if>
+	  <if test="bankcode != null" > AND e.bankcode = #{bankcode} </if>
+	  <if test="bankname != null" > AND e.bankname = #{bankname} </if>
+	  <if test="paymentaccount != null" > AND e.paymentaccount = #{paymentaccount} </if>
+	  <if test="accountname !=null"> AND e.accountname = #{accountname} </if>
+	  <if test="openningbank != null" > AND LOWER(e.openningbank) like CONCAT(CONCAT('%',LOWER(#{openningbank})),'%') </if>
+	  <if test="phonenumber != null" > AND e.phonenumber = #{phonenumber} </if>
+	  <if test="qq != null" > AND e.qq = #{qq} </if>
+	  <if test="skype != null" > AND e.skype = #{skype} </if>
+	  <if test="email != null" > AND e.email = #{email} </if>
+	  <if test="status != null" > AND e.status = #{status} </if>
+	  <if test="infomationcomment != null" > AND e.infomationcomment = #{infomationcomment} </if>
+	  
+	  <if test="brandcode != null" > AND e.brandcode = #{brandcode} </if>
+	  <if test="loginaccount != null" > AND ee.loginaccount = #{loginaccount} </if>
+	  and e.datastatus = 1
+	  </where>
+	</sql>
+	<sql id="rangeCondition">
+	<where>
+		  <if test="informationcode != null" > AND e.informationcode = #{informationcode} </if>
+		  <if test="employeecode != null" > AND e.employeecode = #{employeecode} </if>
+		  <if test="parentemployeecode != null" > AND e.parentemployeecode = #{parentemployeecode} </if>
+		  <if test="enterprisecode != null" > AND e.enterprisecode = #{enterprisecode} </if>
+		  <if test="bankcode != null" > AND e.bankcode = #{bankcode} </if>
+		  <if test="bankname != null" > AND e.bankname = #{bankname} </if>
+		  <if test="paymentaccount != null" > AND e.paymentaccount = #{paymentaccount} </if>
+		  <if test="accountname !=null"> AND LOWER(e.accountname) like CONCAT(CONCAT('%',LOWER(#{accountname})),'%') </if>
+		  <if test="openningbank != null" > AND LOWER(e.openningbank) like CONCAT(concat('%',LOWER(#{openningbank})),'%') </if>
+		  <if test="phonenumber != null" > AND e.phonenumber = #{phonenumber} </if>
+		  <if test="qq != null" > AND e.qq = #{qq} </if>
+		  <if test="skype != null" > AND e.skype = #{skype} </if>
+		  <if test="email != null" > AND e.email = #{email} </if>
+		  <if test="status != null" > AND e.status = #{status} </if>
+		  <if test="brandcode != null" > AND e.brandcode = #{brandcode} </if>
+		  <if test="loginaccount != null" > AND ee.loginaccount = #{loginaccount} </if>
+		  <if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (e.parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="teamLeaderCode != null" > or e.employeecode = #{teamLeaderCode} </if>)
+		  </if>
+		  and e.datastatus = 1
+	  </where>
+	</sql>
+<!-- =================================================新增语句================================================================ -->
+<!--   保存数据 -->
+	<insert id="save" parameterType="com.maven.entity.EnterpriseEmployeeInformation">
+	  	insert into enterprise_employee_information (
+	  		informationcode, employeecode,parentemployeecode,bankcode,paymentaccount,accountname,openningbank, 
+	      	phonenumber, qq,skype,email,infomationcomment,enterprisecode,brandcode,status  )
+	    values (
+	    	ufn_get_next_string_by_tablename('enterprise_employee_information',0), 
+ 	     	#{employeecode},#{parentemployeecode},  #{bankcode},#{paymentaccount},#{accountname},#{openningbank},
+ 	     	#{phonenumber},#{qq},#{skype},#{email},#{infomationcomment},#{enterprisecode},#{brandcode},1
+	     )
+	</insert>
+<!-- =================================================精确查询================================================================ -->
+	
+<!--   	根据code查询单个实体对象 -->
+	<select id="findOneBankInfo" resultType="com.maven.entity.EnterpriseEmployeeInformation" parameterType="String">
+		SELECT <include refid="Column_List" /> FROM enterprise_employee_information e 
+		WHERE e.INFORMATIONCODE = #{informationcode} and datastatus=1
+	</select>
+	<!--  根据企业与银行卡号查询：唯一  -->
+	<select id="findEnterpriseEmployeeInformation" resultType="com.maven.entity.EnterpriseEmployeeInformation" parameterType="Map">
+		select <include refid="Column_List" />, b.bankname as bankname 
+		from enterprise_employee_information e LEFT JOIN bank b on e.bankcode = b.bankcode 
+		where e.paymentaccount = #{paymentaccount} and e.enterprisecode = #{enterprisecode}  and e.datastatus=1
+	</select>
+
+<!-- 	账户总览  查询当前登录用户的信息 -->
+	<select id="queryAccountData" resultType="com.maven.entity.EnterpriseEmployeeInformation" parameterType="com.maven.entity.EnterpriseEmployeeInformation">
+		select  ee.employeecode,
+				ee.loginaccount,
+				eca.balance,
+				ee.logindatetime as registerDate,
+				ee.dividend,
+				ee.share,
+				ll.logintime as lastLoginDate,
+				ll.loginip as ip,
+				eca.accumulateddeposit as depositTotal,
+				eca.accumulatedwithdraw as takeTotal
+			from enterprise_employee ee 
+				inner join enterprise_employee_capital_account eca on ee.employeecode = eca.employeecode
+				inner join  log_login ll on ee.employeecode = ll.employeecode 
+			where ee.employeecode=#{employeecode} order by ll.logintime DESC LIMIT 1
+	</select>
+	<select id="select" resultMap="BaseResultMap" parameterType="map">
+    	SELECT  <include refid="Column_List" />,b.bankname FROM enterprise_employee_information e 
+    	INNER JOIN bank b on e.bankcode = b.bankcode
+		INNER JOIN  enterprise_employee ee on e.employeecode = ee.employeecode 
+   		<include refid="exactCondition" /> 
+	</select>
+<!-- =================================================模糊查询================================================================ -->
+<!--   分页查询 -->
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+	    	SELECT 
+	    			e.INFORMATIONCODE, 
+	    			e.EMPLOYEECODE,
+	    			e.PARENTEMPLOYEECODE,
+	    			e.BANKCODE, 
+	    			e.PAYMENTACCOUNT, 
+	    			e.ACCOUNTNAME, 
+		    		e.OPENNINGBANK, 
+		    		e.PHONENUMBER, 
+		    		e.QQ, 
+		    		e.SKYPE, 
+		    		e.EMAIL, 
+		    		e.INFOMATIONCOMMENT,
+		    		e.STATUS,
+		    		e.BRANDCODE, 
+		    		b.BANKNAME,
+		    		ee.loginaccount
+			FROM 
+					enterprise_employee_information e LEFT JOIN bank b on e.bankcode = b.bankcode
+					LEFT JOIN  enterprise_employee ee on e.employeecode = ee.employeecode 
+	    		<include refid="rangeCondition" /> 
+	    		<include refid="ABasic.orderby"></include>
+	    		<include refid="ABasic.page"></include>
+	</select>
+	<!--   分页统计 -->
+	<select id="selectAllCount" resultType="int" parameterType="Map">
+  		SELECT count(*)
+  		FROM  enterprise_employee_information e LEFT JOIN bank b on e.bankcode = b.bankcode
+		LEFT JOIN  enterprise_employee ee on e.employeecode = ee.employeecode
+  		<include refid="rangeCondition" />
+	</select>
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<!-- 修改员工银行卡信息 -->
+	<update id="updateBankInfo" parameterType="com.maven.entity.EnterpriseEmployeeInformation">
+		update enterprise_employee_information e 
+		<set>
+			<if test="paymentaccount != null" > paymentaccount = #{paymentaccount}, </if>
+			<if test="accountname != null" > accountname = #{accountname}, </if>
+			<if test="bankcode != null" > bankcode = #{bankcode}, </if>
+			<if test="openningbank != null" > openningbank = #{openningbank}, </if>
+			<if test="phonenumber != null" > phonenumber = #{phonenumber}, </if>
+			<if test="qq != null" > qq = #{qq}, </if>
+			<if test="skype != null" > skype = #{skype}, </if>
+			<if test="email != null" > email = #{email}, </if>
+			<if test="infomationcomment != null" > infomationcomment = #{infomationcomment}, </if>
+			<if test="status != null" > status = #{status}, </if>
+		</set>
+		where informationcode = #{informationcode} 
+	</update>
+	<!-- 根据员工编码批量逻辑删除 -->
+	<update id="logicDeleteManyEmployeeBankInfo" parameterType="String">
+		update enterprise_employee_information set datastatus=-1  WHERE EMPLOYEECODE IN
+		<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+        	#{employeecode}  
+    	</foreach> 
+	</update>
+<!-- =================================================删除语句================================================================ -->
+<!--  根据员工编码删除 -->
+	<delete id="deleteEmployeeBankInfo" parameterType="String">
+  		DELETE FROM enterprise_employee_information WHERE EMPLOYEECODE = #{employeecode}
+	</delete>
+	<!-- 根据员工编码批量删除 -->
+	<delete id="deleteManyEmployeeBankInfo" parameterType="String">
+		DELETE FROM enterprise_employee_information WHERE EMPLOYEECODE IN
+		<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+        	#{employeecode}  
+    	</foreach> 
+	</delete>
+	<!--  根据银行编码删除 -->
+	<delete id="deleteBankInfo" parameterType="String">
+  		UPDATE enterprise_employee_information SET datastatus = -1 WHERE informationcode = #{code}
+	</delete>
+	<!--  根据银行与用户编码编码删除银行卡 -->
+	<delete id="deleteEmployeeBankCard" parameterType="com.maven.entity.EnterpriseEmployeeInformation">
+  		UPDATE enterprise_employee_information 
+  		SET datastatus = -1 
+  		WHERE informationcode = #{informationcode} and employeecode=#{employeecode}
+	</delete>
+<!--   删除多条记录 -->
+	<delete id="deleteSelectBankInfo" parameterType="String">
+		UPDATE enterprise_employee_information SET datastatus = -1 WHERE informationcode IN
+		<foreach collection="array" index="index" item="code" open="(" separator="," close=")">  
+        	#{code}  
+    	</foreach> 
+	</delete>
+</mapper>

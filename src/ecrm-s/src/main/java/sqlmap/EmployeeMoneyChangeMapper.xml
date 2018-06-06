@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeMoneyChange" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EmployeeMoneyChange" >
+    <id column="moneychangecode" property="moneychangecode" jdbcType="VARCHAR" />
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="moneychangetypecode" property="moneychangetypecode" jdbcType="CHAR" />
+    <result column="moneychangedate" property="moneychangedate" jdbcType="TIMESTAMP" />
+    <result column="currencycode" property="currencycode" jdbcType="CHAR" />
+    <result column="moneychangeamount" property="moneychangeamount" jdbcType="DECIMAL" />
+    <result column="settlementamount" property="settlementamount" jdbcType="CHAR" />
+    <result column="moneyinoutcomment" property="moneyinoutcomment" jdbcType="VARCHAR" />
+    <result column="moneyaddtype" property="moneyaddtype" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    em.moneychangecode,em.ordernumber, em.employeecode,em.parentemployeecode, em.moneychangetypecode, em.moneychangedate, em.currencycode, 
+    em.moneychangeamount, em.settlementamount, em.moneyinoutcomment, em.enterprisecode
+  </sql>
+  <sql id="condition">
+  	<where>
+  		<if test="enterprisecode !=null">and em.enterprisecode=#{enterprisecode}</if>
+  		<if test="moneychangecode !=null">and em.moneychangecode=#{moneychangecode}</if>
+  		<if test="ordernumber !=null">and em.ordernumber=#{ordernumber}</if>
+  		<if test="employeecode !=null">and em.employeecode=#{employeecode}</if>
+  		<if test="parentemployeecode != null" >and em.parentemployeecode = #{parentemployeecode} </if>
+  		<if test="moneychangetypecode !=null">and em.moneychangetypecode=#{moneychangetypecode}</if>
+  		<if test="moneychangedate !=null">and date(em.moneychangedate)=#{moneychangedate}</if>
+  		<if test="moneyChangeDate_begin !=null">and em.moneychangedate <![CDATA[ >= ]]> #{moneyChangeDate_begin}</if>
+  		<if test="moneyChangeDate_end !=null">and em.moneychangedate <![CDATA[ <= ]]> #{moneyChangeDate_end}</if>
+  		<if test="currencycode !=null">and em.currencycode=#{currencycode}</if>
+  		<if test="moneychangeamount !=null">and em.moneychangeamount=#{moneychangeamount}</if>
+  		<if test="moneychangeamountstart !=null">and em.moneychangeamount <![CDATA[>= ]]> #{moneychangeamountstart}</if>
+  		<if test="moneychangeamountend !=null">and em.moneychangeamount <![CDATA[ <= ]]> #{moneychangeamountend}</if>
+  		<if test="settlementamount !=null">and em.settlementamount=#{settlementamount}</if>
+  		<if test="moneyaddtype !=null">and em.moneyaddtype=#{moneyaddtype}</if>
+  		<if test="loginaccount !=null">and ee.loginaccount like CONCAT(CONCAT("%",#{loginaccount}),"%")</if>
+  		<if test="moneychangetypecode !=null">and emc.moneychangetypecode = #{moneychangetypecode}</if>
+  		
+  		<if test="starttime !=null">and em.moneychangedate <![CDATA[ >= ]]> #{starttime}</if>
+  		<if test="endtime !=null">and em.moneychangedate <![CDATA[ <= ]]> #{endtime}</if>
+  		
+  		<if test="startdate !=null">and em.moneychangedate <![CDATA[ >= ]]> #{startdate}</if>
+  		<if test="enddate !=null">and em.moneychangedate <![CDATA[ <= ]]> #{enddate}</if>
+  		
+  		<if test="startDate !=null">and date(em.moneychangedate) <![CDATA[ >= ]]> #{startDate}</if>
+  		<if test="endDate !=null">and date(em.moneychangedate) <![CDATA[ <= ]]> #{endDate}</if>
+  		
+  		<!-- 
+  		游戏上分=AF0B2F04CCA64E3197F047402FEE5832
+		上分失败返还=577C286638534926B93C14489BB5C5C7
+		游戏下分=2BC2CB7FDD7B4720906B56812E075F94
+  		 -->
+  		<if test="notMoneryInOut !=null and notMoneryInOut == 'on'">and emc.moneychangetypecode not in('AF0B2F04CCA64E3197F047402FEE5832','2BC2CB7FDD7B4720906B56812E075F94')</if>
+  		
+  		<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (em.parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="teamLeaderCode != null" > or em.employeecode = #{teamLeaderCode} </if>)
+		</if>
+		
+		<if test="moneychangetypeCodes !=null and moneychangetypeCodes.size() > 0">
+	  	  	and (emc.moneychangetypecode in 
+	  	  	<foreach collection="moneychangetypeCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			)
+		</if>
+		
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EmployeeMoneyChange" >
+    insert into employee_money_change (moneychangecode, ordernumber,employeecode,parentemployeecode, moneychangetypecode, 
+      moneychangedate, currencycode, moneychangeamount, 
+      settlementamount, moneyinoutcomment, moneyaddtype,timesort, enterprisecode)
+    values (#{moneychangecode},#{ordernumber}, #{employeecode},#{parentemployeecode},#{moneychangetypecode}, 
+      now(), #{currencycode}, #{moneychangeamount}, 
+      #{settlementamount}, #{moneyinoutcomment}, #{moneyaddtype},#{timesort} ,#{enterprisecode})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from employee_money_change em where em.moneychangecode = #{moneychangecode}
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<select id="findAccountChange" resultMap="BaseResultMap" parameterType="Map">
+	select <include refid="Base_Column_List" />,
+	ee.displayalias as employeename,
+	ee.loginaccount,
+	emc.moneychangetype as moneychangetypename
+	from employee_money_change em 
+	LEFT JOIN enterprise_employee ee on em.employeecode = ee.employeecode 
+	LEFT JOIN employee_money_change_type emc on em.moneychangetypecode = emc.moneychangetypecode 
+	<include refid="condition"/>
+	<include refid="ABasic.orderby" />
+	<include refid="ABasic.page" />
+</select>
+<select id="findAccountChangeCount" resultType="Map" parameterType="Map">
+	select count(*) count,
+	sum(em.moneychangeamount) moneychangeamount,
+	sum(em.settlementamount) settlementamount,
+	sum(em.moneychangeamount+em.settlementamount) moneyafteramount 
+	 from employee_money_change em 
+	LEFT JOIN enterprise_employee ee on em.employeecode = ee.employeecode 
+	LEFT JOIN employee_money_change_type emc on em.moneychangetypecode = emc.moneychangetypecode <include refid="condition"/>
+</select>
+
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from employee_money_change
+    where moneychangecode = #{moneychangecode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+<update id="update" parameterType="com.maven.entity.EmployeeMoneyChange" >
+    update employee_money_change em
+    <set >
+      <if test="employeecode != null" >em.employeecode = #{employeecode},</if>
+      <if test="moneychangetypecode != null" >em.moneychangetypecode = #{moneychangetypecode},</if>
+      <if test="moneychangedate != null" >em.moneychangedate = #{moneychangedate},</if>
+      <if test="currencycode != null" >em.currencycode = #{currencycode},</if>
+      <if test="moneychangeamount != null" >em.moneychangeamount = #{moneychangeamount},</if>
+      <if test="settlementamount != null" >em.settlementamount = #{settlementamount},</if>
+      <if test="moneyinoutcomment != null" >em.moneyinoutcomment = #{moneyinoutcomment},</if>
+      <if test="moneyaddtype != null" >em.moneyaddtype = #{moneyaddtype},</if>
+    </set>
+    where em.moneychangecode = #{moneychangecode}
+  </update>
+</mapper>

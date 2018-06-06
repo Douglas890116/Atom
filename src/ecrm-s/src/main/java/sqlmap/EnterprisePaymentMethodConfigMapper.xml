@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterprisePaymentMethodConfig" >
+  <resultMap id="resultMap" type="com.maven.entity.EnterprisePaymentMethodConfig" >
+    <id column="enterprisecode" property="enterpriseCode" jdbcType="CHAR" />
+    <result column="withdralway" property="withdralway" jdbcType="CHAR" />
+    <result column="upperlimit" property="upperlimit" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="columnList" >
+    ENTERPRISECODE, WITHDRALWAY,UPPERLIMIT
+  </sql>
+  <sql id="condition">
+  	<where> 
+  		<if test="enterpriseCode != null" > AND enterprisecode = #{enterpriseCode}</if>
+      	<if test="withdralway != null" > AND paymenttype = #{withdralway} </if>
+      	<if test="upperlimit != null" > AND paymenttype = #{upperlimit} </if>
+  	</where>
+  </sql>
+ <select id="getByIdEnterprisCode" resultType="com.maven.entity.EnterprisePaymentMethodConfig" parameterType="java.lang.String">
+ 	SELECT <include refid="columnList" /> FROM enterprise_withdral_config WHERE enterprisecode = #{enterpriseCode}
+ </select>
+ <insert id="save" parameterType="com.maven.entity.EnterprisePaymentMethodConfig">
+ 	INSERT INTO enterprise_withdral_config(enterprisecode,withdralway,upperlimit) VALUES(#{enterpriseCode},#{withdralway},#{upperlimit})
+ </insert>
+ <update id="update" parameterType="com.maven.entity.EnterprisePaymentMethodConfig">
+ 	UPDATE enterprise_withdral_config SET withdralway=#{withdralway},upperlimit=#{upperlimit} WHERE enterprisecode = #{enterpriseCode}
+ </update>
+</mapper>

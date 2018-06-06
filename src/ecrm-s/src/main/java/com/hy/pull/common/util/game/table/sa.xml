@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="BetTime" name2="BetTime" />
+	<column name1="PayoutTime" name2="PayoutTime" />
+	<column name1="Username" name2="Username" />
+	<column name1="HostID" name2="HostID" />
+	<column name1="GameID" name2="GameID" />	
+	<column name1="Round" name2="Round" />
+	<column name1="Set" name2="Set" />
+	<column name1="BetID" name2="BetID" />
+	<column name1="BetAmount" name2="BetAmount" />	
+	<column name1="ResultAmount" name2="ResultAmount" />
+	<column name1="GameType" name2="GameType" />
+	<column name1="BetType" name2="BetType" />
+	<column name1="BetSource" name2="BetSource" />	
+	<column name1="State" name2="State" />
+	<column name1="Detail" name2="Detail" />
+	<column name1="createtime" name2="createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

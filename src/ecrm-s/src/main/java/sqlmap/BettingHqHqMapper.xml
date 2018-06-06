@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqHq">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqHq">
+    <id column="hq_id" jdbcType="VARCHAR" property="hqId" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="hq_dt" jdbcType="TIMESTAMP" property="hqDt" />
+    <result column="hq_nm" jdbcType="VARCHAR" property="hqNm" />
+    <result column="hq_gm" jdbcType="VARCHAR" property="hqGm" />
+    <result column="hq_bt" jdbcType="VARCHAR" property="hqBt" />
+    <result column="hq_rn" jdbcType="VARCHAR" property="hqRn" />
+    <result column="hq_hl" jdbcType="VARCHAR" property="hqHl" />
+    <result column="hq_tbl" jdbcType="VARCHAR" property="hqTbl" />
+    <result column="hq_pt" jdbcType="VARCHAR" property="hqPt" />
+    <result column="hq_bet" jdbcType="DOUBLE" property="hqBet" />
+    <result column="hq_win" jdbcType="DOUBLE" property="hqWin" />
+    <result column="hq_tm" jdbcType="DOUBLE" property="hqTm" />
+    <result column="hq_wer" jdbcType="VARCHAR" property="hqWer" />
+    <result column="hq_rec" jdbcType="VARCHAR" property="hqRec" />
+    <result column="hq_crd" jdbcType="VARCHAR" property="hqCrd" />
+    <result column="hq_createtime" jdbcType="TIMESTAMP" property="hqCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 范围查询条件 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="hqId != null" >and hq_id = #{hqId}</if>
+      <if test="hqDt != null" >and hq_dt <![CDATA[ >= ]]> #{hqDt} </if>
+      <if test="hqNm != null" >and hq_nm = #{hqNm}</if>
+      <if test="hqGm != null" >and hq_gm = #{hqGm}</if>
+      <if test="hqBt != null" >and hq_bt = #{hqBt}</if>
+      <if test="hqRn != null" >and hq_rn = #{hqRn}</if>
+      <if test="hqHl != null" >and hq_hl = #{hqHl}</if>
+      <if test="hqTbl != null" >and hq_tbl = #{hqTbl}</if>
+      <if test="hqPt != null" >and hq_pt = #{hqPt}</if>
+      <if test="hqBet != null" >and hq_bet = #{hqBet}</if>
+      <if test="hqWin != null" >and hq_win = #{hqWin}</if>
+      <if test="hqTm != null" >and hq_tm = #{hqTm}</if>
+      <if test="hqWer != null" >and hq_wer = #{hqWer}</if>
+      <if test="hqRec != null" >and hq_rec = #{hqRec}</if>
+      <if test="hqCrd != null" >and hq_crd = #{hqCrd}</if>
+      <if test="hqCreatetime != null" >and hq_createtime = #{hqCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    HQ_ID, ENTERPRISECODE,BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE,LOGINACCOUNT, HQ_DT, HQ_NM, HQ_GM, HQ_BT, HQ_RN, HQ_HL, HQ_TBL, HQ_PT, HQ_BET, 
+    HQ_WIN, HQ_TM, HQ_WER, HQ_REC, HQ_CRD, HQ_CREATETIME, LAST_TIME
+  </sql>
+
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from betting_hq_hq
+    where hq_id = #{hqId,jdbcType=VARCHAR}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_hq
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_hq
+    <include refid="rangecondition"></include>
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(stakeamount) stakeamount,
+    sum(validstake) validstake,
+    sum(winloss) winloss,
+    sum(balanceafter) balanceafter
+    
+    from betting_hq_hq
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  
+  
+</mapper>

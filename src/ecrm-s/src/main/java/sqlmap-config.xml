@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<settings>
+        <setting name="logImpl" value="LOG4J2" />
+    </settings>
+    <plugins>  
+       <plugin interceptor="com.maven.uinterceptor.OparetionLoggerInterceptor">  
+           <property name="table1" value="log_operation"/>  
+           <property name="table2" value="log_operation_detail"/>  
+       </plugin>  
+    </plugins>
+	<mappers>
+<!--       公共基础配置 -->	
+		<mapper resource="sqlmap/ABasic.xml" />
+<!-- 		企业 -->
+		<mapper resource="sqlmap/EnterpriseMapper.xml" />
+<!-- 		企业信息 -->
+		<mapper resource="sqlmap/EnterpriseInformationMapper.xml" />
+<!--    	企业品牌 -->		
+		<mapper resource="sqlmap/EnterpriseOperatingBrandMapper.xml" />
+<!-- 		员工 -->
+		<mapper resource="sqlmap/EnterpriseEmployeeMapper.xml" />
+<!-- 		员工类型 -->
+		<mapper resource="sqlmap/EnterpriseEmployeeTypeMapper.xml" />
+<!-- 		员工级别 -->
+		<mapper resource="sqlmap/EnterpriseEmployeeLevelMapper.xml" />
+<!-- 		员工信息 -->
+		<mapper resource="sqlmap/EnterpriseEmployeeInformationMapper.xml" />
+<!-- 		银行信息 -->
+		<mapper resource="sqlmap/BankMapper.xml" />
+<!-- 		存取款记录 -->
+		<mapper resource="sqlmap/TakeDepositRecordMapper.xml" />
+<!-- 		用户账号映射文件 -->
+		<mapper resource="sqlmap/EnterpriseEmployeeCapitalAccountMapper.xml" />
+<!-- 		菜单管理 -->
+		<mapper resource="sqlmap/PermissionMenuMapper.xml" />
+<!-- 		用户与权限组映射 -->		
+		<mapper resource="sqlmap/EmployeeMappingMenuMapper.xml" />
+<!-- 		工作流配置 -->		
+		<mapper resource="sqlmap/WorkingFlowConfigurationMapper.xml" />
+<!-- 		会员游戏平台账号 -->	
+		<mapper resource="sqlmap/EmployeeApiAccoutMapper.xml" />
+<!-- 		会员有效期 -->	
+		<mapper resource="sqlmap/EmployeeAvailableMapper.xml" />
+<!-- 		品牌游戏 -->	
+		<mapper resource="sqlmap/EnterpriseOperatingBrandGameMapper.xml" />
+<!-- 		游戏接口     -->	
+		<mapper resource="sqlmap/GameApiInputMapper.xml" />
+<!-- 		支付方式     -->
+		<mapper resource="sqlmap/PaymentTypeMapper.xml"/>
+<!--        品牌公告     -->		
+		<mapper resource="sqlmap/EnterpriseBrandNoticMapper.xml"/>
+<!--        工作流审核对象 -->				
+		<mapper resource="sqlmap/WorkingFlowObjectMapper.xml"/>
+<!--        存取款委托       -->
+		<mapper resource="sqlmap/DepositWithdralOrderDelegateMapper.xml"/>
+<!--        游戏表 -->		
+		<mapper resource="sqlmap/GameMapper.xml"/>
+<!--        游戏种类表-->		
+		<mapper resource="sqlmap/GameCategoryMapper.xml"/>
+<!--        用户游戏种类返点表-->			
+		<mapper resource="sqlmap/EmployeeGamecataloyBonusMapper.xml"/>
+<!--        注册链接 -->		
+		<mapper resource="sqlmap/BrandDomainMapper.xml"/>
+<!--        游戏日结记录 -->		
+		<mapper resource="sqlmap/BettingAllDayMapper.xml"/>
+<!--       会员洗码周报表 -->
+		<mapper resource="sqlmap/ReportWeeklyMemberMapper.xml" />
+<!--       代理洗码日报表 -->
+		<mapper resource="sqlmap/ReportDailyAgentMapper.xml" />
+<!--       代理洗码周报表 -->
+		<mapper resource="sqlmap/ReportWeeklyAgentMapper.xml" />
+<!--        HQ-BBIN游戏记录 -->	
+		<mapper resource="sqlmap/BettingHqBbinMapper.xml"/>
+<!--        HQ游戏记录 -->
+		<mapper resource="sqlmap/BettingHqHqMapper.xml"/>
+<!--        HQ-PT游戏记录 -->
+		<mapper resource="sqlmap/BettingHqPtMapper.xml"/>
+<!--        HQ-彩票游戏记录 -->
+		<mapper resource="sqlmap/BettingHqXcpMapper.xml"/>
+<!--        OG-AG游戏记录 -->
+		<mapper resource="sqlmap/BettingHqOgAgMapper.xml"/>
+<!--        OG-IBC游戏记录 -->
+		<mapper resource="sqlmap/BettingHqOgIbcMapper.xml"/>
+<!--        OG游戏记录 -->
+		<mapper resource="sqlmap/BettingHqOgOgMapper.xml"/>
+<!--        环球AG游戏记录 -->
+		<mapper resource="sqlmap/BettingHqAgMapper.xml"/>
+<!--        新环球游戏记录 -->
+		<mapper resource="sqlmap/BettingHqNhqMapper.xml"/>
+<!--        AV老虎机游戏记录 -->
+		<mapper resource="sqlmap/BettingKrAvMapper.xml"/>
+<!--        云谷AG游戏记录 -->
+		<mapper resource="sqlmap/BettingYgAgMapper.xml"/>
+<!--        SA游戏记录 -->
+		<mapper resource="sqlmap/BettingSaMapper.xml"/>
+<!--        ZJ游戏记录 -->
+		<mapper resource="sqlmap/BettingZjMapper.xml"/>
+<!--        平台输出接口 -->		
+		<mapper resource="sqlmap/PlatformApiOutputMapper.xml"/>
+<!--        登陆日志  -->
+		<mapper resource="sqlmap/LogLoginMapper.xml"/>
+<!--        站内消息映射 -->		
+		<mapper resource="sqlmap/EmployeeMessageMapper.xml"/>
+<!--        站内消息内容 -->		
+		<mapper resource="sqlmap/EmployeeMessageTextMapper.xml"/>	
+<!--        操作日志 -->			
+		<mapper resource="sqlmap/LogOperationMapper.xml"/>
+<!--        操作日志详细 -->			
+		<mapper resource="sqlmap/LogOperationDetailMapper.xml"/>		
+<!--        操作日志详细 -->				
+		<mapper resource="sqlmap/EnterpriseGameMapper.xml"/>
+<!-- 		帐变信息 -->
+		<mapper resource="sqlmap/EmployeeMoneyChangeMapper.xml"/>
+<!-- 	 	帐变类型 -->
+		<mapper resource="sqlmap/EmployeeMoneyChangeTypeMapper.xml"/>
+<!-- 		上下分信息 -->
+		<mapper resource="sqlmap/UserMoneyInAndOutMapper.xml" />
+<!-- 		活动模板 -->		
+		<mapper resource="sqlmap/ActivityTemplateMapper.xml" />
+<!-- 		活动模板配置信息 -->
+		<mapper resource="sqlmap/ActivityTemplateSettingMapper.xml" />
+<!-- 		企业活动信息 -->		
+		<mapper resource="sqlmap/EnterpriseBrandActivityMapper.xml" />
+<!-- 		公司出款方式配置 -->		
+		<mapper resource="sqlmap/EnterprisePaymentMethodConfigMapper.xml" />
+<!-- 		快捷支付 -->
+		<mapper resource="sqlmap/EnterpriseThirdpartyPaymentMapper.xml" />
+<!-- 		快捷支付类型 -->
+		<mapper resource="sqlmap/ThirdpartyPaymentTypeMapper.xml" />
+<!-- 		快捷支付类型对应属性 -->
+		<mapper resource="sqlmap/ThirdpartyPaymentTypeSettingMapper.xml" />
+<!-- 		快捷支付类型对应属性值 -->
+		<mapper resource="sqlmap/EnterpriseThirdpartyPaymentAgumentMapper.xml" />
+<!-- 		快捷支付支持银行 -->
+		<mapper resource="sqlmap/ThirdpartyPaymentBankMapper.xml" />
+<!-- 		隐私数据权限控制 -->
+		<mapper resource="sqlmap/PrivateDataAccessMapper.xml" />
+<!-- 		游戏菜单类型 -->		
+		<mapper resource="sqlmap/GameClassMapper.xml" />
+<!-- 		游戏菜单详细游戏 -->		
+		<mapper resource="sqlmap/GameClassDetailsMapper.xml" />
+<!-- 		模板 -->		
+		<mapper resource="sqlmap/WebviewTemplateMapper.xml" />
+<!-- 		企业拥有模板配置 -->		
+		<mapper resource="sqlmap/EnterpriseWebviewMapper.xml" />
+<!-- 		模板 -->		
+		<mapper resource="sqlmap/EnterpriseBrandContactMapper.xml" />
+<!--       企业数据统计 -->
+		<mapper resource="sqlmap/EnterpriseStatisticsMapper.xml" />
+<!--       团队统计-->		
+		<mapper resource="sqlmap/PandectMapper.xml" />
+<!--       企业定制活动 -->		
+		<mapper resource="sqlmap/EnterpriseActivityCustomizationMapper.xml" />
+<!--       企业定制活动参数 -->
+		<mapper resource="sqlmap/EnterpriseActivityCustomizationSettingMapper.xml" />
+<!--       活动打码-->		
+		<mapper resource="sqlmap/ActivityBetRecordMapper.xml" />
+<!--       存款返奖-->		
+		<mapper resource="sqlmap/ActivityDepositBonusMapper.xml" />
+<!--       输值返利-->		
+		<mapper resource="sqlmap/ActivityLoseBonusMapper.xml" />
+<!--       注册彩金-->		
+		<mapper resource="sqlmap/ActivityRegBonusMapper.xml" />
+<!--       代理联系方式 -->		
+		<mapper resource="sqlmap/AgentSiteContactMapper.xml" />
+<!--       抽奖控制 -->				
+		<mapper resource="sqlmap/ActivityRaffleControlMapper.xml" />
+<!--       抽奖记录 -->
+		<mapper resource="sqlmap/ActivityRaffleRecordMapper.xml" />
+<!--       抽奖签到 -->
+		<mapper resource="sqlmap/ActivityRaffleSigninMapper.xml" />
+<!--       企业白名单 -->		
+		<mapper resource="sqlmap/LoginWhiteListMapper.xml" />
+<!--       企业对应游戏前缀配置管理 -->		
+		<mapper resource="sqlmap/GamePlatformPrefixMapper.xml" />		
+<!--       投注返利优惠活动记录表 -->		
+		<mapper resource="sqlmap/ActivityButBonusMapper.xml" />			
+<!--       品牌对应的支付回调域名管理 -->		
+		<mapper resource="sqlmap/EnterpriseOperatingBrandPayMapper.xml" />			
+
+<!--       MG -->		
+		<mapper resource="sqlmap/BettingMgMapper.xml" />		
+<!--       TTG -->		
+		<mapper resource="sqlmap/BettingTtgMapper.xml" />						
+<!--       Gametype -->		
+		<mapper resource="sqlmap/ApiSoltGametypeMapper.xml" />		
+<!--       Gametype -->		
+		<mapper resource="sqlmap/BettingHqPngMapper.xml" />	
+<!--       Gametype -->		
+		<mapper resource="sqlmap/EnterpriseActivityPayMapper.xml" />	
+<!--       Gametype -->		
+		<mapper resource="sqlmap/BettingQpMapper.xml" />			
+<!--       Gametype -->		
+		<mapper resource="sqlmap/EmployeeApiAccoutPasswordJobMapper.xml" />						
+		<mapper resource="sqlmap/BettingGgMapper.xml" />				
+		<mapper resource="sqlmap/BettingSgsMapper.xml" />
+		<mapper resource="sqlmap/BettingIdnMapper.xml" />
+		<mapper resource="sqlmap/BettingIdn2Mapper.xml" />
+		<mapper resource="sqlmap/EnterpriseBannerInfoMapper.xml" />
+		<mapper resource="sqlmap/ActivityRedbagMapper.xml" />
+		<mapper resource="sqlmap/EnterpriseEmployeeRegeditLogMapper.xml" />
+		<mapper resource="sqlmap/BettingM88Mapper.xml" />
+		<mapper resource="sqlmap/ApiSoltGametypeEnterpriseMapper.xml" />
+		<mapper resource="sqlmap/UserLogsMapper.xml" />
+		<mapper resource="sqlmap/BettingHabMapper.xml" />
+		<mapper resource="sqlmap/FavourableMapper.xml" />
+		<mapper resource="sqlmap/FavourableUserMapper.xml" />																								
+		<mapper resource="sqlmap/BettingEbetMapper.xml" />
+		<mapper resource="sqlmap/BettingGbMapper.xml" />
+		<mapper resource="sqlmap/BettingQtMapper.xml" />
+		<mapper resource="sqlmap/BettingTgpMapper.xml" />
+		<mapper resource="sqlmap/BettingWin88Mapper.xml" />
+		<mapper resource="sqlmap/IntegralExchangeMapper.xml" />
+		<mapper resource="sqlmap/IntegralRecordMapper.xml" />
+		<mapper resource="sqlmap/IntegralSettingMapper.xml" />
+		<mapper resource="sqlmap/BettingGgpMapper.xml" />
+		<mapper resource="sqlmap/ExchangeRateMapper.xml" />
+		<mapper resource="sqlmap/BettingAllGameWinloseDetailMapper.xml" />
+		<mapper resource="sqlmap/BettingEibcMapper.xml" />
+		<mapper resource="sqlmap/EnterpriseEmployeeLevelBonusMapper.xml" />
+		<mapper resource="sqlmap/DataHandleMaintenanceMapper.xml" />
+		<mapper resource="sqlmap/DataHandleMapper.xml" />
+		<mapper resource="sqlmap/DataHandleLogsMapper.xml" />
+		<mapper resource="sqlmap/PermissionRoleMapper.xml" />
+		<mapper resource="sqlmap/EmployeeMappingRoleMapper.xml" />
+		<mapper resource="sqlmap/BanksCardBinMapper.xml" />
+		<mapper resource="sqlmap/EnterpriseInformationQrcodeMapper.xml" />
+		
+		<mapper resource="sqlmap/Baccarath5BalanceMapper.xml" />
+		<mapper resource="sqlmap/Baccarath5ExchangeMapper.xml" />
+		<mapper resource="sqlmap/Baccarath5RebateMapper.xml" />
+		<mapper resource="sqlmap/EnterpriseAgength5LevelMapper.xml" />
+		
+		<mapper resource="sqlmap/ApiTagXmlTimerMapper.xml" />
+		<mapper resource="sqlmap/BettingYoplayMapper.xml" />
+		<mapper resource="sqlmap/BettingAllDay2Mapper.xml" />
+		<mapper resource="sqlmap/BettingAllPlanMapper.xml" />
+		<mapper resource="sqlmap/BettingAllMemberMapper.xml" />
+		<mapper resource="sqlmap/BettingAllAgentMapper.xml" />
+		<mapper resource="sqlmap/BanksCardsBlacklistMapper.xml" />
+		<mapper resource="sqlmap/EnterpriseReportDatesMapper.xml" />
+		<mapper resource="sqlmap/BettingImMapper.xml" />
+		<mapper resource="sqlmap/BettingQwpMapper.xml" />
+		<mapper resource="sqlmap/BettingJdbMapper.xml" />
+		
+		<!-- 代理推广页面的xml -->
+		<mapper resource="sqlmap/AgentBannerInfoMapper.xml" />
+		<mapper resource="sqlmap/AgentItemInfoMapper.xml" />
+	</mappers>
+</configuration>

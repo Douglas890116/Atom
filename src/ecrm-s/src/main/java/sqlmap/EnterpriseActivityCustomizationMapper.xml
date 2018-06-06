@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseActivityCustomization" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseActivityCustomization" >
+    <id column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="activitytemplatecode" property="activitytemplatecode" jdbcType="INTEGER" />
+    <result column="ord" property="ord" jdbcType="INTEGER" />
+    <result column="activityname" property="activityname" jdbcType="VARCHAR" />
+    <result column="unshare" property="unshare" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="activityimage" property="activityimage" jdbcType="VARCHAR" />
+    <result column="activityimagehfive" property="activityimagehfive" jdbcType="VARCHAR" />
+    <result column="activitycontent" property="activitycontent" jdbcType="LONGVARCHAR" />
+    <result column="activitycontenth5" property="activitycontenth5" jdbcType="LONGVARCHAR" />
+    <!-- 关联属性 -->
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="name" property="activitytemplatename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    eac.ecactivitycode, eac.enterprisecode, eac.activitytemplatecode, eac.activityname,eac.unshare,
+    eac.activityimage, eac.activityimagehfive, eac.remark, eac.ord
+  </sql>
+  <sql id="Blob_Column_List" >
+    eac.activitycontent,eac.activitycontenth5
+  </sql>
+   <sql id="exactCondition">
+  	<where>
+  		 <if test="enterprisecode != null" > and eac.enterprisecode = #{enterprisecode}</if>
+	     <if test="activitytemplatecode != null" > and eac.activitytemplatecode = #{activitytemplatecode}</if>
+	     <if test="unshare != null" > and eac.unshare = #{unshare}</if>
+	     <if test="activityname != null" > and eac.activityname = #{activityname}</if>
+	     <if test="activityimage != null" > and eac.activityimage = #{activityimage}</if>
+	     <if test="activitycontent != null" > and eac.activitycontent = #{activitycontent}</if>
+	     <if test="remark != null" > and eac.remark = #{remark}</if>
+	     and eac.datastatus = 1
+  	</where>
+  </sql>
+  <sql id="exactCondition3">
+  	<where>
+  		 <if test="enterprisecode != null" > and eac.enterprisecode = #{enterprisecode}</if>
+	     <if test="activitytemplatecode != null" > and eac.activitytemplatecode = #{activitytemplatecode}</if>
+	     <if test="unshare != null" > and eac.unshare = #{unshare}</if>
+	     <if test="activityname != null" > and eac.activityname = #{activityname}</if>
+	     <if test="activityimage != null" > and eac.activityimage = #{activityimage}</if>
+	     <if test="activitycontent != null" > and eac.activitycontent = #{activitycontent}</if>
+	     <if test="remark != null" > and eac.remark = #{remark}</if>
+	     <if test="datastatus != null" > and eac.datastatus = #{datastatus}</if>
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where>
+  		 <if test="enterprisecode != null" > and eac.enterprisecode = #{enterprisecode}</if>
+	     <if test="activitytemplatecode != null" > and eac.activitytemplatecode = #{activitytemplatecode}</if>
+	     <if test="unshare != null" > and eac.unshare = #{unshare}</if>
+	     <if test="activityname != null" > and eac.activityname = #{activityname}</if>
+	     <if test="activityimage != null" > and eac.activityimage = #{activityimage}</if>
+	     <if test="activitycontent != null" > and eac.activitycontent = #{activitycontent}</if>
+	     <if test="remark != null" > and eac.remark = #{remark}</if>
+	     <!--  关联条件 -->
+	     <if test="enterprisename != null" > and e.enterprisename = #{enterprisename}</if>
+	     <if test="activitytemplatename != null" > and att.name = #{activitytemplatename}</if>
+	     and eac.datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EnterpriseActivityCustomization" >
+    insert into enterprise_activity_customization (enterprisecode, activitytemplatecode,activityname,unshare,activityimage,activityimagehfive,activitycontent,activitycontenth5,datastatus, remark, ord)
+    values (#{enterprisecode}, #{activitytemplatecode}, #{activityname},#{unshare}, #{activityimage}, #{activityimagehfive}, #{activitycontent},#{activitycontenth5}, 1, #{remark}, #{ord})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from enterprise_activity_customization eac
+    where ecactivitycode = #{ecactivitycode}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseActivityCustomization" >
+    select 
+    <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from enterprise_activity_customization eac 
+    <include refid="exactCondition3" /> 
+    order by ord asc
+  </select>
+  <select id="selectByEnterprisebrandactivitycode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT eac.ecactivitycode, eac.enterprisecode, eac.activitytemplatecode, eac.activityname 
+  	FROM enterprise_brand_activity eba LEFT JOIN enterprise_activity_customization eac ON eba.ecactivitycode = eac.ecactivitycode 
+  	WHERE eba.enterprisebrandactivitycode=#{enterprisebrandactivitycode} and eac.datastatus = 1
+  </select>
+  <select id="selectAllByEnterprisecode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select <include refid="Base_Column_List" />
+  	from enterprise_activity_customization eac
+  	where datastatus=1 and eac.enterprisecode=#{enterprisecode}
+  	order by ord asc
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />,e.enterprisename,att.name  as activitytemplatename 
+    FROM enterprise_activity_customization eac 
+  		LEFT JOIN enterprise e ON eac.enterprisecode = e.enterprisecode 
+  		LEFT JOIN activity_template att ON eac.activitytemplatecode=att.activitycode 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="long" parameterType="java.util.Map" >
+    SELECT  count(1)   
+    FROM enterprise_activity_customization eac 
+  		LEFT JOIN enterprise e ON eac.enterprisecode = e.enterprisecode 
+  		LEFT JOIN activity_template att ON eac.activitytemplatecode=att.activitycode 
+    <include refid="rangeCondition" /> 
+  </select>
+
+
+<!-- =================================================删除语句================================================================ -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_activity_customization
+    where ecactivitycode = #{ecactivitycode}
+  </delete>
+  <update id="logicDelete" parameterType="java.util.List" >
+  	<if test="list.size()>0">
+	  	update enterprise_activity_customization set datastatus=-1 where ecactivitycode in
+	  	<foreach collection="list" item="ecactivitycode" open="(" close=")" separator=",">
+	  		#{ecactivitycode}
+	  	</foreach>
+  	</if>
+  </update>
+  
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EnterpriseActivityCustomization" >
+    update enterprise_activity_customization
+    <set >
+      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+      <if test="activitytemplatecode != null" >activitytemplatecode = #{activitytemplatecode},</if>
+      <if test="activityname != null" >activityname = #{activityname},</if>
+      <if test="unshare != null" >unshare = #{unshare},</if>
+      <if test="activityimage != null" >activityimage = #{activityimage},</if>
+      <if test="activityimagehfive != null" >activityimagehfive = #{activityimagehfive},</if>
+      <if test="datastatus != null" >datastatus = #{datastatus},</if>
+      <if test="activitycontent != null" >activitycontent = #{activitycontent},</if>
+      <if test="activitycontenth5 != null" >activitycontenth5 = #{activitycontenth5},</if>
+      <if test="remark != null" >remark = #{remark},</if>
+      <if test="ord != null" >ord = #{ord},</if>
+    </set>
+    where ecactivitycode = #{ecactivitycode}
+  </update>
+</mapper>

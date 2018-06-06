@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingQwp">
+	<resultMap id="BaseResultMap" type="com.maven.entity.BettingQwp">
+		<id column="TurnNumber" property="turnNumber" jdbcType="BIGINT"/>
+		<result column="ServerId" property="serverId" jdbcType="INTEGER"/>
+		<result column="KindId" property="kindId" jdbcType="INTEGER"/>
+		<result column="RoomName" property="roomName" jdbcType="VARCHAR"/>
+		<result column="StartTime" property="startTime" jdbcType="TIMESTAMP"/>
+		<result column="EndTime" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="RecordTime" property="recordTime" jdbcType="TIMESTAMP"/>
+		<result column="CardData" property="cardData" jdbcType="VARCHAR"/>
+		<result column="Account" property="account" jdbcType="VARCHAR"/>
+		<result column="Score" property="score" jdbcType="DOUBLE"/>
+		<result column="TurnScore" property="turnScore" jdbcType="DOUBLE"/>
+		<result column="Revenue" property="revenue" jdbcType="DOUBLE"/>
+		<result column="enterprisecode" property="enterprisecode" jdbcType="CHAR"/>
+		<result column="brandcode" property="brandcode" jdbcType="VARCHAR"/>
+		<result column="employeecode" property="employeecode" jdbcType="CHAR"/>
+		<result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR"/>
+		<result column="loginaccount" property="loginaccount" jdbcType="VARCHAR"/>
+		<result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		TurnNumber, ServerId, KindId, RoomName, StartTime, EndTime, RecordTime, CardData,Account, Score, TurnScore,
+		Revenue, enterprisecode, brandcode, employeecode, parentemployeecode,loginaccount, gamebigtype, status
+	</sql>
+
+	<sql id="rangecondition">
+		<where>
+	<if test="teamCodes !=null and teamCodes.length > 0">
+		and (parentemployeecode in
+		<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null"> or employeecode =#{teamLeaderCode} </if>)
+	</if>
+	<if test="enterprisecode != null">and enterprisecode = #{enterprisecode} </if>
+	<if test="brandcode != null">and brandcode = #{brandcode} </if>
+	<if test="employeecode != null">and employeecode = #{employeecode}</if>
+	<if test="parentemployeecode != null">and parentemployeecode = #{parentemployeecode} </if>
+	<if test="loginaccount != null">and loginaccount = #{loginaccount}</if>
+	<if test="startDate !=null">and RecordTime <![CDATA[ >= ]]>#{startDate}</if>
+	<if test="endDate !=null">AND RecordTime <![CDATA[ <=]]> #{endDate}</if>
+	<if test="serverId != null">and ServerId = #{serverId} </if>
+	<if test="kindId != null">and KindId = #{kindId} </if>
+
+	<!-- 前端查询使用 -->
+	<if test="StartDate != null">and RecordTime <![CDATA[ >= ]]> #{StartDate}</if>
+	<if test="EndDate != null">and RecordTime <![CDATA[ <= ]]> #{EndDate}</if>
+		</where>
+	</sql>
+
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+		select <include refid="Base_Column_List"/> from betting_qwp
+		<include refid="rangecondition"/>
+		<include refid="ABasic.orderby"/>
+		<include refid="ABasic.page"/>
+	</select>
+
+	<select id="selectAllCount" resultType="Long" parameterType="Map">
+		select count(1) from betting_qwp <include refid="rangecondition" />
+	</select>
+
+	<select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+		select count(1) count, 
+			sum(TurnScore) as betmoney, 
+			sum(Score) as netmoney, 
+			sum(Revenue) as revenue 
+		from betting_qwp
+		<include refid="rangecondition" />
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select <include refid="Base_Column_List"/> from betting_qwp where TurnNumber = #{turnNumber, jdbcType=BIGINT}
+	</select>
+</mapper>

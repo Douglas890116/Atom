@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LoginWhiteList" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.LoginWhiteList" >
+    <result column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="ip" property="ip" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    lsh,ip,enterprisecode, remark
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangeCondition">
+  	<where>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode} </if>
+      <if test="ip != null" > and  ip = #{ip} </if>
+      <if test="remark != null" > and  remark = #{remark} </if>
+  	</where>
+  </sql>
+  <!-- 精确查询 -->
+  <sql id="exactCondition">
+  	<where>
+      <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode} </if>
+      <if test="ip != null" > and  ip = #{ip} </if>
+      <if test="remark != null" > and  remark = #{remark} </if>
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="com.maven.entity.LoginWhiteList" >
+    insert into login_white_list (enterprisecode, ip, 
+      remark)
+    values ( #{enterprisecode,jdbcType=CHAR}, #{ip,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+<!--   根据企业编码查询 -->
+<select id="queryByEnterprisecode" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from login_white_list where enterprisecode = #{enterprisecode} ORDER BY lsh asc 
+</select>
+  
+
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from login_white_list where lsh = #{lsh}
+</select>
+
+<select id="selectAll" resultMap="BaseResultMap" parameterType="com.maven.entity.LoginWhiteList" >
+    select <include refid="Base_Column_List" /> from login_white_list 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectAllCount" resultType="Long" parameterType="com.maven.entity.LoginWhiteList" >
+    select count(1) from login_white_list <include refid="rangeCondition" />
+</select>
+<select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.LoginWhiteList" >
+    select <include refid="Base_Column_List" /> from log_login <include refid="exactCondition"/>
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from login_white_list where lsh = #{lsh}
+</delete>
+<!--   批量删除多条记录 -->
+<delete id="deleteSelectIp" >
+	delete from login_white_list  WHERE lsh in
+	<foreach collection="array" index="index" item="lsh" open="(" separator="," close=")">  
+       	#{lsh}  
+   	</foreach> 
+</delete>
+<!-- =================================================修改语句================================================================ -->
+<update id="update" parameterType="com.maven.entity.LoginWhiteList" >
+    update login_white_list set ip = #{ip} ,remark = #{remark} 
+    where lsh = #{lsh}
+</update>
+
+</mapper>

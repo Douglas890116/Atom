@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="IntegralExchange" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.IntegralExchange" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="integralcode" property="integralcode" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="exchangedesc" property="exchangedesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="checkaccount" property="checkaccount" jdbcType="VARCHAR" />
+    <result column="checktime" property="checktime" jdbcType="TIMESTAMP" />
+    <result column="checkdesc" property="checkdesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="integralcode != null" > and integralcode = #{integralcode}</if>
+		<if test="patchno != null" > and patchno = #{patchno}</if>
+		<if test="status != null" > and status = #{status}</if>
+		<if test="startDate !=null">and createtime <![CDATA[ >= ]]>#{startDate}</if>
+	  	<if test="endDate !=null"> and createtime <![CDATA[ <= ]]> #{endDate}</if>
+	</where>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from integral_exchange
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from integral_exchange
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.IntegralExchange">
+  	select <include refid="Base_Column_List" /> from integral_exchange
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, employeecode, loginaccount, integralcode, amount, 
+    patchno, createtime, exchangedesc, status, checkaccount, checktime, checkdesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from integral_exchange
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from integral_exchange
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.IntegralExchange" >
+    insert into integral_exchange (lsh, enterprisecode, brandcode, 
+      employeecode, loginaccount, integralcode, 
+      amount, patchno, createtime, 
+      exchangedesc, status, checkaccount, 
+      checktime, checkdesc)
+    values (#{lsh,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, #{integralcode,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{patchno,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{exchangedesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{checkaccount,jdbcType=VARCHAR}, 
+      #{checktime,jdbcType=TIMESTAMP}, #{checkdesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.IntegralExchange" >
+    insert into integral_exchange
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="integralcode != null" >
+        integralcode,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="patchno != null" >
+        patchno,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="exchangedesc != null" >
+        exchangedesc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="checkaccount != null" >
+        checkaccount,
+      </if>
+      <if test="checktime != null" >
+        checktime,
+      </if>
+      <if test="checkdesc != null" >
+        checkdesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="integralcode != null" >
+        #{integralcode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangedesc != null" >
+        #{exchangedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="checkaccount != null" >
+        #{checkaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdesc != null" >
+        #{checkdesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.IntegralExchange" >
+    update integral_exchange
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="integralcode != null" >
+        integralcode = #{integralcode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="patchno != null" >
+        patchno = #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangedesc != null" >
+        exchangedesc = #{exchangedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="checkaccount != null" >
+        checkaccount = #{checkaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="checktime != null" >
+        checktime = #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkdesc != null" >
+        checkdesc = #{checkdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.IntegralExchange" >
+    update integral_exchange
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      integralcode = #{integralcode,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      patchno = #{patchno,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      exchangedesc = #{exchangedesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      checkaccount = #{checkaccount,jdbcType=VARCHAR},
+      checktime = #{checktime,jdbcType=TIMESTAMP},
+      checkdesc = #{checkdesc,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

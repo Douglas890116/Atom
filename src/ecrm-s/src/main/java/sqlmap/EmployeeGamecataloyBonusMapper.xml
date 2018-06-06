@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeGamecataloyBonus" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EmployeeGamecataloyBonus" >
+    <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <id column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <id column="categorytype" property="categorytype" jdbcType="VARCHAR" />
+    <result column="parentemployeecode" property="parentemployeecode"  jdbcType="CHAR" />
+    <result column="bonus" property="bonus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="columnList" >
+    CATEGORYTYPE,EMPLOYEECODE,PARENTEMPLOYEECODE,PARENTEMPLOYEECODE,GAMETYPE,BONUS
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+	  	<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+	  	<if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  	<if test="gametype != null" > and gametype = #{gametype}</if>
+	  	<if test="categorytype != null" > and categorytype = #{categorytype}</if>
+  	  	<if test="bonus != null" > and bonus = #{bonus}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="Map" >
+    insert into employee_gamecataloy_bonus (categorytype, employeecode,parentemployeecode, gametype,bonus)
+    values (#{categorytype}, #{employeecode},#{parentemployeecode}, #{gametype},#{bonus})
+  </insert>
+ <insert id="saveRecordBatch" >
+  <if test="list !=null and list.size()>0">
+   insert into employee_gamecataloy_bonus (categorytype, employeecode,parentemployeecode, gametype,bonus) values
+    <foreach collection="list" item="item" separator=",">
+    (#{item.categorytype,jdbcType=VARCHAR}, #{item.employeecode,jdbcType=CHAR},#{item.parentemployeecode,jdbcType=CHAR},
+     #{item.gametype,jdbcType=VARCHAR}, #{item.bonus,jdbcType=DECIMAL})
+    </foreach>
+  </if>
+ </insert>
+ <insert id="replaceBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   replace into employee_gamecataloy_bonus (categorytype, employeecode,parentemployeecode, gametype,bonus) values
+	    <foreach collection="list" item="item" separator=",">
+	    (#{item.categorytype,jdbcType=VARCHAR}, #{item.employeecode,jdbcType=CHAR},#{item.parentemployeecode,jdbcType=CHAR},
+	     #{item.gametype,jdbcType=VARCHAR}, #{item.bonus,jdbcType=DECIMAL})
+	    </foreach>
+	  </if>
+ </insert>
+   <!-- 创建企业号 -->
+  <insert id="enterpriseBonus" parameterType="com.maven.entity.EmployeeGamecataloyBonus">
+  	insert employee_gamecataloy_bonus( employeecode,parentemployeecode, gametype, categorytype, bonus) SELECT #{employeecode},#{parentemployeecode}, gc.gametype, gc.categorytype,1 FROM game_category gc
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<!--   查询用户游戏的洗码 -->
+<select id="findGameBonus" resultMap="BaseResultMap" parameterType="String">
+	select DISTINCT
+			 g.gamename,
+			 g.gametype,
+			 egb.bonus  
+	from  employee_gamecataloy_bonus egb 
+	left JOIN game g on  egb.gametype = g.gametype where employeecode=#{employeecode}
+</select>
+ <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="columnList"></include> 
+  	from employee_gamecataloy_bonus
+  	<include refid="exactCondition"></include>
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="columnList"></include> 
+  	from employee_gamecataloy_bonus
+  	<include refid="exactCondition"></include>
+  </select>
+  
+  <select id="findGameBonusByEmployeecodeList" resultMap="BaseResultMap" parameterType="String">
+  	select <include refid="columnList"></include> 
+  	from employee_gamecataloy_bonus where employeecode in 
+  	<foreach collection="list" index="index" item="employeecode" open="(" separator="," close=")">
+		#{employeecode}
+	</foreach>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- Delete SQL Area -->
+  <delete id="deleteByPrimaryKey" parameterType="Map" >
+    delete from employee_gamecataloy_bonus
+    <include refid="exactCondition"></include>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+ <!-- 修改用户返点，同时触发修改用户团队返点 -->
+ <update id="updateBounus" parameterType="java.util.Map" >
+ 	<!-- 降低用户返点时,如果下级返点大于该值也同时降低 -->
+ 	<if test="nextLevel !=null and nextLevel.length>0 and updateDown !=null and updateDown.size()>0">
+	 <foreach collection="updateDown" item="item">
+	 	 update employee_gamecataloy_bonus   
+	 	 set bonus = #{item.bonus}    
+	 	 where categorytype = #{item.categorytype} and gametype = #{item.gametype} 
+	 	 	and (employeecode = #{item.employeecode}  or (parentemployeecode in 
+	 	 	<foreach collection="nextLevel" item="item" separator="," open="(" close=")">
+	 	 		#{item}
+	 		</foreach>) and bonus>#{item.bonus});
+	 </foreach>
+	</if>
+	<!-- 调高用户返点时,仅对自身操作,不能大于上级返点业务已过滤 -->
+	<if test="updateFloor !=null and updateFloor.size()>0">
+	 <foreach collection="updateFloor" item="item" separator=";">
+	 	 update employee_gamecataloy_bonus   
+	 	 set bonus = #{item.bonus}    
+	 	 where categorytype = #{item.categorytype} and gametype = #{item.gametype} and employeecode = #{item.employeecode}
+	 </foreach>
+	</if>
+ </update>
+ <update id="updateMultiMemberBonus" parameterType="java.util.Map" >
+ 	<if test="updateObject !=null and updateObject.size()>0">
+	 <foreach collection="updateObject" item="item">
+	 	 update employee_gamecataloy_bonus   
+	 	 set bonus = #{item.bonus}    
+	 	 where categorytype = #{item.categorytype} and gametype = #{item.gametype} and employeecode = #{item.employeecode} ;
+	 </foreach>
+	</if>
+ </update>
+
+</mapper>

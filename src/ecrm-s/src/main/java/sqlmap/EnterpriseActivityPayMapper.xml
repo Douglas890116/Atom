@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseActivityPay" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseActivityPay" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="acname" property="acname" jdbcType="VARCHAR" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="paytype" property="paytype" jdbcType="INTEGER" />
+    <result column="paystatus" property="paystatus" jdbcType="INTEGER" />
+    <result column="paymoneyaudit" property="paymoneyaudit" jdbcType="DOUBLE" />
+    <result column="paymoneyreal" property="paymoneyreal" jdbcType="DOUBLE" />
+    <result column="depositmoney" property="depositmoney" jdbcType="DOUBLE" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="audittime" property="audittime" jdbcType="TIMESTAMP" />
+    <result column="auditer" property="auditer" jdbcType="VARCHAR" />
+    <result column="paytyime" property="paytyime" jdbcType="TIMESTAMP" />
+    <result column="payer" property="payer" jdbcType="VARCHAR" />
+    <result column="auditremark" property="auditremark" jdbcType="VARCHAR" />
+    <result column="descs" property="descs" jdbcType="VARCHAR" />
+    <result column="lsbs" property="lsbs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, employeecode, enterprisecode, brandcode, parentemployeecode, loginaccount, acname, 
+    ecactivitycode, paytype, paystatus, paymoneyaudit, paymoneyreal, createtime, audittime, 
+    auditer, paytyime, payer, auditremark, descs, lsbs, depositmoney
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_activity_pay
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  
+  <sql id="rangecondition2">
+  	<where>
+  	  <if test="enterprisecode != null" > and pay.enterprisecode = #{enterprisecode}</if>
+      <if test="brandcode != null" > and pay.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and pay.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" > and pay.parentemployeecode = #{parentemployeecode}</if>
+      <if test="ecactivitycode != null" > and pay.ecactivitycode = #{ecactivitycode}</if>
+      <if test="paytype != null" > and pay.paytype = #{paytype}</if>
+      <if test="loginaccount != null" > and pay.loginaccount = #{loginaccount}</if>
+      <if test="paystatus != null" > and pay.paystatus = #{paystatus}</if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+  	</where>
+  </sql>
+  
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="enterprisecode != null" > and pay.enterprisecode = #{enterprisecode}</if>
+      <if test="brandcode != null" > and pay.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and pay.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" > and pay.parentemployeecode = #{parentemployeecode}</if>
+      <if test="ecactivitycode != null" > and pay.ecactivitycode = #{ecactivitycode}</if>
+      <if test="paytype != null" > and pay.paytype = #{paytype}</if>
+      <if test="loginaccount != null" > and pay.loginaccount = #{loginaccount}</if>
+      <if test="paystatus != null" > and pay.paystatus = #{paystatus}</if>
+      <if test="startDate != null" > and pay.createtime <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and pay.createtime <![CDATA[ <= ]]> #{endDate}  </if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	</where>
+  </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from enterprise_activity_pay as pay
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from enterprise_activity_pay as pay <include refid="rangecondition" />
+</select>
+
+<select id="selectAllCountNoti" resultType="int" parameterType="Map" >
+    select count(1) from enterprise_activity_pay as pay where enterprisecode=#{enterprisecode} and paystatus in(1,2)
+</select>
+
+<select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseActivityPay" >
+    select <include refid="Base_Column_List" /> from enterprise_activity_pay as pay <include refid="rangecondition2"/>
+</select>
+<select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(paymoneyaudit) paymoneyaudit,
+  	sum(paymoneyreal) paymoneyreal
+  	 from enterprise_activity_pay as pay
+  	<include refid="rangecondition" />
+  </select>
+    
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_activity_pay
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="add" parameterType="com.maven.entity.EnterpriseActivityPay" >
+    insert into enterprise_activity_pay (lsh, employeecode, enterprisecode, 
+      brandcode, parentemployeecode, loginaccount, 
+      acname, ecactivitycode, paytype, 
+      paystatus, paymoneyaudit, paymoneyreal, 
+      createtime, audittime, auditer, 
+      paytyime, payer, auditremark, descs, lsbs, depositmoney
+      )
+    values (#{lsh,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{enterprisecode,jdbcType=CHAR}, 
+      #{brandcode,jdbcType=VARCHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{acname,jdbcType=VARCHAR}, #{ecactivitycode,jdbcType=INTEGER}, #{paytype,jdbcType=INTEGER}, 
+      #{paystatus,jdbcType=INTEGER}, #{paymoneyaudit,jdbcType=DOUBLE}, #{paymoneyreal,jdbcType=DOUBLE}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{audittime,jdbcType=TIMESTAMP}, #{auditer,jdbcType=VARCHAR}, 
+      #{paytyime,jdbcType=TIMESTAMP}, #{payer,jdbcType=VARCHAR}, #{auditremark,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, #{lsbs,jdbcType=VARCHAR}, #{depositmoney,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="batchAdd" parameterType="java.util.List">
+    insert into enterprise_activity_pay 
+     (lsh, employeecode, enterprisecode, brandcode, parentemployeecode, loginaccount, 
+      acname, ecactivitycode, paytype, paystatus, paymoneyaudit, paymoneyreal, 
+      createtime, audittime, auditer, paytyime, payer, auditremark, descs, lsbs, depositmoney)
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+        #{item.lsh,jdbcType=INTEGER}, #{item.employeecode,jdbcType=CHAR}, #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=VARCHAR},
+        #{item.parentemployeecode,jdbcType=CHAR}, #{item.loginaccount,jdbcType=VARCHAR}, #{item.acname,jdbcType=VARCHAR},#{item.ecactivitycode,jdbcType=INTEGER},
+        #{item.paytype,jdbcType=INTEGER}, #{item.paystatus,jdbcType=INTEGER}, #{item.paymoneyaudit,jdbcType=DOUBLE}, #{item.paymoneyreal,jdbcType=DOUBLE}, 
+        #{item.createtime,jdbcType=TIMESTAMP}, #{item.audittime,jdbcType=TIMESTAMP}, #{item.auditer,jdbcType=VARCHAR}, #{item.paytyime,jdbcType=TIMESTAMP},
+        #{item.payer,jdbcType=VARCHAR}, #{item.auditremark,jdbcType=VARCHAR}, #{item.descs,jdbcType=VARCHAR}, #{item.lsbs,jdbcType=VARCHAR, #{item.depositmoney,jdbcType=DOUBLE}}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseActivityPay" >
+    insert into enterprise_activity_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="acname != null" >
+        acname,
+      </if>
+      <if test="ecactivitycode != null" >
+        ecactivitycode,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="paystatus != null" >
+        paystatus,
+      </if>
+      <if test="paymoneyaudit != null" >
+        paymoneyaudit,
+      </if>
+      <if test="paymoneyreal != null" >
+        paymoneyreal,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="audittime != null" >
+        audittime,
+      </if>
+      <if test="auditer != null" >
+        auditer,
+      </if>
+      <if test="paytyime != null" >
+        paytyime,
+      </if>
+      <if test="payer != null" >
+        payer,
+      </if>
+      <if test="auditremark != null" >
+        auditremark,
+      </if>
+      <if test="descs != null" >
+        descs,
+      </if>
+      <if test="lsbs != null" >
+        lsbs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="acname != null" >
+        #{acname,jdbcType=VARCHAR},
+      </if>
+      <if test="ecactivitycode != null" >
+        #{ecactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymoneyaudit != null" >
+        #{paymoneyaudit,jdbcType=DOUBLE},
+      </if>
+      <if test="paymoneyreal != null" >
+        #{paymoneyreal,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audittime != null" >
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditer != null" >
+        #{auditer,jdbcType=VARCHAR},
+      </if>
+      <if test="paytyime != null" >
+        #{paytyime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payer != null" >
+        #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        #{auditremark,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="lsbs != null" >
+        #{lsbs,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseActivityPay" >
+    update enterprise_activity_pay
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="acname != null" >
+        acname = #{acname,jdbcType=VARCHAR},
+      </if>
+      <if test="ecactivitycode != null" >
+        ecactivitycode = #{ecactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="paystatus != null" >
+        paystatus = #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymoneyaudit != null" >
+        paymoneyaudit = #{paymoneyaudit,jdbcType=DOUBLE},
+      </if>
+      <if test="paymoneyreal != null" >
+        paymoneyreal = #{paymoneyreal,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audittime != null" >
+        audittime = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditer != null" >
+        auditer = #{auditer,jdbcType=VARCHAR},
+      </if>
+      <if test="paytyime != null" >
+        paytyime = #{paytyime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payer != null" >
+        payer = #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="auditremark != null" >
+        auditremark = #{auditremark,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        descs = #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="lsbs != null" >
+        lsbs = #{lsbs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.EnterpriseActivityPay" >
+    update enterprise_activity_pay
+    set employeecode = #{employeecode,jdbcType=CHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      acname = #{acname,jdbcType=VARCHAR},
+      ecactivitycode = #{ecactivitycode,jdbcType=INTEGER},
+      paytype = #{paytype,jdbcType=INTEGER},
+      paystatus = #{paystatus,jdbcType=INTEGER},
+      paymoneyaudit = #{paymoneyaudit,jdbcType=DOUBLE},
+      paymoneyreal = #{paymoneyreal,jdbcType=DOUBLE},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      audittime = #{audittime,jdbcType=TIMESTAMP},
+      auditer = #{auditer,jdbcType=VARCHAR},
+      paytyime = #{paytyime,jdbcType=TIMESTAMP},
+      payer = #{payer,jdbcType=VARCHAR},
+      descs = #{descs,jdbcType=VARCHAR},
+      lsbs = #{lsbs,jdbcType=VARCHAR},
+      depositmoney = #{depositmoney},
+      auditremark = #{auditremark,jdbcType=VARCHAR}
+    where lsh = #{lsh}
+  </update>
+</mapper>

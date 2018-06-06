@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqPt">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqPt">
+    <id column="pt_gamecode" jdbcType="VARCHAR" property="ptGamecode" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="pt_gametype" jdbcType="VARCHAR" property="ptGametype" />
+    <result column="pt_gameid" jdbcType="VARCHAR" property="ptGameid" />
+    <result column="pt_gamename" jdbcType="VARCHAR" property="ptGamename" />
+    <result column="pt_username" jdbcType="VARCHAR" property="ptUsername" />
+    <result column="pt_windowcode" jdbcType="VARCHAR" property="ptWindowcode" />
+    <result column="pt_bet" jdbcType="DOUBLE" property="ptBet" />
+    <result column="pt_win" jdbcType="DOUBLE" property="ptWin" />
+    <result column="pt_balance" jdbcType="DOUBLE" property="ptBalance" />
+    <result column="pt_gamedate" jdbcType="TIMESTAMP" property="ptGamedate" />
+    <result column="pt_info" jdbcType="VARCHAR" property="ptInfo" />
+    <result column="pt_sessionid" jdbcType="VARCHAR" property="ptSessionid" />
+    <result column="pt_progressivebet" jdbcType="VARCHAR" property="ptProgressivebet" />
+    <result column="pt_progressivewin" jdbcType="VARCHAR" property="ptProgressivewin" />
+    <result column="pt_currentbet" jdbcType="VARCHAR" property="ptCurrentbet" />
+    <result column="pt_livenetwork" jdbcType="VARCHAR" property="ptLivenetwork" />
+    <result column="pt_rnum" jdbcType="VARCHAR" property="ptRnum" />
+    <result column="pt_createtime" jdbcType="TIMESTAMP" property="ptCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	 <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="ptGamecode != null" >and pt_gamecode = #{ptGamecode} </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+      <if test="ptGametype != null" >and pt_gametype = #{ptGametype}</if>
+      <if test="ptGameid != null" >and pt_gameid = #{ptGameid}</if>
+      <if test="ptGamename != null" >and pt_gamename like CONCAT(CONCAT('%',#{ptGamename}),'%') </if>
+      
+      
+      <if test="ptUsername != null" >and pt_username = #{ptUsername}</if>
+      <if test="ptWindowcode != null" >and pt_windowcode = #{ptWindowcode}</if>
+      <if test="ptBet != null" >and pt_bet = #{ptBet}</if>
+      <if test="ptWin != null" >and pt_win = #{ptWin}</if>
+      <if test="ptBalance != null" >and pt_balance = #{ptBalance}</if>
+      <if test="ptGamedate != null" >and pt_gamedate <![CDATA[ >= ]]> #{ptGamedate}</if>
+      <if test="startDate != null" >and pt_gamedate <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" >and pt_gamedate <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="ptInfo != null" >and pt_info = #{ptInfo}</if>
+      <if test="ptSessionid != null" >and pt_sessionid = #{ptSessionid}</if>
+      <if test="ptProgressivebet != null" >and pt_progressivebet = #{ptProgressivebet}</if>
+      <if test="ptProgressivewin != null" >and pt_progressivewin = #{ptProgressivewin}</if>
+      <if test="ptCurrentbet != null" >and pt_currentbet = #{ptCurrentbet}</if>
+      <if test="ptLivenetwork != null" >and pt_livenetwork = #{ptLivenetwork}</if>
+      <if test="ptRnum != null" >and pt_rnum = #{ptRnum}</if>
+      <if test="ptCreatetime != null" >and pt_createtime = #{ptCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and date(pt_gamedate) <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and date(pt_gamedate) <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    PT_GAMECODE,ENTERPRISECODE, BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE , LOGINACCOUNT, PT_GAMETYPE, PT_GAMEID, PT_GAMENAME, PT_USERNAME, PT_WINDOWCODE, 
+    PT_BET, PT_WIN, PT_BALANCE, PT_GAMEDATE, PT_INFO, PT_SESSIONID, PT_PROGRESSIVEBET, 
+    PT_PROGRESSIVEWIN, PT_CURRENTBET, PT_LIVENETWORK, PT_RNUM, PT_CREATETIME, LAST_TIME
+  </sql>
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+ <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from betting_hq_pt
+    where pt_gamecode = #{ptGamecode,jdbcType=VARCHAR}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_pt
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_pt
+    <include refid="rangecondition"></include>
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(pt_Bet) ptBet,
+    sum(pt_Win) ptWin,
+    sum(pt_Balance) ptBalance
+    
+    from betting_hq_pt
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+ 
+  
+</mapper>

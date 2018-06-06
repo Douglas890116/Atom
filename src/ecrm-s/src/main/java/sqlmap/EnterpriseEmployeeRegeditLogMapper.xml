@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployeeRegeditLog" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseEmployeeRegeditLog" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="parentemployeeaccount" property="parentemployeeaccount" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="logindate != null" > and logindate = #{logindate}</if>
+		<if test="ip != null" > and ip = #{ip}</if>
+		<if test="remark != null" > and remark = #{remark}</if>
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from enterprise_employee_regedit_log
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from enterprise_employee_regedit_log
+  	<include refid="exactCondition" />
+  </select>
+  
+	<select id="selectAllGroup" resultMap="BaseResultMap" parameterType="Map" >
+	    select remark,count(1) count from enterprise_employee_regedit_log 
+	    <include refid="exactCondition" /> group by remark having count > 1 
+	  	<include refid="ABasic.page"></include>
+	</select>  
+	
+	<select id="selectAllGroupCount" resultType="java.lang.Integer" parameterType="Map" >
+		select count(1) from (
+	    	select remark, count(1) count from enterprise_employee_regedit_log 
+	    	<include refid="exactCondition" />
+	    	group by remark having count > 1 
+	    ) b
+	</select>  
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, employeecode, loginaccount, parentemployeeaccount, createtime, 
+    ip, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_employee_regedit_log
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from enterprise_employee_regedit_log
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.EnterpriseEmployeeRegeditLog" >
+    insert into enterprise_employee_regedit_log (lsh, enterprisecode, employeecode, 
+      loginaccount, parentemployeeaccount, createtime, 
+      ip, remark)
+    values (#{lsh,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{employeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{parentemployeeaccount,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{ip,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseEmployeeRegeditLog" >
+    insert into enterprise_employee_regedit_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="parentemployeeaccount != null" >
+        parentemployeeaccount,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeeaccount != null" >
+        #{parentemployeeaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseEmployeeRegeditLog" >
+    update enterprise_employee_regedit_log
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="parentemployeeaccount != null" >
+        parentemployeeaccount = #{parentemployeeaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.EnterpriseEmployeeRegeditLog" >
+    update enterprise_employee_regedit_log
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      parentemployeeaccount = #{parentemployeeaccount,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      ip = #{ip,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

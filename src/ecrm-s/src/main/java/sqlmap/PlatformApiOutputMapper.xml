@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PlatformApiOutput" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.PlatformApiOutput" >
+    <id column="outputapicode" property="outputapicode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="outputapiurl" property="outputapiurl" jdbcType="VARCHAR" />
+    <result column="outputapistatus" property="outputapistatus" jdbcType="TINYINT" />
+    <result column="apikey1" property="apikey1" jdbcType="VARCHAR" />
+    <result column="apikey2" property="apikey2" jdbcType="VARCHAR" />
+    <result column="apiuser" property="apiuser" jdbcType="VARCHAR" />
+    <result column="apipassword" property="apipassword" jdbcType="VARCHAR" />
+    <result column="apicomment" property="apicomment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="outputapicode != null" > and outputapicode = #{outputapicode}</if>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+      <if test="outputapiurl != null" > and outputapiurl = #{outputapiurl}</if>
+      <if test="outputapistatus != null" > and outputapistatus = #{outputapistatus}</if>
+      <if test="apikey1 != null" > and apikey1 = #{apikey1}</if>
+      <if test="apikey2 != null" > and apikey2 = #{apikey2}</if>
+      <if test="apiuser != null" > and apiuser = #{apiuser}</if>
+      <if test="apipassword != null" > and apipassword = #{apipassword}</if>
+      <if test="apicomment != null" > and apicomment = #{apicomment}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OUTPUTAPICODE,ENTERPRISECODE, OUTPUTAPIURL, OUTPUTAPISTATUS, APIKEY1, APIKEY2, APIUSER, 
+    APIPASSWORD, APICOMMENT
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+   <insert id="add" parameterType="com.maven.entity.PlatformApiOutput" >
+    insert into platform_api_output
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outputapicode != null" >outputapicode,</if>
+      <if test="enterprisecode != null" >enterprisecode,</if>
+      <if test="outputapiurl != null" >outputapiurl,</if>
+      <if test="outputapistatus != null" >outputapistatus,</if>
+      <if test="apikey1 != null" >apikey1,</if>
+      <if test="apikey2 != null" >apikey2,</if>
+      <if test="apiuser != null" >apiuser,</if>
+      <if test="apipassword != null" >apipassword,</if>
+      <if test="apicomment != null" >apicomment,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outputapicode != null" >#{outputapicode},</if>
+      <if test="enterprisecode != null" >#{enterprisecode},</if>
+      <if test="outputapiurl != null" >#{outputapiurl},</if>
+      <if test="outputapistatus != null" >#{outputapistatus},</if>
+      <if test="apikey1 != null" >#{apikey1},</if>
+      <if test="apikey2 != null" >#{apikey2},</if>
+      <if test="apiuser != null" >#{apiuser},</if>
+      <if test="apipassword != null" >#{apipassword},</if>
+      <if test="apicomment != null" >#{apicomment},</if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  <include refid="Base_Column_List" />
+    from platform_api_output
+    where outputapicode = #{outputapicode}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.PlatformApiOutput" >
+    select 
+    <include refid="Base_Column_List" />
+    from platform_api_output
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.PlatformApiOutput" >
+    update platform_api_output
+    <set >
+      <if test="outputapiurl != null" >outputapiurl = #{outputapiurl},</if>
+      <if test="outputapistatus != null" >outputapistatus = #{outputapistatus},</if>
+      <if test="apikey1 != null" >apikey1 = #{apikey1},</if>
+      <if test="apikey2 != null" >apikey2 = #{apikey2},</if>
+      <if test="apiuser != null" >apiuser = #{apiuser},</if>
+      <if test="apipassword != null" >apipassword = #{apipassword},</if>
+      <if test="apicomment != null" >apicomment = #{apicomment},</if>
+    </set>
+    where outputapicode = #{outputapicode}
+  </update>
+</mapper>

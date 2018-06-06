@@ -1,0 +1,209 @@
+<?xml version="1.0" ?>
+<transactionmember_detail>
+	<status_code>0</status_code>
+	<status_text>SUCCESS</status_text>
+	<trans_count>5</trans_count>
+	<datetime>2017-03-16 02:34:21</datetime>
+	<bets>
+		<row id="1">
+			<trans_id>276011438</trans_id>
+			<member_id>6sBMCuD9Yew5IDbsG</member_id>
+			<operator_id>D28C7DA7-5E73-4197-9D5A-311DC60023E2</operator_id>
+			<site_code>HBW</site_code>
+			<league_id>10000004</league_id>
+			<home_id>10000280</home_id>
+			<away_id>10000277</away_id>
+			<match_datetime>3/13/2017 4:00:00 PM</match_datetime>
+			<bet_type>8</bet_type>
+			<parlay_ref_no>0</parlay_ref_no>
+			<odds>3.0600</odds>
+			<currency>RMB</currency>
+			<stake>5.0000</stake>
+			<winlost_amount>-5.00</winlost_amount>
+			<transaction_time>3/15/2017 4:37:45 PM</transaction_time>
+			<ticket_status>processed</ticket_status>
+			<version_key>284827290</version_key>
+			<winlost_datetime>3/13/2017 12:00:00 AM</winlost_datetime>
+			<odds_type>33</odds_type>
+			<sports_type>10</sports_type>
+			<bet_team>11</bet_team>
+			<home_hdp>0.0000</home_hdp>
+			<away_hdp>0.0000</away_hdp>
+			<match_id>2925690</match_id>
+			<is_live>1</is_live>
+			<home_score>0</home_score>
+			<away_score>0</away_score>
+			<choicecode>11</choicecode>
+			<choicename>Half-time 1x2 Home</choicename>
+			<txn_type>INT</txn_type>
+			<last_update>3/16/2017 1:55:52 PM</last_update>
+			<leaguename>ITALY CUP</leaguename>
+			<homename>Cagliari</homename>
+			<awayname>Atalanta</awayname>
+			<sportname>Soccer</sportname>
+			<oddsname>EU</oddsname>
+			<bettypename>First Half 1x2</bettypename>
+			<winlost_status>L</winlost_status>
+		</row>
+		<row id="2">
+			<trans_id>276011442</trans_id>
+			<member_id>6sBMCuD9Yew5IDbsG</member_id>
+			<operator_id>D28C7DA7-5E73-4197-9D5A-311DC60023E2</operator_id>
+			<site_code>HBW</site_code>
+			<league_id>10020375</league_id>
+			<home_id>10082455</home_id>
+			<away_id>10170752</away_id>
+			<match_datetime>3/15/2017 1:15:00 PM</match_datetime>
+			<bet_type>0</bet_type>
+			<parlay_ref_no>0</parlay_ref_no>
+			<odds>1.0600</odds>
+			<currency>RMB</currency>
+			<stake>12.0000</stake>
+			<winlost_amount>6.36</winlost_amount>
+			<transaction_time>3/15/2017 4:39:20 PM</transaction_time>
+			<ticket_status>processed</ticket_status>
+			<version_key>284827284</version_key>
+			<winlost_datetime>3/15/2017 12:00:00 AM</winlost_datetime>
+			<odds_type>32</odds_type>
+			<sports_type>10</sports_type>
+			<bet_team>10170752</bet_team>
+			<home_hdp>-1.2500</home_hdp>
+			<away_hdp>0.0000</away_hdp>
+			<match_id>2925696</match_id>
+			<is_live>1</is_live>
+			<home_score>0</home_score>
+			<away_score>0</away_score>
+			<choicecode>2A</choicecode>
+			<choicename>Asian Handicap Away</choicename>
+			<txn_type>INT</txn_type>
+			<last_update>3/16/2017 1:49:56 PM</last_update>
+			<leaguename>INDONESIA TORABIKA SOCCER CHAMPIONSHIP</leaguename>
+			<homename>Persidafon</homename>
+			<awayname>Bali United</awayname>
+			<sportname>Soccer</sportname>
+			<oddsname>HK</oddsname>
+			<bettypename>Handicap</bettypename>
+			<winlost_status>WH</winlost_status>
+		</row>
+		<row id="3">
+			<trans_id>276011441</trans_id>
+			<member_id>6sBMCuD9Yew5IDbsG</member_id>
+			<operator_id>D28C7DA7-5E73-4197-9D5A-311DC60023E2</operator_id>
+			<site_code>HBW</site_code>
+			<league_id>10018308</league_id>
+			<home_id>10190751</home_id>
+			<away_id>10004852</away_id>
+			<match_datetime>2/27/2017 7:00:00 PM</match_datetime>
+			<bet_type>8</bet_type>
+			<parlay_ref_no>0</parlay_ref_no>
+			<odds>2.0500</odds>
+			<currency>RMB</currency>
+			<stake>5.0000</stake>
+			<winlost_amount>5.25</winlost_amount>
+			<transaction_time>3/15/2017 4:39:03 PM</transaction_time>
+			<ticket_status>processed</ticket_status>
+			<version_key>284827285</version_key>
+			<winlost_datetime>2/27/2017 12:00:00 AM</winlost_datetime>
+			<odds_type>33</odds_type>
+			<sports_type>10</sports_type>
+			<bet_team>1X</bet_team>
+			<home_hdp>0.0000</home_hdp>
+			<away_hdp>0.0000</away_hdp>
+			<match_id>2925675</match_id>
+			<is_live>1</is_live>
+			<home_score>0</home_score>
+			<away_score>0</away_score>
+			<choicecode>1X</choicecode>
+			<choicename>Half-time 1x2 Draw</choicename>
+			<txn_type>INT</txn_type>
+			<last_update>3/16/2017 1:53:25 PM</last_update>
+			<leaguename>INDIAN I LEAGUE</leaguename>
+			<homename>Team Altamura</homename>
+			<awayname>Gabon</awayname>
+			<sportname>Soccer</sportname>
+			<oddsname>EU</oddsname>
+			<bettypename>First Half 1x2</bettypename>
+			<winlost_status>W</winlost_status>
+		</row>
+		<row id="4">
+			<trans_id>276011440</trans_id>
+			<member_id>6sBMCuD9Yew5IDbsG</member_id>
+			<operator_id>D28C7DA7-5E73-4197-9D5A-311DC60023E2</operator_id>
+			<site_code>HBW</site_code>
+			<league_id>10018308</league_id>
+			<home_id>10087254</home_id>
+			<away_id>10087475</away_id>
+			<match_datetime>2/1/2017 4:00:00 PM</match_datetime>
+			<bet_type>1</bet_type>
+			<parlay_ref_no>0</parlay_ref_no>
+			<odds>2.7000</odds>
+			<currency>RMB</currency>
+			<stake>20.0000</stake>
+			<winlost_amount>-20.00</winlost_amount>
+			<transaction_time>3/15/2017 4:38:13 PM</transaction_time>
+			<ticket_status>processed</ticket_status>
+			<version_key>284827286</version_key>
+			<winlost_datetime>2/1/2017 12:00:00 AM</winlost_datetime>
+			<odds_type>33</odds_type>
+			<sports_type>10</sports_type>
+			<bet_team>22</bet_team>
+			<home_hdp>0.0000</home_hdp>
+			<away_hdp>0.0000</away_hdp>
+			<match_id>2925582</match_id>
+			<is_live>1</is_live>
+			<home_score>0</home_score>
+			<away_score>0</away_score>
+			<choicecode>22</choicecode>
+			<choicename>1x2 Away</choicename>
+			<txn_type>INT</txn_type>
+			<last_update>3/16/2017 1:53:53 PM</last_update>
+			<leaguename>INDIAN I LEAGUE</leaguename>
+			<homename>Postal Department</homename>
+			<awayname>Jawahar Union</awayname>
+			<sportname>Soccer</sportname>
+			<oddsname>EU</oddsname>
+			<bettypename>1x2</bettypename>
+			<winlost_status>L</winlost_status>
+		</row>
+		<row id="5">
+			<trans_id>276011439</trans_id>
+			<member_id>6sBMCuD9Yew5IDbsG</member_id>
+			<operator_id>D28C7DA7-5E73-4197-9D5A-311DC60023E2</operator_id>
+			<site_code>HBW</site_code>
+			<league_id>10000750</league_id>
+			<home_id>10002001</home_id>
+			<away_id>10023691</away_id>
+			<match_datetime>1/11/2017 8:25:00 AM</match_datetime>
+			<bet_type>6</bet_type>
+			<parlay_ref_no>0</parlay_ref_no>
+			<odds>0.7900</odds>
+			<currency>RMB</currency>
+			<stake>6.0000</stake>
+			<winlost_amount>4.74</winlost_amount>
+			<transaction_time>3/15/2017 4:38:03 PM</transaction_time>
+			<ticket_status>processed</ticket_status>
+			<version_key>284827288</version_key>
+			<winlost_datetime>1/10/2017 12:00:00 AM</winlost_datetime>
+			<odds_type>32</odds_type>
+			<sports_type>10</sports_type>
+			<bet_team>10023691</bet_team>
+			<home_hdp>1.0000</home_hdp>
+			<away_hdp>0.0000</away_hdp>
+			<match_id>2925458</match_id>
+			<is_live>1</is_live>
+			<home_score>0</home_score>
+			<away_score>0</away_score>
+			<choicecode>1U</choicecode>
+			<choicename>Half-time Under</choicename>
+			<txn_type>INT</txn_type>
+			<last_update>3/16/2017 1:54:57 PM</last_update>
+			<leaguename>JORDAN CUP</leaguename>
+			<homename>Al Hussein Irbid</homename>
+			<awayname>That Ras</awayname>
+			<sportname>Soccer</sportname>
+			<oddsname>HK</oddsname>
+			<bettypename>First Half O/U</bettypename>
+			<winlost_status>W</winlost_status>
+		</row>
+	</bets>
+</transactionmember_detail>

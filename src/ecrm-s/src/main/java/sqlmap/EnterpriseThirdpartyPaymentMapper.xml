@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseThirdpartyPayment" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseThirdpartyPayment" >
+    <id column="enterprisethirdpartycode" property="enterprisethirdpartycode" jdbcType="CHAR" />
+    <result column="dscription" property="dscription" jdbcType="VARCHAR" />
+    <result column="displayname" property="displayname" jdbcType="VARCHAR" />
+    
+    <result column="isbanks" property="isbanks" jdbcType="TINYINT" />
+    <result column="isweixin" property="isweixin" jdbcType="TINYINT" />
+    <result column="iszhifubao" property="iszhifubao" jdbcType="TINYINT" />
+    
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="thirdpartypaymenttypecode" property="thirdpartypaymenttypecode" jdbcType="CHAR" />
+    <result column="isdefualttakecard" property="isdefualttakecard" jdbcType="CHAR" />
+    <result column="currentbalance" property="currentbalance" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="h5status" property="h5status" jdbcType="CHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+    <result column="minmoney" property="minmoney" jdbcType="DECIMAL" />
+    <result column="maxmoney" property="maxmoney" jdbcType="DECIMAL" />
+    <result column="ord" property="ord" jdbcType="VARCHAR" />
+    <result column="callbackurl" property="callbackurl" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    etp.enterprisethirdpartycode, etp.dscription, etp.displayname, etp.isbanks, etp.isweixin, etp.iszhifubao, etp.minmoney,etp.maxmoney, etp.enterprisecode, etp.thirdpartypaymenttypecode, 
+    etp.status, etp.h5status, etp.datastatus,etp.currentbalance,etp.isdefualttakecard, etp.ord, etp.callbackurl
+  </sql>
+  <sql id="condition">
+  	<where>
+  		<if test="enterprisethirdpartycode !=null"> and etp.enterprisethirdpartycode = #{enterprisethirdpartycode}</if>
+  		<if test="dscription !=null"> and etp.dscription = #{dscription}</if>
+  		<if test="displayname !=null"> and etp.displayname = #{displayname}</if>
+  		<if test="isbanks !=null"> and etp.isbanks = #{isbanks}</if>
+  		<if test="isweixin !=null"> and etp.isweixin = #{isweixin}</if>
+  		<if test="iszhifubao !=null"> and etp.iszhifubao = #{iszhifubao}</if>
+  		<if test="enterprisecode !=null"> and etp.enterprisecode = #{enterprisecode}</if>
+  		<if test="enterprisename !=null"> and e.enterprisename like CONCAT('%',CONCAT(#{enterprisename},'%')) </if>
+  		<if test="thirdpartypaymenttypecode !=null"> and etp.thirdpartypaymenttypecode = #{thirdpartypaymenttypecode}</if>
+  		<if test="currentbalance !=null"> and currentbalance= #{currentbalance}</if>
+  		<if test="status !=null"> and etp.status = #{status}</if>
+  		<if test="h5status !=null"> and etp.h5status = #{h5status}</if>
+  		<if test="isdefualttakecard !=null"> and etp.isdefualttakecard = #{isdefualttakecard}</if>
+  		and etp.datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" useGeneratedKeys="true" keyProperty="enterprisethirdpartycode" parameterType="com.maven.entity.EnterpriseThirdpartyPayment">
+    insert into enterprise_thirdparty_payment (
+    		enterprisethirdpartycode,
+    		dscription,
+    		displayname,
+    		isbanks,
+    		isweixin,
+    		iszhifubao,
+    		enterprisecode,
+    		thirdpartypaymenttypecode,
+    		currentbalance,
+    		status,
+    		h5status,
+    		minmoney,
+    		maxmoney,
+    		ord,
+    		callbackurl,
+    		datastatus)
+    values ( 
+    	#{enterprisethirdpartycode},
+    	#{dscription}, 
+    	#{displayname}, 
+    	#{isbanks}, 
+    	#{isweixin}, 
+    	#{iszhifubao}, 
+        #{enterprisecode}, 
+        #{thirdpartypaymenttypecode}, 
+        0.0, 
+        #{status}, 
+        #{h5status}, 
+        #{minmoney}, 
+        #{maxmoney}, 
+        #{ord}, 
+        #{callbackurl}, 
+        #{datastatus})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="takePrimariyKey" resultType="String">
+	select ufn_get_next_string_by_tablename('enterprise_thirdparty_payment',0);
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from enterprise_thirdparty_payment etp
+    where enterprisethirdpartycode = #{enterprisethirdpartycode,jdbcType=INTEGER}
+  </select>
+  <!-- 获取企业可用的第三方支付 -->
+  <select id="takeEnterpriseThirdpartypayment" parameterType="String" resultMap="BaseResultMap"> 
+	SELECT tpt.thirdpartypaymenttypecode,tpt.thirdpartypaymenttypename,etp.displayname, etp.isbanks, etp.isweixin, etp.iszhifubao, etp.minmoney,etp.maxmoney,etp.callbackurl FROM enterprise_thirdparty_payment etp 
+	  LEFT JOIN thirdparty_payment_type tpt ON etp.thirdpartypaymenttypecode = tpt.thirdpartypaymenttypecode 
+	  WHERE etp.status=1 AND etp.datastatus=1 AND tpt.status=1 AND etp.enterprisecode=#{enterprisecode} 
+	  GROUP BY tpt.thirdpartypaymenttypecode,tpt.thirdpartypaymenttypename
+	  order by etp.ord asc
+  </select>
+  <select id="select" parameterType="Map" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" />,tpt.thirdpartypaymenttypename
+  	FROM enterprise_thirdparty_payment etp 
+  	LEFT JOIN thirdparty_payment_type tpt ON etp.thirdpartypaymenttypecode = tpt.thirdpartypaymenttypecode
+  	<include refid="condition" />
+  	order by etp.ord asc
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="findAll" resultMap="BaseResultMap" parameterType="Map">
+	SELECT <include refid="Base_Column_List" />,e.enterprisename,tpy.thirdpartypaymenttypename FROM enterprise_thirdparty_payment etp 
+	LEFT JOIN enterprise e ON etp.enterprisecode = e.enterprisecode 
+	LEFT JOIN thirdparty_payment_type tpy ON etp.thirdpartypaymenttypecode = tpy.thirdpartypaymenttypecode
+	<include refid="condition" /> 
+	order by etp.ord asc
+	
+	<include refid="ABasic.page" />
+</select>
+<select id="findCountAll" resultType="int" parameterType="Map">
+	SELECT COUNT(*) FROM enterprise_thirdparty_payment etp 
+	LEFT JOIN enterprise e ON etp.enterprisecode = e.enterprisecode 
+	LEFT JOIN thirdparty_payment_type tpy ON etp.thirdpartypaymenttypecode = tpy.thirdpartypaymenttypecode
+	<include refid="condition" />
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_thirdparty_payment where enterprisethirdpartycode = #{enterprisethirdpartycode,jdbcType=INTEGER}
+</delete>
+<!-- =================================================修改语句================================================================ -->
+<update id="update" parameterType="com.maven.entity.EnterpriseThirdpartyPayment" >
+    update enterprise_thirdparty_payment
+    <set >
+      <if test="dscription != null" >dscription = #{dscription},</if>
+      <if test="displayname != null" >displayname = #{displayname},</if>
+      <if test="isbanks !=null"> isbanks = #{isbanks},</if>
+  	  <if test="isweixin !=null"> isweixin = #{isweixin},</if>
+  	  <if test="iszhifubao !=null"> iszhifubao = #{iszhifubao},</if>
+      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+      <if test="thirdpartypaymenttypecode != null" >thirdpartypaymenttypecode = #{thirdpartypaymenttypecode},</if>
+      <if test="status != null" >status = #{status},</if>
+      <if test="h5status != null" >h5status = #{h5status},</if>
+      <if test="datastatus != null" >datastatus = #{datastatus},</if>
+      <if test="isdefualttakecard != null" >isdefualttakecard = #{isdefualttakecard},</if>
+      <if test="currentbalance != null" >currentbalance = #{currentbalance},</if>
+      <if test="minmoney !=null"> minmoney = #{minmoney},</if>
+      <if test="maxmoney !=null"> maxmoney = #{maxmoney},</if>
+      <if test="ord !=null"> ord = #{ord},</if>
+      <if test="callbackurl !=null"> callbackurl = #{callbackurl},</if>
+    </set>
+    where enterprisethirdpartycode = #{enterprisethirdpartycode,jdbcType=INTEGER}
+</update>
+  
+<update id="updateDefaultPaymentCard" parameterType="com.maven.entity.EnterpriseThirdpartyPayment">
+ 	update enterprise_thirdparty_payment set isdefualttakecard = 1 where enterprisethirdpartycode = #{enterprisethirdpartycode} and enterprisecode = #{enterprisecode};
+ 	update enterprise_thirdparty_payment set isdefualttakecard = 0 where enterprisethirdpartycode <![CDATA[ <> ]]> #{enterprisethirdpartycode} and enterprisecode = #{enterprisecode};
+</update>
+
+<update id="updateOne" parameterType="java.lang.String">
+ 	update enterprise_thirdparty_payment set datastatus = -1 where enterprisethirdpartycode = #{enterpriseThirdpartyCode}
+</update>
+<update id="updateSelect" parameterType="java.lang.String">
+ 	update enterprise_thirdparty_payment set datastatus = -1 where enterprisethirdpartycode in
+ 	<foreach collection="array" item="enterpriseThirdpartyCode" open="(" separator="," close=")">
+ 		#{enterpriseThirdpartyCode}
+ 	</foreach>
+</update>
+<update id="updateCurrentBalance" parameterType="com.maven.entity.EnterpriseThirdpartyPayment">
+		update enterprise_thirdparty_payment set currentbalance = currentbalance + #{currentbalance} 
+		where enterprisecode=#{enterprisecode} and enterprisethirdpartycode=#{enterprisethirdpartycode}
+	</update>
+</mapper>

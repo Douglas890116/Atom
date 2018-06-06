@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GameClassDetails" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.GameClassDetails" >
+    <id column="classdetailscode" property="classdetailscode" jdbcType="INTEGER" />
+    <result column="gameclasscode" property="gameclasscode" jdbcType="CHAR" />
+    <result column="classdetailsflag" property="classdetailsflag" jdbcType="VARCHAR" />
+    <result column="detailschinaname" property="detailschinaname" jdbcType="VARCHAR" />
+    <result column="detailsenglishname" property="detailsenglishname" jdbcType="VARCHAR" />
+    <result column="picturename" property="picturename" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="disable" property="disable" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CLASSDETAILSCODE, GAMECLASSCODE, CLASSDETAILSFLAG, DETAILSCHINANAME, DETAILSENGLISHNAME, 
+    PICTURENAME, PATH, SORT, DISABLE
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="gameclasscode != null" > and gameclasscode = #{gameclasscode} </if>
+      <if test="classdetailsflag != null" > and classdetailsflag = #{classdetailsflag} </if>
+      <if test="detailschinaname != null" > and detailschinaname = #{detailschinaname} </if>
+      <if test="detailsenglishname != null" > and detailsenglishname = #{detailsenglishname} </if>
+      <if test="picturename != null" > and picturename = #{picturename} </if>
+      <if test="path != null" > and path = #{path} </if>
+      <if test="sort != null" > and sort = #{sortjdbcType=SMALLINT} </if>
+      <if test="disable != null" > and disable = #{disable} </if>
+    </where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_class_details
+    where classdetailscode = #{classdetailscode}
+  </select>
+   <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.GameClassDetails" >
+    select <include refid="Base_Column_List" />
+    from game_class_details 
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+ <delete id="delete" parameterType="java.lang.Integer" >
+    delete from game_class_details
+    where classdetailscode = #{classdetailscode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.GameClassDetails" >
+    update game_class_details
+    <set >
+      <if test="gameclasscode != null" >gameclasscode = #{gameclasscode}, </if>
+      <if test="classdetailsflag != null" >classdetailsflag = #{classdetailsflag}, </if>
+      <if test="detailschinaname != null" >detailschinaname = #{detailschinaname}, </if>
+      <if test="detailsenglishname != null" >detailsenglishname = #{detailsenglishname}, </if>
+      <if test="picturename != null" >picturename = #{picturename}, </if>
+      <if test="path != null" >path = #{path}, </if>
+      <if test="sort != null" >sort = #{sort,jdbcType=SMALLINT}, </if>
+      <if test="disable != null" >disable = #{disable}, </if>
+    </set>
+    where classdetailscode = #{classdetailscode}
+  </update>
+</mapper>

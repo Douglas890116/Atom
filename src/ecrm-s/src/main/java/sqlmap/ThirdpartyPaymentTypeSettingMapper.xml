@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ThirdpartyPaymentTypeSetting" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ThirdpartyPaymentTypeSetting" >
+    <id column="paymentsettingcode" property="paymentsettingcode" jdbcType="CHAR" />
+    <result column="thirdpartypaymenttypecode" property="thirdpartypaymenttypecode" jdbcType="CHAR" />
+    <result column="argumentfiled" property="argumentfiled" jdbcType="VARCHAR" />
+    <result column="argumentdesc" property="argumentdesc" jdbcType="VARCHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    paymentsettingcode, thirdpartypaymenttypecode, argumentfiled, argumentdesc, datastatus
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+ <insert id="insert" parameterType="com.maven.entity.ThirdpartyPaymentTypeSetting" >
+    insert into thirdparty_payment_type_setting (paymentsettingcode, thirdpartypaymenttypecode, 
+      argumentfiled, argumentdesc, datastatus
+      )
+    values (#{paymentsettingcode,jdbcType=CHAR}, #{thirdpartypaymenttypecode,jdbcType=CHAR}, 
+      #{argumentfiled,jdbcType=VARCHAR}, #{argumentdesc,jdbcType=VARCHAR}, #{datastatus,jdbcType=CHAR}
+      )
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from thirdparty_payment_type_setting where paymentsettingcode = #{paymentsettingcode,jdbcType=CHAR}
+</select>
+<select id="loadThirdpartyPaymentTypeSetting" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from thirdparty_payment_type_setting where thirdpartypaymenttypecode = #{thirdpartyPaymentTypeCode,jdbcType=CHAR}
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from thirdparty_payment_type_setting
+    where paymentsettingcode = #{paymentsettingcode,jdbcType=CHAR}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+     <update id="update" parameterType="com.maven.entity.ThirdpartyPaymentTypeSetting" >
+    update thirdparty_payment_type_setting
+    <set >
+      <if test="thirdpartypaymentcode != null" >
+        thirdpartypaymenttypecode = #{thirdpartypaymenttypecode,jdbcType=CHAR},
+      </if>
+      <if test="argumentfiled != null" >
+        argumentfiled = #{argumentfiled,jdbcType=VARCHAR},
+      </if>
+      <if test="argumentdesc != null" >
+        argumentdesc = #{argumentdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="datastatus != null" >
+        datastatus = #{datastatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where paymentsettingcode = #{paymentsettingcode,jdbcType=CHAR}
+  </update>
+</mapper>

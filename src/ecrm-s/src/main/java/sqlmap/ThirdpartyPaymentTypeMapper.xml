@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ThirdpartyPaymentType">
+  <resultMap id="BaseResultMap" type="com.maven.entity.ThirdpartyPaymentType">
+    <id column="thirdpartypaymenttypecode" jdbcType="CHAR" property="thirdpartypaymenttypecode" />
+    <result column="thirdpartypaymenttypename" jdbcType="VARCHAR" property="thirdpartypaymenttypename" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="datastatus" jdbcType="CHAR" property="datastatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    thirdpartypaymenttypecode, thirdpartypaymenttypename, status, datastatus
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="insert" parameterType="com.maven.entity.ThirdpartyPaymentType">
+    insert into thirdparty_payment_type (thirdpartypaymenttypecode, thirdpartypaymenttypename, 
+      status, datastatus)
+    values (#{thirdpartypaymenttypecode,jdbcType=CHAR}, #{thirdpartypaymenttypename,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{datastatus,jdbcType=CHAR})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from thirdparty_payment_type
+    where thirdpartypaymenttypecode = #{thirdpartypaymenttypecode,jdbcType=CHAR}
+</select>
+<select id="select" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from thirdparty_payment_type
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from thirdparty_payment_type
+    where thirdpartypaymenttypecode = #{thirdpartypaymenttypecode,jdbcType=CHAR}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  
+  
+</mapper>

@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployee" >
+	<resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseEmployee" >
+	  <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+	  <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+	  <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+	  <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+	  <result column="employeetypecode" property="employeetypecode" jdbcType="CHAR" />
+	  <result column="employeelevelcode" property="employeelevelcode" jdbcType="CHAR" />
+	  <result column="parentemployeeaccount" property="parentemployeeaccount" jdbcType="VARCHAR" />
+	  <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+	  <result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
+	  <result column="phonestatus" property="phonestatus" jdbcType="VARCHAR" />
+	  <result column="email" property="email" jdbcType="VARCHAR" />
+	  <result column="qq" property="qq" jdbcType="VARCHAR" />
+	  <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+	  <result column="alipay" property="alipay" jdbcType="VARCHAR" />
+	  <result column="ipstatus" property="ipstatus" jdbcType="VARCHAR" />
+	  <result column="fundpassword" property="fundpassword" jdbcType="VARCHAR" />
+	  <result column="loginpassword" property="loginpassword" jdbcType="VARCHAR" />
+	  <result column="loginpassword2" property="loginpassword2" jdbcType="VARCHAR" />
+	  <result column="displayalias" property="displayalias" jdbcType="VARCHAR" />
+	  <result column="onlinestatus" property="onlinestatus" jdbcType="TINYINT" />
+	  <result column="employeestatus" property="employeestatus" jdbcType="TINYINT" />
+	  <result column="logindatetime" property="logindatetime" jdbcType="TIMESTAMP" />
+	  <result column="lastlogintime" property="lastlogintime" jdbcType="TIMESTAMP" />
+	  <result column="dividend" property="dividend" jdbcType="DECIMAL" />
+	  <result column="share" property="share" jdbcType="DECIMAL" />
+	  <result column="creditrating" property="creditrating" jdbcType="TINYINT" />
+	  <!-- 视图字段 -->
+	  <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+	  <result column="employeetypename" property="employeetypename" jdbcType="VARCHAR" />
+	  <result column="employeelevelname" property="employeelevelname" jdbcType="VARCHAR" />
+	  <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+	  <result column="balance" property="balance" jdbcType="DECIMAL" />
+	  <result column="accumulateddeposit" property="accumulateddeposit" jdbcType="DECIMAL" />
+	  <result column="accumulatedwithdraw" property="accumulatedwithdraw" jdbcType="DECIMAL" />
+	  <result column="upperlevel" property="upperlevel" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="levelResultMap" type="com.maven.entity.EmployeeRelation" >
+	  <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+	  <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+	</resultMap>
+<!--   将表字段定义成一个公用的sql语块 -->
+	<sql id="ColumnList" >
+    EMPLOYEECODE,ENTERPRISECODE,BRANDCODE, PARENTEMPLOYEECODE,PARENTEMPLOYEEACCOUNT, EMPLOYEETYPECODE, 
+    EMPLOYEELEVELCODE, LOGINACCOUNT,LOGINPASSWORD, LOGINPASSWORD2, FUNDPASSWORD,DISPLAYALIAS, ONLINESTATUS, EMPLOYEESTATUS, 
+    LOGINDATETIME,LASTLOGINTIME,DIVIDEND,SHARE,CREDITRATING,PHONENO,PHONESTATUS,EMAIL,QQ,WECHAT,ALIPAY,IPSTATUS,REGISTERCODE
+    <!-- 视图字段 -->
+    ,BRANDNAME,EMPLOYEETYPENAME,EMPLOYEELEVELNAME,BALANCE,ACCUMULATEDDEPOSIT,ACCUMULATEDWITHDRAW,ENTERPRISENAME
+	</sql>
+<!--   查询条件拼接 -->
+	<sql id="exact-chs">
+	  <if test="enterprisecode != null"> AND enterprisecode = #{enterprisecode}</if>
+	  <if test="employeecode != null " > AND employeecode = #{employeecode}</if>
+	  <if test="brandcode != null"> AND brandcode = #{brandcode}</if>
+	  <if test="parentemployeecode !=null">AND parentemployeecode = #{parentemployeecode}</if>
+	  <if test="employeetypecode !=null"> AND employeetypecode = #{employeetypecode}</if>
+	  <if test="employeelevelcode !=null"> AND employeelevelcode = #{employeelevelcode}</if>
+	  <if test="loginaccount != null" > AND loginaccount = #{loginaccount}</if>
+	  <if test="loginpassword != null" > AND loginpassword = #{loginpassword} </if>
+	  <if test="loginpassword2 != null" > AND loginpassword2 = #{loginpassword2} </if>
+	  <if test="phoneno != null" > AND phoneno = #{phoneno} </if>
+	  <if test="phonestatus != null" > AND phonestatus = #{phonestatus} </if>
+	  <if test="email != null" > AND email = #{email} </if>
+	  <if test="qq != null" > AND qq = #{qq} </if>
+	  <if test="wechat != null" > AND wechat = #{wechat} </if>
+	  <if test="alipay != null" > AND alipay = #{alipay} </if>
+	  <if test="displayalias != null"> AND  displayalias like concat(concat('%',#{displayalias}),'%')  </if>
+	  <if test="ipstatus != null" > AND ipstatus = #{ipstatus} </if>
+	  <if test="fundpassword != null" > AND fundpassword = #{fundpassword} </if>
+	  <if test="onlinestatus != null" > AND onlinestatus = #{onlinestatus} </if>
+	  <if test="employeestatus != null" > AND employeestatus = #{employeestatus} </if>
+	  <if test="startDate !=null"> AND logindatetime <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> AND logindatetime <![CDATA[ <=]]> #{endDate}</if>
+	  <if test="logindatetime !=null"> AND logindatetime = #{logindatetime}</if>
+	  <if test="lastlogintime !=null"> AND lastlogintime = #{lastlogintime}</if>
+	  <if test="dividend !=null"> AND dividend = #{dividend}</if>
+	  <if test="share !=null"> AND share = #{share}</if>
+	  <if test="creditrating !=null"> AND creditrating = #{creditrating}</if>
+	  <if test="balance !=null"> AND balance = #{balance}</if>
+	  and datastatus=1
+	</sql>
+	<sql id="range-chs">
+		<if test="enterprisecode != null"> AND enterprisecode = #{enterprisecode}</if>
+		<if test="employeecode != null " > AND employeecode =#{employeecode}</if>
+		<if test="brandcode != null"> AND brandcode = #{brandcode}</if>
+		<if test="brandname != null"> AND  brandname like concat(concat('%',#{brandname}),'%')  </if>
+		<if test="parentemployeecode !=null">AND parentemployeecode = #{parentemployeecode}</if>
+		<if test="parentemployeeaccount !=null">AND parentemployeeaccount like concat(concat('%',#{parentemployeeaccount}),'%') </if>
+		<if test="employeetypecode !=null"> AND employeetypecode = #{employeetypecode}</if>
+		<if test="employeelevelcode !=null"> AND employeelevelcode = #{employeelevelcode}</if>
+		<if	test="loginaccount	!= null" > AND loginaccount like concat(concat('%',#{loginaccount}),'%')</if>
+		<if test="loginpassword != null" > AND loginpassword = #{loginpassword} </if>
+		<if test="loginpassword2 != null" > AND loginpassword2 = #{loginpassword2} </if>
+		<if test="phoneno != null" > AND phoneno = #{phoneno} </if>
+		<if test="phonestatus != null" > AND phonestatus = #{phonestatus} </if>
+		<if test="qq != null" > AND qq = #{qq} </if>
+		<if test="email != null" > AND email = #{email} </if>
+		<if test="wechat != null" > AND wechat = #{wechat} </if>
+		<if test="alipay != null" > AND alipay = #{alipay} </if>
+		<if test="displayalias != null"> AND  displayalias like concat(concat('%',#{displayalias}),'%')  </if>
+		<if test="ipstatus != null" > AND ipstatus = #{ipstatus} </if>
+		<if test="fundpassword != null" > AND fundpassword = #{fundpassword} </if>
+		<if test="onlinestatus != null" > AND onlinestatus = #{onlinestatus} </if>
+		<if test="employeestatus != null" > AND employeestatus = #{employeestatus} </if>
+		<if test="logindatetime !=null"> AND logindatetime = #{logindatetime}</if>
+	  	<if test="lastlogintime !=null"> AND lastlogintime = #{lastlogintime}</if>
+		<if test="dividend !=null"> AND dividend = #{dividend}</if>
+	  	<if test="share !=null"> AND share = #{share}</if>
+	  	<if test="creditrating !=null"> AND creditrating = #{creditrating}</if>
+	  	<if test="balance !=null"> AND balance = #{balance}</if>
+		<!-- 注册时间 -->
+		<if test="startDate !=null"> AND logindatetime <![CDATA[ >= ]]>#{startDate}</if>
+		<if test="endDate !=null"> AND logindatetime <![CDATA[ <=]]> #{endDate}</if>
+		<!-- 最后登录时间 -->
+		<if test="lastStartDate !=null"> AND lastlogintime <![CDATA[ >= ]]>#{lastStartDate}</if>
+		<if test="lastEndDate !=null"> AND lastlogintime <![CDATA[ <=]]> #{lastEndDate}</if>
+		<!-- 账户余额 -->
+		<if test="balance_begin !=null"> AND balance <![CDATA[ >= ]]> #{balance_begin}</if>
+		<if test="balance_end !=null"> AND balance <![CDATA[ <=]]>  #{balance_end}</if>
+		<!-- 分红 -->
+		<if test="dividend_begin !=null"> AND dividend <![CDATA[ >= ]]> #{dividend_begin}</if>
+		<if test="dividend_end !=null"> AND dividend <![CDATA[ <=]]>  #{dividend_end}</if>
+		<!-- 占成 -->
+		<if test="share_begin !=null"> AND share <![CDATA[ >= ]]> #{share_begin}</if>
+		<if test="share_end !=null"> AND share <![CDATA[ <=]]>  #{share_end}</if>
+		
+		<if test="createDate !=null"> AND  DATE_FORMAT(logindatetime,'%Y-%c-%d') = str_to_date(#{createDate},'%Y-%c-%d')</if>
+		<if test="loginDate !=null"> AND DATE_FORMAT(lastlogintime,'%Y-%m-%d') 
+				NOT BETWEEN DATE_SUB(DATE_FORMAT(CURRENT_TIMESTAMP,'%Y-%m-%d'), INTERVAL #{loginDate} DAY)
+				AND DATE_FORMAT(CURRENT_TIMESTAMP ,'%Y-%m-%d')
+	    </if>
+		and datastatus=1
+	</sql>
+	<sql id="exactCondition">
+		<where> 
+		  <include refid="exact-chs"></include>
+		</where>
+	</sql>
+	<sql id="rangeCondition">
+		<where>
+		  <if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="createDate ==null">
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>
+			</if>
+			)
+		  </if>
+	  	  <if test="employeetypecodes !=null and employeetypecodes.size() !=0">
+	  		AND employeetypecode in 
+	  		<foreach collection="employeetypecodes" item="item"  separator="," open="(" close=")">
+	  			#{item}
+	  		</foreach>
+	  	  </if>
+		  <include refid="range-chs"></include>
+		</where>
+	</sql>
+
+
+    	
+<!-- =================================================新增语句================================================================ -->
+<!--   保存数据 -->
+	<insert id="save" parameterType="com.maven.entity.EnterpriseEmployee">
+	  	INSERT INTO enterprise_employee (
+	  		EMPLOYEECODE,PARENTEMPLOYEECODE,PARENTEMPLOYEEACCOUNT,EMPLOYEETYPECODE,EMPLOYEELEVELCODE,
+	  		ENTERPRISECODE,BRANDCODE,LOGINACCOUNT,LOGINPASSWORD,LOGINPASSWORD2,FUNDPASSWORD,DISPLAYALIAS,ONLINESTATUS, 
+	  		EMPLOYEESTATUS,LOGINDATETIME,DIVIDEND,SHARE,REGISTERCODE,PHONENO,EMAIL,QQ,WECHAT,ALIPAY,IPSTATUS)
+	    VALUES (
+	    	ufn_get_next_string_by_tablename('enterprise_employee',0),
+	    	#{parentemployeecode},#{parentemployeeaccount},
+	    	#{employeetypecode}, #{employeelevelcode},#{enterprisecode},#{brandcode},
+	    	#{loginaccount}, #{loginpassword}, #{loginpassword2}, #{fundpassword},#{displayalias}, 
+	    	#{onlinestatus},#{employeestatus}, NOW(),#{dividend},#{share},#{registercode},#{phoneno},#{email},#{qq},#{wechat},#{alipay},#{ipstatus}
+	     )
+		<selectKey resultType="java.lang.String" keyProperty="employeecode" order="AFTER" >
+	    	SELECT employeecode FROM enterprise_employee WHERE loginaccount=#{loginaccount} and loginpassword = #{loginpassword}  order by EMPLOYEECODE desc limit 0,1;
+	  	</selectKey>
+	</insert>
+<!-- =============================and parentemployeecode not IN('NULL','E00000BN','E0000000')====================精确查询================================================================ -->
+ <!-- 函数，递归用户团队的下级代理 -->
+ 	<select id="ufn_takeTeamAgent" parameterType="java.lang.String" resultType="java.lang.String">
+ 		SELECT ufn_down_recursion_team_of_agent(#{employeecode})
+ 	</select>
+ <!-- 函数，回溯用户上级股东 -->
+ 	<select id="ufn_takeShareholder" parameterType="java.lang.String" resultType="java.lang.String">
+ 		SELECT ufn_up_recursion_shareholder_of_user(#{employeecode})
+ 	</select>
+ 	
+ <!-- 函数，查找用户的上级用户编码，中间以逗号分隔 -->
+ 	<select id="ufn_takeRecursionUpperLevel" parameterType="java.lang.String" resultType="java.lang.String">
+ 		SELECT ufn_up_recursion_upper_level_of_user(#{employeecode})
+ 	</select>
+ 	
+ 	 	
+ <!-- 存储过程,递归用户团队的下级代理 -->
+ 	<select id="usp_takeTeamAgent" statementType="CALLABLE" parameterType="Map" resultMap="levelResultMap">
+           {call usp_down_recursion_team_of_agent(#{employeecode,mode=IN,jdbcType=CHAR})}    
+    </select>
+ <!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select  <include refid="ColumnList" />  
+		from  view_enterprise_employee 
+		where employeecode = #{employeecode}
+	</select>
+
+	<!-- 根据登录名与密码检查是否存在该用户-->
+	<select id="countTakeDepositRecordcountTakeDepositRecord" resultType="int" parameterType="map">
+  		SELECT COUNT(*) FROM enterprise_employee WHERE 	loginaccount = #{loginaccount} AND loginpassword = #{loginpassword}
+	</select>
+	<!--   检查用户名是否已存在 -->
+	<select id="employeeIsExist" resultMap="BaseResultMap" parameterType="String">
+		SELECT <include refid="ColumnList" /> FROM view_enterprise_employee WHERE loginaccount = #{loginaccount} 
+	</select>
+	<!--   查询账号是否属于当前登录用户的下级-->
+	<select id="findAllDownEmployee" resultMap="BaseResultMap" parameterType="String">
+		SELECT <include refid="ColumnList" />,ufn_up_recursion_upper_level_of_user(employeecode) as upperlevel FROM view_enterprise_employee where 1 = 1 and loginaccount = #{loginaccount}
+	</select>
+	<!-- 根据登录名与密码返回员工对象-->
+	<select id="getThisLoginEmployeeMsg" resultMap="BaseResultMap" parameterType="Map">
+    	SELECT <include refid="ColumnList"/> FROM view_enterprise_employee where 
+    	loginaccount=#{loginaccount} 
+    	and loginpassword = #{loginpassword}
+    	and employeestatus = #{employeestatus}
+    	and datastatus = #{datastatus}
+	</select>
+	<select id="select" resultMap="BaseResultMap" parameterType="Map">
+    	SELECT <include refid="ColumnList"/>
+		FROM view_enterprise_employee 
+		<include refid="exactCondition"/> 
+	</select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- 根据条件查询 -->
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+    	SELECT <include refid="ColumnList"/> FROM view_enterprise_employee 
+    	<include refid="rangeCondition"/>
+    	<include refid="ABasic.orderby" /> 
+    	<include refid="ABasic.page" />
+	</select>
+	<select id="selectAllCount" resultType="long" parameterType="Map">
+    	SELECT COUNT(1) FROM view_enterprise_employee <include refid="rangeCondition"/> 
+	</select>
+	<!-- 	代理查询与其它类型的不一样需要单独写 -->
+	<select id="agentQuery" resultMap="BaseResultMap" parameterType="map">
+		SELECT <include refid="ColumnList"/> FROM view_enterprise_employee 
+				<where>
+					<if test="enterprisecode != null">and enterprisecode = #{enterprisecode}</if>
+					<if test="employeecode != null">and employeecode = #{employeecode}</if>
+					<if test="parentemployeecode != null">and parentemployeecode = #{parentemployeecode}</if>
+					<if test="brandcode != null">and brandcode = #{brandcode}</if>
+					<if test="employeetypecode != null">and employeetypecode = #{employeetypecode}</if>
+					<if test="employeestatus != null" > AND employeestatus = #{employeestatus} </if>
+					<if test="loginaccount != null" > AND loginaccount = #{loginaccount} </if>
+					<if test="onlinestatus != null" > AND onlinestatus = #{onlinestatus} </if>
+					<if test="startDate !=null"> AND logindatetime <![CDATA[ >= ]]>#{startDate}</if>
+		  			<if test="endDate !=null"> AND logindatetime <![CDATA[ <=]]> #{endDate}</if>
+					<if test="teamCodes !=null and teamCodes.length > 0">
+				  	  	and (parentemployeecode in 
+				  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+							#{teamcode}
+						</foreach>
+						<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+					</if>
+					<if test="employeetypecodes !=null and employeetypecodes.size() !=0">
+				  		AND employeetypecode in 
+				  		<foreach collection="employeetypecodes" item="item"  separator="," open="(" close=")">
+				  			#{item}
+				  		</foreach>
+				  	</if>
+				</where>
+				and datastatus=1
+			ORDER BY LOGINDATETIME DESC 
+			<include refid="ABasic.page"></include>
+	</select>
+	<select id="agentQueryCount" resultType="long" parameterType="map">
+		SELECT count(1) FROM view_enterprise_employee
+		<where>
+			<if test="employeecode != null">and employeecode = #{employeecode}</if>
+			<if test="parentemployeecode != null">and parentemployeecode = #{parentemployeecode}</if>
+			<if test="brandcode != null">and brandcode = #{brandcode}</if>
+			<if test="employeetypecode != null">and employeetypecode = #{employeetypecode}</if>
+			<if test="employeestatus != null" > AND employeestatus = #{employeestatus} </if>
+			<if test="loginaccount != null" > AND loginaccount = #{loginaccount} </if>
+			<if test="onlinestatus != null" > AND onlinestatus = #{onlinestatus} </if>
+			<if test="startDate !=null"> AND logindatetime <![CDATA[ >= ]]>#{startDate}</if>
+		  	<if test="endDate !=null"> AND logindatetime <![CDATA[ <=]]> #{endDate}</if>
+			<if test="teamCodes !=null and teamCodes.length > 0">
+		  	  	and (parentemployeecode in 
+		  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+					#{teamcode}
+				</foreach>
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+			 </if>
+			 <if test="employeetypecodes !=null and employeetypecodes.size() !=0">
+		  		AND employeetypecode in 
+		  		<foreach collection="employeetypecodes" item="item"  separator="," open="(" close=")">
+		  			#{item}
+		  		</foreach>
+		  	</if>
+		</where>
+		and datastatus=1
+	</select>
+	<!--   根据自定义分页数量查询 -->
+	<select id="pageParameter" resultMap="BaseResultMap" parameterType="map">
+    	SELECT * ,(ufn_statistic_count_of_next_level('T004', employeecode) + ufn_statistic_count_of_next_level('T005', employeecode)) as agentCount,ufn_statistic_count_of_next_level('T003', employeecode) as memberCount   
+    	from (SELECT <include refid="ColumnList"/> FROM view_enterprise_employee
+		<include refid="rangeCondition"/> <include refid="ABasic.orderby" /> <include refid="ABasic.page" />) a
+	</select>
+<!--   统计满足条件的数据条数 -->
+	<select id="findCount" resultType="long" parameterType="com.maven.entity.EnterpriseEmployee">
+  		SELECT count(1) FROM view_enterprise_employee <include refid="rangeCondition"/> 
+	</select>
+
+	
+	
+	<!--   根据自定义分页数量查询 -->
+	<select id="pageParameterAgent" resultMap="BaseResultMap" parameterType="map">
+    	SELECT * ,ufn_statistic_count_of_next_level('T005', employeecode) as agentCount,ufn_statistic_count_of_next_level('T003', employeecode) as memberCount   
+    	from (SELECT <include refid="ColumnList"/> FROM view_enterprise_employee
+		<include refid="rangeCondition"/> <include refid="ABasic.orderby" /> <include refid="ABasic.page" />) a
+	</select>
+	
+<!--   统计满足条件的数据条数 -->
+	<select id="findCountByType" resultMap="BaseResultMap" parameterType="String">
+  		SELECT ufn_statistic_count_of_next_level('T004', #{employeecode} ) as agentCount, 
+  		ufn_statistic_count_of_next_level('T003', #{employeecode} ) as memberCount   
+	</select>	
+<!--   统计直线会员或代理的余额数据 -->
+	<select id="findBalances" resultMap="BaseResultMap" parameterType="String">
+  		SELECT 
+  		ufn_tn_person_balances_jifen_parentcode(#{parentemployeecode}) AS dividend, 
+  		ufn_tn_person_balances_yuanbao_parentcode(#{parentemployeecode}) AS share
+	</select>	
+<!--   根据上级编码查下级等相关信息
+	<select id="findCountByType" resultMap="BaseResultMap" parameterType="String">
+  		SELECT 
+  		ufn_statistic_count_of_next_level('T004', #{employeecode} ) as agentCount, 
+  		ufn_statistic_count_of_next_level('T003', #{employeecode} ) as memberCount,
+  		ufn_tn_person_balances_jifen_parentcode( #{employeecode} ) AS dividend, 
+  		ufn_tn_person_balances_yuanbao_parentcode( #{employeecode} ) AS share   
+	</select>	
+ -->	
+		
+	
+	<!-- 查询直属上级和直属下级 -->	
+	<select id="takeDerictly" resultMap="BaseResultMap" parameterType="Map">
+		SELECT <include refid="ColumnList"/> FROM view_enterprise_employee
+		where (parentemployeecode = #{selfecode} or employeecode=#{superiorecode}) <include refid="range-chs" /> order by employeecode asc <include refid="ABasic.page" />
+	</select>
+<!-- 查询直属上级和直属下级总数 -->
+	<select id="takeDerictlyCount" resultType="long"  parameterType="Map">
+		SELECT COUNT(1) FROM view_enterprise_employee where (parentemployeecode = #{selfecode} or employeecode=#{superiorecode}) <include refid="range-chs" />
+	</select>
+<!-- =================================================删除语句================================================================ -->
+<!--  根据员工编码删除对应的员工 -->
+	<delete id="deleteEmployee" parameterType="String">
+  		update enterprise_employee set employeestatus = -1 WHERE EMPLOYEECODE = #{employeecode} 
+	</delete>
+<!--   删除多条记录 -->
+	<delete id="deleteSelectEmployee" parameterType="String">
+		update enterprise_employee set datastatus = -1 WHERE EMPLOYEECODE in
+		<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+        	#{employeecode}  
+    	</foreach> 
+	</delete>
+<!-- =================================================修改语句================================================================ -->
+<!-- 禁用多个用户 -->
+	<update id="disableSelectEmployee" parameterType="String">
+		update enterprise_employee set employeestatus = 3 WHERE EMPLOYEECODE in
+		<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+        	#{employeecode}  
+    	</foreach> 
+	</update>
+<!-- 启用多个用户 -->
+<update id="activateSelectEmployee" parameterType="String">
+	update enterprise_employee set employeestatus = 1 WHERE EMPLOYEECODE in
+	<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+       	#{employeecode}  
+   	</foreach> 
+</update>
+
+<!-- 修改多个用户的用户等级 -->
+<update id="updateEmployeeLevel" parameterType="Map">
+	update enterprise_employee set employeelevelcode = #{employeelevelcode} WHERE EMPLOYEECODE in
+	<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+       	#{employeecode}  
+   	</foreach> 
+</update>
+
+<!-- 修改会员的用户信用评级 -->
+<update id="updateMemberCreditRating" parameterType="Map">
+	update enterprise_employee set creditrating = #{creditrating} WHERE EMPLOYEECODE in
+	<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+       	#{employeecode}  
+   	</foreach> 
+</update>
+
+<!-- 根据会员编码批量查找会员列表 -->
+<select id="findEmployeeByCodes" resultMap="BaseResultMap" parameterType="map">
+	SELECT <include refid="ColumnList"/> FROM view_enterprise_employee WHERE EMPLOYEECODE in
+	<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+       	#{employeecode}  
+   	</foreach> 
+</select>
+
+<!-- 	登录密码修改 -->
+	<update id="updatePassword" parameterType="map">
+		UPDATE enterprise_employee 
+				SET LOGINPASSWORD = #{newLoginpassword,jdbcType=VARCHAR} , LOGINPASSWORD2 = #{newLoginpassword2,jdbcType=VARCHAR} 
+				WHERE LOGINACCOUNT = #{loginaccount,jdbcType=VARCHAR} 
+				AND  LOGINPASSWORD = #{loginpassword,jdbcType=VARCHAR}
+	</update>
+<!-- 	资金密码修改 -->
+	<update id="updateCapitalpwd" parameterType="map">
+		UPDATE enterprise_employee 
+				SET fundpassword = #{newCapitalpwd,jdbcType=VARCHAR} 
+				WHERE LOGINACCOUNT = #{loginaccount,jdbcType=VARCHAR}
+				<if test="fundpassword != null"> 
+				AND  fundpassword = #{fundpassword,jdbcType=VARCHAR}
+				</if>
+	</update>
+<!-- 	修改联系方式 -->
+	<update id="updateInfo" parameterType="map">
+		UPDATE enterprise_employee 
+		<set>
+			<if test="displayalias !=null ">displayalias = #{displayalias},</if>
+			<if test="qq !=null ">qq = #{qq},</if>
+			<if test="email !=null ">email = #{email},</if>
+			<if test="phoneno !=null ">phoneno = #{phoneno},</if>
+			<if test="wechat !=null ">wechat = #{wechat},</if>
+			<if test="alipay !=null ">alipay = #{alipay},</if>
+			<if test="phonestatus !=null ">phonestatus = #{phonestatus},</if>
+			<if test="employeestatus !=null ">employeestatus = #{employeestatus},</if>
+		</set>
+		WHERE employeecode = #{employeecode}
+	</update>
+		
+<!-- 	重置登录密码或者取款密码 -->
+	<update id="restPassword" parameterType="map">
+		UPDATE enterprise_employee 
+		<set>
+			<if test="loginpassword !=null ">loginpassword = #{loginpassword},</if>
+			<if test="loginpassword2 !=null ">loginpassword2 = #{loginpassword2},</if>
+			<if test="fundpassword !=null ">fundpassword = #{fundpassword},</if>
+			<if test="lastlogintime !=null ">lastlogintime = #{lastlogintime},</if>
+		</set>
+		WHERE employeecode = #{employeecode}
+	</update>
+<!-- 设置分红和占成 -->
+	<update id="setDividendShare" parameterType="com.maven.entity.EnterpriseEmployee">
+		<if test="dividend != null">
+			UPDATE enterprise_employee  set dividend =#{dividend} 
+    			WHERE employeecode=#{employeecode} OR (dividend>#{dividend} AND parentemployeecode IN (
+    				SELECT c.employeecode FROM (SELECT ee.employeecode FROM enterprise_employee ee 
+        				WHERE FIND_IN_SET(ee.employeecode, ufn_down_recursion_team_of_agent(#{employeecode})) > 0 AND ee.employeetypecode != 'T003') c ));	
+		</if>
+		<if test="share != null"> 
+			UPDATE enterprise_employee  set share =#{share} 
+    			WHERE employeecode=#{employeecode} OR (share>#{share} AND parentemployeecode IN (
+    				SELECT c.employeecode FROM (SELECT ee.employeecode FROM enterprise_employee ee 
+    					WHERE FIND_IN_SET(ee.employeecode, ufn_down_recursion_team_of_agent(#{employeecode})) > 0 AND ee.employeetypecode != 'T003') c ));
+		</if>
+		<!-- 
+		UPDATE enterprise_employee 
+		<set>
+			<if test="dividend != null"> dividend=#{dividend},</if>
+			<if test="share != null"> share=#{share},</if>
+		</set>
+		where employeecode=#{employeecode}  -->
+	</update>
+<!-- 修改用户状态 -->
+	<update id="updateOnlineStatus">
+		UPDATE enterprise_employee set onlinestatus=#{onlinestatus}
+		<if test="lastlogintime != null" > , lastlogintime = #{lastlogintime}</if>
+		where employeecode=#{employeecode}
+	</update>
+<!-- 	客户活跃报表统计 -->
+	<select id="employeeActivityReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_employee_login_activity (#{employeecode,mode=IN,jdbcType=VARCHAR})}]]>
+	</select>
+<!-- 	用户注册统计报表 -->
+	<select id="queryUserRegisteredReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_registered (#{employeecode,mode=IN,jdbcType=VARCHAR},#{queryDate,mode=IN,jdbcType=TINYINT})}]]>
+	</select>
+<!-- 	用户输赢统计 -->
+	<select id="queryUserLoseWinCount" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_lose_wins_count (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>
+<!-- 	用户输赢统计 -->
+	<select id="queryUserDownMemberDetail" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_member_lose_win_detail (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>
+<!-- 	游戏报表 -->
+	<select id="queryUserGameLoseWinCount" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_game_Reports (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>
+	
+	
+	
+<!-- 	游戏报表统计查询（新的。根据员工编码查询该团队的所有会员汇总金额数据） -->
+	<select id="queryUserGameAgentReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_report_by_agent_employeecode_new (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{but_money,mode=OUT,jdbcType=DECIMAL},
+					#{net_money,mode=OUT,jdbcType=DECIMAL},
+					#{valid_money,mode=OUT,jdbcType=DECIMAL},
+					#{rebates_cash,mode=OUT,jdbcType=DECIMAL},
+					#{countMember,mode=OUT,jdbcType=INTEGER},
+					#{countAgent,mode=OUT,jdbcType=INTEGER},
+					#{countEmployee,mode=OUT,jdbcType=INTEGER},
+					#{activity_money,mode=OUT,jdbcType=DECIMAL},
+					#{depositMoney,mode=OUT,jdbcType=DECIMAL},
+					#{withdrawMoney,mode=OUT,jdbcType=DECIMAL}
+					
+					)}]]>
+	</select>
+<!-- 	游戏报表统计查询（新的。根据员工编码查询该代理的所有直线会员金额数据） -->
+	<select id="queryUserGameMemberReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_report_by_member_employeecode_new (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{but_money,mode=OUT,jdbcType=DECIMAL},
+					#{net_money,mode=OUT,jdbcType=DECIMAL},
+					#{valid_money,mode=OUT,jdbcType=DECIMAL},
+					#{rebates_cash,mode=OUT,jdbcType=DECIMAL},
+					#{countMember,mode=OUT,jdbcType=INTEGER},
+					#{activity_money,mode=OUT,jdbcType=DECIMAL},
+					#{depositMoney,mode=OUT,jdbcType=DECIMAL},
+					#{withdrawMoney,mode=OUT,jdbcType=DECIMAL}
+					
+					)}]]>
+	</select>
+	
+<!-- 	根据员工编码统计个人汇总数据 -->
+	<select id="queryUserGameMemberReportOne" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_report_by_member_employeecode_one_new (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{but_money,mode=OUT,jdbcType=DECIMAL},
+					#{net_money,mode=OUT,jdbcType=DECIMAL},
+					#{valid_money,mode=OUT,jdbcType=DECIMAL},
+					#{rebates_cash,mode=OUT,jdbcType=DECIMAL},
+					#{activity_money,mode=OUT,jdbcType=DECIMAL},
+					#{depositMoney,mode=OUT,jdbcType=DECIMAL},
+					#{withdrawMoney,mode=OUT,jdbcType=DECIMAL}
+					
+					)}]]>
+	</select>
+
+<!-- 	根据员工编码统计个人涉及活动金额 -->
+	<select id="queryUserActivityMemberReportOne" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_activity_by_member_employeecode_one (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{activity_money,mode=OUT,jdbcType=DECIMAL}
+					
+					)}]]>
+	</select>			
+		
+<!-- 	游戏报表下级会员数据查询 -->
+	<select id="queryUserGameDownMemberDetail" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_game_down_member (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT},
+					
+					#{game_betting_amount,mode=OUT,jdbcType=DECIMAL},
+					#{bonus,mode=OUT,jdbcType=DECIMAL},
+					#{lose_win_amount,mode=OUT,jdbcType=DECIMAL})}]]>
+	</select>
+
+<!-- 	游戏报表下级会员数据查询 （新的）-->
+	<select id="queryUserGameDownMemberDetailNew" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_report_by_member_employeecode_page_new (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					
+					#{game_betting_amount,mode=OUT,jdbcType=DECIMAL},
+					#{lose_win_amount,mode=OUT,jdbcType=DECIMAL},
+					#{valid_money,mode=OUT,jdbcType=DECIMAL},
+					#{bonus,mode=OUT,jdbcType=DECIMAL},
+					#{countMember,mode=OUT,jdbcType=INTEGER}
+					
+					)}]]>
+	</select>
+		
+<!-- 	利润报表 -->
+	<select id="queryUserProfitReportCount" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_profit_count (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT},
+					
+					#{game_betting_amount,mode=OUT,jdbcType=DECIMAL},
+					#{lose_win_amount,mode=OUT,jdbcType=DECIMAL},
+					#{bonus,mode=OUT,jdbcType=DECIMAL},
+					#{dividend,mode=OUT,jdbcType=DECIMAL},
+					#{share,mode=OUT,jdbcType=DECIMAL},
+					#{profit_amount,mode=OUT,jdbcType=DECIMAL}
+					)}]]>
+	</select>
+<!-- 	利润报表之金额统计 -->
+	<select id="queryUserProfitReportCountMoney" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_profit_count (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>	
+	
+<!-- 	利润报表下级会员数据查询 -->
+	<select id="queryUserProfitReportDownMemberDetail" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_user_profit_member (
+					#{employeecode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{start,mode=IN,jdbcType=TINYINT},
+					#{limit,mode=IN,jdbcType=TINYINT},
+					#{countNumber,mode=OUT,jdbcType=TINYINT},
+					
+					#{game_betting_amount,mode=OUT,jdbcType=DECIMAL},
+					#{lose_win_amount,mode=OUT,jdbcType=DECIMAL},
+					#{bonus,mode=OUT,jdbcType=DECIMAL},
+					#{dividend,mode=OUT,jdbcType=DECIMAL},
+					#{share,mode=OUT,jdbcType=DECIMAL},
+					#{profit_amount,mode=OUT,jdbcType=DECIMAL}
+					)}]]>
+	</select>
+<!-- 	代理贡献查询 -->
+	<select id="queryAgentContributionRankingReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_agent_contribution (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+	</select>
+<!-- 	代理贡献明细查询 -->
+	<select id="queryAgentContributionDetail" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_agent_contribution_detail(
+														#{employeecode,mode=IN,jdbcType=VARCHAR},
+														#{startDate,mode=IN,jdbcType=TIMESTAMP},
+														#{endDate,mode=IN,jdbcType=TIMESTAMP},
+														#{start,mode=IN,jdbcType=TINYINT},
+														#{limit,mode=IN,jdbcType=TINYINT},
+														#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>
+<!-- 	用户来源统计 -->
+	<select id="queryUserDomainLink" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_domainlink_user_dom(
+												#{employeecode,mode=IN,jdbcType=VARCHAR},
+												#{domainlink,mode=IN,jdbcType=VARCHAR},
+												#{start,mode=IN,jdbcType=TINYINT},
+												#{limit,mode=IN,jdbcType=TINYINT},
+												#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+	</select>
+	
+<!-- 	统计企业的所有会员在指定时间内的有效投注额，按人员分组 （按大类）-->
+	<select id="queryUspActivityButmoneyEnterprisecodeBigType" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_activity_butmoney_by_enterprisecode_bigtype (
+					#{enterprisecode,mode=IN,jdbcType=VARCHAR},
+					#{brandcode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{gamebigtype,mode=IN,jdbcType=VARCHAR}
+					
+					)}]]>
+	</select>
+
+<!-- 	统计企业的所有会员在指定时间内的有效投注额，按人员分组 （按小类）-->
+	<select id="queryUspActivityButmoneyEnterprisecodeSmallType" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+		<![CDATA[{call usp_activity_butmoney_by_enterprisecode_smalltype (
+					#{enterprisecode,mode=IN,jdbcType=VARCHAR},
+					#{brandcode,mode=IN,jdbcType=VARCHAR},
+					#{startDate,mode=IN,jdbcType=TIMESTAMP},
+					#{endDate,mode=IN,jdbcType=TIMESTAMP},
+					#{gametype,mode=IN,jdbcType=VARCHAR}
+					
+					)}]]>
+	</select>	
+		
+</mapper>

@@ -1,0 +1,56 @@
+{
+    "gameType": 2,
+    "payout": 40,
+    "betMap": [
+        {
+            "betMoney": 20,
+            "betType": 68
+        },
+        {
+            "betMoney": 20,
+            "betType": 10
+        }
+    ],
+    "judgeResult": [
+        10
+    ],
+    "userId": 1267254,
+    "tigerCard": 19,
+    "betHistoryId": "58f1ae75a7284608edc00b40",
+    "payoutTime": 1492233870,
+    "createTime": 1492233832,
+    "dragonCard": 47,
+    "roundNo": "D2-170415132349",
+    "subChannelId": 1208,
+    "validBet": 40,
+    "username": "fj60psv1kquc0c4ubb5zlxgaxyiuxl"
+}
+
+
+{
+    "gametype": 2,
+    "payout": 40,
+    "betmap": [
+        {
+            "betmoney": 20,
+            "bettype": 68
+        },
+        {
+            "betmoney": 20,
+            "bettype": 10
+        }
+    ],
+    "judgeresult": [
+        10
+    ],
+    "userid": 1267254,
+    "tigercard": 19,
+    "bethistoryid": "58f1ae75a7284608edc00b40",
+    "payouttime": 1492233870,
+    "createtime": 1492233832,
+    "dragoncard": 47,
+    "roundno": "d2-170415132349",
+    "subchannelid": 1208,
+    "validbet": 40,
+    "username": "fj60psv1kquc0c4ubb5zlxgaxyiuxl"
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd	
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd	
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd	
+	  	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"  default-autowire="byName">
+
+	<mvc:annotation-driven/>
+	
+    <!-- 国际化配置 -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+        <property name="useCodeAsDefaultMessage" value="true" />  
+    </bean>
+    <!-- 基于Session的本地化变更拦截器  SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
+	
+	<!-- 以下配置将拦截所有的URL请求 -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+	</mvc:interceptors>
+	
+	<!--  不拦截/static下所有文件 -->
+	<mvc:resources location="/static/" mapping="/static/**" />
+	
+	<!-- 以下配置将拦截特有的URL请求 -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.maven.interceptor.SystemInterceptor">
+            	<property name="excludedUrls">  
+			        <list>
+			         <!-- Static Files -->
+			          <value>.js</value>
+			          <value>.gif</value>
+			          <value>.png</value>
+			          <value>.css</value>
+			          <value>.json</value>
+			          <value>.jpg</value>
+			          <value>.wav</value>
+			          <value>/</value>
+			        </list>
+			    </property>   
+            </bean>
+        </mvc:interceptor>
+        
+        <mvc:interceptor>
+            <mvc:mapping path="/TPayment/**"/>
+            <bean class="com.maven.interceptor.TokenInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!-- 异常解析器 -->
+	<bean id="simpleMappingExceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">common/fileerror</prop>
+			</props>
+		</property>
+	</bean>
+	
+</beans>

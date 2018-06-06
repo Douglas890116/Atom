@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqBbin">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqBbin">
+    <id column="bbin_Wagers_Id" jdbcType="VARCHAR" property="bbinWagersId" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="bbin_User_Name" jdbcType="VARCHAR" property="bbinUserName" />
+    <result column="bbin_Wagers_Date" jdbcType="TIMESTAMP" property="bbinWagersDate" />
+    <result column="bbin_Serial_Id" jdbcType="VARCHAR" property="bbinSerialId" />
+    <result column="bbin_Round_No" jdbcType="VARCHAR" property="bbinRoundNo" />
+    <result column="bbin_Game_Type" jdbcType="VARCHAR" property="bbinGameType" />
+    <result column="bbin_Game_Code" jdbcType="VARCHAR" property="bbinGameCode" />
+    <result column="bbin_Result" jdbcType="VARCHAR" property="bbinResult" />
+    <result column="bbin_Result_Type" jdbcType="VARCHAR" property="bbinResultType" />
+    <result column="bbin_Card" jdbcType="VARCHAR" property="bbinCard" />
+    <result column="bbin_Bet_Amount" jdbcType="DOUBLE" property="bbinBetAmount" />
+    <result column="bbin_Payoff" jdbcType="DOUBLE" property="bbinPayoff" />
+    <result column="bbin_Currency" jdbcType="VARCHAR" property="bbinCurrency" />
+    <result column="bbin_Exchange_Rate" jdbcType="DOUBLE" property="bbinExchangeRate" />
+    <result column="bbin_Commissionable" jdbcType="DOUBLE" property="bbinCommissionable" />
+    <result column="bbin_Commission" jdbcType="VARCHAR" property="bbinCommission" />
+    <result column="bbin_Wager_Detail" jdbcType="VARCHAR" property="bbinWagerDetail" />
+    <result column="bbin_Origin" jdbcType="VARCHAR" property="bbinOrigin" />
+    <result column="bbin_Modified_Date" jdbcType="VARCHAR" property="bbinModifiedDate" />
+    <result column="bbin_Is_Paid" jdbcType="VARCHAR" property="bbinIsPaid" />
+    <result column="bbin_Order_Date" jdbcType="VARCHAR" property="bbinOrderDate" />
+    <result column="bbin_UPTIME" jdbcType="VARCHAR" property="bbinUptime" />
+    <result column="bbin_createtime" jdbcType="TIMESTAMP" property="bbinCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    BBIN_WAGERS_ID, ENTERPRISECODE,BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE,LOGINACCOUNT,BBIN_USER_NAME, BBIN_WAGERS_DATE, BBIN_SERIAL_ID, BBIN_ROUND_NO, 
+    BBIN_GAME_TYPE, BBIN_GAME_CODE, BBIN_RESULT, BBIN_RESULT_TYPE, BBIN_CARD, BBIN_BET_AMOUNT, 
+    BBIN_PAYOFF, BBIN_CURRENCY, BBIN_EXCHANGE_RATE, BBIN_COMMISSIONABLE, BBIN_COMMISSION, 
+    BBIN_ORIGIN, BBIN_MODIFIED_DATE, BBIN_IS_PAID, BBIN_ORDER_DATE, BBIN_UPTIME, BBIN_CREATETIME, BBIN_WAGER_DETAIL,
+    LAST_TIME
+  </sql>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="bbinWagersId != null" >and bbin_Wagers_Id = #{bbinWagersId} </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+      <if test="bbinUserName != null" >and LOWER(bbin_User_Name) like CONCAT(CONCAT('%',LOWER(#{bbinUserName})),'%') </if>
+      <if test="bbinWagersDate != null" >and bbin_Wagers_Date <![CDATA[ >= ]]> #{bbinWagersDate} </if>
+      <if test="startDate != null" >and bbin_Wagers_Date <![CDATA[ >= ]]> #{startDate} </if>
+      <if test="endDate != null" >and bbin_Wagers_Date <![CDATA[ <= ]]> #{endDate} </if>
+      <if test="bbinSerialId != null" >and bbin_Serial_Id = #{bbinSerialId} </if>
+      <if test="bbinRoundNo != null" >and bbin_Round_No = #{bbinRoundNo} </if>
+      <if test="bbinGameType != null" >and bbin_Game_Type = #{bbinGameType} </if>
+      <if test="bbinGameCode != null" >and bbin_Game_Code = #{bbinGameCode} </if>
+      <if test="bbinResult != null" >and bbin_Result = #{bbinResult} </if>
+      <if test="bbinResultType != null" >and bbin_Result_Type = #{bbinResultType} </if>
+      <if test="bbinCard != null" >and bbin_Card = #{bbinCard} </if>
+      <if test="bbinBetAmount != null" >and bbin_Bet_Amount = #{bbinBetAmount} </if>
+      <if test="bbinPayoff != null" >and bbin_Payoff = #{bbinPayoff} </if>
+      <if test="bbinCurrency != null" >and bbin_Currency = #{bbinCurrency} </if>
+      <if test="bbinExchangeRate != null" >and bbin_Exchange_Rate = #{bbinExchangeRate} </if>
+      <if test="bbinCommissionable != null" >and bbin_Commissionable = #{bbinCommissionable} </if>
+      <if test="bbinCommission != null" >and bbin_Commission = #{bbinCommission} </if>
+      <if test="bbinOrigin != null" >and bbin_Origin = #{bbinOrigin} </if>
+      <if test="bbinModifiedDate != null" >and bbin_Modified_Date = #{bbinModifiedDate} </if>
+      <if test="bbinIsPaid != null" >and bbin_Is_Paid = #{bbinIsPaid} </if>
+      <if test="bbinOrderDate != null" >and bbin_Order_Date = #{bbinOrderDate} </if>
+      <if test="bbinUptime != null" >and bbin_UPTIME = #{bbinUptime} </if>
+      <if test="bbinCreatetime != null" >and bbin_createtime = #{bbinCreatetime} </if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime} </if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bbin_Wagers_Date <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bbin_Wagers_Date <![CDATA[ <= ]]> #{EndDate} </if>
+      
+  	</where>
+  </sql>
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_bbin
+    where bbin_Wagers_Id = #{bbinWagersId}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_bbin
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_bbin
+    <include refid="rangecondition"></include>
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(bbin_Bet_Amount) bbinBetAmount,
+    sum(bbin_Payoff) bbinPayoff,
+    sum(bbin_Commissionable) bbinCommissionable
+    
+    from betting_hq_bbin
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+
+  
+  
+</mapper>

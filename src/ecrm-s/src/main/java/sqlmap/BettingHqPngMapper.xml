@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqPng">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqPng">
+    <id column="bill_No" jdbcType="VARCHAR" property="billNo" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterpriseCode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandCode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeeCode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="player_Name" jdbcType="VARCHAR" property="playerName" />
+    <result column="agent_Code" jdbcType="VARCHAR" property="agentCode" />
+    <result column="game_Code" jdbcType="VARCHAR" property="gameCode" />
+    <result column="net_Amount" jdbcType="DOUBLE" property="netAmount" />
+    <result column="bet_Time" jdbcType="TIMESTAMP" property="betTime" />
+    <result column="game_Type" jdbcType="VARCHAR" property="gameType" />
+    <result column="bet_Amount" jdbcType="DOUBLE" property="betAmount" />
+    <result column="valid_Bet_Amount" jdbcType="DOUBLE" property="validBetAmount" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="play_Type" jdbcType="VARCHAR" property="playType" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="table_Code" jdbcType="VARCHAR" property="tableCode" />
+    <result column="login_IP" jdbcType="VARCHAR" property="loginIP" />
+    <result column="recalcu_Time" jdbcType="TIMESTAMP" property="recalcuTime" />
+    <result column="platform_Id" jdbcType="VARCHAR" property="platformId" />
+    <result column="platform_Type" jdbcType="VARCHAR" property="platformType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="round" jdbcType="VARCHAR" property="round" />
+    <result column="stringex" jdbcType="VARCHAR" property="stringex" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="before_Credit" jdbcType="VARCHAR" property="beforeCredit" />
+    <result column="device_Type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 基础数据列 -->
+  <sql id="Base_Column_List">
+   BILL_NO,ENTERPRISECODE,BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE,LOGINACCOUNT,PLAYER_NAME,AGENT_CODE,GAME_CODE,NET_AMOUNT,BET_TIME,GAME_TYPE,BET_AMOUNT,VALID_BET_AMOUNT,FLAG,
+   PLAY_TYPE,CURRENCY,TABLE_CODE,LOGIN_IP,RECALCU_TIME,PLATFORM_ID,PLATFORM_TYPE,REMARK,ROUND,STRINGEX,CREATETIME,RESULT,BEFORE_CREDIT,
+   DEVICE_TYPE,LAST_TIME
+  </sql>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+	  <if test="billNo != null" >and bill_No = #{billNo} </if>
+  	  <if test="playerName != null" >and player_Name = #{playerName} </if>
+  	  <if test="betTime !=null">and bet_Time = #{betTime}</if>
+  	  <if test="gameType !=null">and game_Type = #{gameType}</if>
+  	  <if test="betAmount !=null">and bet_Amount = #{betAmount}</if>
+  	  <if test="startDate != null" >and bet_Time <![CDATA[ >= ]]> #{startDate} </if>
+      <if test="endDate != null" >and bet_Time <![CDATA[ <= ]]> #{endDate} </if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bet_Time <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bet_Time <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+ <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from betting_hq_png
+    where bill_No = #{billNo}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_png
+    <include refid="rangecondition" />
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_png 
+    <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(bet_Amount) betAmount,
+    sum(valid_Bet_Amount) validBetAmount,
+    sum(net_Amount) netAmount
+    
+    from betting_hq_png
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  
+ 
+  
+  
+</mapper>

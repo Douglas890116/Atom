@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LogOperationDetail" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.LogOperationDetail" >
+    <id column="logdetailcode" property="logdetailcode" jdbcType="INTEGER" />
+    <result column="logcode" property="logcode" jdbcType="INTEGER" />
+    <result column="fieldname" property="fieldname" jdbcType="VARCHAR" />
+    <result column="fieldvalue" property="fieldvalue" jdbcType="VARCHAR" />
+    <result column="conditions" property="conditions" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 基础字段 -->
+  <sql id="Base_Column_List" >
+    LOGDETAILCODE, LOGCODE, FIELDNAME, FIELDVALUE, CONDITIONS
+  </sql>
+  <sql id="condition">
+  	<where>
+  		<if test="logcode !=null">and logcode = #{logcode}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+   <insert id="saveRecordBatch" parameterType="java.util.List" >
+    insert into log_operation_detail(logcode,fieldname,fieldvalue,conditions) values
+	<foreach collection="list" item="item" separator=",">
+	(#{item.logcode},#{item.fieldname},#{item.fieldvalue},#{item.conditions})
+	</foreach>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_operation_detail
+    where logdetailcode = #{logdetailcode}
+  </select>
+  <select id="findOperatingLogDetail" resultMap="BaseResultMap" parameterType="Map" >
+    	select <include refid="Base_Column_List" /> from log_operation_detail <include refid="condition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_operation_detail
+    where logdetailcode = #{logdetailcode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+</mapper>

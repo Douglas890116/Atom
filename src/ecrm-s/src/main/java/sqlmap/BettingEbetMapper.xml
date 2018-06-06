@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingEbet" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingEbet" >
+    <id column="bethistoryid" property="bethistoryid" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="gamename" property="gamename" jdbcType="VARCHAR" />
+    <result column="betmap" property="betmap" jdbcType="VARCHAR" />
+    <result column="judgeresult" property="judgeresult" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="payouttime" property="payouttime" jdbcType="VARCHAR" />
+    <result column="gametime" property="gametime" jdbcType="VARCHAR" />
+    <result column="roundno" property="roundno" jdbcType="VARCHAR" />
+    <result column="subchannelid" property="subchannelid" jdbcType="VARCHAR" />
+    <result column="validbet" property="validbet" jdbcType="VARCHAR" />
+    <result column="payout" property="payout" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="bankercards" property="bankercards" jdbcType="VARCHAR" />
+    <result column="tigercard" property="tigercard" jdbcType="VARCHAR" />
+    <result column="dragoncard" property="dragoncard" jdbcType="VARCHAR" />
+    <result column="numbercard" property="numbercard" jdbcType="VARCHAR" />
+    <result column="alldices" property="alldices" jdbcType="VARCHAR" />
+    <result column="playercards" property="playercards" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="bettime" property="bettime" jdbcType="TIMESTAMP" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="netmoney" property="netmoney" jdbcType="DOUBLE" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="createtime !=null">and createtime = #{createtime}</if>
+	  <if test="startDate !=null">and bettime <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> and bettime <![CDATA[ <= ]]> #{endDate}</if>
+	  <if test="gametype != null" >and gametype = #{gametype} </if>
+	  <if test="bethistoryid != null" >and bethistoryid = #{bethistoryid} </if>
+	  <if test="roundno != null" >and roundno = #{roundno} </if>
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bettime <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bettime <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_ebet
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_ebet <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney,
+    sum(netmoney) netmoney,
+    sum(validbet) validbet
+    
+    from betting_ebet
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    bethistoryid, gametype, gamename, betmap, judgeresult, userid, payouttime, gametime, 
+    roundno, subchannelid, validbet, payout, username, bankercards, tigercard, dragoncard, 
+    numbercard, alldices, playercards, createtime, bettime, betmoney, netmoney, enterprisecode, 
+    brandcode, employeecode, parentemployeecode, loginaccount, gamebigtype, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_ebet
+    where bethistoryid = #{bethistoryid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_ebet
+    where bethistoryid = #{bethistoryid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingEbet" >
+    insert into betting_ebet (bethistoryid, gametype, gamename, 
+      betmap, judgeresult, userid, 
+      payouttime, gametime, roundno, 
+      subchannelid, validbet, payout, 
+      username, bankercards, tigercard, 
+      dragoncard, numbercard, alldices, 
+      playercards, createtime, bettime, 
+      betmoney, netmoney, enterprisecode, 
+      brandcode, employeecode, parentemployeecode, 
+      loginaccount, gamebigtype, status
+      )
+    values (#{bethistoryid,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, #{gamename,jdbcType=VARCHAR}, 
+      #{betmap,jdbcType=VARCHAR}, #{judgeresult,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{payouttime,jdbcType=VARCHAR}, #{gametime,jdbcType=VARCHAR}, #{roundno,jdbcType=VARCHAR}, 
+      #{subchannelid,jdbcType=VARCHAR}, #{validbet,jdbcType=VARCHAR}, #{payout,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{bankercards,jdbcType=VARCHAR}, #{tigercard,jdbcType=VARCHAR}, 
+      #{dragoncard,jdbcType=VARCHAR}, #{numbercard,jdbcType=VARCHAR}, #{alldices,jdbcType=VARCHAR}, 
+      #{playercards,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{bettime,jdbcType=TIMESTAMP}, 
+      #{betmoney,jdbcType=DOUBLE}, #{netmoney,jdbcType=DOUBLE}, #{enterprisecode,jdbcType=CHAR}, 
+      #{brandcode,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingEbet" >
+    insert into betting_ebet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bethistoryid != null" >
+        bethistoryid,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="gamename != null" >
+        gamename,
+      </if>
+      <if test="betmap != null" >
+        betmap,
+      </if>
+      <if test="judgeresult != null" >
+        judgeresult,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="payouttime != null" >
+        payouttime,
+      </if>
+      <if test="gametime != null" >
+        gametime,
+      </if>
+      <if test="roundno != null" >
+        roundno,
+      </if>
+      <if test="subchannelid != null" >
+        subchannelid,
+      </if>
+      <if test="validbet != null" >
+        validbet,
+      </if>
+      <if test="payout != null" >
+        payout,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="bankercards != null" >
+        bankercards,
+      </if>
+      <if test="tigercard != null" >
+        tigercard,
+      </if>
+      <if test="dragoncard != null" >
+        dragoncard,
+      </if>
+      <if test="numbercard != null" >
+        numbercard,
+      </if>
+      <if test="alldices != null" >
+        alldices,
+      </if>
+      <if test="playercards != null" >
+        playercards,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="bettime != null" >
+        bettime,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="netmoney != null" >
+        netmoney,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bethistoryid != null" >
+        #{bethistoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamename != null" >
+        #{gamename,jdbcType=VARCHAR},
+      </if>
+      <if test="betmap != null" >
+        #{betmap,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeresult != null" >
+        #{judgeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="payouttime != null" >
+        #{payouttime,jdbcType=VARCHAR},
+      </if>
+      <if test="gametime != null" >
+        #{gametime,jdbcType=VARCHAR},
+      </if>
+      <if test="roundno != null" >
+        #{roundno,jdbcType=VARCHAR},
+      </if>
+      <if test="subchannelid != null" >
+        #{subchannelid,jdbcType=VARCHAR},
+      </if>
+      <if test="validbet != null" >
+        #{validbet,jdbcType=VARCHAR},
+      </if>
+      <if test="payout != null" >
+        #{payout,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="bankercards != null" >
+        #{bankercards,jdbcType=VARCHAR},
+      </if>
+      <if test="tigercard != null" >
+        #{tigercard,jdbcType=VARCHAR},
+      </if>
+      <if test="dragoncard != null" >
+        #{dragoncard,jdbcType=VARCHAR},
+      </if>
+      <if test="numbercard != null" >
+        #{numbercard,jdbcType=VARCHAR},
+      </if>
+      <if test="alldices != null" >
+        #{alldices,jdbcType=VARCHAR},
+      </if>
+      <if test="playercards != null" >
+        #{playercards,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bettime != null" >
+        #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingEbet" >
+    update betting_ebet
+    <set >
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamename != null" >
+        gamename = #{gamename,jdbcType=VARCHAR},
+      </if>
+      <if test="betmap != null" >
+        betmap = #{betmap,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeresult != null" >
+        judgeresult = #{judgeresult,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="payouttime != null" >
+        payouttime = #{payouttime,jdbcType=VARCHAR},
+      </if>
+      <if test="gametime != null" >
+        gametime = #{gametime,jdbcType=VARCHAR},
+      </if>
+      <if test="roundno != null" >
+        roundno = #{roundno,jdbcType=VARCHAR},
+      </if>
+      <if test="subchannelid != null" >
+        subchannelid = #{subchannelid,jdbcType=VARCHAR},
+      </if>
+      <if test="validbet != null" >
+        validbet = #{validbet,jdbcType=VARCHAR},
+      </if>
+      <if test="payout != null" >
+        payout = #{payout,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="bankercards != null" >
+        bankercards = #{bankercards,jdbcType=VARCHAR},
+      </if>
+      <if test="tigercard != null" >
+        tigercard = #{tigercard,jdbcType=VARCHAR},
+      </if>
+      <if test="dragoncard != null" >
+        dragoncard = #{dragoncard,jdbcType=VARCHAR},
+      </if>
+      <if test="numbercard != null" >
+        numbercard = #{numbercard,jdbcType=VARCHAR},
+      </if>
+      <if test="alldices != null" >
+        alldices = #{alldices,jdbcType=VARCHAR},
+      </if>
+      <if test="playercards != null" >
+        playercards = #{playercards,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bettime != null" >
+        bettime = #{bettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betmoney != null" >
+        betmoney = #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        netmoney = #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bethistoryid = #{bethistoryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingEbet" >
+    update betting_ebet
+    set gametype = #{gametype,jdbcType=VARCHAR},
+      gamename = #{gamename,jdbcType=VARCHAR},
+      betmap = #{betmap,jdbcType=VARCHAR},
+      judgeresult = #{judgeresult,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      payouttime = #{payouttime,jdbcType=VARCHAR},
+      gametime = #{gametime,jdbcType=VARCHAR},
+      roundno = #{roundno,jdbcType=VARCHAR},
+      subchannelid = #{subchannelid,jdbcType=VARCHAR},
+      validbet = #{validbet,jdbcType=VARCHAR},
+      payout = #{payout,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      bankercards = #{bankercards,jdbcType=VARCHAR},
+      tigercard = #{tigercard,jdbcType=VARCHAR},
+      dragoncard = #{dragoncard,jdbcType=VARCHAR},
+      numbercard = #{numbercard,jdbcType=VARCHAR},
+      alldices = #{alldices,jdbcType=VARCHAR},
+      playercards = #{playercards,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      bettime = #{bettime,jdbcType=TIMESTAMP},
+      betmoney = #{betmoney,jdbcType=DOUBLE},
+      netmoney = #{netmoney,jdbcType=DOUBLE},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where bethistoryid = #{bethistoryid,jdbcType=VARCHAR}
+  </update>
+</mapper>

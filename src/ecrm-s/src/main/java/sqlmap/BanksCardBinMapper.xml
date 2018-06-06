@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BanksCardBin" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BanksCardBin" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="bankprefix" property="bankprefix" jdbcType="VARCHAR" />
+    <result column="bankcode" property="bankcode" jdbcType="VARCHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="banklen" property="banklen" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, bankprefix, bankcode, bankname, banklen, remark
+  </sql>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="bankcode != null" > and bankcode = #{bankcode}</if>
+		<if test="bankprefix != null" > and bankprefix = #{bankprefix}</if>
+	</where>
+</sql>	
+
+<select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from banks_card_bin
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from banks_card_bin
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from banks_card_bin
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  
+	
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from banks_card_bin
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from banks_card_bin
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BanksCardBin" >
+    insert into banks_card_bin (lsh, bankprefix, bankcode, 
+      bankname, banklen, remark
+      )
+    values (#{lsh,jdbcType=INTEGER}, #{bankprefix,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, 
+      #{bankname,jdbcType=VARCHAR}, #{banklen,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BanksCardBin" >
+    insert into banks_card_bin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="bankprefix != null" >
+        bankprefix,
+      </if>
+      <if test="bankcode != null" >
+        bankcode,
+      </if>
+      <if test="bankname != null" >
+        bankname,
+      </if>
+      <if test="banklen != null" >
+        banklen,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="bankprefix != null" >
+        #{bankprefix,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="banklen != null" >
+        #{banklen,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BanksCardBin" >
+    update banks_card_bin
+    <set >
+      <if test="bankprefix != null" >
+        bankprefix = #{bankprefix,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        bankcode = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankname = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="banklen != null" >
+        banklen = #{banklen,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BanksCardBin" >
+    update banks_card_bin
+    set bankprefix = #{bankprefix,jdbcType=VARCHAR},
+      bankcode = #{bankcode,jdbcType=VARCHAR},
+      bankname = #{bankname,jdbcType=VARCHAR},
+      banklen = #{banklen,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

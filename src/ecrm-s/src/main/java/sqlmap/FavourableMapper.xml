@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Favourable" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.Favourable" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="favourablename" property="favourablename" jdbcType="VARCHAR" />
+    <result column="isonce" property="isonce" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="lsbs" property="lsbs" jdbcType="DOUBLE" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="isdeault" property="isdeault" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="isonce != null" > and isonce = #{isonce}</if>
+		<if test="status != null" > and status = #{status}</if>
+		<if test="isdeault != null" > and isdeault = #{isdeault}</if>
+	</where>
+  </sql>
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from favourable
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from favourable
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.Favourable">
+  	select <include refid="Base_Column_List" /> from favourable
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    lsh, favourablename, isonce, enterprisecode, lsbs, starttime, endtime, createtime, 
+    isdeault, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from favourable
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from favourable
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.Favourable" >
+    insert into favourable (lsh, favourablename, isonce, 
+      enterprisecode, lsbs, starttime, 
+      endtime, createtime, isdeault, 
+      status)
+    values (#{lsh,jdbcType=VARCHAR}, #{favourablename,jdbcType=VARCHAR}, #{isonce,jdbcType=INTEGER}, 
+      #{enterprisecode,jdbcType=CHAR}, #{lsbs,jdbcType=DOUBLE}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, #{isdeault,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.Favourable" >
+    insert into favourable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="favourablename != null" >
+        favourablename,
+      </if>
+      <if test="isonce != null" >
+        isonce,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="lsbs != null" >
+        lsbs,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="isdeault != null" >
+        isdeault,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="favourablename != null" >
+        #{favourablename,jdbcType=VARCHAR},
+      </if>
+      <if test="isonce != null" >
+        #{isonce,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="lsbs != null" >
+        #{lsbs,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeault != null" >
+        #{isdeault,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.Favourable" >
+    update favourable
+    <set >
+      <if test="favourablename != null" >
+        favourablename = #{favourablename,jdbcType=VARCHAR},
+      </if>
+      <if test="isonce != null" >
+        isonce = #{isonce,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="lsbs != null" >
+        lsbs = #{lsbs,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeault != null" >
+        isdeault = #{isdeault,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.Favourable" >
+    update favourable
+    set favourablename = #{favourablename,jdbcType=VARCHAR},
+      isonce = #{isonce,jdbcType=INTEGER},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      lsbs = #{lsbs,jdbcType=DOUBLE},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      isdeault = #{isdeault,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

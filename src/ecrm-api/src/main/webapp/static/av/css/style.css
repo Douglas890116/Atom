@@ -1,0 +1,42 @@
+body,dd,div,dl,dt,h1,h2,h3,h4,h5,h6,li,ol,p,ul{margin: 0;padding: 0;border-color: #fff; list-style:none;}
+a,a:hover{outline:0;text-decoration:none}
+*{ color:#fff}
+body{ background:url(../images/bg.jpg) no-repeat #361e57}
+.clear{ clear:both}
+.top{ background:url(../images/top_bg.png) no-repeat center; height:119px; width:100%; overflow:hidden}
+.top_cen{ width:1100px; margin:0 auto}
+.top_cen .nav_l{ float:left; height:87px; width:196px; margin-top:-6px}
+.top_cen .nav_l ul{ width:42px; float:right;}
+.top_cen .nav_l ul li{ margin-top:4px}
+.top_cen .nav_l ul li.l1{ background:url(../images/fl_61.png) no-repeat; width:35px; height:35px; padding:2px}
+.top_cen .nav_l ul li#zt1{ background:url(../images/fl_61.png) no-repeat; width:35px; height:35px; padding:2px}
+.top_cen .nav_l ul li#zt1:hover,.top_cen .nav_l ul li#zt1.hover{ background:url(../images/fl.png) no-repeat;}
+.top_cen .nav_l ul li.l2{ background:url(../images/html5_82.png) no-repeat; width:35px; height:35px; padding:2px}
+.top_cen .nav_l ul li#zt2{ background:url(../images/html5_82.png) no-repeat; width:35px; height:35px; padding:2px}
+.top_cen .nav_l ul li#zt2:hover,.top_cen .nav_l ul li#zt2.hover{ background:url(../images/html5.png) no-repeat;}
+.nav_l ol{height:79px; width:188px; padding:4px}
+.nav_l ol.zt1{ background:url(../images/zt1.png) no-repeat center;}
+.nav_l ol.zt2{ background:url(../images/zt2.png) no-repeat center;}
+.nav_l ol li{ width:124px; height:30px; padding:4px 7px; position:relative}
+.nav_l ol li:hover,.nav_l ol li.hover{box-shadow: 0 1px 2px #68357d; border:1px solid #68357d; border-radius:3px}
+.zt1 li#list1{ background:url(../images/sltos.png) no-repeat center;}
+.zt1 li#list1:hover,.zt1 li#list1.hover{ background:url(../images/sltos2.png) no-repeat center}
+.zt1 li#list2{ background:url(../images/cascading.png) no-repeat center;}
+.zt1 li#list2:hover,.zt1 li#list2.hover{ background:url(../images/cascading2.png) no-repeat center}
+.zt2 li#list3{ background:url(../images/sltos.png) no-repeat center;}
+.zt2 li#list3:hover,.zt2 li#list3.hover{ background:url(../images/sltos2.png) no-repeat center}
+.zt2 li#list4{ background:url(../images/cascading.png) no-repeat center;}
+.zt2 li#list4:hover,.zt2 li#list4.hover{ background:url(../images/cascading2.png) no-repeat center}
+.top_cen .nav_r{ float:right; height:105px; width:199px}
+.top_cen .nav_r ul{}
+.top_cen .nav_r ul li{ float:left; margin:3px 22px 4px 0;}
+.top_cen .nav_r ul li.l_china{ background:url(../images/china.png) no-repeat;}
+.top_cen .nav_r ul li.l_english{ background:url(../images/usa.png) no-repeat;}
+.top_cen .nav_r ul li.l_japan{ background:url(../images/japan.png) no-repeat; margin-right:2px}
+.top_cen .nav_r ul li a{ font-size:17px; color:#b2b2b2; padding-top:55px; display:block; float:left;margin-left:-4px; }
+.top_cen .nav_r ul li a:hover{ color:#fff} 
+.top_cen .logo{ background:url(../images/logo.png) no-repeat; margin:0 auto; height:92px; width:372px; margin-top:15px; display:block}
+.con_cen{ width:1100px; margin:0 auto}
+.con_cen ul li{ float:left; margin-right:3px; margin-top:20px; width:180px; font-size:14px}
+.con_cen ul li p{ padding-left:10px; cursor:pointer}
+.con_cen ul li p:hover{ color:#ffff00}

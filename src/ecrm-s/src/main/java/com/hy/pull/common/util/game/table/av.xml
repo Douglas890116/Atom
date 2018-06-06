@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="tid" name2="tid" />
+	<column name1="transType" name2="transType" />
+	<column name1="amount" name2="amount" />
+	<column name1="transType2" name2="transType2" />
+	<column name1="amount2" name2="amount2" />
+	<column name1="provider" name2="provider" />
+	<column name1="roundID" name2="roundID" />
+	<column name1="gameInfo" name2="gameInfo" />
+	<column name1="history" name2="history" />
+	<column name1="isRoundFinished" name2="isRoundFinished" />
+	<column name1="time" name2="time" />
+	<column name1="userID" name2="userID" />
+	<column name1="createtime" name2="createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityRaffleSignin" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityRaffleSignin" >
+    <id column="rafflesignincode" property="rafflesignincode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="signintime" property="signintime" jdbcType="TIMESTAMP" />
+    <result column="depositamount" property="depositamount" jdbcType="DECIMAL" />
+    <result column="betamount" property="betamount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rafflesignincode, employeecode, signintime, depositamount, betamount
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+		<if test="rafflesignincode != null" > and rafflesignincode = #{rafflesignincode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="startsignintime != null" > and signintime <![CDATA[ >= ]]> #{startsignintime}</if>
+		<if test="endsignintime != null" > and signintime <![CDATA[ <= ]]> #{endsignintime}</if>
+		<if test="depositamount != null" > and depositamount = #{depositamount}</if>
+		<if test="betamount != null" > and betamount = #{betamount}</if>
+	</where>
+  </sql>
+<!-- =================================================存储过程================================================================ -->
+<select id="usp_raffle_signin" statementType="CALLABLE" parameterType="Map" resultType="java.lang.String">
+     {call usp_tn_activity_raffle_signin(#{employeecode,mode=IN,jdbcType=CHAR},#{enterprisebrandactivitycode,mode=IN,jdbcType=INTEGER})}    
+</select>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.ActivityRaffleSignin" >
+    insert into activity_raffle_signin (rafflesignincode, employeecode, signintime, 
+      depositamount, betamount)
+    values (#{rafflesignincode,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{signintime,jdbcType=TIMESTAMP}, 
+      #{depositamount,jdbcType=DECIMAL}, #{betamount,jdbcType=DECIMAL})
+</insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_raffle_signin
+    where rafflesignincode = #{rafflesignincode,jdbcType=INTEGER}
+  </select>
+  <select id="selectSigninRecord" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_raffle_signin
+    <include refid="exactCondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.Integer" >
+    delete from activity_raffle_signin
+    where rafflesignincode = #{rafflesignincode,jdbcType=INTEGER}
+</delete>
+<!-- =================================================修改语句================================================================ -->
+ <update id="update" parameterType="com.maven.entity.ActivityRaffleSignin" >
+   update activity_raffle_signin
+   <set >
+     <if test="employeecode != null" >employeecode = #{employeecode,jdbcType=CHAR},</if>
+     <if test="signintime != null" >signintime = #{signintime,jdbcType=TIMESTAMP},</if>
+     <if test="depositamount != null" >depositamount = #{depositamount,jdbcType=DECIMAL},</if>
+     <if test="betamount != null" >betamount = #{betamount,jdbcType=DECIMAL},</if>
+   </set>
+   where rafflesignincode = #{rafflesignincode,jdbcType=INTEGER}
+ </update>
+</mapper>

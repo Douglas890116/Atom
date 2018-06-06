@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingAllDay" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingAllDay" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="VARCHAR" />
+    <result column="User_Name" property="userName" jdbcType="VARCHAR" />
+    <result column="Game_Platform" property="gamePlatform" jdbcType="VARCHAR" />
+    <result column="Game_Big_Type" property="gameBigType" jdbcType="VARCHAR" />
+    <result column="Game_Type" property="gameType" jdbcType="VARCHAR" />
+    <result column="Bet_Day" property="betDay" jdbcType="DATE" />
+    <result column="Bet_Money" property="betMoney" jdbcType="DOUBLE" />
+    <result column="Net_Money" property="netMoney" jdbcType="DOUBLE" />
+    <result column="Valid_Money" property="validMoney" jdbcType="DOUBLE" />
+    <result column="Rebates_Cash" property="rebatesCash" jdbcType="DOUBLE" />
+    <result column="ratio" property="ratio" jdbcType="DOUBLE" />
+    <result column="Rebates" property="rebates" jdbcType="BIT" />
+    <result column="Add_Time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIT" />
+
+    <result column="paytype" property="paytype" jdbcType="BIT" />
+    <result column="is_daily_agent" property="isDailyAgent" jdbcType="BIT" />
+    <result column="is_weekly_member" property="isWeeklyMember" jdbcType="BIT" />
+    <result column="payno" property="payno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="rangeCondition">
+  	<where>
+	 <if test="teamCodes !=null and teamCodes.length > 0">
+	 	  	and (parentemployeecode in 
+	 	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="paytype != null" >and bad.paytype = #{paytype} </if>
+  	  <if test="isDailyAgent != null" > and bad.is_daily_agent = #{isDailyAgent}</if>
+      <if test="isWeeklyMember != null" > and bad.is_weekly_member = #{isWeeklyMember}</if>
+      
+  	  <if test="enterprisecode != null" >and bad.enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" > and bad.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and bad.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" >and bad.parentemployeecode = #{parentemployeecode} </if>
+      <if test="userName != null" > and bad.User_Name = #{userName}</if>
+      <if test="gamePlatform != null" > and bad.Game_Platform = #{gamePlatform}</if>
+      <if test="gameBigType != null" > and bad.Game_Big_Type = #{gameBigType}</if>
+      <if test="gameType != null" > and bad.Game_Type = #{gameType}</if>
+      <if test="betDay != null" > and bad.Bet_Day = #{betDay}</if>
+      <if test="startDate != null" > and bad.Bet_Day <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and bad.Bet_Day <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="betMoney != null" > and bad.Bet_Money = #{betMoney}</if>
+      <if test="netMoney != null" > and bad.Net_Money = #{netMoney}</if>
+      <if test="mark != null" > and bad.Net_Money <![CDATA[ ${mark} ]]> 0</if>
+      <if test="validMoney != null" > and bad.Valid_Money = #{validMoney}</if>
+      <if test="rebatesCash != null" > and bad.Rebates_Cash = #{rebatesCash}</if>
+      <if test="rebates != null" > and bad.Rebates = #{rebates}</if>
+      <if test="addTime != null" > and bad.Add_Time = #{addTime}</if>
+      <if test="loginaccount != null" > and ee.loginaccount = #{loginaccount}</if>
+      <if test="brandname != null" > and eob.brandname = #{brandname}</if>
+      <if test="reportTime != null" > and date_format(bad.Add_Time, '%Y-%m-%d') = date_format(#{reportTime}, '%Y-%m-%d')</if>
+      <!-- <if test="betTime != null" > and date_format(bad.Bet_Day, '%Y-%m-%d') = date_format(#{betTime}, '%Y-%m-%d')</if> -->
+      <if test="betTime != null" > and date(bad.Bet_Day) = #{betTime}</if>
+      <if test="startBetDay != null" > and bad.Bet_Day <![CDATA[ >= ]]> #{startBetDay}</if>
+      <if test="endBetDay != null" > and bad.Bet_Day <![CDATA[ <= ]]> #{endBetDay}</if>
+      <if test="status != null" > and status = #{status}</if>
+      <if test="payno != null" > and payno = #{payno}</if>
+      
+      <!-- 只查有存款的 -->
+      <if test="depositflag == 2" > and employeecode in(
+      	select employeecode from deposit_withdraw_order dwo where dwo.ordertype=1 and dwo.orderstatus=2
+      	<if test="enterprisecode != null" >and dwo.enterprisecode = #{enterprisecode} </if>
+      	<if test="startDate != null" > and dwo.orderdate <![CDATA[ >= ]]> #{startDate}</if>
+      	<if test="endDate != null" > and dwo.orderdate <![CDATA[ <= ]]> #{endDate}</if>
+      	 ) 
+      </if>
+      <!-- 只查没有存款的 -->
+      <if test="depositflag == 1" > and employeecode not in(
+      	select employeecode from deposit_withdraw_order dwo where dwo.ordertype=1 and dwo.orderstatus=2
+      	<if test="enterprisecode != null" >and dwo.enterprisecode = #{enterprisecode} </if>
+      	<if test="startDate != null" > and dwo.orderdate <![CDATA[ >= ]]> #{startDate}</if>
+      	<if test="endDate != null" > and dwo.orderdate <![CDATA[ <= ]]> #{endDate}</if>
+      	 ) 
+      </if>
+      
+      <if test="betMoneyStart != null" > and bad.Bet_Money <![CDATA[ >= ]]> #{betMoneyStart} </if>
+      <if test="betMoneyEnd != null" > and bad.Bet_Money <![CDATA[ <= ]]> #{betMoneyEnd} </if>
+      
+      <if test="startdate != null" > and date(bad.Bet_Day) <![CDATA[ >= ]]> #{startdate}</if>
+      <if test="enddate != null" > and date(bad.Bet_Day) <![CDATA[ <= ]]> #{enddate}</if>
+      
+      <if test="iditems != null">
+      	and bad.Id in
+      	<foreach collection="iditems" index="index" item="iditems" open="(" separator="," close=")">
+			#{iditems}
+		</foreach> 
+      </if>
+      <if test="parentemployeecodes != null" >
+      	and bad.parentemployeecode in
+      	<foreach collection="parentemployeecodes" index="index" item="code" open="(" separator="," close=")">
+			#{code}
+		</foreach> 
+      </if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+	  
+  	</where>
+  </sql>
+  <sql id="column_List" >
+    bad.ID,bad.enterprisecode, bad.brandcode, bad.employeecode,bad.parentemployeecode, bad.User_Name, bad.Game_Platform, bad.Game_Big_Type, bad.Game_Type, bad.ratio, bad.payno,
+    bad.Bet_Day, bad.Bet_Money, bad.Net_Money, bad.Valid_Money, bad.Rebates_Cash, bad.Rebates, bad.Add_Time, bad.status, bad.paytype,  bad.is_daily_agent,  bad.is_weekly_member, e.enterprisename,eob.brandname
+  </sql>
+  <sql id="self_column_List" >
+    bad.ID,bad.enterprisecode, bad.brandcode, bad.employeecode,bad.parentemployeecode, bad.User_Name, bad.Game_Platform, bad.Game_Big_Type, bad.Game_Type, bad.ratio, bad.payno,
+    bad.Bet_Day, bad.Bet_Money, bad.Net_Money, bad.Valid_Money, bad.Rebates_Cash, bad.Rebates, bad.Add_Time, bad.status,  bad.paytype,  bad.is_daily_agent,  bad.is_weekly_member
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   insert into betting_all_day (
+	   enterprisecode, brandcode, 
+      employeecode, parentemployeecode, User_Name, 
+      Game_Platform, Game_Big_Type, Game_Type, 
+      Bet_Day, Bet_Money, Net_Money, 
+      Valid_Money, 
+      Add_Time, 
+      payno
+	      ) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( 
+	  #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=VARCHAR}, 
+      #{item.employeecode,jdbcType=CHAR}, #{item.parentemployeecode,jdbcType=CHAR}, #{item.userName,jdbcType=VARCHAR}, 
+      #{item.gamePlatform,jdbcType=VARCHAR}, #{item.gameBigType,jdbcType=VARCHAR}, #{item.gameType,jdbcType=VARCHAR}, 
+      #{item.betDay,jdbcType=DATE}, #{item.betMoney,jdbcType=DOUBLE}, #{item.netMoney,jdbcType=DOUBLE}, 
+      #{item.validMoney,jdbcType=DOUBLE},
+      #{item.addTime,jdbcType=TIMESTAMP},       
+      #{item.payno,jdbcType=VARCHAR}
+	      )
+	    </foreach>
+	  </if>
+ </insert>
+ 
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT <include refid="column_List" /> FROM betting_all_day bad WHERE bad.Id = #{id,jdbcType=INTEGER}
+</select>
+<select id="queryUserLoseWinGameRecord" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="column_List" /> FROM betting_all_day bad 
+    INNER JOIN enterprise_employee ee on bad.employeecode = ee.employeecode
+    INNER JOIN enterprise e on bad.enterprisecode = e.enterprisecode
+	INNER JOIN enterprise_operating_brand eob on bad.brandcode = eob.brandcode
+    <include refid="rangeCondition" /> <include refid="ABasic.page" />
+</select>
+<select id="countUserLoseWinGameRecord" resultType="int" parameterType="java.util.HashMap" >
+     SELECT COUNT(1) FROM betting_all_day bad 
+     INNER JOIN enterprise_employee ee on bad.employeecode = ee.employeecode 
+     INNER JOIN enterprise e on bad.enterprisecode = e.enterprisecode
+	 INNER JOIN enterprise_operating_brand eob on bad.brandcode = eob.brandcode
+     <include refid="rangeCondition" />
+</select>
+<!-- 输 -->
+<select id="queryUserLoseRanking" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{CALL usp_user_lose_ranking (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<!-- 赢 -->
+<select id="queryUserWinRanking" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{CALL usp_user_win_ranking (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<select id="selectBettingByDate" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+     SELECT <include refid="self_column_List" /> FROM betting_all_day bad
+     <include refid="rangeCondition" />
+</select>
+<select id="selectForPage" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="self_column_List" /> FROM betting_all_day bad 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectForPageCount" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM betting_all_day bad 
+    <include refid="rangeCondition" />
+</select>
+<!-- 数据统计之金额 -->  
+<select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(Bet_Money) betMoney,
+    sum(Valid_Money) validMoney,
+    sum(Net_Money) netMoney,
+    sum(Rebates_Cash) rebatesCash
+    
+    FROM betting_all_day bad
+    <include refid="rangeCondition" />
+</select>
+  
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="self_column_List" /> FROM betting_all_day bad 
+    <include refid="rangeCondition" />
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingAllDay" >
+    update betting_all_day
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        User_Name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gamePlatform != null" >
+        Game_Platform = #{gamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="gameBigType != null" >
+        Game_Big_Type = #{gameBigType,jdbcType=VARCHAR},
+      </if>
+      <if test="gameType != null" >
+        Game_Type = #{gameType,jdbcType=VARCHAR},
+      </if>
+      <if test="betDay != null" >
+        Bet_Day = #{betDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betMoney != null" >
+        Bet_Money = #{betMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netMoney != null" >
+        Net_Money = #{netMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validMoney != null" >
+        Valid_Money = #{validMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="rebatesCash != null" >
+        Rebates_Cash = #{rebatesCash,jdbcType=DOUBLE},
+      </if>
+      <if test="rebates != null" >
+        Rebates = #{rebates,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        Add_Time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=BIT},
+      </if>
+      <if test="isDailyAgent != null" >
+        is_daily_agent = #{isDailyAgent,jdbcType=BIT},
+      </if>
+      <if test="isWeeklyMember != null" >
+        is_weekly_member = #{isWeeklyMember,jdbcType=BIT},
+      </if>
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=DOUBLE},
+      </if>
+      <if test="payno != null" >
+        payno = #{payno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingSgs" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingSgs" >
+    <id column="ugsbetid" property="ugsbetid" jdbcType="VARCHAR" />
+    <result column="txid" property="txid" jdbcType="VARCHAR" />
+    <result column="betid" property="betid" jdbcType="VARCHAR" />
+    <result column="beton" property="beton" jdbcType="TIMESTAMP" />
+    <result column="betclosedon" property="betclosedon" jdbcType="TIMESTAMP" />
+    <result column="betupdatedon" property="betupdatedon" jdbcType="TIMESTAMP" />
+    <result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+    <result column="roundid" property="roundid" jdbcType="VARCHAR" />
+    <result column="roundstatus" property="roundstatus" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="riskamt" property="riskamt" jdbcType="DOUBLE" />
+    <result column="winamt" property="winamt" jdbcType="DOUBLE" />
+    <result column="winloss" property="winloss" jdbcType="DOUBLE" />
+    <result column="beforebal" property="beforebal" jdbcType="DOUBLE" />
+    <result column="postbal" property="postbal" jdbcType="DOUBLE" />
+    <result column="cur" property="cur" jdbcType="VARCHAR" />
+    <result column="gameprovider" property="gameprovider" jdbcType="VARCHAR" />
+    <result column="gamename" property="gamename" jdbcType="VARCHAR" />
+    <result column="gameid" property="gameid" jdbcType="VARCHAR" />
+    <result column="platformtype" property="platformtype" jdbcType="VARCHAR" />
+    <result column="ipaddress" property="ipaddress" jdbcType="VARCHAR" />
+    <result column="bettype" property="bettype" jdbcType="VARCHAR" />
+    <result column="playtype" property="playtype" jdbcType="VARCHAR" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="netmoney" property="netmoney" jdbcType="DOUBLE" />
+    <result column="validmoney" property="validmoney" jdbcType="DOUBLE" />
+    <result column="bettime" property="bettime" jdbcType="TIMESTAMP" />
+    <result column="platformflag" property="platformflag" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ugsbetid, txid, betid, beton, betclosedon, betupdatedon, timestamp, roundid, roundstatus, 
+    userid, username, riskamt, winamt, winloss, beforebal, postbal, cur, gameprovider, 
+    gamename, gameid, platformtype, ipaddress, bettype, playtype, betmoney, netmoney, validmoney,
+    bettime, platformflag, createtime, enterprisecode, brandcode, employeecode, parentemployeecode, 
+    loginaccount, gamebigtype, status
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="createtime !=null">and createtime = #{createtime}</if>
+	  <if test="startDate !=null">and bettime <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> and bettime <![CDATA[ <= ]]> #{endDate}</if>
+	  <if test="gameprovider != null" >and gameprovider = #{gameprovider} </if>
+	  
+	  <if test="platformtype != null" >and platformtype = #{platformtype} </if>
+	  <if test="gameid != null" >and gameid = #{gameid} </if>
+	  <if test="gamename != null" >and gamename = #{gamename} </if>
+	  <if test="txid != null" >and txid = #{txid} </if>
+  	  <if test="roundid != null" >and roundid = #{roundid} </if>
+  	  <if test="roundstatus != null" >and roundstatus = #{roundstatus} </if>
+  	  <if test="userid != null" >and userid = #{userid} </if>
+  	  <if test="ugsbetid != null" >and ugsbetid = #{ugsbetid} </if>
+  	  <if test="betid != null" >and betid = #{betid} </if>
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bettime <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bettime <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_sgs
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_sgs <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney,
+    sum(netmoney) netmoney,
+    sum(postbal) postbal
+    from betting_sgs
+    <include refid="rangecondition"></include>
+  </select>
+  
+</mapper>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Baccarath5Exchange" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.Baccarath5Exchange" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="exchange_in" property="exchangeIn" jdbcType="DOUBLE" />
+    <result column="exchange_out" property="exchangeOut" jdbcType="DOUBLE" />
+    <result column="exchange_rate" property="exchangeRate" jdbcType="DOUBLE" />
+    <result column="exchange_time" property="exchangeTime" jdbcType="TIMESTAMP" />
+    <result column="exchange_status" property="exchangeStatus" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+	  	<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="exchange_status != null" > and exchange_status = #{exchange_status}</if>
+		
+		<if test="startDate != null" > and date(exchange_time) <![CDATA[ >= ]]> #{startDate}</if>
+		<if test="endDate != null" > and date(exchange_time) <![CDATA[ <= ]]> #{endDate}</if>
+		
+		<if test="startTime != null" > and exchange_time <![CDATA[ >= ]]> #{startTime}</if>
+		<if test="endTime != null" > and exchange_time <![CDATA[ <= ]]> #{endTime}</if>
+	  	
+	  	<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="createDate ==null">
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>
+			</if>
+			)
+		  </if>
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_exchange
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from baccarath5_exchange
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(exchange_in) exchangeIn,
+  	sum(exchange_out) exchangeOut
+  	 from baccarath5_exchange
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_exchange
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    lsh, employeecode, loginaccount, enterprisecode, brandcode, parentemployeecode, exchange_in, 
+    exchange_out, exchange_rate, exchange_time, exchange_status, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from baccarath5_exchange
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from baccarath5_exchange
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.Baccarath5Exchange" >
+    insert into baccarath5_exchange (lsh, employeecode, loginaccount, 
+      enterprisecode, brandcode, parentemployeecode, 
+      exchange_in, exchange_out, exchange_rate, 
+      exchange_time, exchange_status, remark
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{exchangeIn,jdbcType=DOUBLE}, #{exchangeOut,jdbcType=DOUBLE}, #{exchangeRate,jdbcType=DOUBLE}, 
+      #{exchangeTime,jdbcType=TIMESTAMP}, #{exchangeStatus,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.Baccarath5Exchange" >
+    insert into baccarath5_exchange
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="exchangeIn != null" >
+        exchange_in,
+      </if>
+      <if test="exchangeOut != null" >
+        exchange_out,
+      </if>
+      <if test="exchangeRate != null" >
+        exchange_rate,
+      </if>
+      <if test="exchangeTime != null" >
+        exchange_time,
+      </if>
+      <if test="exchangeStatus != null" >
+        exchange_status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="exchangeIn != null" >
+        #{exchangeIn,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeOut != null" >
+        #{exchangeOut,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeTime != null" >
+        #{exchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeStatus != null" >
+        #{exchangeStatus,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.Baccarath5Exchange" >
+    update baccarath5_exchange
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="exchangeIn != null" >
+        exchange_in = #{exchangeIn,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeOut != null" >
+        exchange_out = #{exchangeOut,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeRate != null" >
+        exchange_rate = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeTime != null" >
+        exchange_time = #{exchangeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exchangeStatus != null" >
+        exchange_status = #{exchangeStatus,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.Baccarath5Exchange" >
+    update baccarath5_exchange
+    set employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      exchange_in = #{exchangeIn,jdbcType=DOUBLE},
+      exchange_out = #{exchangeOut,jdbcType=DOUBLE},
+      exchange_rate = #{exchangeRate,jdbcType=DOUBLE},
+      exchange_time = #{exchangeTime,jdbcType=TIMESTAMP},
+      exchange_status = #{exchangeStatus,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateStatus" parameterType="com.maven.entity.Baccarath5Exchange" >
+    update baccarath5_exchange
+    set 
+      exchange_status = #{exchangeStatus,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GameCategory" >
+  <resultMap id="resultMap" type="com.maven.entity.GameCategory" >
+    <id column="categorycode" property="categorycode" jdbcType="INTEGER" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="categorytype" property="categorytype" jdbcType="VARCHAR" />
+    <result column="categoryname" property="categoryname" jdbcType="VARCHAR" />
+    <result column="minbonus" property="minbonus" jdbcType="DECIMAL" />
+    <result column="maxbonus" property="maxbonus" jdbcType="DECIMAL" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="columnList" >
+    CATEGORYCODE, GAMETYPE, CATEGORYTYPE, CATEGORYNAME, MINBONUS, MAXBONUS, SORT
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="categorycode != null" > and  categorycode = #{categorycode} </if>
+  	  <if test="gametype != null" > and  gametype = #{gametype} </if>
+      <if test="categorytype != null" > and  categorytype = #{categorytype} </if>
+      <if test="categoryname != null" > and  categoryname = #{categoryname} </if>
+      <if test="minbonus != null" > and  minbonus = #{minbonus} </if>
+      <if test="maxbonus != null" > and  maxbonus = #{maxbonus} </if>
+      <if test="sort != null" > and  sort = #{sort} </if>
+  	</where>
+  </sql>
+   <sql id="rangeCondition">
+  	<where>
+  	  <if test="categorycode != null" > and  categorycode = #{categorycode} </if>
+  	  <if test="gametype != null" > and  gametype = #{gametype} </if>
+      <if test="categorytype != null" > and  categorytype = #{categorytype} </if>
+      <if test="categoryname != null" > and  categoryname = #{categoryname} </if>
+      <if test="minbonus != null" > and  minbonus = #{minbonus} </if>
+      <if test="maxbonus != null" > and  maxbonus = #{maxbonus} </if>
+      <if test="sort != null" > and  sort = #{sort} </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="Map" >
+    insert into game_category (categorycode, gametype, categorytype, categoryname, minbonus, maxbonus, order)
+    values (#{categorycode,jdbcType=INTEGER}, #{gametype,jdbcType=VARCHAR}, #{categorytype,jdbcType=VARCHAR}, 
+      #{categoryname,jdbcType=VARCHAR}, #{minbonus,jdbcType=DECIMAL}, #{maxbonus,jdbcType=DECIMAL}, 
+      #{sort,jdbcType=SMALLINT})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="select" resultMap="resultMap" parameterType="Map" >
+   select <include refid="columnList" /> from game_category  
+   <include refid="exactCondition" />
+   order by gametype,sort
+</select>
+
+<select id="selectAll" resultMap="resultMap" parameterType="Map" >
+   select <include refid="columnList" /> from game_category  
+   <include refid="exactCondition" />
+   order by gametype,sort
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game_category
+    where categorycode = #{categorycode,jdbcType=INTEGER}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+
+  
+  
+</mapper>

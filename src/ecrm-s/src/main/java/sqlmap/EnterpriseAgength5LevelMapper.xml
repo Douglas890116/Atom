@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseAgength5Level" >
+  <resultMap id="resultMaps" type="com.maven.entity.EnterpriseAgength5Level" >
+    <id column="employeelevelcode" property="employeelevelcode" jdbcType="CHAR" />
+    <result column="employeelevelname" property="employeelevelname" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="upperlevel_rate" property="upperlevelRate" jdbcType="DECIMAL" />
+    <result column="upperlevel_rate2" property="upperlevelRate2" jdbcType="DECIMAL" />
+    <result column="personcount" property="personcount" jdbcType="INTEGER" />
+    <result column="agengtcount" property="agengtcount" jdbcType="INTEGER" />
+    <result column="orderamount" property="orderamount" jdbcType="DECIMAL" />
+    <result column="datastatus" property="datastatus" jdbcType="INTEGER" />
+    <result column="ord" property="ord" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="columnList" >
+    employeelevelcode, employeelevelname, enterprisecode, upperlevel_rate, upperlevel_rate2, 
+    personcount, agengtcount, orderamount, datastatus, ord
+  </sql>
+  
+  <sql id="condition">
+  	<where>
+  		<if test="enterprisecode !=null">AND enterprisecode = #{enterprisecode}</if>
+  		<if test="employeelevelname !=null">AND employeelevelname = #{employeelevelname}</if>
+  		AND DATASTATUS = 1
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================<include refid="ABasic.page" /> -->
+  <select id="select" resultMap="resultMaps" >
+    	SELECT <include refid="columnList" /> FROM enterprise_agength5_level WHERE DATASTATUS = 1 order by ord asc
+  </select>
+  <select id="selectObject" resultMap="resultMaps" parameterType="java.lang.String">
+    	SELECT <include refid="columnList" /> FROM enterprise_agength5_level WHERE employeelevelcode = #{employeelevelcode}
+  </select>
+  <select id="levelQuery" resultMap="resultMaps" parameterType="java.util.HashMap">
+    	SELECT <include refid="columnList" /> FROM enterprise_agength5_level <include refid="condition" />   order by ord asc <include refid="ABasic.page" />
+  </select>
+  <select id="count" resultType="int" parameterType="java.util.HashMap">
+    	SELECT COUNT(1) FROM enterprise_agength5_level <include refid="condition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<update id="batchDelete" parameterType="java.lang.String">
+	UPDATE enterprise_agength5_level SET DATASTATUS = -1 where employeelevelcode in
+	<foreach collection="array" item="employeelevelCode" open="(" separator="," close=")">
+		#{employeelevelcode}
+	</foreach>
+</update>
+<update id="delete" parameterType="java.lang.String">
+	UPDATE enterprise_agength5_level SET DATASTATUS = -1 where employeelevelcode = #{employeelevelcode}
+</update>
+
+
+  
+  <select id="selectByPrimaryKey" resultMap="resultMaps" parameterType="java.lang.String" >
+    select 
+    <include refid="columnList" />
+    from enterprise_agength5_level
+    where employeelevelcode = #{employeelevelcode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from enterprise_agength5_level
+    where employeelevelcode = #{employeelevelcode,jdbcType=CHAR}
+  </delete>
+  <insert id="save" parameterType="com.maven.entity.EnterpriseAgength5Level" >
+    insert into enterprise_agength5_level (employeelevelcode, employeelevelname, enterprisecode, 
+      upperlevel_rate, upperlevel_rate2, personcount, 
+      agengtcount, orderamount, 
+      ord)
+    values (ufn_get_next_string_by_tablename('enterprise_employee_level',0), #{employeelevelname,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, 
+      #{upperlevelRate,jdbcType=DECIMAL}, #{upperlevelRate2,jdbcType=DECIMAL}, #{personcount,jdbcType=INTEGER}, 
+      #{agengtcount,jdbcType=INTEGER}, #{orderamount,jdbcType=DECIMAL},
+      #{ord,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseAgength5Level" >
+    insert into enterprise_agength5_level
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeelevelcode != null" >
+        employeelevelcode,
+      </if>
+      <if test="employeelevelname != null" >
+        employeelevelname,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="upperlevelRate != null" >
+        upperlevel_rate,
+      </if>
+      <if test="upperlevelRate2 != null" >
+        upperlevel_rate2,
+      </if>
+      <if test="personcount != null" >
+        personcount,
+      </if>
+      <if test="agengtcount != null" >
+        agengtcount,
+      </if>
+      <if test="orderamount != null" >
+        orderamount,
+      </if>
+      <if test="datastatus != null" >
+        datastatus,
+      </if>
+      <if test="ord != null" >
+        ord,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeelevelcode != null" >
+        #{employeelevelcode,jdbcType=CHAR},
+      </if>
+      <if test="employeelevelname != null" >
+        #{employeelevelname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="upperlevelRate != null" >
+        #{upperlevelRate,jdbcType=DECIMAL},
+      </if>
+      <if test="upperlevelRate2 != null" >
+        #{upperlevelRate2,jdbcType=DECIMAL},
+      </if>
+      <if test="personcount != null" >
+        #{personcount,jdbcType=INTEGER},
+      </if>
+      <if test="agengtcount != null" >
+        #{agengtcount,jdbcType=INTEGER},
+      </if>
+      <if test="orderamount != null" >
+        #{orderamount,jdbcType=DECIMAL},
+      </if>
+      <if test="datastatus != null" >
+        #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="ord != null" >
+        #{ord,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseAgength5Level" >
+    update enterprise_agength5_level
+    <set >
+      <if test="employeelevelname != null" >
+        employeelevelname = #{employeelevelname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="upperlevelRate != null" >
+        upperlevel_rate = #{upperlevelRate,jdbcType=DECIMAL},
+      </if>
+      <if test="upperlevelRate2 != null" >
+        upperlevel_rate2 = #{upperlevelRate2,jdbcType=DECIMAL},
+      </if>
+      <if test="personcount != null" >
+        personcount = #{personcount,jdbcType=INTEGER},
+      </if>
+      <if test="agengtcount != null" >
+        agengtcount = #{agengtcount,jdbcType=INTEGER},
+      </if>
+      <if test="orderamount != null" >
+        orderamount = #{orderamount,jdbcType=DECIMAL},
+      </if>
+      <if test="datastatus != null" >
+        datastatus = #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="ord != null" >
+        ord = #{ord,jdbcType=INTEGER},
+      </if>
+    </set>
+    where employeelevelcode = #{employeelevelcode,jdbcType=CHAR}
+  </update>
+  <update id="update" parameterType="com.maven.entity.EnterpriseAgength5Level" >
+    update enterprise_agength5_level
+    set employeelevelname = #{employeelevelname,jdbcType=VARCHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      upperlevel_rate = #{upperlevelRate,jdbcType=DECIMAL},
+      upperlevel_rate2 = #{upperlevelRate2,jdbcType=DECIMAL},
+      personcount = #{personcount,jdbcType=INTEGER},
+      agengtcount = #{agengtcount,jdbcType=INTEGER},
+      orderamount = #{orderamount,jdbcType=DECIMAL},
+      ord = #{ord,jdbcType=INTEGER}
+    where employeelevelcode = #{employeelevelcode,jdbcType=CHAR}
+  </update>
+</mapper>

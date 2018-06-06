@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseThirdpartyPaymentAgument" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseThirdpartyPaymentAgument" >
+    <id column="paymentagumentcode" property="paymentagumentcode" jdbcType="INTEGER" />
+    <result column="enterprisethirdpartycode" property="enterprisethirdpartycode" jdbcType="CHAR" />
+    <result column="paymentsettingcode" property="paymentsettingcode" jdbcType="CHAR" />
+    <result column="agumentvalue" property="agumentvalue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    etpa.paymentagumentcode, etpa.enterprisethirdpartycode, etpa.paymentsettingcode, etpa.agumentvalue
+  </sql>
+  <sql id="baseCondition">
+  		<where>
+  			<if test="paymentagumentcode !=null">AND etpa.paymentagumentcode = #{paymentagumentcode}</if>
+  			<if test="enterprisethirdpartycode !=null">AND etpa.enterprisethirdpartycode = #{enterprisethirdpartycode}</if>
+  			<if test="paymentsettingcode !=null">AND etpa.paymentsettingcode = #{paymentsettingcode}</if>
+  			<if test="agumentvalue !=null">AND etpa.agumentvalue = #{agumentvalue}</if>
+  		</where>
+  </sql>
+  <sql id="unionCondition_etp_tpts_tpt_etpa">
+  		<where>
+  			<if test="paymentagumentcode !=null">AND etpa.paymentagumentcode = #{paymentagumentcode}</if>
+  			<if test="enterprisethirdpartycode !=null">AND etpa.enterprisethirdpartycode = #{enterprisethirdpartycode}</if>
+  			<if test="paymentsettingcode !=null">AND etpa.paymentsettingcode = #{paymentsettingcode}</if>
+  			<if test="enterprisecode !=null">AND etp.enterprisecode = #{enterprisecode}</if>
+  			<if test="status !=null">AND etp.status = #{status}</if>
+  			<if test="isdefualttakecard !=null">AND etp.isdefualttakecard = #{isdefualttakecard}</if>
+  			<if test="thirdpartypaymenttypecode !=null">AND etp.thirdpartypaymenttypecode = #{thirdpartypaymenttypecode}</if>
+  		</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EnterpriseThirdpartyPaymentAgument" >
+    INSERT INTO enterprise_thirdparty_payment_agument (paymentagumentcode, enterprisethirdpartycode, 
+      paymentsettingcode, agumentvalue)
+    VALUES (#{paymentagumentcode,jdbcType=INTEGER}, #{enterprisethirdpartycode,jdbcType=INTEGER}, 
+      #{paymentsettingcode,jdbcType=CHAR}, #{agumentvalue,jdbcType=VARCHAR})
+  </insert>
+<insert id="batchAdd" parameterType="java.util.ArrayList" >
+    INSERT INTO enterprise_thirdparty_payment_agument 
+    			(
+    			enterprisethirdpartycode, 
+      	 		paymentsettingcode, 
+      	 		agumentvalue)
+      VALUES
+      <foreach collection="list" item="obj" separator=",">
+      	 	(
+				#{obj.enterprisethirdpartycode},	      	 			
+				#{obj.paymentsettingcode},	      	 			
+				#{obj.agumentvalue}	      	 			
+      	 	)
+      </foreach>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT <include refid="Base_Column_List" /> FROM enterprise_thirdparty_payment_agument WHERE paymentagumentcode = #{paymentagumentcode,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseThirdpartyPaymentAgument">
+  		SELECT <include refid="Base_Column_List" />,tpts.argumentfiled as argumentfiled
+  		FROM enterprise_thirdparty_payment_agument etpa LEFT JOIN thirdparty_payment_type_setting tpts ON etpa.paymentsettingcode = tpts.paymentsettingcode
+  		<include refid="baseCondition" />
+  </select>
+  <select id="selectEnterpriseDefualtPayMent" resultType="com.maven.entity.EnterpriseThirdpartyPaymentAgument" parameterType="java.lang.String">
+  	SELECT etp.thirdpartypaymenttypecode,tpts.argumentfiled,etpa.agumentvalue FROM enterprise_thirdparty_payment etp 
+  LEFT JOIN enterprise_thirdparty_payment_agument etpa ON etp.enterprisethirdpartycode = etpa.enterprisethirdpartycode
+  LEFT JOIN thirdparty_payment_type_setting tpts ON etpa.paymentsettingcode = tpts.paymentsettingcode
+  WHERE etp.isdefualttakecard=1 AND etp.status=1 AND etp.enterprisecode=#{enterprisecode};
+  </select>
+  <select id="selectUnionAll" resultMap="BaseResultMap" parameterType="Map">
+  		SELECT tpt.thirdpartypaymenttypename,<include refid="Base_Column_List" />,etp.dscription,tpts.argumentdesc from enterprise_thirdparty_payment etp 
+			LEFT JOIN thirdparty_payment_type_setting tpts on etp.thirdpartypaymenttypecode = tpts.thirdpartypaymenttypecode
+			LEFT JOIN thirdparty_payment_type tpt on etp.thirdpartypaymenttypecode = tpt.thirdpartypaymenttypecode
+			LEFT JOIN enterprise_thirdparty_payment_agument etpa on tpts.paymentsettingcode = etpa.paymentsettingcode 
+			and etp.enterprisethirdpartycode = etpa.enterprisethirdpartycode
+  		<include refid="unionCondition_etp_tpts_tpt_etpa" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+
+<!-- =================================================删除语句================================================================ -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from enterprise_thirdparty_payment_agument
+    where paymentagumentcode = #{paymentagumentcode,jdbcType=INTEGER}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseThirdpartyPaymentAgument" >
+    update enterprise_thirdparty_payment_agument
+    <set >
+      <if test="enterprisethirdpartycode != null" >
+        enterprisethirdpartycode = #{enterprisethirdpartycode,jdbcType=INTEGER},
+      </if>
+      <if test="paymentsettingcode != null" >
+        paymentsettingcode = #{paymentsettingcode,jdbcType=CHAR},
+      </if>
+      <if test="agumentvalue != null" >
+        agumentvalue = #{agumentvalue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where paymentagumentcode = #{paymentagumentcode,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

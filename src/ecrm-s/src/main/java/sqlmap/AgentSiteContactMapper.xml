@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AgentSiteContact" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.AgentSiteContact" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="domaincode" property="domaincode" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="skype" property="skype" jdbcType="VARCHAR" />
+    <result column="vchat" property="vchat" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, domaincode, qq, skype, vchat, email,phone
+  </sql>
+  <sql id="exactConditon">
+  	<where>
+  		<if test="domaincode != null" > and domaincode = #{domaincode}</if>
+	    <if test="qq != null" > and qq = #{qq}</if>
+	    <if test="skype != null" > and skype = #{skype}</if>
+	    <if test="vchat != null" > and vchat = #{vchat}</if>
+	    <if test="email != null" > and email = #{email}</if>
+	    <if test="phone != null" > and phone = #{phone}</if>
+  	</where>
+  </sql>
+  <sql id="rangeConditon">
+  	<where>
+  		<if test="domaincode != null" > and domaincode = #{domaincode}</if>
+	    <if test="qq != null" > and qq = #{qq}</if>
+	    <if test="skype != null" > and skype = #{skype}</if>
+	    <if test="vchat != null" > and vchat = #{vchat}</if>
+	    <if test="email != null" > and email = #{email}</if>
+	    <if test="phone != null" > and phone = #{phone}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.AgentSiteContact" >
+    insert into agent_site_contact (id, domaincode, qq,skype, vchat, email,phone)
+    values (#{id}, #{domaincode}, #{qq},#{skype}, #{vchat}, #{email},#{phone})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" />
+    from agent_site_contact
+    where id = #{id}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.AgentSiteContact" >
+    select <include refid="Base_Column_List" />
+    from agent_site_contact
+    <include refid="exactConditon"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from agent_site_contact
+    where id = #{id}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.AgentSiteContact" >
+    update agent_site_contact
+    <set >
+      <if test="qq != null" >qq = #{qq}, </if>
+      <if test="skype != null" >skype = #{skype}, </if>
+      <if test="vchat != null" >vchat = #{vchat}, </if>
+      <if test="email != null" >email = #{email}, </if>
+      <if test="phone != null" >phone = #{phone}, </if>
+    </set>
+    where id = #{id}
+  </update>
+</mapper>

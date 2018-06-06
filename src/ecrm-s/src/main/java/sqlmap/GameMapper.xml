@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Game" >
+  <resultMap id="resultMap" type="com.maven.entity.Game" >
+    <id column="gamecode" property="gamecode" jdbcType="CHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="gamename" property="gamename" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="CHAR" />
+    <result column="picid" property="picid" jdbcType="VARCHAR" />
+    <result column="android" property="android" jdbcType="VARCHAR" />
+    <result column="h5" property="h5" jdbcType="VARCHAR" />
+    <result column="iso" property="iso" jdbcType="VARCHAR" />
+    <result column="downloadurl" property="downloadurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columnList" >
+    GAMECODE, GAMETYPE, GAMENAME,SORT,PICID, ANDROID, H5, ISO, DOWNLOADURL
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  		<if test="gamecode !=null " >and gamecode = #{gamecode}</if>
+  		<if test="gametype !=null " >and gametype = #{gametype}</if>
+  		<if test="gamename !=null " >and gamename = #{gamename}</if>
+  		and datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ 
+<insert id="insert" parameterType="Map" >
+    insert into game (gamecode, gametype, gamename)
+    values (#{gamecode}, #{gametype}, #{gamename})
+  </insert> -->
+  <insert id="saveGameType" parameterType="com.maven.entity.Game">
+	insert into game (gamecode, gametype, gamename,sort) values (ufn_get_next_string_by_tablename('game',0), #{gametype}, #{gamename},#{sort})
+</insert>
+<!-- ================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultType="com.maven.entity.Game" parameterType="java.lang.String" >
+    select  <include refid="columnList" /> from game where gamecode = #{gamecode}
+</select>
+
+<select id="select" resultMap="resultMap" parameterType="Map">
+   select  <include refid="columnList" /> from game <include refid="exactCondition" /> order by sort
+</select>
+
+<select id="findGameData" resultMap="resultMap" parameterType="Map">
+	select  <include refid="columnList" /> from game <include refid="exactCondition" /> order by sort <include refid="ABasic.page" />
+</select>
+
+<select id="findGameDataCount" resultType="int" parameterType="Map">
+	select count(*) from game <include refid="exactCondition" /> 
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+  <update id="deleteGameType" parameterType="java.lang.String">
+	update game set datastatus = -1 where gamecode = #{gamecode}
+  </update>
+	
+   <update id="deleteSelectGameType" parameterType="String">
+		update game set datastatus = -1 where gamecode in
+		<foreach collection="array" item="gamecode" open="(" separator="," close=")">
+			 #{gamecode}
+		</foreach>
+	</update>
+<!-- =================================================修改语句================================================================ -->
+	<update id="updateGameType" parameterType="com.maven.entity.Game">
+		update game set gametype=#{gametype},gamename=#{gamename},sort=#{sort} where gamecode=#{gamecode}
+	</update>
+  
+  
+  
+</mapper>

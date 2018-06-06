@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BankCardsBlacklist">
+	<resultMap id="BaseResultMap" type="com.maven.entity.BankCardsBlacklist">
+		<id column="lsh" property="lsh" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="bankcard" property="bankcard" jdbcType="VARCHAR" />
+		<result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lsh, username, bankcard, phoneno, remark
+	</sql>
+
+	<sql id="exactCondition">
+		<where>
+			1=1
+			<if test="username != null"> and username = #{username}</if>
+			<if test="bankcard != null"> and bankcard = #{bankcard}</if>
+			<if test="phoneno != null"> and phoneno = #{phoneno}</if>
+		</where>
+	</sql>
+	
+	<!-- 查询语句 -->
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+		select <include refid="Base_Column_List" /> from bankcards_blacklist
+		<include refid="exactCondition" />
+		<include refid="ABasic.orderby"></include>
+		<include refid="ABasic.page"></include>
+	</select>
+	
+	<select id="selectAllCount" resultType="java.lang.Integer" parameterType="Map">
+		select count(1) from bankcards_blacklist
+		<include refid="exactCondition" />
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select <include refid="Base_Column_List" /> from bankcards_blacklist
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 删除语句 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from bankcards_blacklist
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 插入语句 -->
+	<insert id="add" parameterType="com.maven.entity.BankCardsBlacklist">
+		insert into bankcards_blacklist (username, bankcard, phoneno, remark)
+		values (#{username,jdbcType=VARCHAR}, #{bankcard,jdbcType=VARCHAR}, #{phoneno,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 更新语句 -->
+	<update id="update" parameterType="com.maven.entity.BankCardsBlacklist">
+		update bankcards_blacklist
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcard != null">
+				bankcard = #{bankcard,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneno != null">
+				phoneno = #{phoneno,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</update>
+</mapper>

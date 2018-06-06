@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BrandDomain" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BrandDomain" >
+  	<id column="domaincode" property="domaincode" jdbcType="INTEGER" />
+    <result column="domainlink" property="domainlink" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeetype" property="employeetype" jdbcType="CHAR" />
+    <result column="dividend" property="dividend" jdbcType="DECIMAL" />
+    <result column="share" property="share" jdbcType="DECIMAL" />
+    <result column="bonus" property="bonus" jdbcType="VARCHAR" />
+    <result column="domaintype" property="domaintype" jdbcType="CHAR" />
+    <result column="isdefualt" property="isdefualt" jdbcType="CHAR" />
+    <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="linkstatus" property="linkstatus" jdbcType="CHAR" />
+    <result column="copyright" property="copyright" jdbcType="CHAR" />
+    <result column="linkdomain" property="linkdomain" jdbcType="CHAR" />
+    <result column="webtemplatecode" property="webtemplatecode" jdbcType="VARCHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+    <result column="brandlogo" property="brandlogo" jdbcType="VARCHAR" />
+    <result column="templatename" property="templatename" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 默认查询字段 -->
+  <sql id="Base_Column_List" >
+    DOMAINCODE,DOMAINLINK, ENTERPRISECODE,BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE, EMPLOYEETYPE, 
+    DIVIDEND, SHARE, BONUS,DOMAINTYPE,ISDEFUALT,CREATEDATE,LINKSTATUS,COPYRIGHT,LINKDOMAIN,WEBTEMPLATECODE,DATASTATUS
+  </sql>
+  <!-- 关联查询字段 -->
+  <sql id="Base_Column_List_Union" >
+    bd.domaincode,bd.domainlink,bd.enterprisecode,bd.brandcode,bd.employeecode,bd.parentemployeecode,bd.employeetype,
+    bd.dividend,bd.share,bd.bonus,bd.domaintype,bd.isdefualt,bd.createdate,bd.linkstatus,bd.copyright,bd.linkdomain,bd.webtemplatecode,bd.datastatus
+  </sql>
+<!--   查询条件 -->
+  <sql id="exactCondition">
+  	<where>
+  		datastatus = 1
+  		<if test="domaincode !=null"> and domaincode = #{domaincode}</if>
+  		<if test="domainlink !=null"> and domainlink = #{domainlink}</if>
+  		<if test="enterprisecode !=null"> and enterprisecode = #{enterprisecode}</if>
+  		<if test="brandcode !=null"> and brandcode = #{brandcode}</if>
+  		<if test="employeecode !=null"> and employeecode = #{employeecode}</if>
+  		<if test="parentemployeecode !=null"> and parentemployeecode = #{parentemployeecode}</if>
+  		<if test="employeetype !=null"> and employeetype = #{employeetype}</if>
+  		<if test="dividend !=null"> and dividend = #{dividend}</if>
+  		<if test="domaintype !=null"> and domaintype = #{domaintype}</if>
+  		<if test="isdefualt !=null"> and isdefualt = #{isdefualt}</if>
+  		<if test="copyright !=null"> and copyright = #{copyright}</if>
+  		<if test="linkdomain !=null"> and linkdomain = #{linkdomain}</if>
+  		<if test="webtemplatecode !=null"> and webtemplatecode = #{webtemplatecode}</if>
+  		<if test="share !=null"> and share = #{share}</if>
+  		<if test="linkstatus !=null"> and linkstatus = #{linkstatus}</if>
+  		<if test="domaintypes !=null and domaintypes.length > 0">
+  			AND domaintype in 
+  			<foreach collection="domaintypes"  item="item"  separator="," open="(" close=")">
+	  			#{item}
+  			</foreach>
+  		 </if>
+  	</where>
+  </sql>
+   <sql id="rangeConditon">
+  	<where>
+  		datastatus = 1
+  		<if test="domaincode !=null"> and domaincode = #{domaincode}</if>
+  		<if test="domainlink !=null"> and domainlink = #{domainlink}</if>
+  		<if test="enterprisecode !=null"> and enterprisecode = #{enterprisecode}</if>
+  		<if test="brandcode !=null"> and brandcode = #{brandcode}</if>
+  		<if test="employeecode !=null"> and employeecode = #{employeecode}</if>
+  		<if test="parentemployeecode !=null"> and parentemployeecode = #{parentemployeecode}</if>
+  		<if test="employeetype !=null"> and employeetype = #{employeetype}</if>
+  		<if test="dividend !=null"> and dividend = #{dividend}</if>
+  		<if test="share !=null"> and share = #{share}</if>
+  		<if test="domaintype !=null"> and domaintype = #{domaintype}</if>
+  		<if test="isdefualt !=null"> and isdefualt = #{isdefualt}</if>
+  		<if test="copyright !=null"> and copyright = #{copyright}</if>
+  		<if test="linkdomain !=null"> and linkdomain = #{linkdomain}</if>
+  		<if test="linkstatus !=null"> and linkstatus = #{linkstatus}</if>
+  		<if test="webtemplatecode !=null"> and webtemplatecode = #{webtemplatecode}</if>
+  		<if test="brandname !=null"> and brandname = #{brandname}</if>
+  		<if test="employeeName !=null"> and employeecode in (select employeecode from enterprise_employee where loginaccount=#{employeeName})</if>
+  		<if test="parentemployeeName !=null"> and parentemployeecode in (select employeecode from enterprise_employee where loginaccount=#{parentemployeeName})</if>
+  		<if test="domaintypes !=null and domaintypes.length > 0">
+  			AND domaintype in 
+  			<foreach collection="domaintypes"  item="item"  separator="," open="(" close=")">
+	  			#{item}
+  			</foreach>
+  		 </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- 保存推广链接 -->
+  <insert id="insert" parameterType="com.maven.entity.BrandDomain" >
+    insert into brand_domain (domainlink,enterprisecode,brandcode,employeecode,parentemployeecode, employeetype,dividend, share, bonus,domaintype,isdefualt,copyright,linkdomain,linkstatus,webtemplatecode,datastatus)
+    values (#{domainlink},#{enterprisecode},#{brandcode},#{employeecode},#{parentemployeecode}, #{employeetype},#{dividend}, #{share}, #{bonus}, #{domaintype}, #{isdefualt}, #{copyright},#{linkdomain}, #{linkstatus},#{webtemplatecode},#{datastatus})
+  </insert>
+  <insert id="save" parameterType="com.maven.entity.BrandDomain" >
+    insert into brand_domain (domainlink,enterprisecode,brandcode,employeecode,parentemployeecode, employeetype,dividend, share, bonus,domaintype,isdefualt,copyright,linkdomain,linkstatus,webtemplatecode,datastatus)
+    values (#{domainlink},#{enterprisecode},#{brandcode},#{employeecode},#{parentemployeecode}, #{employeetype},#{dividend}, #{share}, #{bonus}, #{domaintype}, #{isdefualt}, #{copyright},#{linkdomain}, #{linkstatus},#{webtemplatecode},#{datastatus})
+    <selectKey resultType="java.lang.Integer" keyProperty="domaincode" order="AFTER" >
+    	select domaincode from brand_domain where domainlink=#{domainlink} and enterprisecode=#{enterprisecode}
+  	</selectKey>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <!-- 根据域名类型获取所有可用的推广域名 -->
+  <select id="takeAllAvalibleLink" resultMap="BaseResultMap" >
+  		SELECT er.brandcode AS brandcode, er.domainlink AS domainlink, er.domaintype AS domaintype, eob.logopath AS brandlogo 
+  		FROM brand_domain er INNER JOIN enterprise_operating_brand eob ON er.brandcode = eob.brandcode 
+  		where  er.datastatus=1 AND eob.datastatus=1 AND er.domaintype IN(1,2) AND er.linkstatus=1 AND er.copyright=2;
+  </select>
+  <!-- 根据key获取使用了主域名的推广域名信息 -->
+  <select id="takeSecondMainDomain" parameterType="String" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" /> 
+  	FROM brand_domain bd WHERE bd.domaintype=2 AND bd.datastatus=1 AND POSITION(#{domainlink} in bd.domainlink)  
+  </select>
+  <!-- 精确查询 -->
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.BrandDomain">
+  	select <include refid="Base_Column_List" /> 
+  	from brand_domain 
+  	<include refid="exactCondition" /> 
+  	order by createdate desc
+  	
+  </select>
+  <!-- 精确查询总条数 -->
+  <select id="selectCount" resultType="long"  parameterType="Map">
+  	select count(1) from brand_domain 
+  	<include refid="exactCondition" />  
+  </select>
+  <!-- 查询最大ID数 -->
+  <select id="selectMaxId" resultType="int">
+  	SELECT MAX(domaincode) FROM brand_domain bd
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!--   按条件查询并分页 -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT * FROM (SELECT IF(eob.brandname IS NULL ,'所有品牌',eob.brandname) brandname,wt.templatename,<include refid="Base_Column_List_Union" /> 
+  	FROM brand_domain bd LEFT JOIN enterprise_operating_brand eob ON bd.brandcode = eob.brandcode LEFT JOIN webview_template wt ON bd.webtemplatecode = wt.webtemplatecode) AS domain 
+  	<include refid="rangeConditon" />
+  	order by isdefualt desc , createdate asc
+  	<include refid="ABasic.page"></include>  
+  </select>
+  <!--   按条件查询统计 -->
+  <select id="selectAllCount" resultType="long"  parameterType="java.util.Map">
+  	SELECT count(1) FROM (SELECT IF(eob.brandname IS NULL ,'所有品牌',eob.brandname) brandname,wt.templatename,<include refid="Base_Column_List_Union" /> 
+  	FROM brand_domain bd LEFT JOIN enterprise_operating_brand eob ON bd.brandcode = eob.brandcode LEFT JOIN webview_template wt ON bd.webtemplatecode = wt.webtemplatecode) AS domain 
+  	<include refid="rangeConditon" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<!-- 删除主域名  -->
+  <update id="deleteMainDoamin" parameterType="com.maven.entity.BrandDomain" >
+       update brand_domain  set datastatus = -1 
+       where enterprisecode=#{enterprisecode} and (domaincode=#{domaincode} or linkdomain=#{domaincode})
+  </update>
+<!--   批量删除推广链接 -->
+	<update id="deleteSelect" parameterType="String">
+		update brand_domain set datastatus = '-1' where domaincode in
+		<foreach collection="array" item="domaincode" open="(" separator="," close=")">
+			#{domaincode}
+		</foreach>
+	</update>
+	<!--   根据employeecode批量删除推广链接 -->
+	<update id="logicDeleteByEmployeecode" parameterType="String">
+		update brand_domain set datastatus = '-1' where employeecode in
+		<foreach collection="array" item="employeecode" open="(" separator="," close=")">
+			#{employeecode}
+		</foreach>
+	</update>
+	
+<!-- =================================================修改语句================================================================ -->
+<!-- 修改推广链接 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BrandDomain" >
+    update brand_domain
+    <set>
+   	  <if test="brandcode !=null">brandcode = #{brandcode},</if>
+ 	  <if test="employeecode !=null">employeecode = #{employeecode},</if>
+ 	  <if test="parentemployeecode !=null">parentemployeecode = #{parentemployeecode},</if>
+ 	  <if test="employeetype !=null">employeetype = #{employeetype},</if>
+      <if test="domainlink != null" >domainlink = #{domainlink},</if>
+      <if test="dividend != null" >dividend = #{dividend},</if>
+      <if test="share != null" >share = #{share},</if>
+      <if test="bonus != null" >bonus = #{bonus},</if>
+      <if test="domaintype != null" >domaintype = #{domaintype},</if>
+      <if test="isdefualt != null" >isdefualt = #{isdefualt},</if>
+  	  <if test="copyright !=null">copyright = #{copyright},</if>
+      <if test="linkstatus != null" >linkstatus = #{linkstatus},</if>
+  	  <if test="linkdomain !=null">linkdomain = #{linkdomain},</if>
+      <if test="webtemplatecode != null" >webtemplatecode = #{webtemplatecode},</if>
+      <if test="datastatus != null" >datastatus = #{datastatus},</if>
+    </set>
+    where domaincode = #{domaincode}
+  </update>
+  <!-- 批量修改  -->
+  <update id="updateBatch" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+           update brand_domain 
+            <set>
+              <if test="item.brandcode !=null">brandcode = #{item.brandcode},</if>
+              <if test="item.employeecode !=null">employeecode = #{item.employeecode},</if>
+	  		  <if test="item.parentemployeecode !=null">parentemployeecode = #{item.parentemployeecode},</if>
+	  		  <if test="item.employeetype !=null">employeetype = #{item.employeetype},</if>
+		      <if test="item.domainlink != null" >domainlink = #{item.domainlink},</if>
+		      <if test="item.dividend != null" >dividend = #{item.dividend},</if>
+		      <if test="item.share != null" >share = #{item.share},</if>
+		      <if test="item.bonus != null" >bonus = #{item.bonus},</if>
+		      <if test="item.domaintype != null" >domaintype = #{item.domaintype},</if>
+		      <if test="item.isdefualt != null" >isdefualt = #{item.isdefualt},</if>
+		      <if test="item.copyright !=null">copyright = #{item.copyright},</if>
+		      <if test="item.linkstatus != null" >linkstatus = #{item.linkstatus},</if>
+		      <if test="item.linkdomain !=null">linkdomain = #{item.linkdomain},</if>
+		      <if test="item.webtemplatecode != null" >webtemplatecode = #{webtemplatecode},</if>
+		      <if test="item.datastatus != null" >datastatus = #{item.datastatus},</if>
+		    </set>
+		    where domaincode = #{item.domaincode}
+    </foreach>  
+  </update>
+</mapper>

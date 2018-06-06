@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="mg_key" name2="mg_key" />
+	<column name1="mg_colId" name2="mg_colId" />
+	<column name1="mg_horNeKey" name2="mg_horNeKey" />
+	<column name1="mg_mbrNeKey" name2="mg_mbrNeKey" />
+	<column name1="mg_betTransKey" name2="mg_betTransKey" />
+	<column name1="mg_gameKey" name2="mg_gameKey" />
+	<column name1="mg_type" name2="mg_type" />
+	<column name1="mg_product" name2="mg_product" />
+	<column name1="mg_transactionTimestampDate" name2="mg_transactionTimestampDate" />
+	<column name1="mg_amount" name2="mg_amount" />
+	<column name1="mg_mbrCode" name2="mg_mbrCode" />
+	<column name1="mg_mbrAlias" name2="mg_mbrAlias" />
+	<column name1="mg_mbrUsername" name2="mg_mbrUsername" />
+	<column name1="mg_gameCasinoId" name2="mg_gameCasinoId" />
+	<column name1="mg_gamePokerId" name2="mg_gamePokerId" />
+	<column name1="mg_gamePokerType" name2="mg_gamePokerType" />
+	<column name1="mg_refKey" name2="mg_refKey" />
+	<column name1="mg_refType" name2="mg_refType" />
+	<column name1="mg_afterTxWalletAmount" name2="mg_afterTxWalletAmount" />
+	<column name1="mg_mgsGameId" name2="mg_mgsGameId" />
+	<column name1="mg_mgsActionId" name2="mg_mgsActionId" />
+	<column name1="mg_clrngAmnt" name2="mg_clrngAmnt" />
+	<column name1="mg_createtime" name2="mg_createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

@@ -1,0 +1,368 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, section, article, aside, header, footer, nav, dialog, figure {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #e2e2e2;
+    min-width: 1000px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+em, i {
+    font-style: normal;
+}
+
+img {
+    border: 0;
+}
+
+input, img {
+    vertical-align: middle;
+}
+
+input:focus {
+    outline: none;
+}
+
+a {
+    text-underline: none;
+    text-decoration: none;
+}
+
+/*-------------------------�м�չʾ����-------------------------*/
+.fix_part {
+    height: 100%;
+    width: 1000px;
+    margin:0 auto;
+    padding: 0 0 0 0;
+    display: block;
+}
+
+/*------------------------------����----------------------------*/
+.header {
+    height: 60px;
+    padding: 15px 0 15px 0;
+    margin: 0 auto;
+    border: 0;
+    background-color: #333333;
+}
+
+.header_logo {
+    float: left;
+    height: 100%;
+}
+.header_logo img{
+	display:block;
+	border:none;
+    width:90px;
+	height:90px;
+	margin-top:-15px;
+}
+.header_title {
+    float: right;
+    height: 100%;
+    padding: 0 20px 0 20px;
+}
+
+.header_title_img {
+    margin-left: 12px;
+    margin-bottom: 10px;
+}
+
+.header_title_txt {
+    font-size: 17px;
+    color: #ffffff;
+}
+
+.header_title_txt_1 {
+    font-size: 17px;
+    color: #8e8e8e;
+}
+
+/*---------------------�ֲ�ͼ---------------------*/
+.banner_index {
+    height: 460px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    display: block;
+}
+
+.banner_wrap {
+    float: right;
+    top: 0;
+    height: 460px;
+    overflow: hidden;
+    display: inline;
+}
+
+.banner_wrap li {
+    display: inline;
+    float: left;
+    top: 0;
+    overflow: hidden;
+    list-style: none;
+}
+
+.banner_wrap li a {
+    width: 1920px;
+    height: 460px;
+    display: block;
+}
+
+.banner_wrap li a.banner_1 {
+    background: url("../image/display-banner-1.png") center no-repeat;
+}
+
+.banner_wrap li a.banner_2 {
+    background: url("../image/display-banner-2.png") center no-repeat;
+}
+
+/*-------------------body-------------------*/
+.body_title {
+    width: 100%;
+    height: 200px;
+    background-color: #fafafa;
+}
+
+.body_title_index {
+    float: left;
+    position: relative;
+    display: block;
+    background-color: #fafafa;
+}
+
+.body_title_index:hover {
+
+}
+
+.title_span {
+    float: left;
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    font-family: "Microsoft YaHei";
+    font-size: 24px;
+    color: #343434;
+}
+
+/*------------------��������------------------*/
+.display_content {
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+    min-height: 370px;
+}
+
+.display_content_img {
+    float: left;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.display_content_txt {
+    width: 550px;
+    font-family: "Microsoft YaHei";
+    color: #6c6c6b;
+    padding-left: 380px;
+}
+
+.p_title {
+    color: #6c6b6b;
+    font-size: 26px;
+    font-family: "Microsoft YaHei";
+    margin-top: 2px;
+}
+
+.p_title_1 {
+    color: #6c6b6b;
+    font-size: 22px;
+    font-family: "Microsoft YaHei";
+}
+
+.p_txt {
+    color: #6c6b6b;
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+}
+
+/*------------------footer------------------*/
+.footer {
+    display: block;
+    position: relative;
+    width: 100%;
+    height:auto;
+    background-color: #333333;
+    padding-top: 30px;
+}
+
+.copyright {
+    color: #a1a1a1;
+    font-family: "Microsoft YaHei";
+    font-size: 17px;
+    padding-left: 40px;
+}
+
+.footer_link {
+    color: #a1a1a1;
+    font-family: "Microsoft YaHei";
+    font-size: 17px;
+    padding-left: 50px;
+}
+
+.footer_link {
+    float: right;
+    display: inline;
+    position: relative;
+    list-style: none;
+    padding-right: 100px;
+}
+
+.footer_link li {
+    float: left;
+    display: inline;
+    border-right: 1px solid #a1a1a1;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.footer_link li a {
+    font-family: "Microsoft YaHei";
+    color: #a1a1a1;
+    font-size: 17px;
+    text-decoration: none;
+    width: 100px;
+}
+.footer-icon {
+    padding: 15px 0;
+    margin-top:20px;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+.layout {
+    width: 1000px;
+    height:65px;
+    margin: 0 auto;
+}
+.fr{
+	float:right;
+}
+.fl{
+	float:left;
+}
+.footer-icon div h4 {
+    text-align: center;
+    color: #999;
+}
+.footer-icon ul {
+    margin-top: 12px;
+}
+.footer-icon li {
+    height: 35px;
+    line-height: 35px;
+    margin: 0 17px;
+    float: left;
+    display: inline;
+}
+li {
+    list-style-type: none;
+}
+.footer-icon li a {
+    display: inline-block;
+    cursor: pointer;
+}
+a {
+    color: #fff;
+}
+.footer-icon li a #_FastCagayan {
+    background-position: 0 -280px;
+    width: 31px;
+}
+.footer-icon li a span {
+    background: url(../image/footer_icons.png) no-repeat;
+    display: block;
+    vertical-align: middle;
+    height: 35px;
+}
+.footer-icon li a #_GamCare {
+    background-position: 0 -315px;
+    width: 27px;
+}
+.footer-icon li a #_AdultsOnly {
+    background-position: 0 -350px;
+    width: 31px;
+}
+.partner-wrap li {
+    margin: 0 11px;
+}
+.footer-icon li a #_AsiaGaming {
+    background-position: 0 0;
+    width: 105px;
+}
+.footer-icon li a #_Saba {
+    background-position: 0 -385px;
+    width: 96px;
+}
+.footer-icon li a #_BBIN {
+    background-position: 0 -455px;
+    width: 80px;
+}
+.footer-icon div.payment-wrap, .footer-icon div.gambling-wrap {
+    padding-left: 40px;
+}
+.footer-icon li a #_Visa {
+    background-position: 0 -140px;
+    width: 62px;
+}
+.footer-icon li a #_UnionPay {
+    background-position: 0 -175px;
+    width: 31px;
+}
+.footer-icon li a #_MasterCard {
+    background-position: 0 -210px;
+    width: 44px;
+}
+.footer-icon li a #_Gambling {
+    background-position: 0 -245px;
+    width: 40px;
+}
+.layouts {
+    width: 1000px;
+    margin: 0 auto;
+    overflow:hidden;
+    padding:20px 0;
+}
+.footer p {
+    text-align: center;
+    color: #999;
+}
+/*------------------------������-----------------------------*/
+#alert_part {
+    position: fixed;
+    /*float: left;*/
+    z-index: 9999;
+    width: 450px;
+    height: 200px;
+    top: 40%;
+    left: 40%;
+    border-color: #85888c;
+    background-color: #8f9296;
+}
+#alert_tip{
+    width: 90%;
+    height: 65%;
+    font-size: 30px;
+    padding-top: 15%;
+    padding-left: 5%;
+    color: #ffffff;
+    font-family: "Microsoft YaHei";
+    text-align: center;
+    vertical-align: middle;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PaymentType" >
+  <resultMap id="resultMap" type="com.maven.entity.PaymentType" >
+    <id column="paymenttypecode" property="paymenttypecode" jdbcType="CHAR" />
+    <result column="paymenttype" property="paymenttype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columnList" >
+    PAYMENTTYPECODE, PAYMENTTYPE
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  		<if test="paymenttypecode != null" > and trim(paymenttypecode)=trim(#{paymenttypecode})</if>
+      	<if test="paymenttype != null" > and trim(paymenttype)=trim(#{paymenttype}) </if>
+      	and datastatus = 1
+  	</where>
+  </sql>
+  
+<!-- =================================================新增语句================================================================ -->
+ <insert id="Add" parameterType="com.maven.entity.PaymentType" >
+    insert into payment_type (paymenttypecode, paymenttype) values (ufn_get_next_string_by_tablename('payment_type',0), #{paymenttype})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultType="com.maven.entity.PaymentType" parameterType="java.lang.String" >
+    select  <include refid="columnList" /> from payment_type where trim(paymenttypecode)=trim(#{paymenttypecode})
+</select>
+<select id="select" resultMap="resultMap" parameterType="Map" >
+  select  <include refid="columnList" /> from payment_type <include refid="exactCondition" /> <include refid="ABasic.page" />
+</select>
+ <select id="selectCount" resultType="int" parameterType="Map" >
+    select  count(*) from payment_type <include refid="exactCondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<update id="delete" parameterType="String" >
+    update payment_type  set datastatus=-1 where trim(paymenttypecode)=trim(#{paymenttypecode})
+</update>
+<update id="selectDelete" parameterType="String">
+    update payment_type  set datastatus=-1 where paymenttypecode in
+    <foreach collection="array" item="paymenttypecode" open="(" separator="," close=")">
+    	#{paymenttypecode}
+    </foreach>
+</update>
+<!-- =================================================修改语句================================================================ -->
+<update id="update" parameterType="com.maven.entity.PaymentType" >
+  update payment_type set paymenttype=#{paymenttype} where trim(paymenttypecode)=trim(#{paymenttypecode})
+</update>
+
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingAllGameWinloseDetail" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingAllGameWinloseDetail" >
+    <id column="platformtype" property="platformtype" jdbcType="VARCHAR"/>
+    <id column="platformid" property="platformid" jdbcType="VARCHAR"/>
+    <id column="employeecode" property="employeecode" jdbcType="CHAR"/>
+    <id column="bettime" property="bettime" jdbcType="TIMESTAMP"/>
+    <id column="betmoney" property="betmoney" jdbcType="DOUBLE"/>
+    <id column="validbet" property="validbet" jdbcType="DOUBLE"/>
+    <id column="netmoney" property="netmoney" jdbcType="DOUBLE"/>
+    <id column="enterprisecode" property="enterprisecode" jdbcType="CHAR"/>
+    <id column="brandcode" property="brandcode" jdbcType="CHAR"/>
+    <id column="loginaccount" property="loginaccount" jdbcType="VARCHAR"/>
+    <id column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR"/>
+    <id column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR"/>
+    <id column="gametype" property="gametype" jdbcType="VARCHAR"/>
+    <id column="patchno" property="patchno" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="rangeCondition">
+      <where>
+      <if test="platformtype != null" > and tab.platformtype = #{platformtype}</if>
+      <if test="gameBigType != null" > and tab.gamebigtype = #{gameBigType}</if>
+      <if test="startDate != null" > and tab.bettime <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and tab.bettime <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="loginaccount != null" > and tab.loginaccount = #{loginaccount}</if>
+      <if test="enterprisecode != null" > and tab.enterprisecode = #{enterprisecode}</if>
+      <if test="employeecode != null" > and tab.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" > and tab.parentemployeecode = #{parentemployeecode}</if>
+      <if test="bettime != null" > and date(tab.bettime) = #{bettime} </if>
+      <if test="gametype != null" > and tab.gametype = #{gametype}</if>
+      <if test="patchno != null" > and tab.patchno = #{patchno}</if>
+      
+      <!-- 给API接口使用的 -->
+      <if test="startdate != null" > and date(tab.bettime) <![CDATA[ >= ]]> #{startdate}</if>
+      <if test="enddate != null" > and date(tab.bettime) <![CDATA[ <= ]]> #{enddate}</if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+      </where>
+  </sql>
+  
+  <sql id="rangeCondition2">
+      <where>
+      1=1
+      <if test="platformtype != null" > and tab.platformtype = #{platformtype}</if>
+      <if test="gameBigType != null" > and tab.gamebigtype = #{gameBigType}</if>
+      <if test="loginaccount != null" > and tab.loginaccount = #{loginaccount}</if>
+      <if test="enterprisecode != null" > and tab.enterprisecode = #{enterprisecode}</if>
+      <if test="employeecode != null" > and tab.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" > and tab.parentemployeecode = #{parentemployeecode}</if>
+      <if test="bettime != null" > and date(tab.bettime) = #{bettime} </if>
+      <if test="gametype != null" > and tab.gametype = #{gametype}</if>
+      </where>
+  </sql>
+  
+  <sql id="column_List" >
+    tab.platformtype, tab.platformid, tab.employeecode, tab.bettime, tab.betmoney, tab.validbet,
+    tab.netmoney, tab.enterprisecode, tab.brandcode, tab.loginaccount, tab.parentemployeecode, tab.gamebigtype
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+
+<select id="selectForPage" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="column_List" /> FROM betting_all_game_winlose_detail tab 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+
+<select id="selectForPageCount" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM betting_all_game_winlose_detail tab 
+    <include refid="rangeCondition" />
+</select>
+
+<!-- 数据统计之金额 -->  
+<select id="takeRecordCountMoney" resultType="Map" parameterType="java.util.HashMap">
+    select 
+    count(1) count, 
+    sum(betmoney) betmoney, 
+    sum(validbet) validMoney, 
+    sum(netmoney) netMoney
+    FROM betting_all_game_winlose_detail tab
+    <include refid="rangeCondition" />
+</select>
+
+
+
+        
+<!-- 分组数据 -->  
+<select id="selectGroup" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select
+    enterprisecode,employeecode,gametype,gamebigtype, 
+    sum(betmoney) betmoney, 
+    sum(validbet) validbet, 
+    sum(netmoney) netmoney
+     
+    FROM betting_all_game_winlose_detail tab
+    <include refid="rangeCondition" />
+    and patchno is null
+    group by enterprisecode,employeecode,gametype,gamebigtype
+</select>
+<!-- 分组数据 -->  
+<select id="selectGroup2" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select 
+    sum(betmoney) betmoney, 
+    sum(validbet) validMoney, 
+    sum(netmoney) netMoney,
+    enterprisecode
+    
+    FROM betting_all_game_winlose_detail tab
+    <include refid="rangeCondition" />
+    group by enterprisecode
+</select>
+
+<!-- 汇总数据 -->
+<update id="updateByPatchno" parameterType="java.util.HashMap" >
+    update betting_all_game_winlose_detail tab
+    set patchno = #{patchno,jdbcType=VARCHAR}
+    where date(bettime)=#{bettime}
+    and tab.patchno is null   
+  </update>
+  
+<!-- 取消计划：根据批次号回滚汇总标志 -->
+<update id="updateByPatchnoCancel" parameterType="com.maven.entity.BettingAllGameWinloseDetail" >
+    update betting_all_game_winlose_detail tab
+    set patchno = null 
+    where patchno = #{patchno,jdbcType=VARCHAR} and enterprisecode = #{enterprisecode,jdbcType=CHAR}
+  </update>
+
+<!-- 	用户提存比分析统计（jason） -->
+<select id="uspUserDayReport" resultMap="BaseResultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_user_day_report (				#{gametype,mode=IN,jdbcType=VARCHAR},
+														#{loginaccount,mode=IN,jdbcType=VARCHAR},
+														#{enterprisecode,mode=IN,jdbcType=VARCHAR},
+														#{start,mode=IN,jdbcType=TINYINT},
+														#{limit,mode=IN,jdbcType=TINYINT},
+														#{startDate,mode=IN,jdbcType=TINYINT},
+														#{endDate,mode=IN,jdbcType=TINYINT},
+														#{out_count,mode=OUT,jdbcType=TINYINT})}]]>
+</select>														
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+</mapper>

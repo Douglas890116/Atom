@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseActivityCustomizationSetting" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseActivityCustomizationSetting" >
+    <id column="eacscode" property="eacscode" jdbcType="INTEGER" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+    <result column="activitysettingcode" property="activitysettingcode" jdbcType="INTEGER" />
+    <result column="agementvalue" property="agementvalue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    eacscode, ecactivitycode, activitysettingcode, agementvalue
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  		<if test="ecactivitycode != null" > and ecactivitycode = #{ecactivitycode}</if>
+	    <if test="activitysettingcode != null" > and activitysettingcode = #{activitysettingcode}</if>
+	    <if test="agementvalue != null" > and agementvalue = #{agementvalue}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+ <insert id="saveRecordBatch" parameterType="java.util.List" >
+    insert into enterprise_activity_customization_setting (ecactivitycode, activitysettingcode,agementvalue) 
+    values 
+    <foreach collection="list" item="st" separator=",">
+    	(#{st.ecactivitycode}, #{st.activitysettingcode},#{st.agementvalue})	
+    </foreach>
+</insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_activity_customization_setting
+    where eacscode = #{eacscode}
+  </select>
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_activity_customization_setting
+    <include refid="exactCondition"></include>
+  </select>
+<select id="selectSettingByTwoCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_activity_customization_setting
+    where ecactivitycode = #{ecactivitycode} and activitysettingcode in 
+    <foreach collection="activitysettingcode" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.Integer" >
+    delete from enterprise_activity_customization_setting
+    where eacscode = #{eacscode}
+  </delete>
+  <delete id="deleteByECActivitycode" parameterType="java.lang.Integer" >
+    delete from enterprise_activity_customization_setting
+    where ecactivitycode = #{ecactivitycode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EnterpriseActivityCustomizationSetting" >
+    update enterprise_activity_customization_setting
+    <set>
+      <if test="ecactivitycode != null" >ecactivitycode = #{ecactivitycode},</if>
+      <if test="activitysettingcode != null" >activitysettingcode = #{activitysettingcode},</if>
+      <if test="agementvalue != null" >agementvalue = #{agementvalue},</if>
+    </set>
+    where eacscode = #{eacscode}
+  </update>
+</mapper>

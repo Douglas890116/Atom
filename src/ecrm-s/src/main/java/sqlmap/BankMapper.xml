@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Bank" >
+  <resultMap id="resultMap" type="com.maven.entity.Bank" >
+    <id column="bankcode" property="bankcode" jdbcType="CHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="banklogo" property="banklogo" jdbcType="VARCHAR" />
+    <result column="bankurl" property="bankurl" jdbcType="VARCHAR" />
+    <result column="displayorder" property="displayorder" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="column_List">
+  	BANKCODE,BANKNAME,BANKLOGO,BANKURL,DISPLAYORDER
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!--   查询所有的银行信息 -->
+  <select id="select" resultMap="resultMap">
+  		SELECT <include refid="column_List" /> FROM bank ORDER BY DISPLAYORDER
+  </select>
+<!--   根据银行编码查询单个银行信息 -->
+  <select id="bankCodeQuyer" resultType="com.maven.entity.Bank" parameterType="String">
+  	SELECT <include refid="column_List" /> FROM bank WHERE bankcode = #{bankcode}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+
+</mapper>

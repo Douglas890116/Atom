@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeMessage" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EmployeeMessage" >
+    <id column="messagecode" property="messagecode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="sendemployeecode" property="sendemployeecode" jdbcType="CHAR" />
+    <result column="sendemployeeaccount" property="sendemployeeaccount" jdbcType="VARCHAR" />
+    <result column="messagetextcode" property="messagetextcode" jdbcType="INTEGER" />
+    <result column="acceptemployeecode" property="acceptemployeecode" jdbcType="CHAR" />
+    <result column="acceptaccount" property="acceptaccount" jdbcType="VARCHAR" />
+    <result column="messagetype" property="messagetype" jdbcType="CHAR" />
+    <result column="replaycode" property="replaycode" jdbcType="INTEGER" />
+    <result column="readstatus" property="readstatus" jdbcType="CHAR" />
+    <association property="text" javaType="com.maven.entity.EmployeeMessageText">  
+            <id column="messagetextcode" property="messagetextcode" jdbcType="INTEGER" />
+		    <result column="content" property="content" jdbcType="VARCHAR" />
+		    <result column="sendtime" property="sendtime" jdbcType="TIMESTAMP" />
+		    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+    </association>  
+  </resultMap>
+  <!-- 基础数据列 -->
+  <sql id="Base_Column_List" >
+    MESSAGECODE,ENTERPRISECODE, BRANDCODE, SENDEMPLOYEECODE, SENDEMPLOYEEACCOUNT, MESSAGETEXTCODE, ACCEPTEMPLOYEECODE, 
+    ACCEPTACCOUNT, MESSAGETYPE,REPLAYCODE,READSTATUS
+  </sql>
+  <sql id="Association_Column_List" >
+    MESSAGECODE,ENTERPRISECODE,BRANDCODE, SENDEMPLOYEECODE, SENDEMPLOYEEACCOUNT, m.MESSAGETEXTCODE MESSAGETEXTCODE, ACCEPTEMPLOYEECODE, 
+    ACCEPTACCOUNT, MESSAGETYPE, READSTATUS,CONTENT,SENDTIME,REPLAYCODE,DATASTATUS
+  </sql>
+  <!-- 精确查询 -->
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode != null" > and brandcode = #{brandcode}</if>
+      <if test="sendemployeecode != null" > and sendemployeecode = #{sendemployeecode}</if>
+      <if test="sendemployeeaccount != null" > and sendemployeeaccount = #{sendemployeeaccount}</if>
+      <if test="messagetextcode != null" > and messagetextcode = #{messagetextcode}</if>
+      <if test="acceptemployeecode != null" > and acceptemployeecode = #{acceptemployeecode}</if>
+      <if test="acceptaccount != null" > and acceptaccount = #{acceptaccount}</if>
+      <if test="messagetype != null" > and messagetype = #{messagetype}</if>
+      <if test="replaycode != null"> and replaycode = #{replaycode}</if>
+      <if test="readstatus != null" > and readstatus = #{readstatus}</if>
+      and datastatus = 1 
+  	</where>
+  </sql>
+  <!-- 范围查询 -->
+  <sql id="rangeConditon">
+  	<where>
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (
+  	  	acceptemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or acceptemployeecode = #{teamLeaderCode} </if>
+		or sendemployeecode in
+		<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or sendemployeecode = #{teamLeaderCode} </if>
+		)
+	  </if>
+  	  <if test="employeecode != null" >
+      	 and (acceptemployeecode = #{employeecode} or sendemployeecode = #{employeecode})
+      </if>
+      <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode != null" > and brandcode = #{brandcode}</if>
+      <if test="sendemployeecode != null" > and sendemployeecode = #{sendemployeecode}</if>
+      <if test="sendemployeeaccount != null" > and sendemployeeaccount = #{sendemployeeaccount} </if>
+      <if test="messagetextcode != null" > and messagetextcode = #{messagetextcode}</if>
+      <if test="acceptaccount != null" > and acceptaccount = #{acceptaccount} </if>
+      <if test="acceptemployeecode != null" > and acceptemployeecode = #{acceptemployeecode} </if>
+      <if test="messagetype != null" > and messagetype = #{messagetype}</if>
+      <if test="replaycode != null"> and replaycode = #{replaycode}</if>
+      <if test="readstatus != null" > and readstatus = #{readstatus}</if>
+      <if test="content != null" > and content like concat('%', #{content}, '%')</if>
+      <if test="begintime !=null"> AND sendtime <![CDATA[ >= ]]>#{begintime}</if>
+	  <if test="endtime !=null"> AND sendtime <![CDATA[ <=]]> #{endtime}</if>
+      and  datastatus = 1
+  	</where>
+  </sql>
+
+<!-- =================================================新增语句================================================================ -->
+ <!-- Insert 语句 -->
+  <insert id="add" parameterType="com.maven.entity.EmployeeMessage" >
+    insert into employee_message (enterprisecode,brandcode, sendemployeecode,sendemployeeaccount, messagetextcode, 
+    acceptemployeecode,acceptaccount, messagetype,replaycode, readstatus)
+    values (#{enterprisecode},#{brandcode}, #{sendemployeecode}, #{sendemployeeaccount}, #{messagetextcode}, #{acceptemployeecode}, 
+      #{acceptaccount}, #{messagetype}, #{replaycode},#{readstatus})
+  </insert>
+  <insert id="saveRecordBatch" parameterType="List" >
+    insert into employee_message (enterprisecode,brandcode, sendemployeecode,sendemployeeaccount, messagetextcode, 
+    acceptemployeecode,acceptaccount, messagetype, replaycode, readstatus) values
+    <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.enterprisecode},#{item.brandcode}, #{item.sendemployeecode}, #{item.sendemployeeaccount}, #{item.messagetextcode}, #{item.acceptemployeecode}, 
+      #{item.acceptaccount}, #{item.messagetype},#{item.replaycode}, #{item.readstatus})
+    </foreach>  
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<!-- Select 语句 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_message
+    where messagecode = #{messagecode}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Association_Column_List" />
+    FROM employee_message m left join employee_message_text mt on m.messagetextcode = mt.messagetextcode
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Association_Column_List" />
+    FROM employee_message m left join employee_message_text mt on m.messagetextcode = mt.messagetextcode
+    <include refid="rangeConditon"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount"  resultType="long" parameterType="Map" >
+    select count(1) 
+    FROM employee_message m left join employee_message_text mt on m.messagetextcode = mt.messagetextcode
+    <include refid="rangeConditon"></include>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<!-- Delete 语句 -->
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from employee_message
+    where messagecode = #{messagecode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EmployeeMessage" >
+    update employee_message
+    <set >
+      <if test="sendemployeecode != null" > sendemployeecode = #{sendemployeecode}, </if>
+      <if test="sendemployeeaccount != null" > sendemployeeaccount = #{sendemployeeaccount}, </if>
+      <if test="messagetextcode != null" > messagetextcode = #{messagetextcode}, </if>
+      <if test="acceptemployeecode != null" > acceptemployeecode = #{acceptemployeecode}, </if>
+      <if test="acceptaccount != null" > acceptaccount = #{acceptaccount}, </if>
+      <if test="messagetype != null" > messagetype = #{messagetype}, </if>
+      <if test="readstatus != null" > readstatus = #{readstatus}, </if>
+    </set>
+    where messagecode = #{messagecode}
+  </update>
+  
+</mapper>

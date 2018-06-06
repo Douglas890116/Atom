@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LogOperation" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.LogOperation" >
+    <id column="logcode" property="logcode" jdbcType="INTEGER" />
+    <result column="tablename" property="tablename" jdbcType="VARCHAR" />
+    <result column="servicename" property="servicename" jdbcType="VARCHAR" />
+    <result column="visiteurl" property="visiteurl" jdbcType="VARCHAR" />
+    <result column="oprationtype" property="oprationtype" jdbcType="VARCHAR" />
+    <result column="oprationtime" property="oprationtime" jdbcType="TIMESTAMP" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="oprationperson" property="oprationperson" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 基础字段 -->
+  <sql id="Base_Column_List" >
+    LOGCODE, TABLENAME, SERVICENAME, VISITEURL, OPRATIONTYPE, OPRATIONTIME,EMPLOYEECODE,PARENTEMPLOYEECODE,OPRATIONPERSON
+  </sql>
+  <sql id="rangeCondition">
+  	 <where>
+  	 	<if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	 	</if>
+	 	<if test="employeecode !=null"> and employeecode = #{employeecode} </if>
+	 	<if test="parentemployeecode !=null"> and parentemployeecode = #{parentemployeecode} </if>
+	 	<if test="oprationperson !=null"> and oprationperson like CONCAT('%',CONCAT(#{oprationperson},'%'))</if>
+		<if test="oprationperson !=null"> and oprationperson like CONCAT('%',CONCAT(#{oprationperson},'%'))</if>
+		<if test="servicename !=null">and servicename like  CONCAT('%',CONCAT(#{servicename},'%'))</if>
+		<if test="oprationtype !=null">and oprationtype like  CONCAT('%',CONCAT(#{oprationtype},'%'))</if>
+		<if test="visiteurl !=null">and visiteurl like  CONCAT('%',CONCAT(#{visiteurl},'%'))</if>
+		<if test="dateBegin !=null">and oprationtime <![CDATA[>=]]> #{dateBegin} </if>
+		<if test="dateEnd !=null">and oprationtime <![CDATA[<=]]> #{dateEnd} </if>
+  	 </where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+ <insert id="add" parameterType="com.maven.entity.LogOperation" >
+ 	<selectKey keyProperty="logcode" resultType="int">
+         select LAST_INSERT_ID()
+    </selectKey>
+    insert into log_operation ( tablename, servicename,visiteurl, oprationtype, oprationtime,employeecode, oprationperson)
+    values (#{tablename}, #{servicename}, #{visiteurl}, #{oprationtype}, #{oprationtime},#{employeecode}, #{oprationperson})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_operation
+    where logcode = #{logcode}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="findOperatingLog" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from log_operation 
+  	<include refid="rangeCondition" />  <include refid="ABasic.page" />
+</select>
+<select id="findOperatingLogCount" resultType="int" parameterType="map">
+  	select count(*) from log_operation <include refid="rangeCondition" />
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_operation
+    where logcode = #{logcode}
+</delete>
+<!-- =================================================修改语句================================================================ -->
+
+</mapper>

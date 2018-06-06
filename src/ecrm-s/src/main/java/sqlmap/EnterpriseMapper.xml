@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Enterprise" >
+  <!-- Result Mapping Area  -->
+  <resultMap id="resultMap" type="com.maven.entity.Enterprise" >
+    <id column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="parententerprisecode" property="parententerprisecode" jdbcType="CHAR" />
+    <result column="ipenable" property="ipenable" jdbcType="CHAR" />
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="registrationdate" property="registrationdate" jdbcType="TIMESTAMP" />
+    <result column="takerate" property="takerate" jdbcType="VARCHAR" />
+    <result column="depositrate" property="depositrate" jdbcType="VARCHAR" />
+    <result column="transfertype" property="transfertype" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="rate2" property="rate2" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+    ENTERPRISECODE, PARENTENTERPRISECODE, ENTERPRISENAME, REGISTRATIONDATE, IPENABLE, DEPOSITRATE, TAKERATE, TRANSFERTYPE, RATE, RATE2
+  </sql>
+  <sql id="rangeCondition">
+	<where>
+	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode} </if>
+	  <if test="parententerprisecode != null" > and parententerprisecode = #{parententerprisecode} </if>
+      <if test="enterprisename != null" > and  enterprisename = #{enterprisename} </if>
+      <if test="ipenable != null" > and  ipenable = #{ipenable} </if>
+      <if test="transfertype != null" > and  transfertype = #{transfertype} </if>
+      <if test="registrationdate_begin != null" > and registrationdate >= #{registrationdate_begin} </if>
+      <if test="registrationdate_end != null" > and registrationdate  <![CDATA[ < ]]>  #{registrationdate_end} </if>
+      and datastatus=1
+	</where>
+  </sql>
+  <sql id="exactCondition">
+	<where>
+	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode} </if>
+	  <if test="parententerprisecode != null" > and parententerprisecode = #{parententerprisecode} </if>
+      <if test="enterprisename != null" > and  enterprisename = #{enterprisename} </if>
+      <if test="ipenable != null" > and  ipenable = #{ipenable} </if>
+      <if test="transfertype != null" > and  transfertype = #{transfertype} </if>
+      <if test="registrationdate_begin != null" > and registrationdate >= #{registrationdate_begin} </if>
+      <if test="registrationdate_end != null" > and registrationdate  <![CDATA[ < ]]>  #{registrationdate_end} </if>
+      and datastatus=1
+	</where>
+  </sql>
+
+<!-- =================================================新增语句================================================================ -->
+<insert id="save" parameterType="com.maven.entity.Enterprise">
+    insert into enterprise (enterprisecode,parententerprisecode, enterprisename, registrationdate, ipenable, depositrate, takerate , transfertype)
+    	 values (ufn_get_next_string_by_tablename('enterprise',0),#{parententerprisecode}, #{enterprisename},NOW(), #{ipenable}, #{depositrate}, #{takerate} , #{transfertype} )
+  	<selectKey resultType="java.lang.String" keyProperty="enterprisecode" order="AFTER" >
+    	select enterprisecode from enterprise where enterprisename=#{enterprisename} order by registrationdate desc limit 0,1
+  	</selectKey>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+    <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String">
+    select  <include refid="columnList" /> 
+    from enterprise
+    where enterprisecode = #{enterprisecode}
+  </select>
+  <select id="select" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" /> 
+    from enterprise 
+    <include refid="exactCondition" /> 
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" /> 
+    from enterprise 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="long" parameterType="Map" >
+    select count(1) 
+    from enterprise 
+    <include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.String" >
+    update enterprise set datastatus=-1 where enterprisecode = #{enterprisecode}
+</delete>
+  <update id="logicDelete">
+  <if test="list != null">
+  	update enterprise set datastatus=-1 where enterprisecode in 
+  	<foreach collection="list" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </if>
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.Enterprise" >
+    update enterprise
+    <set >
+      <if test="parententerprisecode != null" >parententerprisecode = #{parententerprisecode}, </if>
+      <if test="enterprisename != null" > enterprisename = #{enterprisename}, </if>
+      <if test="registrationdate != null" > registrationdate = #{registrationdate}, </if>
+      <if test="ipenable != null" > ipenable = #{ipenable}, </if>
+      <if test="depositrate != null" > depositrate = #{depositrate}, </if>
+      <if test="takerate != null" > takerate = #{takerate}, </if>
+      <if test="transfertype != null" > transfertype = #{transfertype}, </if>
+    </set>
+    where enterprisecode = #{enterprisecode}
+  </update>
+  <select id="validateDeleteEnterprise" resultType="int" parameterType="java.lang.String">
+  	select func_enterprisecode_exist(#{enterprisecode})
+  </select>
+</mapper>

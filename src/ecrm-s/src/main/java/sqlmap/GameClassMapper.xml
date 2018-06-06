@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GameClass" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.GameClass" >
+    <id column="gameclasscode" property="gameclasscode" jdbcType="INTEGER" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="classchinaname" property="classchinaname" jdbcType="VARCHAR" />
+    <result column="classenglishname" property="classenglishname" jdbcType="VARCHAR" />
+    <result column="parentclasstype" property="parentclasstype" jdbcType="CHAR" />
+    <result column="sort" property="sort" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GAMECLASSCODE, GAMETYPE, CLASSCHINANAME, CLASSENGLISHNAME, PARENTCLASSTYPE, SORT
+  </sql>
+  
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="com.maven.entity.GameClass" >
+    insert into game_class (gameclasscode, gametype, classchinaname, 
+      classenglishname, parentclasstype, sort)
+    values (#{gameclasscode}, #{gametype}, #{classchinaname}, 
+      #{classenglishname}, #{parentclasstype}, #{sort} )
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  <include refid="Base_Column_List" />
+    from game_class
+    where gameclasscode = #{gameclasscode}
+  </select>
+  <select id="selectSortMenu" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select  <include refid="Base_Column_List" />
+    from game_class where gametype = #{gameType}  ORDER BY parentclasstype,sort
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game_class
+    where gameclasscode = #{gameclasscode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.GameClass" >
+    update game_class
+    <set >
+		<if test="gametype != null" > gametype = #{gametype},</if>
+		<if test="classchinaname != null" > classchinaname = #{classchinaname},</if>
+		<if test="classenglishname != null" > classenglishname = #{classenglishname},</if>
+		<if test="parentclasstype != null" > parentclasstype = #{parentclasstype},</if>
+		<if test="sort != null" > sort = #{sort},</if>
+    </set>
+    where gameclasscode = #{gameclasscode}
+  </update>
+ 
+</mapper>

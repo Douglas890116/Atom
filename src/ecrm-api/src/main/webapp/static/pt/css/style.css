@@ -1,0 +1,39 @@
+body,dd,div,dl,dt,h1,h2,h3,h4,h5,h6,li,ol,p,ul{margin: 0;padding: 0;border-color: #fff; list-style:none;}
+a,a:hover{outline:0;text-decoration:none}
+*{ color:#fff}
+body{ background:url(../images/bg.jpg) top center no-repeat #2e99fd;background-attachment:fixed}
+.clear{ clear:both}
+.top{ height:103px; background:url(../images/top_bg.jpg) top center no-repeat; width:100%; border-bottom:1px #8e6c3f solid; box-shadow:#d3af6f 0px 1px 0px;position:fixed; top:0; z-index:9999}
+.top_cen{width:1100px; margin:0 auto}
+.top_cen .nav_r{ float:right; height:60px; width:50px; margin-top:28px}
+.top_cen .nav_r ul{}
+.top_cen .nav_r ul li{ float:left; width:80px; height:30px; line-height:30px;}
+.top_cen .nav_r ul li.l_china{ background:url(../images/china.png) no-repeat;}
+.top_cen .nav_r ul li.l_english{ background:url(../images/usa.png) no-repeat;}
+.top_cen .nav_r ul li a{ font-size:17px; color:#b2b2b2; padding-left:28px; display:block;}
+.top_cen .nav_r ul li a:hover{ color:#fff} 
+.top_cen .nav_l{ float:left; height:114px; /*margin-left:20px;*/ position:relative; z-index:1100}
+.top_cen .nav_l ul li{ width:98px; height:103px; line-height:103px;font-size:15px; float:left; text-align:center; font-weight:600}
+.top_cen .nav_l ul li:hover,.top_cen .nav_l ul li.hover{ background:url(../images/nav_bg.jpg) no-repeat center}
+.top_cen .nav_l ul li .col{ color:#e0daaa}
+.top_cen .nav_l ul li:hover .col,.top_cen .nav_l ul li.hover .col{color:#f5ca64}
+.top_cen .logo{ display:block; width:254px; height:63px; padding-top:25px; float:left}
+.con_cen{ width:1100px; margin:0 auto; padding-bottom:60px}
+.con_cen ul{ margin-top:114px; }
+.con_cen ul li{ float:left; margin-right:11px; margin-left:11px; margin-top:26px; width:160px; font-size:14px}
+.con_cen ul li .pt_img{ width:160px; height:240px; overflow:hidden; position:relative; z-index:99}
+.con_cen ul li .pt_img img{width:160px; height:240px; }
+.con_cen ul li .rsp{width:160px;height:240px;overflow:hidden;position: absolute;background:#000;top:0px;left:0px; z-index:100}
+.con_cen ul li .text{position:absolute;width:160px;height:240px;left:-160px;top:0px;overflow:hidden; z-index:8888}
+.con_cen ul li h3{ width:114px; height:35px; line-height:35px; margin:0 auto; background:url(../images/pt_btn_1.png) no-repeat; text-align:center; margin-top:8px; color:#fff; font-weight:normal; cursor:pointer; font-size:16px}
+.con_cen ul li h2{ width:114px; height:35px; line-height:35px; margin:0 auto; background:url(../images/pt_btn_1.png) no-repeat; text-align:center; margin-top:90px; color:#fff; font-weight:normal; cursor:pointer; font-size:16px}
+.con_cen ul li h3:hover{ background:url(../images/pt_btn.png) no-repeat}
+.con_cen ul li h2:hover{ background:url(../images/pt_btn.png) no-repeat}
+
+.con_cen ul li p{ padding-left:10px; font-size:16px; cursor:pointer; padding-top:12px; line-height:24px}
+.con_cen ul li p:hover{ color:#ffff00}
+.footer{ height:65px; color:#fff; width:100%; background:url(../images/footer_bg.jpg) no-repeat center;position:fixed; bottom:0;z-index:10000}
+.footer .f_cen{ width:1100px; height:65px; line-height:65px; text-align:center; color:#fff; margin:0 auto; font-size:15px}
+.navsub{ position:absolute; display:none; top:80px;left:490px; width:96px; background:#150f09; z-index:1000; border:1px solid #74592a}
+.navsub a{ height:36px; line-height:36px; text-align:center; display:block; width:96px; font-size:15px; color:#e0daaa}
+.navsub a:hover{color:#f5ca64; background:url(../images/subnav_bg.png) no-repeat center}

@@ -1,0 +1,20 @@
+/*加载封装*/
+body{width:100%;position:absolute;left:0;top:0;bottom:0;overflow:auto;}
+div.mb{width:100%;position:absolute;left:0;top:0;bottom:0;z-index:999;background:rgba(0,0,0,0.3);}
+.loading_l,.loading_s{
+	width:122px;height:122px;background-color: #323232; border-radius: 6px;
+ 	line-height: 17px; position:fixed;left:0;top:0;right:0;bottom:0;margin:auto;	
+ 	z-index:9999; 
+}
+
+.loading_l>img,.loading_s>img{
+	width:80px;height:70px;position:absolute;left:0;top:10px;right:0;margin:auto;
+}
+
+.loading_l>img{width:40px;height:40px;top:30px;}
+
+.loading_l>p,.loading_s>p{ color:#fff;width:100%; text-align:center;
+ 	 position:absolute;left:0;bottom:18px;right:0;margin:auto;font-size:14px;	  	 
+}
+ 
+.loading_l>p{bottom:25px;}

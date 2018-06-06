@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingAllPlan" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingAllPlan" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="total_count" property="totalCount" jdbcType="INTEGER" />
+    <result column="total_betmoney" property="totalBetmoney" jdbcType="DOUBLE" />
+    <result column="total_validbet" property="totalValidbet" jdbcType="DOUBLE" />
+    <result column="total_netmoney" property="totalNetmoney" jdbcType="DOUBLE" />
+    <result column="betday" property="betday" jdbcType="INTEGER" />
+    <result column="operater" property="operater" jdbcType="VARCHAR" />
+    <result column="operater_time" property="operaterTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, patchno, enterprisecode, total_count, total_betmoney, total_validbet, total_netmoney, 
+    betday, operater, operater_time, status
+  </sql>
+  
+  
+  <sql id="rangeCondition">
+  	<where>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+      <if test="betday != null" > and betday = #{betday}</if>
+      <if test="status != null" > and status = #{status}</if>
+      <if test="patchno != null" > and patchno = #{patchno}</if>
+  	</where>
+  </sql>
+
+
+<select id="selectForPage" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_plan bad 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectForPageCount" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM betting_all_plan bad 
+    <include refid="rangeCondition" />
+</select>
+<!-- 数据统计之金额 -->  
+<select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(total_betmoney) totalBetmoney,
+    sum(total_validbet) totalValidbet,
+    sum(total_netmoney) totalNetmoney,
+    sum(total_count) totalCount
+    
+    FROM betting_all_plan bad
+    <include refid="rangeCondition" />
+</select>
+  
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_plan bad 
+    <include refid="rangeCondition" />
+</select>  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_all_plan
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_all_plan
+    where patchno = #{patchno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingAllPlan" >
+    insert into betting_all_plan (patchno, enterprisecode, total_count, 
+      total_betmoney, total_validbet, total_netmoney, 
+      betday, operater, operater_time, 
+      status)
+    values (#{patchno,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{totalCount,jdbcType=INTEGER}, 
+      #{totalBetmoney,jdbcType=DOUBLE}, #{totalValidbet,jdbcType=DOUBLE}, #{totalNetmoney,jdbcType=DOUBLE}, 
+      #{betday,jdbcType=INTEGER}, #{operater,jdbcType=VARCHAR}, #{operaterTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  
+<insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   insert into betting_all_plan (patchno, enterprisecode, total_count, 
+      total_betmoney, total_validbet, total_netmoney, 
+      betday, operater, operater_time, 
+      status
+	      ) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( #{item.patchno,jdbcType=VARCHAR}, #{item.enterprisecode,jdbcType=CHAR}, #{item.totalCount,jdbcType=INTEGER}, 
+      #{item.totalBetmoney,jdbcType=DOUBLE}, #{item.totalValidbet,jdbcType=DOUBLE}, #{item.totalNetmoney,jdbcType=DOUBLE}, 
+      #{item.betday,jdbcType=INTEGER}, #{item.operater,jdbcType=VARCHAR}, #{item.operaterTime,jdbcType=TIMESTAMP}, 
+      #{item.status,jdbcType=INTEGER}
+	      )
+	    </foreach>
+	  </if>
+ </insert>
+   
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingAllPlan" >
+    insert into betting_all_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="patchno != null" >
+        patchno,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="totalCount != null" >
+        total_count,
+      </if>
+      <if test="totalBetmoney != null" >
+        total_betmoney,
+      </if>
+      <if test="totalValidbet != null" >
+        total_validbet,
+      </if>
+      <if test="totalNetmoney != null" >
+        total_netmoney,
+      </if>
+      <if test="betday != null" >
+        betday,
+      </if>
+      <if test="operater != null" >
+        operater,
+      </if>
+      <if test="operaterTime != null" >
+        operater_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBetmoney != null" >
+        #{totalBetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="totalValidbet != null" >
+        #{totalValidbet,jdbcType=DOUBLE},
+      </if>
+      <if test="totalNetmoney != null" >
+        #{totalNetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="betday != null" >
+        #{betday,jdbcType=INTEGER},
+      </if>
+      <if test="operater != null" >
+        #{operater,jdbcType=VARCHAR},
+      </if>
+      <if test="operaterTime != null" >
+        #{operaterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingAllPlan" >
+    update betting_all_plan
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="totalCount != null" >
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalBetmoney != null" >
+        total_betmoney = #{totalBetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="totalValidbet != null" >
+        total_validbet = #{totalValidbet,jdbcType=DOUBLE},
+      </if>
+      <if test="totalNetmoney != null" >
+        total_netmoney = #{totalNetmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="betday != null" >
+        betday = #{betday,jdbcType=INTEGER},
+      </if>
+      <if test="operater != null" >
+        operater = #{operater,jdbcType=VARCHAR},
+      </if>
+      <if test="operaterTime != null" >
+        operater_time = #{operaterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingAllPlan" >
+    update betting_all_plan
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      total_betmoney = #{totalBetmoney,jdbcType=DOUBLE},
+      total_validbet = #{totalValidbet,jdbcType=DOUBLE},
+      total_netmoney = #{totalNetmoney,jdbcType=DOUBLE},
+      betday = #{betday,jdbcType=INTEGER},
+      operater = #{operater,jdbcType=VARCHAR},
+      operater_time = #{operaterTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByPatchnoCancel" parameterType="com.maven.entity.BettingAllPlan" >
+    delete from betting_all_plan
+    set status = 0,operater = #{operater,jdbcType=VARCHAR} 
+    where patchno = #{patchno,jdbcType=VARCHAR} and enterprisecode = #{enterprisecode,jdbcType=CHAR}
+  </delete>
+  
+  <update id="updateByPatchnoCancel" parameterType="com.maven.entity.BettingAllPlan" >
+    update betting_all_plan
+    set status = #{status,jdbcType=INTEGER}
+    where patchno = #{patchno,jdbcType=VARCHAR} and enterprisecode = #{enterprisecode,jdbcType=CHAR}
+  </update>
+  
+</mapper>

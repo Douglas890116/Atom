@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActivityRedbag">
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityRedbag">
+    <id column="lsh" jdbcType="VARCHAR" property="lsh" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="logindate" jdbcType="VARCHAR" property="logindate" />
+    <result column="loginip" jdbcType="VARCHAR" property="loginip" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="redbagtype" jdbcType="INTEGER" property="redbagtype" />
+    <result column="audittime" jdbcType="TIMESTAMP" property="audittime" />
+    <result column="auditer" jdbcType="VARCHAR" property="auditer" />
+    <result column="paytyime" jdbcType="TIMESTAMP" property="paytyime" />
+    <result column="auditremark" jdbcType="VARCHAR" property="auditremark" />
+    <result column="payer" jdbcType="VARCHAR" property="payer" />
+    <result column="lsbs" jdbcType="VARCHAR" property="lsbs" />
+    <result column="ectivityname" jdbcType="VARCHAR" property="ectivityname" />
+    <result column="enterprisebrandactivitycode" jdbcType="VARCHAR" property="enterprisebrandactivitycode" />
+    <result column="fingerprintcode" jdbcType="VARCHAR" property="fingerprintcode" />
+  </resultMap>
+  
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="logindate != null" > and logindate = #{logindate}</if>
+		<if test="status != null" > and status = #{status}</if>
+		<if test="redbagtype != null" > and redbagtype = #{redbagtype}</if>
+		<if test="startime != null" >and date(createtime) <![CDATA[ >= ]]> #{startime} </if>
+      	<if test="endtime != null" >and date(createtime) <![CDATA[ <= ]]> #{endtime} </if>
+      	
+      	<if test="fingerprintcode != null" > and fingerprintcode = #{fingerprintcode}</if>
+      	<if test="loginip != null" > and loginip = #{loginip}</if>
+      	
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from activity_redbag
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from activity_redbag
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(money) money
+  	 from activity_redbag
+  	<include refid="exactCondition" />
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List">
+    lsh, enterprisecode, employeecode, loginaccount, money, logindate, loginip, createtime, 
+    status,redbagtype, audittime, auditer, paytyime, auditremark, payer, lsbs, ectivityname, enterprisebrandactivitycode, fingerprintcode
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_redbag
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from activity_redbag
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.ActivityRedbag">
+    insert into activity_redbag (lsh, enterprisecode, employeecode, 
+      loginaccount, money, logindate, 
+      loginip, createtime, status, redbagtype,
+      audittime, auditer, paytyime, 
+      auditremark, payer, lsbs, 
+      ectivityname, enterprisebrandactivitycode, fingerprintcode
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{employeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{logindate,jdbcType=VARCHAR}, 
+      #{loginip,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, , #{redbagtype,jdbcType=INTEGER}, 
+      #{audittime,jdbcType=TIMESTAMP}, #{auditer,jdbcType=VARCHAR}, #{paytyime,jdbcType=TIMESTAMP}, 
+      #{auditremark,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR}, #{lsbs,jdbcType=VARCHAR}, 
+      #{ectivityname,jdbcType=VARCHAR}, #{enterprisebrandactivitycode,jdbcType=VARCHAR} , #{fingerprintcode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityRedbag">
+    insert into activity_redbag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lsh != null">
+        lsh,
+      </if>
+      <if test="enterprisecode != null">
+        enterprisecode,
+      </if>
+      <if test="employeecode != null">
+        employeecode,
+      </if>
+      <if test="loginaccount != null">
+        loginaccount,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="logindate != null">
+        logindate,
+      </if>
+      <if test="loginip != null">
+        loginip,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="redbagtype != null">
+        redbagtype,
+      </if>
+      <if test="audittime != null">
+        audittime,
+      </if>
+      <if test="auditer != null">
+        auditer,
+      </if>
+      <if test="paytyime != null">
+        paytyime,
+      </if>
+      <if test="auditremark != null">
+        auditremark,
+      </if>
+      <if test="payer != null">
+        payer,
+      </if>
+      <if test="lsbs != null">
+        lsbs,
+      </if>
+      <if test="ectivityname != null">
+        ectivityname,
+      </if>
+      <if test="enterprisebrandactivitycode != null">
+        enterprisebrandactivitycode,
+      </if>
+      <if test="fingerprintcode != null">
+        fingerprintcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lsh != null">
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null">
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null">
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null">
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="logindate != null">
+        #{logindate,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="redbagtype != null">
+        #{redbagtype,jdbcType=INTEGER},
+      </if>
+      <if test="audittime != null">
+        #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditer != null">
+        #{auditer,jdbcType=VARCHAR},
+      </if>
+      <if test="paytyime != null">
+        #{paytyime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditremark != null">
+        #{auditremark,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null">
+        #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="lsbs != null">
+        #{lsbs,jdbcType=VARCHAR},
+      </if>
+      <if test="ectivityname != null">
+        #{ectivityname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisebrandactivitycode != null">
+        #{enterprisebrandactivitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprintcode != null">
+        #{fingerprintcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityRedbag">
+    update activity_redbag
+    <set>
+      <if test="enterprisecode != null">
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null">
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null">
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="logindate != null">
+        logindate = #{logindate,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        loginip = #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="redbagtype != null">
+        redbagtype = #{redbagtype,jdbcType=INTEGER},
+      </if>
+      <if test="audittime != null">
+        audittime = #{audittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditer != null">
+        auditer = #{auditer,jdbcType=VARCHAR},
+      </if>
+      <if test="paytyime != null">
+        paytyime = #{paytyime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditremark != null">
+        auditremark = #{auditremark,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null">
+        payer = #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="lsbs != null">
+        lsbs = #{lsbs,jdbcType=VARCHAR},
+      </if>
+      <if test="ectivityname != null">
+        ectivityname = #{ectivityname,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisebrandactivitycode != null">
+        enterprisebrandactivitycode = #{enterprisebrandactivitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprintcode != null">
+        fingerprintcode = #{fingerprintcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityRedbag">
+    update activity_redbag
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      logindate = #{logindate,jdbcType=VARCHAR},
+      loginip = #{loginip,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      redbagtype = #{redbagtype,jdbcType=INTEGER},
+      audittime = #{audittime,jdbcType=TIMESTAMP},
+      auditer = #{auditer,jdbcType=VARCHAR},
+      paytyime = #{paytyime,jdbcType=TIMESTAMP},
+      auditremark = #{auditremark,jdbcType=VARCHAR},
+      payer = #{payer,jdbcType=VARCHAR},
+      lsbs = #{lsbs,jdbcType=VARCHAR},
+      ectivityname = #{ectivityname,jdbcType=VARCHAR},
+      fingerprintcode = #{fingerprintcode,jdbcType=VARCHAR},
+      enterprisebrandactivitycode = #{enterprisebrandactivitycode,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

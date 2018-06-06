@@ -1,0 +1,73 @@
+"TransId": 102054673691,
+"PlayerName": "hyfdfh2230",
+"TransactionTime": "2017-05-12T02:06:56.547",
+"MatchId": 22304429,
+"LeagueId": 45742,
+"LeagueName": "*ENGLISH PREMIER LEAGUE - CORNERS",
+"SportType": 1,
+"AwayId": 32890,
+"AwayIDName": "Watford No.of Corners",
+"HomeId": 28193,
+"HomeIDName": "Everton No.of Corners",
+"MatchDatetime": "2017-05-12T14:44:00",
+"BetType": 5,
+"ParlayRefNo": 0,
+"BetTeam": "1",
+"HDP": 0,
+"AwayHDP": 1,
+"HomeHDP": 1.12,
+"Odds": 1.29,
+"OddsType": 3,
+"AwayScore": null,
+"HomeScore": null,
+"IsLive": "0",
+"LastBallNo": null,
+"TicketStatus": "WON",
+"Stake": 10,
+"WinLoseAmount": 2.9,
+"WinLostDateTime": "2017-05-12T00:00:00",
+"currency": "RMB",
+"VersionKey": 11012527
+================================小写字段
+"transid": 102054673691,
+"playername": "hyfdfh2230",
+"transactiontime": "2017-05-12t02:06:56.547",
+"matchid": 22304429,
+"leagueid": 45742,
+"leaguename": "*english premier league - corners",
+"sporttype": 1,
+"awayid": 32890,
+"awayidname": "watford no.of corners",
+"homeid": 28193,
+"homeidname": "everton no.of corners",
+"matchdatetime": "2017-05-12t14:44:00",
+"bettype": 5,
+"parlayrefno": 0,
+"betteam": "1",
+"hdp": 0,
+"awayhdp": 1,
+"homehdp": 1.12,
+"odds": 1.29,
+"oddstype": 3,
+"awayscore": null,
+"homescore": null,
+"islive": "0",
+"lastballno": null,
+"ticketstatus": "won",
+"stake": 10,
+"winloseamount": 2.9,
+"winlostdatetime": "2017-05-12t00:00:00",
+"currency": "rmb",
+"versionkey": 11012527
+
+
+
+
+
+
+
+
+
+
+
+

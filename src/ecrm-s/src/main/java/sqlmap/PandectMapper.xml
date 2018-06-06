@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Pandect" >
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+    <!-- 存储过程,列表-团队品牌贡献 -->
+	<select id="usp_performanceForBrand" statementType="CALLABLE" parameterType="Map" resultType="Map">
+         {call usp_tn_list_team_performance_for_brand(
+         #{enterprisereport,mode=IN},
+         #{enterprisecode,mode=IN},
+         #{employeecode,mode=IN},
+         #{begintime,mode=IN},
+         #{endtime,mode=IN}
+         )}    
+  	</select>
+  	<!-- 存储过程,列表-用户活跃度 -->
+	<select id="usp_useractivity" statementType="CALLABLE" parameterType="Map" resultType="Map">
+         {call usp_tn_list_team_useractivity(
+         #{enterprisereport,mode=IN},
+         #{employeecode,mode=IN}
+         )}    
+  	</select>
+  	<!-- 存储过程,总计-团队余额 -->
+	<select id="usp_balance" statementType="CALLABLE" parameterType="Map" resultType="java.math.BigDecimal">
+         {call usp_tn_stat_team_balance(
+         #{enterprisereport,mode=IN},
+         #{employeecode,mode=IN}
+         )}    
+  	</select>
+    <!-- 存储过程,总计-团队输赢 -->
+ 	<select id="usp_takeLoseWin" statementType="CALLABLE" parameterType="Map" resultType="java.math.BigDecimal">
+           {call usp_tn_stat_team_losewin(
+           #{enterprisereport,mode=IN},
+           #{employeecode,mode=IN},
+           #{begintime,mode=IN},
+           #{endtime,mode=IN}
+           )}    
+    </select>
+    <!-- 存储过程,总计-团队存款 -->
+ 	<select id="usp_savemoney" statementType="CALLABLE" parameterType="Map" resultType="java.math.BigDecimal">
+           {call usp_tn_stat_team_savemoney(
+           #{enterprisereport,mode=IN},
+           #{employeecode,mode=IN},
+           #{begintime,mode=IN},
+           #{endtime,mode=IN}
+           )}    
+    </select>
+    <!-- 存储过程,总计-团队取款 -->
+ 	<select id="usp_takemoney" statementType="CALLABLE" parameterType="Map" resultType="java.math.BigDecimal">
+           {call usp_tn_stat_team_takemoney(
+           #{enterprisereport,mode=IN},
+           #{employeecode,mode=IN},
+           #{begintime,mode=IN},
+           #{endtime,mode=IN}
+           )}    
+    </select>
+    <!-- 存储过程,总计-团队贡献 -->
+ 	<select id="usp_performance" statementType="CALLABLE" parameterType="Map" resultType="Map">
+           {call usp_tn_toplist_team_performance(
+           #{enterprisereport,mode=IN},
+           #{employeecode,mode=IN},
+           #{begintime,mode=IN},
+           #{endtime,mode=IN}
+           )}    
+    </select>
+    <!-- 存储过程,总计-取款稽查 -->
+ 	<select id="usp_takemoney_inspect" statementType="CALLABLE" parameterType="Map" resultType="Map">
+           {call usp_tn_stat_takemoney_inspect(
+           #{ordernumber,mode=IN}
+           )}    
+    </select>
+  
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+
+</mapper>

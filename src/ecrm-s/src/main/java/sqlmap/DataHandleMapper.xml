@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DataHandle" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.DataHandle" >
+    <id column="handlecode" property="handlecode" jdbcType="VARCHAR" />
+    <result column="handledesc" property="handledesc" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="lasttime" property="lasttime" jdbcType="VARCHAR" />
+    <result column="lastnum" property="lastnum" jdbcType="INTEGER" />
+    <result column="daynum" property="daynum" jdbcType="INTEGER" />
+    <result column="allnum" property="allnum" jdbcType="INTEGER" />
+    <result column="intervalnum" property="intervalnum" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    handlecode, handledesc, updatetime, lasttime, lastnum, daynum, allnum, intervalnum, remark, gametype
+  </sql>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="updatetime != null" > and updatetime = #{updatetime}</if>
+		<if test="handlecode != null" > and handlecode = #{handlecode}</if>
+		<if test="gametype != null" > and gametype = #{gametype}</if>
+	</where>
+</sql>
+
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from data_handle
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from data_handle
+  	<include refid="exactCondition" />
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_handle
+    where handlecode = #{handlecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from data_handle
+    where handlecode = #{handlecode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.DataHandle" >
+    insert into data_handle (handlecode, handledesc, updatetime, 
+      lasttime, lastnum, daynum, 
+      allnum)
+    values (#{handlecode,jdbcType=VARCHAR}, #{handledesc,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{lasttime,jdbcType=VARCHAR}, #{lastnum,jdbcType=INTEGER}, #{daynum,jdbcType=INTEGER}, 
+      #{allnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.DataHandle" >
+    insert into data_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="handlecode != null" >
+        handlecode,
+      </if>
+      <if test="handledesc != null" >
+        handledesc,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="lasttime != null" >
+        lasttime,
+      </if>
+      <if test="lastnum != null" >
+        lastnum,
+      </if>
+      <if test="daynum != null" >
+        daynum,
+      </if>
+      <if test="allnum != null" >
+        allnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="handlecode != null" >
+        #{handlecode,jdbcType=VARCHAR},
+      </if>
+      <if test="handledesc != null" >
+        #{handledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastnum != null" >
+        #{lastnum,jdbcType=INTEGER},
+      </if>
+      <if test="daynum != null" >
+        #{daynum,jdbcType=INTEGER},
+      </if>
+      <if test="allnum != null" >
+        #{allnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.DataHandle" >
+    update data_handle
+    <set >
+      <if test="handledesc != null" >
+        handledesc = #{handledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        lasttime = #{lasttime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastnum != null" >
+        lastnum = #{lastnum,jdbcType=INTEGER},
+      </if>
+      <if test="daynum != null" >
+        daynum = #{daynum,jdbcType=INTEGER},
+      </if>
+      <if test="allnum != null" >
+        allnum = #{allnum,jdbcType=INTEGER},
+      </if>
+      <if test="intervalnum != null" >
+        intervalnum = #{intervalnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where handlecode = #{handlecode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.DataHandle" >
+    update data_handle
+    set handledesc = #{handledesc,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      lasttime = #{lasttime,jdbcType=VARCHAR},
+      lastnum = #{lastnum,jdbcType=INTEGER},
+      daynum = #{daynum,jdbcType=INTEGER},
+      intervalnum = #{intervalnum,jdbcType=INTEGER},
+      allnum = #{allnum,jdbcType=INTEGER}
+    where handlecode = #{handlecode,jdbcType=VARCHAR}
+  </update>
+</mapper>

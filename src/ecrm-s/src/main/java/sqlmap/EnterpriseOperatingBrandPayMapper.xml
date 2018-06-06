@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseOperatingBrandPay" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseOperatingBrandPay" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="paycallbackurl" property="paycallbackurl" jdbcType="VARCHAR" />
+    <result column="adminurl" property="adminurl" jdbcType="VARCHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, paycallbackurl, adminurl, datastatus
+  </sql>
+  <!-- 精确查询 -->
+  <sql id="exactCondition">
+  	<where>
+      <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}  </if>
+      <if test="brandcode != null" > and brandcode = #{brandcode}  </if>
+      <if test="datastatus != null" >and datastatus = #{datastatus} </if>
+  	</where>
+  </sql>
+  
+  
+  <!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from enterprise_operating_brand_pay where lsh = #{lsh}
+</select>
+
+<select id="selectAll" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    select <include refid="Base_Column_List" /> from enterprise_operating_brand_pay 
+    <include refid="exactCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectAllCount" resultType="Long" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    select count(1) from enterprise_operating_brand_pay <include refid="exactCondition" />
+</select>
+<select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    select <include refid="Base_Column_List" /> from enterprise_operating_brand_pay <include refid="exactCondition"/>
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from login_white_list where lsh = #{lsh}
+</delete>
+
+  <insert id="add" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    insert into enterprise_operating_brand_pay ( 
+    enterprisecode, 
+    brandcode, 
+    paycallbackurl, 
+    datastatus, 
+    adminurl)
+    values ( 
+    #{enterprisecode,jdbcType=CHAR}, 
+    #{brandcode,jdbcType=CHAR}, 
+    #{paycallbackurl,jdbcType=VARCHAR}, 
+    #{datastatus,jdbcType=INTEGER}, 
+    #{adminurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    insert into enterprise_operating_brand_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="paycallbackurl != null" >
+        paycallbackurl,
+      </if>
+      <if test="datastatus != null" >
+        datastatus,
+      </if>
+      <if test="adminurl != null" >
+        adminurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="paycallbackurl != null" >
+        #{paycallbackurl,jdbcType=VARCHAR},
+      </if>
+      <if test="datastatus != null" >
+        #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminurl != null" >
+        #{adminurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--   批量删除多条记录 -->
+<delete id="deleteSelectIp" >
+	update enterprise_operating_brand_pay set datastatus=0  WHERE lsh in
+	<foreach collection="array" index="index" item="lsh" open="(" separator="," close=")">  
+       	#{lsh}  
+   	</foreach> 
+</delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    update enterprise_operating_brand_pay
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="paycallbackurl != null" >
+        paycallbackurl = #{paycallbackurl,jdbcType=VARCHAR},
+      </if>
+      <if test="datastatus != null" >
+        datastatus = #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminurl != null" >
+        adminurl = #{adminurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.maven.entity.EnterpriseOperatingBrandPay" >
+    update enterprise_operating_brand_pay
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      paycallbackurl = #{paycallbackurl,jdbcType=VARCHAR},
+      adminurl = #{adminurl,jdbcType=VARCHAR},
+      datastatus = #{datastatus,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseBrandNotic" >
+  <resultMap id="resultMap" type="com.maven.entity.EnterpriseBrandNotic" >
+    <id column="noticcode" property="noticcode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="notictype" property="notictype" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+    <!-- 关联属性 -->
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columnList" >
+    NOTICCODE,ENTERPRISECODE,BRANDCODE,NOTICTYPE,TITLE, CONTENT, BEGINTIME, ENDTIME,CREATETIME
+  </sql>
+  <sql id="columnList_Union" >
+    e.ENTERPRISENAME ,eob.BRANDNAME,ebn.NOTICCODE,ebn.ENTERPRISECODE,ebn.BRANDCODE,ebn.NOTICTYPE,ebn.TITLE, ebn.CONTENT, ebn.BEGINTIME, ebn.ENDTIME,ebn.CREATETIME
+  </sql>
+  <!-- 范围查询 -->
+  <sql id="rangeCondition">
+  	<where> 
+  	  <if test="noticcode != null" > and ebn.noticcode = #{noticcode}</if>	
+  	  <if test="enterprisecode != null" > and ebn.enterprisecode = #{enterprisecode}</if>
+  	  <if test="enterprisename != null" > and e.enterprisename like concat('%', #{enterprisename}, '%')</if>
+  	  <if test="brandname != null" > and eob.brandname like concat('%', #{brandname}, '%')</if>
+  	  <if test="brandcode != null" > and ebn.brandcode = #{brandcode}</if>
+  	  <if test="notictype != null" > and ebn.notictype = #{notictype}</if>
+      <if test="title != null" > and  ebn.title like concat('%', #{title}, '%')</if>
+      <if test="content != null" > and  ebn.content like concat('%', #{content}, '%')</if>
+      <if test="begintime != null and endtime != null" > and 
+      (
+      (ebn.begintime <![CDATA[ >= ]]> #{begintime} and  ebn.begintime <![CDATA[ <= ]]> #{endtime})
+      or 
+      (ebn.begintime <![CDATA[ <= ]]> #{begintime} and  ebn.endtime <![CDATA[ >= ]]> #{begintime})
+      )
+      </if>
+      and ebn.datastatus = 1
+  	</where>
+  </sql>
+  <!-- 精确查询 -->
+  <sql id="exactCondition">
+  	<where> 
+  	  <if test="noticcode != null" > and noticcode = #{noticcode}</if>	
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode != null" > and brandcode = #{brandcode}</if>
+  	  <if test="notictype != null" > and notictype = #{notictype}</if>
+      <if test="title != null" > and  title = #{title}</if>
+      <if test="begintime != null" > and begintime = #{begintime}</if>
+      <if test="endtime != null" > and  endtime = #{endtime}</if>
+      and datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="Map" >
+    insert into enterprise_brand_notic (noticcode, enterprisecode,brandcode,notictype, title, content, begintime, endtime,createtime)
+    values (ufn_get_next_string_by_tablename('enterprise_brand_notic',0),#{enterprisecode}, #{brandcode}, #{notictype}, #{title}, #{content}, #{begintime}, #{endtime},NOW())
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+ <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" />
+    from enterprise_brand_notic  
+    where noticcode = #{noticcode}
+ </select>
+<select id="select" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" />
+    from enterprise_brand_notic 
+    <include refid="exactCondition"></include>
+  </select>
+  <select id="showUserNotic" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" />
+    from enterprise_brand_notic where enterprisecode = #{enterprisecode} and datastatus =1 and 
+    <if test="brandcode != null">
+	    (brandcode=#{brandcode} or brandcode = 'ALL') and
+    </if>
+      begintime <![CDATA[ <= ]]> NOW() AND NOW() <![CDATA[ <= ]]> endtime order by createtime desc
+    <include refid="ABasic.page"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList_Union" /> 
+    FROM enterprise_brand_notic ebn LEFT JOIN enterprise e ON ebn.enterprisecode = e.enterprisecode 
+    LEFT JOIN enterprise_operating_brand eob ON ebn.brandcode = eob.brandcode
+    <include refid="rangeCondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) 
+    FROM enterprise_brand_notic ebn LEFT JOIN enterprise e ON ebn.enterprisecode = e.enterprisecode 
+    LEFT JOIN enterprise_operating_brand eob ON ebn.brandcode = eob.brandcode
+    <include refid="rangeCondition"></include>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="String" >
+    delete from enterprise_brand_notic
+    where noticcode = #{noticcode}
+  </delete>
+  <update id="logicDelete" parameterType="Map">
+  	update enterprise_brand_notic set datastatus = -1 where noticcode = #{noticcode} 
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update enterprise_brand_notic
+    <set>
+      <if test="brandcode != null" > brandcode = #{brandcode},</if>
+      <if test="notictype != null" > notictype = #{notictype},</if>
+      <if test="title != null" >  title = #{title}, </if>
+      <if test="content != null" >  content = #{content}, </if>
+      <if test="begintime != null" > begintime =  #{begintime},  </if>
+      <if test="endtime != null" >  endtime = #{endtime}, </if>
+    </set>
+    where noticcode = #{noticcode}
+  </update>
+  
+  
+</mapper>

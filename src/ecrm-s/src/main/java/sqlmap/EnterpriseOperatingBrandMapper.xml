@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseOperatingBrand" >
+  <resultMap id="resultMap" type="com.maven.entity.EnterpriseOperatingBrand" >
+    <id column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="enterprisename" property="enterprisename" jdbcType="VARCHAR" />
+    <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+    <result column="brandfoundedtime" property="brandfoundedtime" jdbcType="TIMESTAMP" />
+    <result column="webtemplatecode" property="webtemplatecode" jdbcType="CHAR" />
+    <result column="defualtchip" property="defualtchip" jdbcType="DECIMAL" />
+    <result column="logopath" property="logopath" jdbcType="VARCHAR" />
+    <association property="webtemplate" javaType="com.maven.entity.WebviewTemplate">  
+	    <id column="webtemplatecode" property="webtemplatecode" jdbcType="CHAR" />
+	    <result column="templatename" property="templatename" jdbcType="VARCHAR" />
+	    <result column="sign" property="sign" jdbcType="VARCHAR" />
+	    <result column="templatetype" property="templatetype" jdbcType="VARCHAR" />
+    </association> 
+  </resultMap>
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+    BRANDCODE, ENTERPRISECODE, BRANDNAME, BRANDFOUNDEDTIME,DEFUALTCHIP,LOGOPATH
+  </sql>
+  <sql id="exactCondition">
+  	<where> eob.datastatus=1 
+  	  <if test="brandcode != null" >  and brandcode = #{brandcode} </if>
+  	  <if test="enterprisecode != null" >  and eob.enterprisecode = #{enterprisecode} </if>
+      <if test="brandname != null" > and brandname l= #{brandname} </if>
+      <if test="brandfoundedtime != null" >   and brandfoundedtime >= #{brandfoundedtime}   </if>
+      <!-- 视图关联字段 -->
+	  <if test="enterprisename != null" >  and enterprisename =  #{enterprisename}   </if>
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where> eob.datastatus=1 
+  	  <if test="brandcode != null" >  and brandcode = #{brandcode} </if>
+  	  <if test="enterprisecode != null" >  and eob.enterprisecode = #{enterprisecode} </if>
+      <if test="brandname != null" > and brandname like "%"#{brandname}"%" </if>
+      <if test="brandfoundedtime_begin != null" >   and brandfoundedtime >= #{brandfoundedtime_begin}   </if>
+      <if test="brandfoundedtime_end != null" >   and brandfoundedtime <![CDATA[ < ]]>  #{brandfoundedtime_end} </if>
+      <!-- 视图关联字段 -->
+	  <if test="enterprisename != null" >  and enterprisename =  #{enterprisename}   </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.EnterpriseOperatingBrand">
+    insert into enterprise_operating_brand(brandcode,enterprisecode,brandname,logopath,brandfoundedtime,webtemplatecode)
+    values (ufn_get_next_string_by_tablename('enterprise_operating_brand',0),#{enterprisecode},#{brandname},#{logopath}, NOW(),#{webtemplatecode})
+    <selectKey resultType="java.lang.String" keyProperty="brandcode" order="AFTER" >
+    	select brandcode from enterprise_operating_brand where enterprisecode = #{enterprisecode} and brandname =#{brandname} and logopath =#{logopath} limit 0,1
+  	</selectKey>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select <include refid="columnList" />,eob.webtemplatecode,wt.templatename,wt.sign,wt.templatetype
+    from enterprise_operating_brand eob 
+    LEFT JOIN webview_template wt ON eob.webtemplatecode = wt.webtemplatecode 
+    where brandcode = #{brandcode}
+  </select>
+  <select id="select" resultMap="resultMap" parameterType="Map" >
+    select  eob.BRANDCODE, eob.ENTERPRISECODE,  eob.BRANDNAME,  eob.BRANDFOUNDEDTIME, eob.LOGOPATH , e.ENTERPRISENAME ,eob.WEBTEMPLATECODE,wt.templatename,wt.sign,wt.templatetype
+    from enterprise_operating_brand eob 
+    LEFT JOIN enterprise e on eob.enterprisecode = e.enterprisecode 
+    LEFT JOIN webview_template wt ON eob.webtemplatecode = wt.webtemplatecode 
+    <include refid="exactCondition" />
+  </select>
+  <select id="getEnterpriseBrand" resultMap="resultMap" parameterType="java.lang.String" >
+    select <include refid="columnList" /> from enterprise_operating_brand 
+    where enterprisecode = #{enterprisecode} and datastatus=1 
+  </select>
+  
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select  eob.BRANDCODE, eob.ENTERPRISECODE,  eob.BRANDNAME,  eob.BRANDFOUNDEDTIME, eob.LOGOPATH , e.ENTERPRISENAME , eob.WEBTEMPLATECODE,eob.DEFUALTCHIP,wt.templatename,wt.sign,wt.templatetype
+    from enterprise_operating_brand eob 
+    LEFT JOIN enterprise e on eob.enterprisecode = e.enterprisecode 
+    LEFT JOIN webview_template wt ON eob.webtemplatecode = wt.webtemplatecode 
+    <include refid="rangeCondition" />
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount"  resultType="long" parameterType="Map" >
+    select count(1)
+    from enterprise_operating_brand eob 
+    LEFT JOIN enterprise e on eob.enterprisecode = e.enterprisecode 
+    LEFT JOIN webview_template wt ON eob.webtemplatecode = wt.webtemplatecode 
+    <include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.String" >
+    delete from enterprise_operating_brand
+    <include refid="exactCondition" />
+  </delete>
+  <update id="logicDelete" parameterType="List">
+  <if test="list != null">
+  	 update enterprise_operating_brand
+  	 set datastatus= -1 where brandcode in
+  	 <foreach collection="list" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	 </foreach>
+  	</if>
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update enterprise_operating_brand
+    <set >
+      <if test="brandname != null" >brandname = #{brandname},</if>
+      <if test="logopath != null" >logopath = #{logopath},</if>
+      <if test="defualtchip != null" >defualtchip = #{defualtchip},</if>
+      <if test="webtemplatecode != null" >webtemplatecode = #{webtemplatecode},</if>
+    </set>
+    where brandcode = #{brandcode}
+  </update>
+  
+</mapper>

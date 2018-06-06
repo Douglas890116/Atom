@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityLoseBonus" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityLoseBonus" >
+    <id column="losebonuscode" property="losebonuscode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="loseamount" property="loseamount" jdbcType="DECIMAL" />
+    <result column="returnratio" property="returnratio" jdbcType="SMALLINT" />
+    <result column="returnamount" property="returnamount" jdbcType="DECIMAL" />
+    <result column="gettime" property="gettime" jdbcType="TIMESTAMP" />
+    <result column="losebonusstatus" property="losebonusstatus" jdbcType="CHAR" />
+    <result column="uniqueinfo" property="uniqueinfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    losebonuscode, employeecode, parentemployeecode, loginaccount, loseamount, returnratio, 
+    returnamount, gettime, losebonusstatus, uniqueinfo
+  </sql>
+<!-- =======================================精确查询================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_lose_bonus
+    where losebonuscode = #{losebonuscode,jdbcType=INTEGER}
+  </select>
+  <select id="selectLastMonthRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+    <include refid="Base_Column_List" />
+    from activity_lose_bonus
+    where employeecode=#{employeecode} and DATE_FORMAT(gettime,'%Y-%m')=DATE_FORMAT(#{gettime},'%Y-%m')
+  </select>
+<!-- =======================================删除语句================================================ -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_lose_bonus
+    where losebonuscode = #{losebonuscode,jdbcType=INTEGER}
+  </delete>
+<!-- =======================================新增语句================================================ -->
+  <insert id="insert" parameterType="com.maven.entity.ActivityLoseBonus" >
+    insert into activity_lose_bonus (losebonuscode, employeecode, parentemployeecode, 
+      loginaccount, loseamount, returnratio, 
+      returnamount, gettime, losebonusstatus, 
+      uniqueinfo)
+    values (#{losebonuscode,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{loseamount,jdbcType=DECIMAL}, #{returnratio,jdbcType=SMALLINT}, 
+      #{returnamount,jdbcType=DECIMAL}, #{gettime,jdbcType=TIMESTAMP}, #{losebonusstatus,jdbcType=CHAR}, 
+      #{uniqueinfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityLoseBonus" >
+    insert into activity_lose_bonus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="losebonuscode != null" >
+        losebonuscode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="loseamount != null" >
+        loseamount,
+      </if>
+      <if test="returnratio != null" >
+        returnratio,
+      </if>
+      <if test="returnamount != null" >
+        returnamount,
+      </if>
+      <if test="gettime != null" >
+        gettime,
+      </if>
+      <if test="losebonusstatus != null" >
+        losebonusstatus,
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="losebonuscode != null" >
+        #{losebonuscode,jdbcType=INTEGER},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loseamount != null" >
+        #{loseamount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnratio != null" >
+        #{returnratio,jdbcType=SMALLINT},
+      </if>
+      <if test="returnamount != null" >
+        #{returnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="losebonusstatus != null" >
+        #{losebonusstatus,jdbcType=CHAR},
+      </if>
+      <if test="uniqueinfo != null" >
+        #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!-- =======================================修改语句================================================ -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityLoseBonus" >
+    update activity_lose_bonus
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loseamount != null" >
+        loseamount = #{loseamount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnratio != null" >
+        returnratio = #{returnratio,jdbcType=SMALLINT},
+      </if>
+      <if test="returnamount != null" >
+        returnamount = #{returnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="gettime != null" >
+        gettime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="losebonusstatus != null" >
+        losebonusstatus = #{losebonusstatus,jdbcType=CHAR},
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where losebonuscode = #{losebonuscode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityLoseBonus" >
+    update activity_lose_bonus
+    set employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      loseamount = #{loseamount,jdbcType=DECIMAL},
+      returnratio = #{returnratio,jdbcType=SMALLINT},
+      returnamount = #{returnamount,jdbcType=DECIMAL},
+      gettime = #{gettime,jdbcType=TIMESTAMP},
+      losebonusstatus = #{losebonusstatus,jdbcType=CHAR},
+      uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR}
+    where losebonuscode = #{losebonuscode,jdbcType=INTEGER}
+  </update>
+</mapper>

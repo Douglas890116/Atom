@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserMoneyInAndOut" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.UserMoneyInAndOut" >
+    <id column="moneyinoutcode" property="moneyinoutcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR"/>
+    <result column="moneyinoutdate" property="moneyinoutdate" jdbcType="TIMESTAMP" />
+    <result column="moneyinoutamount" property="moneyinoutamount" jdbcType="DECIMAL" />
+    <result column="moneyinoutcomment" property="moneyinoutcomment" jdbcType="VARCHAR"/>
+    <result column="beforebalance" property="beforebalance" jdbcType="DECIMAL" />
+    <result column="afterbalance" property="afterbalance" jdbcType="DECIMAL" />
+    <result column="updatecapital" property="updatecapital" jdbcType="CHAR" />
+    <result column="opreatetype" property="opreatetype" jdbcType="CHAR" />
+    <result column="backmoney" property="backmoney" jdbcType="CHAR" />
+    <result column="orderno" property="orderno" jdbcType="VARCHAR" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="isdown" property="isdown" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="list_column">
+  	mio.moneyinoutcode,mio.employeecode, mio.brandcode, mio.enterprisecode, mio.parentemployeecode, mio.gametype,mio.moneyinoutdate,mio.moneyinoutamount,mio.moneyinoutcomment,
+  	mio.beforebalance,mio.afterbalance,mio.updatecapital,mio.opreatetype,mio.backmoney  , mio.orderno, mio.patchno, mio.isdown
+  </sql>
+  <sql id="rangeCondition">
+  	<where>
+  		<if test="enterprisecode !=null">and mio.enterprisecode=#{enterprisecode}</if>
+  		<if test="brandcode !=null">and mio.brandcode=#{brandcode}</if>
+  		<if test="orderno !=null">and mio.orderno=#{orderno}</if>
+  		<if test="patchno !=null">and mio.patchno=#{patchno}</if>
+  		<if test="moneyinoutcode !=null">and mio.moneyinoutcode=#{moneyinoutcode}</if>
+  		<if test="employeecode !=null">and mio.employeecode=#{employeecode}</if>
+  		<if test="parentemployeecode !=null">and mio.parentemployeecode=#{parentemployeecode}</if>
+  		<if test="loginaccount !=null">and ee.loginaccount like CONCAT(CONCAT("%",#{loginaccount}),"%")</if>
+  		<if test="gametype !=null">and mio.gametype = #{gametype}</if>
+  		<if test="moneyinoutdate !=null">and mio.moneyinoutdate=#{moneyinoutdate}</if>
+  		<if test="moneyinoutamount !=null">and mio.moneyinoutamount=#{moneyinoutamount}</if>
+  		<if test="moneyinoutamountstart !=null">and mio.moneyinoutamount <![CDATA[ <= ]]> #{moneyinoutamountstart}</if>
+  		<if test="moneyinoutamountend !=null">and mio.moneyinoutamount <![CDATA[ >= ]]> #{moneyinoutamountend}</if>
+  		<if test="beforebalance !=null">and mio.beforebalance=#{beforebalance}</if>
+  		<if test="afterbalance !=null">and mio.afterbalance=#{afterbalance}</if>
+  		<if test="moneyinoutcomment !=null">and mio.moneyinoutcomment like CONCAT("%",#{moneyinoutcomment},"%")</if>
+  		<if test="updatecapital !=null">and mio.updatecapital=#{updatecapital}</if>
+  		<if test="moneyinoutdate_begin !=null">and mio.moneyinoutdate>=#{moneyinoutdate_begin}</if>
+  		<if test="moneyinoutdate_end !=null">and mio.moneyinoutdate<![CDATA[ <= ]]>#{moneyinoutdate_end}</if>
+  		<if test="opreatetype"> and mio.opreatetype = #{opreatetype}</if>
+  		<if test="backmoney"> and mio.backmoney = #{backmoney}</if>
+  		<if test="isdown"> and mio.isdown = #{isdown}</if>
+  		<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (mio.parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="teamLeaderCode != null" > or mio.employeecode = #{teamLeaderCode} </if>)
+		</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="com.maven.entity.UserMoneyInAndOut">
+insert into user_money_in_and_out(moneyinoutcode,employeecode,parentemployeecode,gametype,moneyinoutdate,
+	moneyinoutamount,moneyinoutcomment,beforebalance,afterbalance,updatecapital,opreatetype,backmoney,timesort, orderno, patchno, enterprisecode, brandcode )
+	
+	VALUES(ufn_get_next_string_by_tablename('user_money_in_and_out',0),#{employeecode},#{parentemployeecode},
+	#{gametype},now(),#{moneyinoutamount},#{moneyinoutcomment},#{beforebalance},#{afterbalance},#{updatecapital},#{opreatetype},1,#{timesort}, #{orderno}, #{patchno}, #{enterprisecode}, #{brandcode} )
+<selectKey resultType="java.lang.String" keyProperty="moneyinoutcode" order="AFTER" >
+    	SELECT moneyinoutcode FROM user_money_in_and_out WHERE timesort=#{timesort} and employeecode = #{employeecode};
+</selectKey>
+</insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+	select <include refid="list_column" /> 
+	from user_money_in_and_out mio where mio.moneyinoutcode=#{moneyinoutcode}
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<select id="findMoneyInAndOut" resultMap="BaseResultMap" parameterType="Map">
+	select <include refid="list_column" />,
+	ee.loginaccount,
+	ee.displayalias as employeename from user_money_in_and_out mio 
+	left join enterprise_employee ee on mio.employeecode = ee.employeecode 
+	<include refid="rangeCondition" /> 
+	<include refid="ABasic.orderby"></include>
+	<include refid="ABasic.page" />
+</select>
+<select id="findMoneyInAndOutCount" resultType="Map" parameterType="Map">
+	select count(*) count,
+	sum(mio.beforebalance) beforebalance, 
+	sum(mio.moneyinoutamount) moneyinoutamount, 
+	sum(mio.afterbalance) afterbalance
+	 from user_money_in_and_out mio
+	left join enterprise_employee ee on mio.employeecode = ee.employeecode <include refid="rangeCondition" />
+</select>
+
+<select id="findMoneyInAndOutWarn" resultMap="BaseResultMap" parameterType="Map">
+	select <include refid="list_column" />,
+	ee.loginaccount,
+	ee.displayalias as employeename from user_money_in_and_out mio 
+	left join enterprise_employee ee on mio.employeecode = ee.employeecode 
+	<include refid="rangeCondition" /> 
+	and ( (updatecapital = 1 and mio.moneyinoutamount <![CDATA[ >= ]]> #{money}) or (updatecapital = 2 ) )
+	
+	<include refid="ABasic.orderby"></include>
+	<include refid="ABasic.page" />
+</select>
+<select id="findMoneyInAndOutCountWarn" resultType="Map" parameterType="Map">
+	select count(*) count
+	 from user_money_in_and_out mio
+	left join enterprise_employee ee on mio.employeecode = ee.employeecode 
+	<include refid="rangeCondition" /> 
+	and ( (updatecapital = 1 and mio.moneyinoutamount <![CDATA[ >= ]]> #{money}) or (updatecapital = 2 ) )
+</select>
+
+<!-- 查找最后一条上分记录 -->
+<select id="findMaxUpRecord" resultMap="BaseResultMap" parameterType="java.lang.String">
+	select <include refid="list_column" /> from user_money_in_and_out mio
+	 where orderno in (select max(orderno) from user_money_in_and_out where employeecode=#{employeecode} and opreatetype=1 and updatecapital=1 and orderno != 0)
+	
+</select>
+
+<!-- =================================================删除语句================================================================ -->
+
+<!-- =================================================修改语句================================================================ -->
+<update id="update_back_state" parameterType="java.lang.String">
+	update user_money_in_and_out set backmoney = 2 where moneyinoutcode = #{moneyinoutcode} and backmoney=1
+</update>
+<update id="update_in_out_state" parameterType="com.maven.entity.UserMoneyInAndOut">
+	update user_money_in_and_out 
+	set afterbalance = #{afterbalance} ,updatecapital=#{updatecapital}, moneyinoutcomment=#{moneyinoutcomment}  
+	where orderno = #{orderno} and patchno = #{patchno} and employeecode = #{employeecode} 
+</update>
+
+<update id="update_in_out_isdown" parameterType="com.maven.entity.UserMoneyInAndOut">
+	update user_money_in_and_out 
+	set isdown='2'
+	where  gametype = #{gametype} and employeecode = #{employeecode} and enterprisecode = #{enterprisecode}
+</update>
+
+</mapper>

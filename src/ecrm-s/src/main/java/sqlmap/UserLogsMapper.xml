@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserLogs" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.UserLogs" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="operatype" property="operatype" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="operaer" property="operaer" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+  		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="operaer != null" > and operaer = #{operaer}</if>
+		<if test="operatype != null" > and operatype = #{operatype}</if>
+		<if test="createtime_begin != null" > and createtime <![CDATA[ >= ]]> #{createtime_begin}</if>
+		<if test="createtime_end != null" > and createtime <![CDATA[ <= ]]> #{createtime_end}</if>
+		
+		<if test="isuserlog != null" > and loginaccount is not null</if><!-- 会员操作日志 -->
+		<if test="isadminlog != null" > and operaer is not null</if><!-- 后台操作日志 -->
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from user_logs
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from user_logs
+  	<include refid="exactCondition" />
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, employeecode, loginaccount, operatype, content, createtime, 
+    operaer, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_logs
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_logs
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.UserLogs" >
+    insert into user_logs (lsh, enterprisecode, employeecode, 
+      loginaccount, operatype, content, 
+      createtime, operaer, remark
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{employeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{operatype,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{operaer,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List">
+     insert into user_logs
+        (lsh, enterprisecode, employeecode, loginaccount, operatype, content, createtime, operaer, remark)
+     values
+     <foreach collection ="list" item="item" index= "index" separator =",">
+        (
+         #{item.lsh,jdbcType=VARCHAR}, #{item.enterprisecode,jdbcType=CHAR}, #{item.employeecode,jdbcType=CHAR}, 
+         #{item.loginaccount,jdbcType=VARCHAR}, #{item.operatype,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR}, 
+         #{item.createtime,jdbcType=TIMESTAMP}, #{item.operaer,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}
+        )
+     </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.UserLogs" >
+    insert into user_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="operatype != null" >
+        operatype,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="operaer != null" >
+        operaer,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operatype != null" >
+        #{operatype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operaer != null" >
+        #{operaer,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.UserLogs" >
+    update user_logs
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operatype != null" >
+        operatype = #{operatype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operaer != null" >
+        operaer = #{operaer,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.UserLogs" >
+    update user_logs
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      operatype = #{operatype,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      operaer = #{operaer,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

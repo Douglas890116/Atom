@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="id" name2="id" />
+	<column name1="userName" name2="userName" />
+	<column name1="currency" name2="currency" />
+	<column name1="gameType" name2="gameType" />
+	<column name1="tableInfoId" name2="tableInfoId" />
+	<column name1="shoeInfoId" name2="shoeInfoId" />
+	<column name1="gameInfoId" name2="gameInfoId" />
+	<column name1="tableName" name2="tableName" />
+	<column name1="issueNo" name2="issueNo" />
+	<column name1="bankerResult" name2="bankerResult" />
+	<column name1="resultList" name2="resultList" />
+	<column name1="pokerList" name2="pokerList" />
+	<column name1="stakeAmount" name2="stakeAmount" />
+	<column name1="validStake" name2="validStake" />
+	<column name1="winLoss" name2="winLoss" />
+	<column name1="comm" name2="comm" />
+	<column name1="balanceAfter" name2="balanceAfter" />
+	<column name1="endTime" name2="endTime" />
+	<column name1="ip" name2="ip" />
+	<column name1="Details" name2="Details" />
+	<column name1="betTime" name2="betTime" />
+	<column name1="createtime" name2="createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

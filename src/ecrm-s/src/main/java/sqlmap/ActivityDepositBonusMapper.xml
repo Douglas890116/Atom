@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityDepositBonus" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityDepositBonus" >
+    <id column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="depositType" property="depositType" jdbcType="VARCHAR" />
+    <result column="depositamount" property="depositamount" jdbcType="DECIMAL" />
+    <result column="returnratio" property="returnratio" jdbcType="DECIMAL" />
+    <result column="returnamount" property="returnamount" jdbcType="DECIMAL" />
+    <result column="deposittime" property="deposittime" jdbcType="TIMESTAMP" />
+    <result column="gettime" property="gettime" jdbcType="TIMESTAMP" />
+    <result column="uniqueinfo" property="uniqueinfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ordernumber, employeecode, parentemployeecode, loginaccount, depositType, depositamount, 
+    returnratio, returnamount, deposittime, gettime, uniqueinfo
+  </sql>
+<!-- =======================================精确查询================================================== -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_deposit_bonus
+    where ordernumber = #{ordernumber,jdbcType=VARCHAR}
+  </select>
+<!-- =======================================删除语句================================================== -->  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from activity_deposit_bonus
+    where ordernumber = #{ordernumber,jdbcType=VARCHAR}
+  </delete>
+<!-- ========================================新增语句================================================= -->
+  <insert id="insert" parameterType="com.maven.entity.ActivityDepositBonus" >
+    insert into activity_deposit_bonus (ordernumber, employeecode, parentemployeecode, 
+      loginaccount, depositType, depositamount, returnratio, 
+      returnamount, deposittime, gettime, 
+      uniqueinfo)
+    values (#{ordernumber,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{depositType,jdbcType=VARCHAR}, #{depositamount,jdbcType=DECIMAL}, 
+      #{returnratio,jdbcType=DECIMAL}, #{returnamount,jdbcType=DECIMAL}, #{deposittime,jdbcType=TIMESTAMP}, 
+      #{gettime,jdbcType=TIMESTAMP}, #{uniqueinfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityDepositBonus" >
+    insert into activity_deposit_bonus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="depositType != null" >
+        depositType,
+      </if>
+      <if test="depositamount != null" >
+        depositamount,
+      </if>
+      <if test="returnratio != null" >
+        returnratio,
+      </if>
+      <if test="returnamount != null" >
+        returnamount,
+      </if>
+      <if test="deposittime != null" >
+        deposittime,
+      </if>
+      <if test="gettime != null" >
+        gettime,
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="depositType != null" >
+        #{depositType,jdbcType=VARCHAR},
+      </if>
+      <if test="depositamount != null" >
+        #{depositamount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnratio != null" >
+        #{returnratio,jdbcType=DECIMAL},
+      </if>
+      <if test="returnamount != null" >
+        #{returnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="deposittime != null" >
+        #{deposittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uniqueinfo != null" >
+        #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!-- =======================================更新语句================================================== -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityDepositBonus" >
+    update activity_deposit_bonus
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="depositType != null" >
+        depositType = #{depositType,jdbcType=VARCHAR},
+      </if>
+      <if test="depositamount != null" >
+        depositamount = #{depositamount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnratio != null" >
+        returnratio = #{returnratio,jdbcType=DECIMAL},
+      </if>
+      <if test="returnamount != null" >
+        returnamount = #{returnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="deposittime != null" >
+        deposittime = #{deposittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gettime != null" >
+        gettime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ordernumber = #{ordernumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityDepositBonus" >
+    update activity_deposit_bonus
+    set employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      depositType = #{depositType,jdbcType=VARCHAR},
+      depositamount = #{depositamount,jdbcType=DECIMAL},
+      returnratio = #{returnratio,jdbcType=DECIMAL},
+      returnamount = #{returnamount,jdbcType=DECIMAL},
+      deposittime = #{deposittime,jdbcType=TIMESTAMP},
+      gettime = #{gettime,jdbcType=TIMESTAMP},
+      uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR}
+    where ordernumber = #{ordernumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

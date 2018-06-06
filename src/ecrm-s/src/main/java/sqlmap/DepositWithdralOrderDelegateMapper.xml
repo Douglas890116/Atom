@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DepositWithdralOrderDelegate" >
+  <resultMap id="resultMap" type="com.maven.entity.DepositWithdralOrderDelegate" >
+    <id column="delegatecode" property="delegatecode" jdbcType="INTEGER" />
+    <result column="flowcode" property="flowcode" jdbcType="CHAR" />
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="assignedtocode" property="assignedtocode" jdbcType="CHAR" />
+    <result column="assignedtoaccount" property="assignedtoaccount" jdbcType="VARCHAR" />
+    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="processduration" property="processduration" jdbcType="INTEGER" />
+    <result column="overtimereason" property="overtimereason" jdbcType="VARCHAR" />
+    <result column="imgname" property="imgname" jdbcType="VARCHAR" />
+    <result column="auditresult" property="auditresult" jdbcType="CHAR" />
+    <result column="auditdesc" property="auditdesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+    dw.DELEGATECODE,dw.FLOWCODE,dw.ORDERNUMBER, dw.ASSIGNEDTOCODE, dw.ASSIGNEDTOACCOUNT, dw.BEGINTIME,dw.ENDTIME,dw.PROCESSDURATION, 
+    dw.OVERTIMEREASON, dw.IMGNAME, dw.AUDITRESULT, dw.AUDITDESC
+  </sql>
+  <sql id="exactCondition">
+  	<where> 1=1 
+  	  <if test="delegatecode != null" > and dw.delegatecode = #{delegatecode}</if>
+  	  <if test="flowcode != null" > and dw.flowcode = #{flowcode}</if>  	
+  	  <if test="ordernumber != null" > and dw.ordernumber = #{ordernumber}</if>
+      <if test="assignedtocode != null" > and dw.assignedtocode = #{assignedtocode}</if>
+      <if test="assignedtoaccount != null" > and dw.assignedtoaccount = #{assignedtoaccount}</if>
+      <if test="begintime != null" > and dw.begintime >= #{begintime}</if>
+      <if test="endtime != null" > and dw.endtime <![CDATA[ <= ]]> #{endtime}</if>
+      <if test="processduration != null" > and dw.processduration = #{processduration}</if>
+      <if test="overtimereason != null" > and dw.overtimereason = #{overtimereason}</if>
+      <if test="imgname != null" > and dw.imgname = #{imgname}</if>
+      <if test="auditresult != null" > and dw.auditresult = #{auditresult}</if>
+      <if test="auditdesc != null" > and dw.auditdesc = #{auditdesc}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <!-- Insert SQL Area -->
+  <insert id="add" parameterType="com.maven.entity.DepositWithdralOrderDelegate" >
+  	<selectKey keyProperty="delegatecode" resultType="int">
+         select LAST_INSERT_ID()
+    </selectKey>
+    insert into deposit_withdral_order_delegate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowcode != null" >flowcode,</if>
+      <if test="ordernumber != null" >ordernumber,</if>
+      <if test="assignedtocode != null" >assignedtocode,</if>
+      <if test="assignedtoaccount != null" >assignedtoaccount,</if>
+      <if test="begintime != null" >begintime,</if>
+      <if test="endtime != null" >endtime,</if>
+      <if test="processduration != null" >processduration,</if>
+      <if test="overtimereason != null" >overtimereason,</if>
+      <if test="imgname != null" >imgname,</if>
+      <if test="auditresult != null" >auditresult,</if>
+      <if test="auditdesc != null" >auditdesc,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowcode != null" >#{flowcode},</if>
+      <if test="ordernumber != null" >#{ordernumber},</if>
+      <if test="assignedtocode != null" >#{assignedtocode},</if>
+      <if test="assignedtoaccount != null" >#{assignedtoaccount},</if>
+      <if test="begintime != null" >now(),</if>
+      <if test="endtime != null" >#{endtime},</if>
+      <if test="processduration != null" >#{processduration},</if>
+      <if test="overtimereason != null" >#{overtimereason},</if>
+      <if test="imgname != null" >#{imgname},</if>
+      <if test="auditresult != null" >#{auditresult},</if>
+      <if test="auditdesc != null" >#{auditdesc},</if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+ <select id="select" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" />,wf.flowname from deposit_withdral_order_delegate dw left JOIN working_flow_configuration wf on dw.flowcode=wf.flowcode
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update deposit_withdral_order_delegate
+    <set>
+      <if test="assignedtocode != null" >assignedtocode = #{assignedtocode},</if>
+      <if test="assignedtoaccount != null" >assignedtoaccount = #{assignedtoaccount},</if>
+      <if test="endtime != null" >endtime = now(),</if>
+      <if test="processduration != null" >processduration = #{processduration},</if>
+      <if test="overtimereason != null" >overtimereason = #{overtimereason},</if>
+      <if test="imgname != null" >imgname = #{imgname},</if>
+      <if test="auditresult != null" >auditresult = #{auditresult},</if>
+      <if test="auditdesc != null" >auditdesc = #{auditdesc},</if>
+    </set>
+    where delegatecode = #{delegatecode}
+  </update>
+  
+  
+</mapper>

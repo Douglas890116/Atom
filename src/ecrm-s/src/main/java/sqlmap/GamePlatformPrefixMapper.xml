@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GamePlatformPrefix" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.GamePlatformPrefix" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="game_platform" property="gamePlatform" jdbcType="VARCHAR" />
+    <result column="prefixcode" property="prefixcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, game_platform, prefixcode
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangeCondition">
+  	<where>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode} </if>
+      <if test="gamePlatform != null" > and  game_platform = #{gamePlatform} </if>
+      <if test="prefixcode != null" > and  prefixcode = #{prefixcode} </if>
+  	</where>
+  </sql>
+  
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from game_platform_prefix 
+    <include refid="rangeCondition" /> 
+</select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) from game_platform_prefix <include refid="rangeCondition" />
+</select>
+<select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.GamePlatformPrefix" >
+    select <include refid="Base_Column_List" /> from game_platform_prefix <include refid="rangeCondition"/>
+</select>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_platform_prefix
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game_platform_prefix
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.GamePlatformPrefix" >
+    insert into game_platform_prefix ( enterprisecode, game_platform, 
+      prefixcode)
+    values (#{enterprisecode,jdbcType=CHAR}, #{gamePlatform,jdbcType=VARCHAR}, 
+      #{prefixcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="saveGamePlatformPrefix" parameterType="com.maven.entity.GamePlatformPrefix" >
+    insert into game_platform_prefix (enterprisecode, game_platform, 
+      prefixcode)
+    values (#{enterprisecode,jdbcType=CHAR}, #{gamePlatform,jdbcType=VARCHAR}, 
+      #{prefixcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.GamePlatformPrefix" >
+    insert into game_platform_prefix
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="gamePlatform != null" >
+        game_platform,
+      </if>
+      <if test="prefixcode != null" >
+        prefixcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="gamePlatform != null" >
+        #{gamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="prefixcode != null" >
+        #{prefixcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.GamePlatformPrefix" >
+    update game_platform_prefix
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="gamePlatform != null" >
+        game_platform = #{gamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="prefixcode != null" >
+        prefixcode = #{prefixcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.GamePlatformPrefix" >
+    update game_platform_prefix
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      game_platform = #{gamePlatform,jdbcType=VARCHAR},
+      prefixcode = #{prefixcode,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

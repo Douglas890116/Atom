@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqOgIbc">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqOgIbc">
+    <id column="ibc_rowguid" jdbcType="VARCHAR" property="ibcRowguid" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="ibc_ballid" jdbcType="VARCHAR" property="ibcBallid" />
+    <result column="ibc_content" jdbcType="LONGVARCHAR" property="ibcContent" />
+    <result column="ibc_balltime" jdbcType="TIMESTAMP" property="ibcBalltime" />
+    <result column="ibc_curpl" jdbcType="VARCHAR" property="ibcCurpl" />
+    <result column="ibc_ds" jdbcType="VARCHAR" property="ibcDs" />
+    <result column="ibc_dxc" jdbcType="VARCHAR" property="ibcDxc" />
+    <result column="ibc_isbk" jdbcType="VARCHAR" property="ibcIsbk" />
+    <result column="ibc_iscancel" jdbcType="VARCHAR" property="ibcIscancel" />
+    <result column="ibc_isdanger" jdbcType="VARCHAR" property="ibcIsdanger" />
+    <result column="ibc_isjs" jdbcType="VARCHAR" property="ibcIsjs" />
+    <result column="ibc_lose" jdbcType="DOUBLE" property="ibcLose" />
+    <result column="ibc_matchid" jdbcType="VARCHAR" property="ibcMatchid" />
+    <result column="ibc_moneyrate" jdbcType="VARCHAR" property="ibcMoneyrate" />
+    <result column="ibc_orderid" jdbcType="VARCHAR" property="ibcOrderid" />
+    <result column="ibc_recard" jdbcType="VARCHAR" property="ibcRecard" />
+    <result column="ibc_result" jdbcType="VARCHAR" property="ibcResult" />
+    <result column="ibc_rqc" jdbcType="VARCHAR" property="ibcRqc" />
+    <result column="ibc_rqteam" jdbcType="VARCHAR" property="ibcRqteam" />
+    <result column="ibc_sportid" jdbcType="VARCHAR" property="ibcSportid" />
+    <result column="ibc_tballtime" jdbcType="VARCHAR" property="ibcTballtime" />
+    <result column="ibc_thisdate" jdbcType="VARCHAR" property="ibcThisdate" />
+    <result column="ibc_truewin" jdbcType="VARCHAR" property="ibcTruewin" />
+    <result column="ibc_tzip" jdbcType="VARCHAR" property="ibcTzip" />
+    <result column="ibc_tzmoney" jdbcType="DOUBLE" property="ibcTzmoney" />
+    <result column="ibc_tzteam" jdbcType="VARCHAR" property="ibcTzteam" />
+    <result column="ibc_tztype" jdbcType="VARCHAR" property="ibcTztype" />
+    <result column="ibc_updatetime" jdbcType="TIMESTAMP" property="ibcUpdatetime" />
+    <result column="ibc_username" jdbcType="VARCHAR" property="ibcUsername" />
+    <result column="ibc_win" jdbcType="DOUBLE" property="ibcWin" />
+    <result column="ibc_zdbf" jdbcType="VARCHAR" property="ibcZdbf" />
+    <result column="ibc_vendorid" jdbcType="VARCHAR" property="ibcVendorid" />
+    <result column="ibc_createtime" jdbcType="TIMESTAMP" property="ibcCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	 <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="ibcRowguid != null" >and ibc_rowguid = #{ibcRowguid}</if>
+      <if test="ibcBallid != null" >and ibc_ballid = #{ibcBallid}</if>
+      <if test="ibcBalltime != null" >and ibc_balltime <![CDATA[ >= ]]> #{ibcBalltime} </if>
+      <if test="ibcCurpl != null" >and ibc_curpl = #{ibcCurpl}</if>
+      <if test="ibcDs != null" >and ibc_ds = #{ibcDs}</if>
+      <if test="ibcDxc != null" >and ibc_dxc = #{ibcDxc}</if>
+      <if test="ibcIsbk != null" >and ibc_isbk = #{ibcIsbk}</if>
+      <if test="ibcIscancel != null" >and ibc_iscancel = #{ibcIscancel}</if>
+      <if test="ibcIsdanger != null" >and ibc_isdanger = #{ibcIsdanger}</if>
+      <if test="ibcIsjs != null" >and ibc_isjs = #{ibcIsjs}</if>
+      <if test="ibcLose != null" >and ibc_lose = #{ibcLose}</if>
+      <if test="ibcMatchid != null" >and ibc_matchid = #{ibcMatchid}</if>
+      <if test="ibcMoneyrate != null" >and ibc_moneyrate = #{ibcMoneyrate}</if>
+      <if test="ibcOrderid != null" >and ibc_orderid = #{ibcOrderid}</if>
+      <if test="ibcRecard != null" >and ibc_recard = #{ibcRecard}</if>
+      <if test="ibcResult != null" >and ibc_result = #{ibcResult}</if>
+      <if test="ibcRqc != null" >and ibc_rqc = #{ibcRqc}</if>
+      <if test="ibcRqteam != null" >and ibc_rqteam = #{ibcRqteam}</if>
+      <if test="ibcSportid != null" >and ibc_sportid = #{ibcSportid}</if>
+      <if test="ibcTballtime != null" >and ibc_tballtime = #{ibcTballtime}</if>
+      <if test="ibcThisdate != null" >and ibc_thisdate = #{ibcThisdate}</if>
+      <if test="ibcTruewin != null" >and ibc_truewin = #{ibcTruewin}</if>
+      <if test="ibcTzip != null" >and ibc_tzip = #{ibcTzip}</if>
+      <if test="ibcTzmoney != null" >and ibc_tzmoney = #{ibcTzmoney}</if>
+      <if test="ibcTzteam != null" >and ibc_tzteam = #{ibcTzteam}</if>
+      <if test="ibcTztype != null" >and ibc_tztype = #{ibcTztype}</if>
+      <if test="ibcUpdatetime != null" >and ibc_updatetime = #{ibcUpdatetime}</if>
+      <if test="startDate != null" >and ibc_updatetime <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" >and ibc_updatetime <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="ibcUsername != null" >and ibc_username = #{ibcUsername}</if>
+      <if test="ibcWin != null" >and ibc_win = #{ibcWin}</if>
+      <if test="ibcZdbf != null" >and ibc_zdbf = #{ibcZdbf}</if>
+      <if test="ibcVendorid != null" >and ibc_vendorid = #{ibcVendorid}</if>
+      <if test="ibcCreatetime != null" >and ibc_createtime = #{ibcCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+      <if test="ibcContent != null" >and ibc_content = #{ibcContent}</if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and ibc_balltime <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and ibc_balltime <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    IBC_ROWGUID,ENTERPRISECODE, BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE,LOGINACCOUNT,IBC_BALLID,IBC_CONTENT,IBC_BALLTIME, IBC_CURPL, IBC_DS, IBC_DXC, IBC_ISBK, 
+    IBC_ISCANCEL, IBC_ISDANGER, IBC_ISJS, IBC_LOSE, IBC_MATCHID, IBC_MONEYRATE, IBC_ORDERID, 
+    IBC_RECARD, IBC_RESULT, IBC_RQC, IBC_RQTEAM, IBC_SPORTID, IBC_TBALLTIME, IBC_THISDATE, 
+    IBC_TRUEWIN, IBC_TZIP, IBC_TZMONEY, IBC_TZTEAM, IBC_TZTYPE, IBC_UPDATETIME, IBC_USERNAME, 
+    IBC_WIN, IBC_ZDBF, IBC_VENDORID, IBC_CREATETIME, LAST_TIME
+  </sql>
+  
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from betting_hq_og_ibc
+    where ibc_rowguid = #{ibcRowguid,jdbcType=VARCHAR}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+ <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_og_ibc
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_og_ibc
+    <include refid="rangecondition"></include>
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(ibc_Curpl) ibcCurpl,
+    sum(ibc_Lose) ibcLose,
+    sum(ibc_Tzmoney) ibcTzmoney,
+    sum(ibc_Win) ibcWin
+    
+    from betting_hq_og_ibc
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  
+ 
+</mapper>

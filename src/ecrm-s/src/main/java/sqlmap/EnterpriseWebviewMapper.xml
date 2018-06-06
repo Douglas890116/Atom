@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseWebview" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseWebview" >
+    <id column="ewvcode" property="ewvcode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="webtemplatecode" property="webtemplatecode" jdbcType="CHAR" />
+    <result column="sitetype" property="sitetype" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ewvcode, enterprisecode, webtemplatecode,sitetype
+  </sql>
+  <sql id="Base_Column_List_Union" >
+    ew.ewvcode, ew.enterprisecode, ew.webtemplatecode,ew.sitetype
+  </sql>
+  <sql id="conditions">
+  	<where>
+  		<if test="ewvcode !=null">AND ewvcode=#{ewvcode}</if>
+  		<if test="enterprisecode !=null">AND enterprisecode=#{enterprisecode}</if>
+  		<if test="webtemplatecode !=null">AND webtemplatecode=#{webtemplatecode}</if>
+  		<if test="sitetype !=null">AND sitetype=#{sitetype}</if>
+  	</where>
+  </sql>
+   <sql id="exactCondition">
+  	<where>
+  		<if test="ewvcode !=null">AND ewvcode=#{ewvcode}</if>
+  		<if test="enterprisecode !=null">AND enterprisecode=#{enterprisecode}</if>
+  		<if test="webtemplatecode !=null">AND webtemplatecode=#{webtemplatecode}</if>
+  		<if test="sitetype !=null">AND sitetype=#{sitetype}</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="com.maven.entity.EnterpriseWebview" >
+    insert into enterprise_webview (ewvcode, enterprisecode, webtemplatecode, sitetype)
+    values (#{ewvcode}, #{enterprisecode}, #{webtemplatecode}, #{sitetype})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_webview
+    where ewvcode = #{ewvcode}
+  </select>
+<select id="selectByEnterpriseCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_webview
+    where enterprisecode = #{enterprisecode}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="com.maven.entity.EnterpriseWebview" >
+    SELECT * FROM (
+	    SELECT <include refid="Base_Column_List_Union" />,wt.templatename 
+	    FROM enterprise_webview ew LEFT JOIN webview_template wt ON ew.webtemplatecode = wt.webtemplatecode
+	 ) AS template
+    <include refid="exactCondition" /> 
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT COUNT(*) FROM enterprise_webview <include refid="conditions" />
+  </select>
+<select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_webview
+    <include refid="conditions" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.Integer" >
+    delete from enterprise_webview
+    where ewvcode = #{ewvcode}
+  </delete>
+<delete id="deleteAll" parameterType="java.lang.String" >
+    delete from enterprise_webview
+    where enterprisecode = #{enterprisecode}
+  </delete>
+<delete id="deleteByParameter" parameterType="Map" >
+    delete from enterprise_webview
+    <include refid="conditions" />
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EnterpriseWebview" >
+    update enterprise_webview
+    <set >
+      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+      <if test="webtemplatecode != null" >webtemplatecode = #{webtemplatecode},</if>
+    </set>
+    where ewvcode = #{ewvcode}
+  </update>
+</mapper>

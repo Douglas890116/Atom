@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PermissionMenu" >
+  <resultMap id="resultMap" type="com.maven.entity.PermissionMenu" >
+     <id column="menucode" property="menucode" jdbcType="CHAR" />
+    <result column="parentmenucode" property="parentmenucode" jdbcType="CHAR" />
+    <result column="menuname" property="menuname" jdbcType="VARCHAR" />
+    <result column="englishname" property="englishname" jdbcType="VARCHAR" />
+    <result column="menuurl" property="menuurl" jdbcType="VARCHAR" />
+    <result column="menusort" property="menusort" jdbcType="TINYINT" />
+    <result column="menulevel" property="menulevel" jdbcType="TINYINT" />
+    <result column="menustatus" property="menustatus" jdbcType="TINYINT" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+  </resultMap>
+  
+  <!--  Common SQL Area -->
+  <sql id="columnList">
+		MENUCODE, MENUNAME, ENGLISHNAME, MENUURL, MENUSORT, MENULEVEL, PARENTMENUCODE, MENUSTATUS,DATASTATUS
+  </sql>
+  <sql id="rangeCondition">
+	<where> 
+	  <choose>
+  			<when test=" menucodes !=null ">
+  			menucode in 
+  				<foreach collection="menucodes" item="item"  separator="," open="(" close=")">
+  					#{item.menucode}
+  				</foreach>
+  			</when>
+  			<otherwise>
+  				<if test="menucode != null">and menucode = #{menucode}</if>
+  			</otherwise>
+  	  </choose> 
+      <if test="menuname != null" > and menuname = #{menuname}</if>
+      <if test="englishname != null" > and englishname = #{englishname}</if>
+      <if test="menuurl != null" > and menuurl = #{menuurl}</if>
+      <if test="menusort != null" >and menusort = #{menusort}</if>
+      <if test="menulevel != null" >and menulevel = #{menulevel}</if>
+      <if test="parentmenucode != null" >and parentmenucode =#{parentmenucode}</if>
+      <if test="menustatus != null" >and menustatus = #{menustatus}</if>
+      and datastatus = 1 
+	</where>
+   </sql>
+   <sql id="exactCondition">
+	<where> 
+  	  <if test="menucode != null">and menucode = #{menucode}</if>
+      <if test="menuname != null" > and menuname = #{menuname}</if>
+      <if test="englishname != null" > and englishname = #{englishname}</if>
+      <if test="menuurl != null" > and menuurl = #{menuurl}</if>
+      <if test="menusort != null" >and menusort = #{menusort}</if>
+      <if test="menulevel != null" >and menulevel = #{menulevel}</if>
+      <if test="parentmenucode != null" >and parentmenucode =#{parentmenucode}</if>
+      <if test="menustatus != null" >and menustatus = #{menustatus}</if>
+      and datastatus = 1 
+	</where>
+   </sql>
+   
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="Map" >
+    insert into permission_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      menucode,
+      <if test="menuname != null" >menuname,</if>
+      <if test="englishname != null" >englishname,</if>
+      <if test="menuurl != null" >menuurl,</if>
+      <if test="menusort != null" >menusort,</if>
+      <if test="menulevel != null" >menulevel,</if>
+      <if test="parentmenucode != null" >parentmenucode,</if>
+      <if test="menustatus != null" >menustatus,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ufn_get_next_string_by_tablename('permission_menu',0),
+      <if test="menuname != null" >#{menuname},</if>
+      <if test="englishname != null" >#{englishname},</if>
+      <if test="menuurl != null" >#{menuurl},</if>
+      <if test="menusort != null" >#{menusort},</if>
+      <if test="menulevel != null" >#{menulevel},</if>
+      <if test="parentmenucode != null" >#{parentmenucode},</if>
+      <if test="menustatus != null" >#{menustatus},</if>
+    </trim>
+    <selectKey resultType="java.lang.String" keyProperty="menucode" order="AFTER" >
+    	select menucode from permission_menu where menuname=#{menuname} and parentmenucode=#{parentmenucode} order by menucode desc limit 0,1
+  	</selectKey>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_menu
+	where menucode=#{id}
+  </select>
+  <select id="select" parameterType="com.maven.entity.PermissionMenu" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_menu
+	<include refid="exactCondition" /> 
+	ORDER BY menulevel,menusort ASC 
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" parameterType="Map" resultMap="resultMap">
+	SELECT <include refid="columnList" /> FROM permission_menu
+	<include refid="rangeCondition" />
+	ORDER BY menulevel,menusort ASC 
+  </select>
+  <select id="selectAllCount" resultType="long">
+	SELECT count(1) FROM permission_menu
+	<include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete">
+    delete from permission_menu where menucode = #{menucode}
+  </delete>
+  <update id="logicDelete">
+  	update permission_menu set datastatus = -1 where menucode = #{menucode}
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="Map" >
+    update permission_menu
+    <set >
+      <if test="menuname != null " > menuname = #{menuname},</if>
+      <if test="englishname != null " > englishname = #{englishname},</if>
+      <if test="menuurl != null" > menuurl = #{menuurl},</if>
+      <if test="menusort != null" > menusort = #{menusort},</if>
+      <if test="menulevel != null" > menulevel = #{menulevel},</if>
+      <if test="parentmenucode != null" > parentmenucode = #{parentmenucode},</if>
+      <if test="menustatus != null" > menustatus = #{menustatus},</if>
+    </set>
+    where menucode = #{menucode}
+  </update>
+  <update id="updateSort" parameterType="Map">
+  	UPDATE permission_menu pm SET pm.menusort = pm.menusort +1  
+  	 WHERE pm.parentmenucode = #{parentmenucode} and pm.menusort>= #{menusort}  
+	  AND  (SELECT COUNT(1) FROM (SELECT * FROM permission_menu pm1 WHERE pm1.parentmenucode=#{parentmenucode} AND pm1.menusort=#{menusort} 
+	  <if test="menucode != null">
+		  AND  pm1.menucode!=#{menucode}
+	  </if>
+	  )a )>0
+  </update>
+</mapper>

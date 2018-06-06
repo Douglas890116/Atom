@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+/**
+输入框的样式
+**/
+.common_mark{margin-left:20px; margin-top:5px; color:#9999;  float:right; }
+.xing{font-size:20px;font-weight:bold; color:#f00;}
+
+/**
+搜索区域样式
+**/
+div.panel,p.search{
+  margin:0px;
+  padding:5px;
+  text-align:center;
+  background:#f5f5f5;
+  border:solid 1px #c3c3c3;
+}
+div.panel{
+  height:120px;
+  display:none;
+}
+p.search{
+  color:#FFFFCC;
+  text-shadow:0.1em 0.1em 0.15em #A71C1C;
+}
+ /**权限内容超出 出现滚动条 **/
+  .bui-stdmod-body{
+    overflow-x : hidden;
+    overflow-y : auto;
+  }

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingAllDay2" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingAllDay2" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="User_Name" property="userName" jdbcType="VARCHAR" />
+    <result column="Game_Platform" property="gamePlatform" jdbcType="VARCHAR" />
+    <result column="Game_Big_Type" property="gameBigType" jdbcType="VARCHAR" />
+    <result column="Game_Type" property="gameType" jdbcType="VARCHAR" />
+    <result column="Bet_Day" property="betDay" jdbcType="INTEGER" />
+    <result column="Bet_Money" property="betMoney" jdbcType="DOUBLE" />
+    <result column="Net_Money" property="netMoney" jdbcType="DOUBLE" />
+    <result column="Valid_Money" property="validMoney" jdbcType="DOUBLE" />
+    <result column="Add_Time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, enterprisecode, brandcode, employeecode, parentemployeecode, User_Name, Game_Platform, 
+    Game_Big_Type, Game_Type, Bet_Day, Bet_Money, Net_Money, Valid_Money, Add_Time, patchno
+  </sql>
+  
+  <sql id="rangeCondition">
+  	<where>
+	 <if test="teamCodes !=null and teamCodes.length > 0">
+	 	  	and (parentemployeecode in 
+	 	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and bad.enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" > and bad.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and bad.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" >and bad.parentemployeecode = #{parentemployeecode} </if>
+      <if test="userName != null" > and bad.User_Name = #{userName}</if>
+      <if test="gamePlatform != null" > and bad.Game_Platform = #{gamePlatform}</if>
+      <if test="gameBigType != null" > and bad.Game_Big_Type = #{gameBigType}</if>
+      <if test="gameType != null" > and bad.Game_Type = #{gameType}</if>
+      <if test="betDay != null" > and bad.Bet_Day = #{betDay}</if>
+      <if test="startDate != null" > and bad.Bet_Day <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and bad.Bet_Day <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="betMoney != null" > and bad.Bet_Money = #{betMoney}</if>
+      <if test="netMoney != null" > and bad.Net_Money = #{netMoney}</if>
+      <if test="mark != null" > and bad.Net_Money <![CDATA[ ${mark} ]]> 0</if>
+      <if test="validMoney != null" > and bad.Valid_Money = #{validMoney}</if>
+      <if test="rebatesCash != null" > and bad.Rebates_Cash = #{rebatesCash}</if>
+      <if test="rebates != null" > and bad.Rebates = #{rebates}</if>
+      <if test="addTime != null" > and bad.Add_Time = #{addTime}</if>
+      <if test="loginaccount != null" > and ee.loginaccount = #{loginaccount}</if>
+      <if test="brandname != null" > and eob.brandname = #{brandname}</if>
+      
+      <if test="startdate != null" > and date(bad.Bet_Day) = #{startdate}</if>
+      <if test="enddate != null" > and date(bad.Bet_Day) = #{enddate}</if>
+      
+      <if test="iditems != null">
+      	and bad.Id in
+      	<foreach collection="iditems" index="index" item="iditems" open="(" separator="," close=")">
+			#{iditems}
+		</foreach> 
+      </if>
+      <if test="parentemployeecodes != null" >
+      	and bad.parentemployeecode in
+      	<foreach collection="parentemployeecodes" index="index" item="code" open="(" separator="," close=")">
+			#{code}
+		</foreach> 
+      </if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+  	</where>
+  </sql>
+  
+  <select id="selectForPage" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_day2 bad 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+</select>
+<select id="selectForPageCount" resultType="int" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM betting_all_day2 bad 
+    <include refid="rangeCondition" />
+</select>
+<!-- 数据统计之金额 -->  
+<select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(Valid_Money) validMoney,
+    sum(Net_Money) netMoney,
+    sum(Valid_Money) validMoney
+    
+    FROM betting_all_day2 bad
+    <include refid="rangeCondition" />
+</select>
+  
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM betting_all_day2 bad 
+    <include refid="rangeCondition" />
+</select>
+
+<insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   insert into betting_all_day2 (enterprisecode, brandcode, 
+	      employeecode, parentemployeecode, User_Name, 
+	      Game_Platform, Game_Big_Type, Game_Type, 
+	      Bet_Day, Bet_Money, Net_Money, 
+	      Valid_Money, Add_Time, patchno
+	      ) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=VARCHAR}, 
+	      #{item.employeecode,jdbcType=CHAR}, #{item.parentemployeecode,jdbcType=CHAR}, #{item.userName,jdbcType=VARCHAR}, 
+	      #{item.gamePlatform,jdbcType=VARCHAR}, #{item.gameBigType,jdbcType=VARCHAR}, #{item.gameType,jdbcType=VARCHAR}, 
+	      #{item.betDay,jdbcType=INTEGER}, #{item.betMoney,jdbcType=DOUBLE}, #{item.netMoney,jdbcType=DOUBLE}, 
+	      #{item.validMoney,jdbcType=DOUBLE}, #{item.addTime,jdbcType=TIMESTAMP}, #{item.patchno,jdbcType=VARCHAR}
+	      )
+	    </foreach>
+	  </if>
+ </insert>
+ <!-- 取消计划：根据批次号删除数据 -->
+  <delete id="deletePatchno" parameterType="com.maven.entity.BettingAllDay2">
+    delete from betting_all_day2
+    where patchno=#{patchno,jdbcType=VARCHAR} and enterprisecode=#{enterprisecode,jdbcType=CHAR}
+  </delete>
+  
+  
+   
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_all_day2
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from betting_all_day2
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.maven.entity.BettingAllDay2" >
+    insert into betting_all_day2 (Id, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, User_Name, 
+      Game_Platform, Game_Big_Type, Game_Type, 
+      Bet_Day, Bet_Money, Net_Money, 
+      Valid_Money, Add_Time, patchno
+      )
+    values (#{id,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{gamePlatform,jdbcType=VARCHAR}, #{gameBigType,jdbcType=VARCHAR}, #{gameType,jdbcType=VARCHAR}, 
+      #{betDay,jdbcType=INTEGER}, #{betMoney,jdbcType=DOUBLE}, #{netMoney,jdbcType=DOUBLE}, 
+      #{validMoney,jdbcType=DOUBLE}, #{addTime,jdbcType=TIMESTAMP}, #{patchno,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingAllDay2" >
+    insert into betting_all_day2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="userName != null" >
+        User_Name,
+      </if>
+      <if test="gamePlatform != null" >
+        Game_Platform,
+      </if>
+      <if test="gameBigType != null" >
+        Game_Big_Type,
+      </if>
+      <if test="gameType != null" >
+        Game_Type,
+      </if>
+      <if test="betDay != null" >
+        Bet_Day,
+      </if>
+      <if test="betMoney != null" >
+        Bet_Money,
+      </if>
+      <if test="netMoney != null" >
+        Net_Money,
+      </if>
+      <if test="validMoney != null" >
+        Valid_Money,
+      </if>
+      <if test="addTime != null" >
+        Add_Time,
+      </if>
+      <if test="patchno != null" >
+        patchno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gamePlatform != null" >
+        #{gamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="gameBigType != null" >
+        #{gameBigType,jdbcType=VARCHAR},
+      </if>
+      <if test="gameType != null" >
+        #{gameType,jdbcType=VARCHAR},
+      </if>
+      <if test="betDay != null" >
+        #{betDay,jdbcType=INTEGER},
+      </if>
+      <if test="betMoney != null" >
+        #{betMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netMoney != null" >
+        #{netMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validMoney != null" >
+        #{validMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingAllDay2" >
+    update betting_all_day2
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        User_Name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gamePlatform != null" >
+        Game_Platform = #{gamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="gameBigType != null" >
+        Game_Big_Type = #{gameBigType,jdbcType=VARCHAR},
+      </if>
+      <if test="gameType != null" >
+        Game_Type = #{gameType,jdbcType=VARCHAR},
+      </if>
+      <if test="betDay != null" >
+        Bet_Day = #{betDay,jdbcType=INTEGER},
+      </if>
+      <if test="betMoney != null" >
+        Bet_Money = #{betMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netMoney != null" >
+        Net_Money = #{netMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validMoney != null" >
+        Valid_Money = #{validMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="addTime != null" >
+        Add_Time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patchno != null" >
+        patchno = #{patchno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingAllDay2" >
+    update betting_all_day2
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      User_Name = #{userName,jdbcType=VARCHAR},
+      Game_Platform = #{gamePlatform,jdbcType=VARCHAR},
+      Game_Big_Type = #{gameBigType,jdbcType=VARCHAR},
+      Game_Type = #{gameType,jdbcType=VARCHAR},
+      Bet_Day = #{betDay,jdbcType=INTEGER},
+      Bet_Money = #{betMoney,jdbcType=DOUBLE},
+      Net_Money = #{netMoney,jdbcType=DOUBLE},
+      Valid_Money = #{validMoney,jdbcType=DOUBLE},
+      Add_Time = #{addTime,jdbcType=TIMESTAMP},
+      patchno = #{patchno,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

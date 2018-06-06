@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingHqNhq" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqNhq" >
+    <id column="Betting_ID" property="bettingId" jdbcType="VARCHAR" />
+    <result column="Betting_NO" property="bettingNo" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="Betting_Credits" property="bettingCredits" jdbcType="DOUBLE" />
+    <result column="Pre_Credits_Point" property="preCreditsPoint" jdbcType="DOUBLE" />
+    <result column="Game_Result" property="gameResult" jdbcType="VARCHAR" />
+    <result column="Game_Room_Name" property="gameRoomName" jdbcType="VARCHAR" />
+    <result column="Agent_Account" property="agentAccount" jdbcType="VARCHAR" />
+    <result column="Gambling_Code" property="gamblingCode" jdbcType="VARCHAR" />
+    <result column="After_Payout_Credits" property="afterPayoutCredits" jdbcType="DOUBLE" />
+    <result column="User_Account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="Game_Type" property="gameType" jdbcType="VARCHAR" />
+    <result column="Betting_Date" property="bettingDate" jdbcType="TIMESTAMP" />
+    <result column="Dealer_Name" property="dealerName" jdbcType="VARCHAR" />
+    <result column="Game_Name" property="gameName" jdbcType="VARCHAR" />
+    <result column="Set_Game_No" property="setGameNo" jdbcType="VARCHAR" />
+    <result column="Is_Payout" property="isPayout" jdbcType="TINYINT" />
+    <result column="Parent_User_ID" property="parentUserId" jdbcType="VARCHAR" />
+    <result column="Winning_Credits" property="winningCredits" jdbcType="DOUBLE" />
+    <result column="Betting_Point" property="bettingPoint" jdbcType="VARCHAR" />
+    <result column="Table_Name" property="tableName" jdbcType="VARCHAR" />
+    <result column="Track_IP" property="trackIp" jdbcType="VARCHAR" />
+    <result column="Create_Time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Wash_Code_Credits" property="washCodeCredits" jdbcType="DOUBLE" />
+    <result column="Update_Time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="Last_Time" property="lastTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Betting_ID, BETTING_NO, ENTERPRISECODE, BRANDCODE, EMPLOYEECODE,PARENTEMPLOYEECODE , LOGINACCOUNT, BETTING_CREDITS, PRE_CREDITS_POINT, GAME_RESULT, 
+    GAME_ROOM_NAME, AGENT_ACCOUNT, GAMBLING_CODE, AFTER_PAYOUT_CREDITS, USER_ACCOUNT, 
+    GAME_TYPE, BETTING_DATE, DEALER_NAME, GAME_NAME, SET_GAME_NO, IS_PAYOUT, PARENT_USER_ID, 
+    WINNING_CREDITS, BETTING_POINT, TABLE_NAME, TRACK_IP, CREATE_TIME, WASH_CODE_CREDITS, 
+    UPDATE_TIME, LAST_TIME
+  </sql>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+	  <if test="bettingNo != null" >and Betting_NO = #{bettingNo} </if>
+	  <if test="bettingId != null" >and Betting_ID = #{bettingId} </if>
+	  <if test="gamblingCode != null" >and Gambling_Code = #{gamblingCode} </if>
+	  
+  	  <if test="userAccount != null" >and User_Account = #{userAccount} </if>
+  	  <if test="createTime !=null">and Create_Time = #{createTime}</if>
+  	  <if test="gameType != null" >and Game_Type = #{gameType} </if>
+	  <if test="bettingCredits != null" >and Betting_Credits = #{bettingCredits} </if>
+	  <if test="startDate !=null">and Betting_Date <![CDATA[ >= ]]>#{startDate}</if>
+	  <if test="endDate !=null"> and Betting_Date <![CDATA[ <= ]]> #{endDate}</if>
+	  
+	  <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and Betting_Date <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and Betting_Date <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_hq_nhq 
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_hq_nhq <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(Betting_Credits) bettingCredits,
+    sum(WINNING_CREDITS) winningCredits,
+    sum(WASH_CODE_CREDITS) washCodeCredits
+    
+    from betting_hq_nhq
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+
+</mapper>

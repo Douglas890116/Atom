@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BettingHqXcp">
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingHqXcp">
+    <id column="xcp_projectid" jdbcType="VARCHAR" property="xcpProjectid" />
+    <result column="enterprisecode" jdbcType="CHAR" property="enterprisecode" />
+    <result column="brandcode" jdbcType="VARCHAR" property="brandcode" />
+    <result column="employeecode" jdbcType="CHAR" property="employeecode" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" jdbcType="VARCHAR" property="loginaccount" />
+    <result column="xcp_bonus" jdbcType="DOUBLE" property="xcpBonus" />
+    <result column="xcp_prize" jdbcType="DOUBLE" property="xcpPrize" />
+    <result column="xcp_writetime" jdbcType="TIMESTAMP" property="xcpWritetime" />
+    <result column="xcp_username" jdbcType="VARCHAR" property="xcpUsername" />
+    <result column="xcp_code" jdbcType="VARCHAR" property="xcpCode" />
+    <result column="xcp_totalprice" jdbcType="DOUBLE" property="xcpTotalprice" />
+    <result column="xcp_isgetprize" jdbcType="VARCHAR" property="xcpIsgetprize" />
+    <result column="xcp_updatetime" jdbcType="TIMESTAMP" property="xcpUpdatetime" />
+    <result column="xcp_lotteryid" jdbcType="VARCHAR" property="xcpLotteryid" />
+    <result column="xcp_issue" jdbcType="VARCHAR" property="xcpIssue" />
+    <result column="xcp_codetimes" jdbcType="DOUBLE" property="xcpCodetimes" />
+    <result column="xcp_createtime" jdbcType="TIMESTAMP" property="xcpCreatetime" />
+    <result column="Last_Time" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	 <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	   <if test="xcpProjectid != null" >and xcp_projectid = #{xcpProjectid}</if>
+      <if test="xcpBonus != null" >and xcp_bonus = #{xcpBonus}</if>
+      <if test="xcpPrize != null" >and xcp_prize = #{xcpPrize}</if>
+      <if test="xcpWritetime != null" >and date_format(xcp_writetime,'%Y-%c-%d %h:%i:%s') <![CDATA[ >= ]]> date_format(#{xcpWritetime},'%Y-%c-%d %h:%i:%s')</if>
+      <if test="startDate != null" >and xcp_writetime <![CDATA[ >= ]]>#{startDate}</if>
+      <if test="endDate != null" >and xcp_writetime <![CDATA[ <= ]]>#{endDate}</if>
+      <if test="xcpUsername != null" >and xcp_username = #{xcpUsername}</if>
+      <if test="xcpCode != null" >and xcp_code = #{xcpCode}</if>
+      <if test="xcpTotalprice != null" >and xcp_totalprice = #{xcpTotalprice}</if>
+      <if test="xcpIsgetprize != null" >and xcp_isgetprize = #{xcpIsgetprize}</if>
+      <if test="xcpUpdatetime != null" >and xcp_updatetime = #{xcpUpdatetime}</if>
+      <if test="xcpLotteryid != null" >and xcp_lotteryid = #{xcpLotteryid}</if>
+      <if test="xcpIssue != null" >and xcp_issue = #{xcpIssue}</if>
+      <if test="xcpCodetimes != null" >and xcp_codetimes = #{xcpCodetimes}</if>
+      <if test="xcpCreatetime != null" >and xcp_createtime = #{xcpCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    XCP_PROJECTID,ENTERPRISECODE, BRANDCODE,EMPLOYEECODE,PARENTEMPLOYEECODE , LOGINACCOUNT, XCP_BONUS, XCP_PRIZE, XCP_WRITETIME, XCP_USERNAME, XCP_CODE, 
+    XCP_TOTALPRICE, XCP_ISGETPRIZE, XCP_UPDATETIME, XCP_LOTTERYID, XCP_ISSUE, XCP_CODETIMES, 
+    XCP_CREATETIME, LAST_TIME
+  </sql>
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from betting_hq_xcp
+    where xcp_projectid = #{xcpProjectid,jdbcType=VARCHAR}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_hq_xcp
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_hq_xcp
+    <include refid="rangecondition"></include>
+  </select>
+
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(xcp_Totalprice) xcpTotalprice,
+    sum(xcp_Prize) xcpPrize,
+    sum(xcp_Bonus) xcpBonus
+    
+    from betting_hq_xcp
+    <include refid="rangecondition"></include>
+  </select>
+    
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  
+  
+</mapper>

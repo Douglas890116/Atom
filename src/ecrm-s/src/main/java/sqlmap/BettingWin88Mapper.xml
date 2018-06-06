@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingWin88" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingWin88" >
+    <id column="pt_gamecode" property="ptGamecode" jdbcType="VARCHAR" />
+    <result column="pt_username" property="ptUsername" jdbcType="VARCHAR" />
+    <result column="pt_windowcode" property="ptWindowcode" jdbcType="VARCHAR" />
+    <result column="pt_gameid" property="ptGameid" jdbcType="VARCHAR" />
+    <result column="pt_gametype" property="ptGametype" jdbcType="VARCHAR" />
+    <result column="pt_gamename" property="ptGamename" jdbcType="VARCHAR" />
+    <result column="pt_bet" property="ptBet" jdbcType="DECIMAL" />
+    <result column="pt_win" property="ptWin" jdbcType="DECIMAL" />
+    <result column="pt_balance" property="ptBalance" jdbcType="DECIMAL" />
+    <result column="pt_gamedate" property="ptGamedate" jdbcType="TIMESTAMP" />
+    <result column="pt_info" property="ptInfo" jdbcType="VARCHAR" />
+    <result column="pt_sessionid" property="ptSessionid" jdbcType="VARCHAR" />
+    <result column="pt_progressivebet" property="ptProgressivebet" jdbcType="VARCHAR" />
+    <result column="pt_progressivewin" property="ptProgressivewin" jdbcType="VARCHAR" />
+    <result column="pt_currentbet" property="ptCurrentbet" jdbcType="VARCHAR" />
+    <result column="pt_livenetwork" property="ptLivenetwork" jdbcType="VARCHAR" />
+    <result column="pt_rnum" property="ptRnum" jdbcType="VARCHAR" />
+    <result column="pt_createtime" property="ptCreatetime" jdbcType="TIMESTAMP" />
+    <result column="Platformflag" property="platformflag" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	 <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+  	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" >and brandcode = #{brandcode}</if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+      <if test="ptGametype != null" >and pt_gametype = #{ptGametype}</if>
+      <if test="ptGameid != null" >and pt_gameid = #{ptGameid}</if>
+      <if test="ptGamename != null" >and pt_gamename = #{ptGamename}</if>
+      <if test="ptUsername != null" >and pt_username = #{ptUsername}</if>
+      <if test="ptWindowcode != null" >and pt_windowcode = #{ptWindowcode}</if>
+      <if test="ptBet != null" >and pt_bet = #{ptBet}</if>
+      <if test="ptWin != null" >and pt_win = #{ptWin}</if>
+      <if test="ptBalance != null" >and pt_balance = #{ptBalance}</if>
+      <if test="ptGamedate != null" >and pt_gamedate <![CDATA[ >= ]]> #{ptGamedate}</if>
+      <if test="startDate != null" >and pt_gamedate <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" >and pt_gamedate <![CDATA[ <= ]]> #{endDate}</if>
+      <if test="ptInfo != null" >and pt_info = #{ptInfo}</if>
+      <if test="ptSessionid != null" >and pt_sessionid = #{ptSessionid}</if>
+      <if test="ptProgressivebet != null" >and pt_progressivebet = #{ptProgressivebet}</if>
+      <if test="ptProgressivewin != null" >and pt_progressivewin = #{ptProgressivewin}</if>
+      <if test="ptCurrentbet != null" >and pt_currentbet = #{ptCurrentbet}</if>
+      <if test="ptLivenetwork != null" >and pt_livenetwork = #{ptLivenetwork}</if>
+      <if test="ptRnum != null" >and pt_rnum = #{ptRnum}</if>
+      <if test="ptCreatetime != null" >and pt_createtime = #{ptCreatetime}</if>
+      <if test="lastTime != null" >and Last_Time = #{lastTime}</if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and date(pt_gamedate) <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and date(pt_gamedate) <![CDATA[ <= ]]> #{EndDate} </if>
+      
+      
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from betting_win88
+    <include refid="rangecondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from betting_win88 <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(pt_Bet) ptBet,
+    sum(pt_Win) ptWin,
+    sum(pt_Balance) ptBalance
+    
+    from betting_win88
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    pt_gamecode, pt_username, pt_windowcode, pt_gameid, pt_gametype, pt_gamename, pt_bet, 
+    pt_win, pt_balance, pt_gamedate, pt_info, pt_sessionid, pt_progressivebet, pt_progressivewin, 
+    pt_currentbet, pt_livenetwork, pt_rnum, pt_createtime, Platformflag, enterprisecode, 
+    brandcode, employeecode, parentemployeecode, loginaccount, gamebigtype, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_win88
+    where pt_gamecode = #{ptGamecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_win88
+    where pt_gamecode = #{ptGamecode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingWin88" >
+    insert into betting_win88 (pt_gamecode, pt_username, pt_windowcode, 
+      pt_gameid, pt_gametype, pt_gamename, 
+      pt_bet, pt_win, pt_balance, 
+      pt_gamedate, pt_info, pt_sessionid, 
+      pt_progressivebet, pt_progressivewin, pt_currentbet, 
+      pt_livenetwork, pt_rnum, pt_createtime, 
+      Platformflag, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gamebigtype, status)
+    values (#{ptGamecode,jdbcType=VARCHAR}, #{ptUsername,jdbcType=VARCHAR}, #{ptWindowcode,jdbcType=VARCHAR}, 
+      #{ptGameid,jdbcType=VARCHAR}, #{ptGametype,jdbcType=VARCHAR}, #{ptGamename,jdbcType=VARCHAR}, 
+      #{ptBet,jdbcType=DECIMAL}, #{ptWin,jdbcType=DECIMAL}, #{ptBalance,jdbcType=DECIMAL}, 
+      #{ptGamedate,jdbcType=TIMESTAMP}, #{ptInfo,jdbcType=VARCHAR}, #{ptSessionid,jdbcType=VARCHAR}, 
+      #{ptProgressivebet,jdbcType=VARCHAR}, #{ptProgressivewin,jdbcType=VARCHAR}, #{ptCurrentbet,jdbcType=VARCHAR}, 
+      #{ptLivenetwork,jdbcType=VARCHAR}, #{ptRnum,jdbcType=VARCHAR}, #{ptCreatetime,jdbcType=TIMESTAMP}, 
+      #{platformflag,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingWin88" >
+    insert into betting_win88
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ptGamecode != null" >
+        pt_gamecode,
+      </if>
+      <if test="ptUsername != null" >
+        pt_username,
+      </if>
+      <if test="ptWindowcode != null" >
+        pt_windowcode,
+      </if>
+      <if test="ptGameid != null" >
+        pt_gameid,
+      </if>
+      <if test="ptGametype != null" >
+        pt_gametype,
+      </if>
+      <if test="ptGamename != null" >
+        pt_gamename,
+      </if>
+      <if test="ptBet != null" >
+        pt_bet,
+      </if>
+      <if test="ptWin != null" >
+        pt_win,
+      </if>
+      <if test="ptBalance != null" >
+        pt_balance,
+      </if>
+      <if test="ptGamedate != null" >
+        pt_gamedate,
+      </if>
+      <if test="ptInfo != null" >
+        pt_info,
+      </if>
+      <if test="ptSessionid != null" >
+        pt_sessionid,
+      </if>
+      <if test="ptProgressivebet != null" >
+        pt_progressivebet,
+      </if>
+      <if test="ptProgressivewin != null" >
+        pt_progressivewin,
+      </if>
+      <if test="ptCurrentbet != null" >
+        pt_currentbet,
+      </if>
+      <if test="ptLivenetwork != null" >
+        pt_livenetwork,
+      </if>
+      <if test="ptRnum != null" >
+        pt_rnum,
+      </if>
+      <if test="ptCreatetime != null" >
+        pt_createtime,
+      </if>
+      <if test="platformflag != null" >
+        Platformflag,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ptGamecode != null" >
+        #{ptGamecode,jdbcType=VARCHAR},
+      </if>
+      <if test="ptUsername != null" >
+        #{ptUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ptWindowcode != null" >
+        #{ptWindowcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGameid != null" >
+        #{ptGameid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGametype != null" >
+        #{ptGametype,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGamename != null" >
+        #{ptGamename,jdbcType=VARCHAR},
+      </if>
+      <if test="ptBet != null" >
+        #{ptBet,jdbcType=DECIMAL},
+      </if>
+      <if test="ptWin != null" >
+        #{ptWin,jdbcType=DECIMAL},
+      </if>
+      <if test="ptBalance != null" >
+        #{ptBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="ptGamedate != null" >
+        #{ptGamedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptInfo != null" >
+        #{ptInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSessionid != null" >
+        #{ptSessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProgressivebet != null" >
+        #{ptProgressivebet,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProgressivewin != null" >
+        #{ptProgressivewin,jdbcType=VARCHAR},
+      </if>
+      <if test="ptCurrentbet != null" >
+        #{ptCurrentbet,jdbcType=VARCHAR},
+      </if>
+      <if test="ptLivenetwork != null" >
+        #{ptLivenetwork,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRnum != null" >
+        #{ptRnum,jdbcType=VARCHAR},
+      </if>
+      <if test="ptCreatetime != null" >
+        #{ptCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformflag != null" >
+        #{platformflag,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingWin88" >
+    update betting_win88
+    <set >
+      <if test="ptUsername != null" >
+        pt_username = #{ptUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ptWindowcode != null" >
+        pt_windowcode = #{ptWindowcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGameid != null" >
+        pt_gameid = #{ptGameid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGametype != null" >
+        pt_gametype = #{ptGametype,jdbcType=VARCHAR},
+      </if>
+      <if test="ptGamename != null" >
+        pt_gamename = #{ptGamename,jdbcType=VARCHAR},
+      </if>
+      <if test="ptBet != null" >
+        pt_bet = #{ptBet,jdbcType=DECIMAL},
+      </if>
+      <if test="ptWin != null" >
+        pt_win = #{ptWin,jdbcType=DECIMAL},
+      </if>
+      <if test="ptBalance != null" >
+        pt_balance = #{ptBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="ptGamedate != null" >
+        pt_gamedate = #{ptGamedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptInfo != null" >
+        pt_info = #{ptInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="ptSessionid != null" >
+        pt_sessionid = #{ptSessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProgressivebet != null" >
+        pt_progressivebet = #{ptProgressivebet,jdbcType=VARCHAR},
+      </if>
+      <if test="ptProgressivewin != null" >
+        pt_progressivewin = #{ptProgressivewin,jdbcType=VARCHAR},
+      </if>
+      <if test="ptCurrentbet != null" >
+        pt_currentbet = #{ptCurrentbet,jdbcType=VARCHAR},
+      </if>
+      <if test="ptLivenetwork != null" >
+        pt_livenetwork = #{ptLivenetwork,jdbcType=VARCHAR},
+      </if>
+      <if test="ptRnum != null" >
+        pt_rnum = #{ptRnum,jdbcType=VARCHAR},
+      </if>
+      <if test="ptCreatetime != null" >
+        pt_createtime = #{ptCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformflag != null" >
+        Platformflag = #{platformflag,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pt_gamecode = #{ptGamecode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingWin88" >
+    update betting_win88
+    set pt_username = #{ptUsername,jdbcType=VARCHAR},
+      pt_windowcode = #{ptWindowcode,jdbcType=VARCHAR},
+      pt_gameid = #{ptGameid,jdbcType=VARCHAR},
+      pt_gametype = #{ptGametype,jdbcType=VARCHAR},
+      pt_gamename = #{ptGamename,jdbcType=VARCHAR},
+      pt_bet = #{ptBet,jdbcType=DECIMAL},
+      pt_win = #{ptWin,jdbcType=DECIMAL},
+      pt_balance = #{ptBalance,jdbcType=DECIMAL},
+      pt_gamedate = #{ptGamedate,jdbcType=TIMESTAMP},
+      pt_info = #{ptInfo,jdbcType=VARCHAR},
+      pt_sessionid = #{ptSessionid,jdbcType=VARCHAR},
+      pt_progressivebet = #{ptProgressivebet,jdbcType=VARCHAR},
+      pt_progressivewin = #{ptProgressivewin,jdbcType=VARCHAR},
+      pt_currentbet = #{ptCurrentbet,jdbcType=VARCHAR},
+      pt_livenetwork = #{ptLivenetwork,jdbcType=VARCHAR},
+      pt_rnum = #{ptRnum,jdbcType=VARCHAR},
+      pt_createtime = #{ptCreatetime,jdbcType=TIMESTAMP},
+      Platformflag = #{platformflag,jdbcType=VARCHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where pt_gamecode = #{ptGamecode,jdbcType=VARCHAR}
+  </update>
+</mapper>

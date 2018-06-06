@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WorkingFlowObject" >
+  <resultMap id="resultMap" type="com.maven.entity.WorkingFlowObject" >
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="flowcode" property="flowcode" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="columnList" >
+    EMPLOYEECODE, FLOWCODE
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  		<if test="employeecode !=null ">and employeecode=#{employeecode} </if>
+  		<if test="flowcode !=null "> and flowcode=#{flowcode} </if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+ <insert id="add" parameterType="Map" >
+    insert into working_flow_object (employeecode, flowcode)
+    values (#{employeecode}, #{flowcode})
+  </insert>
+  <insert id="saveRecordBatch" parameterType="java.util.List" >
+    insert into working_flow_object (employeecode, flowcode) values
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.employeecode}, #{item.flowcode})
+    </foreach>  
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="select" resultMap="resultMap" parameterType="Map" >
+    select <include refid="columnList" />
+    from working_flow_object
+    <include refid="exactCondition"></include>
+  </select>
+  
+<select id="selectAllCount" resultType="long"  parameterType="Map" >
+    select count(1)
+    from working_flow_object
+    <include refid="exactCondition"></include>
+  </select>
+    
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="Map" >
+    delete from working_flow_object
+    <include refid="exactCondition"></include>
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  
+</mapper>

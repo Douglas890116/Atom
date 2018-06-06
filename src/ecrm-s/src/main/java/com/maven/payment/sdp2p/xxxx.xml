@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<t_savingApply>
+	<id>7033793</id>
+	<storeOrderId>328EE05ACA784E4792921E022B59C5F3</storeOrderId>
+	<sBankAccount></sBankAccount>
+	<sBank1>icbc</sBank1>
+	<sBank2></sBank2>
+	<sName>kaixin0909</sName>
+	<sPrice>115.00</sPrice>
+	<sPlayersId>kaixin0909</sPlayersId>
+	<eBank>ICBC</eBank>
+	<eBank2>深圳公明支行</eBank2>
+	<eName>周志刚</eName>
+	<eBankAccount>6212264000071671206</eBankAccount>
+	<ePrice>115.39</ePrice>
+	<ePoundage>0.00</ePoundage>
+	<eProvince>UYx3TM0zmVah6ZUkWvCAA5pZtnhbtjK1fyeZsDK3vBEfqgtARKQ2YBb8gVbbnQXo
+	</eProvince>
+	<ecity>UfHguW31W4NbcdxL6j3c1zV810xnfMEOSlfkOxnRVb+1UDiz9vcT1Q==</ecity>
+	<storeId>411</storeId>
+	<storename>RH00411906</storename>
+	<state>1</state>
+	<matchingDate>2017-05-10 17:51:06</matchingDate>
+	<date>2017-05-10 17:43:22</date>
+	<SendOrNot>0</SendOrNot>
+	<SendTimes>3</SendTimes>
+	<Approach>2</Approach>
+	<matchingInfoId>5001956</matchingInfoId>
+	<Fees>0.00000</Fees>
+	<ip>52.175.30.174</ip>
+	<CompareMode>1</CompareMode>
+	<pushTime>2017-05-10 17:43:22</pushTime>
+	<email>11@gg.com</email>
+</t_savingApply>

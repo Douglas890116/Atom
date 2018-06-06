@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityButBonus" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityButBonus" >
+    <id column="lsh" property="lsh" jdbcType="BIGINT" />
+    <result column="createdate" property="createdate" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="pay_type" property="payType" jdbcType="CHAR" />
+    <result column="enterprisebrandactivitycode" property="enterprisebrandactivitycode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="butmoney" property="butmoney" jdbcType="DOUBLE" />
+    <result column="bonusrand" property="bonusrand" jdbcType="DOUBLE" />
+    <result column="bonusmoney" property="bonusmoney" jdbcType="DOUBLE" />
+    <result column="bonustime" property="bonustime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, createdate, createtime, pay_type, enterprisebrandactivitycode, enterprisecode, 
+    brandcode, employeecode, loginaccount, butmoney, bonusrand, bonusmoney, bonustime, 
+    remark,status
+  </sql>
+  <sql id="rangecondition">
+  	<where> 
+  		1=1
+		<if test="createdate != null" > and createdate = #{createdate}</if>
+		<if test="pay_type != null" > and pay_type = #{pay_type}</if>
+		<if test="enterprisebrandactivitycode != null" > and enterprisebrandactivitycode = #{enterprisebrandactivitycode}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="createtime_begin != null" > and createtime <![CDATA[ >= ]]> #{createtime_begin}</if>
+		<if test="createtime_end != null" > and createtime <![CDATA[ <= ]]> #{createtime_end}</if>
+		<if test="bonustime_begin != null" > and bonustime <![CDATA[ >= ]]> #{bonustime_begin}</if>
+		<if test="bonustime_end != null" > and bonustime <![CDATA[ <= ]]> #{bonustime_end}</if>
+		<if test="status != null" > and status = #{status}</if>
+	</where>
+  </sql>
+  
+  <!-- =================================================精确查询================================================================ -->
+ <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_but_bonus
+    <include refid="rangecondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from activity_but_bonus
+    <include refid="rangecondition" />
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from activity_but_bonus 
+    <include refid="rangecondition" />
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_but_bonus
+    where lsh = #{lsh,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from activity_but_bonus
+    where lsh = #{lsh,jdbcType=BIGINT}
+  </delete>
+  <insert id="add" parameterType="com.maven.entity.ActivityButBonus" >
+    insert into activity_but_bonus ( createdate, createtime, 
+      pay_type, enterprisebrandactivitycode, enterprisecode, 
+      brandcode, employeecode, loginaccount, 
+      butmoney, bonusrand, bonusmoney, 
+      bonustime, remark, status)
+    values ( #{createdate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{payType,jdbcType=CHAR}, #{enterprisebrandactivitycode,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, 
+      #{brandcode,jdbcType=CHAR}, #{employeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{butmoney,jdbcType=DOUBLE}, #{bonusrand,jdbcType=DOUBLE}, #{bonusmoney,jdbcType=DOUBLE}, 
+      #{bonustime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityButBonus" >
+    insert into activity_but_bonus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="enterprisebrandactivitycode != null" >
+        enterprisebrandactivitycode,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="butmoney != null" >
+        butmoney,
+      </if>
+      <if test="bonusrand != null" >
+        bonusrand,
+      </if>
+      <if test="bonusmoney != null" >
+        bonusmoney,
+      </if>
+      <if test="bonustime != null" >
+        bonustime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=CHAR},
+      </if>
+      <if test="enterprisebrandactivitycode != null" >
+        #{enterprisebrandactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="butmoney != null" >
+        #{butmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bonusrand != null" >
+        #{bonusrand,jdbcType=DOUBLE},
+      </if>
+      <if test="bonusmoney != null" >
+        #{bonusmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bonustime != null" >
+        #{bonustime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityButBonus" >
+    update activity_but_bonus
+    <set >
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=CHAR},
+      </if>
+      <if test="enterprisebrandactivitycode != null" >
+        enterprisebrandactivitycode = #{enterprisebrandactivitycode,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="butmoney != null" >
+        butmoney = #{butmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bonusrand != null" >
+        bonusrand = #{bonusrand,jdbcType=DOUBLE},
+      </if>
+      <if test="bonusmoney != null" >
+        bonusmoney = #{bonusmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bonustime != null" >
+        bonustime = #{bonustime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityButBonus" >
+    update activity_but_bonus
+    set createdate = #{createdate,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=CHAR},
+      enterprisebrandactivitycode = #{enterprisebrandactivitycode,jdbcType=INTEGER},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      butmoney = #{butmoney,jdbcType=DOUBLE},
+      bonusrand = #{bonusrand,jdbcType=DOUBLE},
+      bonusmoney = #{bonusmoney,jdbcType=DOUBLE},
+      bonustime = #{bonustime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where lsh = #{lsh,jdbcType=BIGINT}
+  </update>
+</mapper>

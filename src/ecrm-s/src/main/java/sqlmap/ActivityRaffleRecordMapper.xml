@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityRaffleRecord" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityRaffleRecord" >
+    <id column="rafflecontrolcode" property="rafflecontrolcode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="reffletime" property="reffletime" jdbcType="TIMESTAMP" />
+    <result column="reffleprizes" property="reffleprizes" jdbcType="CHAR" />
+    <result column="fingerprintcode" property="fingerprintcode" jdbcType="VARCHAR" />
+    <result column="loginip" property="loginip" jdbcType="VARCHAR" />
+    <result column="ecactivitycode" property="ecactivitycode" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rafflecontrolcode, employeecode, parentemployeecode, loginaccount, reffletime, reffleprizes, fingerprintcode, loginip, ecactivitycode
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+		<if test="rafflecontrolcode != null" > and rafflecontrolcode = #{rafflecontrolcode}</if>
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="parentemployeecode != null" > and parentemployeecode = #{parentemployeecode}</if>
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="startreffletime != null" > and reffletime <![CDATA[ >= ]]> #{startreffletime}</if>
+		<if test="endreffletime != null" > and reffletime <![CDATA[ <= ]]> #{endreffletime}</if>
+		<if test="reffleprizes != null" > and reffleprizes = #{reffleprizes}</if>
+		<if test="createdate != null" > and date(reffletime) = #{createdate}</if>
+		
+		<if test="ecactivitycode != null" > and ecactivitycode = #{ecactivitycode}</if>
+		<if test="fingerprintcode != null" > and fingerprintcode = #{fingerprintcode}</if>
+		<if test="loginip != null" > and loginip = #{loginip}</if>
+	</where>
+  </sql>
+  
+  <select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from activity_raffle_record
+    <include refid="exactCondition"></include> 
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from activity_raffle_record
+    <include refid="exactCondition"></include>
+  </select>
+  
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="com.maven.entity.ActivityRaffleRecord" >
+    insert into activity_raffle_record (rafflecontrolcode, employeecode, parentemployeecode,loginaccount, reffletime, reffleprizes, fingerprintcode, loginip, ecactivitycode)
+    values (#{rafflecontrolcode,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR},
+    #{loginaccount,jdbcType=VARCHAR}, #{reffletime,jdbcType=TIMESTAMP}, #{reffleprizes,jdbcType=CHAR} , #{fingerprintcode,jdbcType=VARCHAR}, #{loginip,jdbcType=VARCHAR} , #{ecactivitycode} )
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_raffle_record
+    where rafflecontrolcode = #{rafflecontrolcode,jdbcType=INTEGER}
+  </select>
+  <select id="selectRaffleRecord" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_raffle_record
+    <include refid="exactCondition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="java.lang.Integer" >
+    delete from activity_raffle_record
+    where rafflecontrolcode = #{rafflecontrolcode,jdbcType=INTEGER}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.ActivityRaffleRecord" >
+    update activity_raffle_record
+    <set >
+      <if test="employeecode != null" >employeecode = #{employeecode,jdbcType=CHAR},</if>
+      <if test="parentemployeecode != null" >parentemployeecode = #{parentemployeecode,jdbcType=CHAR},</if>
+      <if test="loginaccount != null" >loginaccount = #{loginaccount,jdbcType=VARCHAR},</if>
+      <if test="reffletime != null" >reffletime = #{reffletime,jdbcType=TIMESTAMP},</if>
+      <if test="reffleprizes != null" >reffleprizes = #{reffleprizes,jdbcType=CHAR},</if>
+    </set>
+    where rafflecontrolcode = #{rafflecontrolcode,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+</mapper>

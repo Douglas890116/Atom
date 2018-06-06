@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ReportWeeklyMember" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ReportWeeklyMember" >
+    <id column="reportcode" property="reportcode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="bet" property="bet" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="subtract" property="subtract" jdbcType="DECIMAL" />
+    <result column="actual" property="actual" jdbcType="DECIMAL" />
+    <result column="ratio" property="ratio" jdbcType="DECIMAL" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="reporttime" property="reporttime" jdbcType="TIMESTAMP" />
+    <result column="gameplatform" property="gameplatform" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="paytype" property="paytype" jdbcType="CHAR" />
+    <result column="payno" property="payno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="rangeCondition">
+  	<where>
+  	  <if test="enterprisecode != null" >and rwm.enterprisecode = #{enterprisecode} </if>
+  	  <if test="brandcode != null" > and rwm.brandcode = #{brandcode}</if>
+      <if test="employeecode != null" > and rwm.employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" >and rwm.parentemployeecode = #{parentemployeecode} </if>
+      <if test="loginaccount != null" > and rwm.loginaccount = #{loginaccount}</if>
+      <if test="startDate != null" > and  rwm.starttime <![CDATA[ >= ]]> #{startDate}</if>
+      <if test="endDate != null" > and  rwm.endtime <![CDATA[ <= ]]> #{endDate}</if>
+      
+      <if test="reporttime != null" > and rwm.reporttime = #{reporttime}</if>
+      
+      <if test="starttime != null" > and  date(rwm.starttime) <![CDATA[ = ]]> date(#{starttime})</if>
+      <if test="endtime != null" > and  date(rwm.endtime) <![CDATA[ = ]]> date(#{endtime})</if>
+      
+      <if test="startBetDay != null" > and rwm.Bet_Day <![CDATA[ >= ]]> #{startBetDay}</if>
+      <if test="endBetDay != null" > and rwm.Bet_Day <![CDATA[ <= ]]> #{endBetDay}</if>
+      <if test="gameplatform != null" > and rwm.gameplatform = #{gameplatform}</if>
+      <if test="gametype != null" > and rwm.gametype = #{gametype}</if>
+      <if test="status != null" > and rwm.status = #{status}</if>
+      <if test="patchno != null" > and rwm.patchno = #{patchno}</if>
+      <if test="paytype != null" > and rwm.paytype = #{paytype}</if>
+      <if test="payno != null" > and rwm.payno = #{payno}</if>
+      <if test="iditems != null">
+      	and rwm.reportcode in 
+      	<foreach collection="iditems" index="index" item="reportcode" open="(" separator="," close=")">
+			#{reportcode}
+		</foreach>
+      </if>
+      
+      <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  
+  	</where>
+  </sql>
+  <sql id="Base_Column_List" >
+    reportcode, enterprisecode, brandcode, employeecode, parentemployeecode, loginaccount, payno,
+    bet, amount, subtract, actual, ratio, starttime, endtime, reporttime, gameplatform, gametype, status, paytype, patchno
+  </sql>
+<!-- =======================================查询语句============================================= -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_weekly_member
+    where reportcode = #{reportcode,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM report_weekly_member rwm 
+    <include refid="rangeCondition" />   <include refid="ABasic.orderby" />  <include refid="ABasic.page" />
+</select>
+<select id="selectAllCount" resultType="long" parameterType="java.util.HashMap" >
+    SELECT count(1) FROM report_weekly_member rwm 
+    <include refid="rangeCondition" />
+</select>
+<select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM report_weekly_member rwm 
+    <include refid="rangeCondition" />
+</select>
+
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(bet) bet,
+    sum(amount) amount,
+    sum(subtract) subtract,
+    sum(actual) actual
+    from report_weekly_member rwm
+    <include refid="rangeCondition" />
+  </select>
+  
+  
+<!-- =======================================删除语句============================================= -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from report_weekly_member
+    where reportcode = #{reportcode,jdbcType=INTEGER}
+  </delete>
+<!-- =======================================新增语句============================================= -->
+  <insert id="insert" parameterType="com.maven.entity.ReportWeeklyMember" >
+    insert into report_weekly_member (reportcode, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      bet, amount, subtract, actual,
+      ratio, starttime, endtime, 
+      reporttime, gameplatform, gametype, status, paytype, patchno, payno)
+    values (#{reportcode,jdbcType=INTEGER}, 
+    #{enterprisecode,jdbcType=CHAR}, 
+    #{brandcode,jdbcType=CHAR}, 
+      #{employeecode,jdbcType=CHAR}, 
+      #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, 
+      #{bet,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, 
+      #{subtract,jdbcType=DECIMAL}, 
+      #{actual,jdbcType=DECIMAL}, 
+      #{ratio,jdbcType=DECIMAL}, 
+      #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, 
+      #{reporttime,jdbcType=TIMESTAMP}, 
+      #{gameplatform,jdbcType=VARCHAR}, 
+      #{gametype,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, 
+      #{paytype,jdbcType=CHAR}, 
+      #{patchno,jdbcType=VARCHAR},
+      #{payno,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="save" parameterType="com.maven.entity.ReportWeeklyMember" >
+    insert into report_weekly_member (reportcode, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      bet, amount, 
+      subtract, actual,
+      ratio, 
+      starttime, 
+      endtime, 
+      reporttime, gameplatform, gametype, status, paytype, patchno, payno
+      )
+    values (#{reportcode,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{bet,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{subtract,jdbcType=DECIMAL}, #{actual,jdbcType=DECIMAL}, 
+      #{ratio,jdbcType=DECIMAL}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{reporttime,jdbcType=TIMESTAMP}, #{gameplatform,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{paytype,jdbcType=CHAR}, #{patchno,jdbcType=VARCHAR}, #{payno,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="list" >
+    insert into report_weekly_member (reportcode, 
+    enterprisecode, 
+    brandcode, 
+      employeecode, 
+      parentemployeecode, 
+      loginaccount, 
+      bet, 
+      amount, 
+      subtract, actual,
+      ratio, 
+      starttime, 
+      endtime, 
+      reporttime, 
+      gameplatform, 
+      gametype, 
+      status, 
+      paytype, patchno, payno
+      )
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >
+        (#{item.reportcode,jdbcType=INTEGER}, #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=CHAR}, 
+      #{item.employeecode,jdbcType=CHAR}, #{item.parentemployeecode,jdbcType=CHAR}, #{item.loginaccount,jdbcType=VARCHAR}, 
+      #{item.bet,jdbcType=DECIMAL}, #{item.amount,jdbcType=DECIMAL}, 
+      #{item.subtract,jdbcType=DECIMAL}, #{item.actual,jdbcType=DECIMAL}, 
+      #{item.ratio,jdbcType=DECIMAL}, #{item.starttime,jdbcType=TIMESTAMP}, #{item.endtime,jdbcType=TIMESTAMP}, 
+      #{item.reporttime,jdbcType=TIMESTAMP}, #{item.gameplatform,jdbcType=VARCHAR}, #{item.gametype,jdbcType=VARCHAR}, #{item.status,jdbcType=CHAR}, 
+      #{item.paytype,jdbcType=CHAR}, #{item.patchno,jdbcType=VARCHAR}, #{item.payno,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ReportWeeklyMember" >
+    insert into report_weekly_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reportcode != null" >
+        reportcode,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="bet != null" >
+        bet,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="subtract != null" >
+        subtract,
+      </if>
+      <if test="ratio != null" >
+        ratio,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="reporttime != null" >
+        reporttime,
+      </if>
+      <if test="gameplatform != null" >
+        gameplatform,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="patchno != null" >
+        patchno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reportcode != null" >
+        #{reportcode,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bet != null" >
+        #{bet,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subtract != null" >
+        #{subtract,jdbcType=DECIMAL},
+      </if>
+      <if test="ratio != null" >
+        #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reporttime != null" >
+        #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gameplatform != null" >
+        #{gameplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=CHAR},
+      </if>
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!-- =======================================修改语句============================================= -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ReportWeeklyMember" >
+    update report_weekly_member
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bet != null" >
+        bet = #{bet,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subtract != null" >
+        subtract = #{subtract,jdbcType=DECIMAL},
+      </if>
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reporttime != null" >
+        reporttime = #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gameplatform != null" >
+        gameplatform = #{gameplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="gametype != null" >
+        paytype = #{paytype,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        patchno = #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="payno != null" >
+        payno = #{payno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reportcode = #{reportcode,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.maven.entity.ReportWeeklyMember" >
+    update report_weekly_member
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      bet = #{bet,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      subtract = #{subtract,jdbcType=DECIMAL},
+      actual = #{actual,jdbcType=DECIMAL},
+      ratio = #{ratio,jdbcType=DECIMAL},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      reporttime = #{reporttime,jdbcType=TIMESTAMP},
+      gameplatform = #{gameplatform,jdbcType=VARCHAR},
+      gametype = #{gametype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      patchno = #{patchno,jdbcType=VARCHAR},
+      paytype = #{paytype,jdbcType=CHAR},
+      payno = #{payno,jdbcType=VARCHAR}
+    where reportcode = #{reportcode,jdbcType=INTEGER}
+  </update>
+</mapper>

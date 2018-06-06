@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityTemplate" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityTemplate" >
+    <id column="activitycode" property="activitycode" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="activitydesc" property="activitydesc" jdbcType="LONGVARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACTIVITYCODE, NAME, STATUS, ACTIVITYDESC
+  </sql>
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="name != null" > and name like concat('%', #{name}, '%')</if>
+  	  <if test="activitydesc != null" > and activitydesc like concat('%', #{activitydesc}, '%')</if>
+      <if test="status != null" > and status = #{status}</if>
+      and datastatus = 1
+  	</where>
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  	  <if test="name != null" > and name like = #{name}</if>
+      <if test="activitydesc != null" > and activitydesc = #{activitydesc}</if>
+      <if test="status != null" > and status = #{status}</if>
+      and datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="com.maven.entity.ActivityTemplate" >
+    insert into activity_template (name, status,activitydesc)
+    values (#{name},#{status},#{activitydesc})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_template a
+    where activitycode = #{activitycode}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_template a
+    where name = #{name}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map" >
+  	select <include refid="Base_Column_List" /> 
+    from activity_template  a
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map" >
+  	select <include refid="Base_Column_List" /> 
+    from activity_template a
+    <include refid="rangecondition"></include>
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) 
+    from activity_template
+    <include refid="rangecondition"></include>
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from activity_template
+    where activitycode = #{activitycode}
+  </delete>
+  <update id="logicDelete">
+  <if test="list != null">
+  	update activity_template set datastatus=-1 where activitycode in 
+  	<foreach collection="list" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </if>
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.ActivityTemplate" >
+    update activity_template
+    <set >
+      <if test="name != null" >name = #{name},</if>
+      <if test="status != null" >status = #{status},</if>
+      <if test="activitydesc !=null">activitydesc = #{activitydesc}</if>
+    </set>
+    where activitycode = #{activitycode}
+  </update>
+</mapper>

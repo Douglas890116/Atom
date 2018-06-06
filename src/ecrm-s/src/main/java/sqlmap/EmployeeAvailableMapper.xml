@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeAvailable" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EmployeeAvailable" >
+    <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="availabletime" property="availabletime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    employeecode, availabletime
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="com.maven.entity.EmployeeAvailable" >
+    insert into employee_available (employeecode, availabletime)
+    values (#{employeecode}, #{availabletime})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_available
+    where employeecode = #{employeecode}
+  </select>
+  <select id="selectByDate" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_available
+    where <![CDATA[ #{availabletime} >= availabletime ]]>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from employee_available
+    where employeecode = #{employeecode}
+  </delete>
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EmployeeAvailable" >
+    update employee_available
+    <set >
+      <if test="availabletime != null" >availabletime = #{availabletime},</if>
+    </set>
+    where employeecode = #{employeecode}
+  </update>
+</mapper>

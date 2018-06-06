@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseInformation">
+	<resultMap id="resultMap" type="com.maven.entity.EnterpriseInformation">
+		<id column="enterpriseinformationcode" property="enterpriseinformationcode" jdbcType="CHAR" />
+		<result column="bankcode" property="bankcode" jdbcType="CHAR" />
+		<result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+		<result column="brandcode" property="brandcode" jdbcType="CHAR" />
+		<result column="openningaccount" property="openningaccount" jdbcType="VARCHAR" />
+		<result column="accountname" property="accountname" jdbcType="VARCHAR" />
+		<result column="openningbank" property="openningbank" jdbcType="VARCHAR" />
+		<result column="enterprisecontact" property="enterprisecontact" jdbcType="VARCHAR" />
+		<result column="enterprisephone" property="enterprisephone" jdbcType="VARCHAR" />
+		<result column="enterpriseqq" property="enterpriseqq" jdbcType="VARCHAR" />
+		<result column="enterpriseemail" property="enterpriseemail" jdbcType="VARCHAR" />
+		<result column="currentbalance" property="currentbalance" jdbcType="DECIMAL" />
+		<result column="enable" property="enable" jdbcType="CHAR" />
+		<!-- 视图关联字段 -->
+		<result column="bankname" property="bankname" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- Common SQL Area -->
+	<sql id="dataColumn">
+		ei.ENTERPRISEINFORMATIONCODE,ei.ENTERPRISECODE, ei.BRANDCODE,ei.BANKCODE, ei.OPENNINGACCOUNT, ei.ACCOUNTNAME,
+		ei.OPENNINGBANK, ei.ENTERPRISECONTACT, ei.ENTERPRISEPHONE, ei.ENTERPRISEQQ, ei.ENTERPRISEEMAIL,ei.ENABLE,ei.CURRENTBALANCE
+		<!-- 视图属性 -->
+		,b.BANKNAME
+	</sql>
+	<sql id="exactCondition">
+		<where> 
+		    and datastatus = 1 
+			<if test="enterpriseinformationcode != null">and ei.enterpriseinformationcode = #{enterpriseinformationcode} </if>
+			<if test="bankcode != null">and ei.bankcode = #{bankcode}     </if>
+			<if test="enterprisecode != null">and ei.enterprisecode = #{enterprisecode}     </if>
+			<if test="brandcode != null">and ei.brandcode = #{brandcode}     </if>
+			<if test="openningaccount != null">and ei.openningaccount = #{openningaccount} </if>
+			<if test="accountname != null">and LOWER(ei.accountname) LIKE CONCAT(CONCAT('%',LOWER(#{accountname}),'%')) </if>
+			<if test="openningbank != null">and LOWER(ei.openningbank) LIKE CONCAT(CONCAT('%',LOWER(#{openningbank}),'%')) </if>
+			<if test="enterprisecontact != null">and LOWER(ei.enterprisecontact) LIKE CONCAT(CONCAT('%',LOWER(#{enterprisecontact}),'%'))</if>
+			<if test="enterprisephone != null">and ei.enterprisephone = #{enterprisephone} </if>
+			<if test="enterpriseqq != null">and ei.enterpriseqq = #{enterpriseqq} </if>
+			<if test="enterpriseemail != null">and ei.enterpriseemail = #{enterpriseemail} </if>
+			<if test="currentbalance != null">and ei.currentbalance = #{currentbalance} </if>
+			<if test="enable != null">and ei.enable = #{enable} </if>
+			<!-- 视图关联字段 -->
+			<if test="bankname != null">and b.bankname = #{bankname} </if>
+		</where>
+	</sql>
+	<sql id="rangeCondition">
+		<where> 
+		    and datastatus = 1 
+			<if test="enterpriseinformationcode != null">and ei.enterpriseinformationcode = #{enterpriseinformationcode} </if>
+			<if test="bankcode != null">and ei.bankcode = #{bankcode}     </if>
+			<if test="enterprisecode != null">and ei.enterprisecode = #{enterprisecode}     </if>
+			<if test="brandcode != null">and ei.brandcode = #{brandcode}     </if>
+			<if test="openningaccount != null">and ei.openningaccount = #{openningaccount} </if>
+			<if test="accountname != null">and LOWER(ei.accountname) LIKE CONCAT(CONCAT('%',LOWER(#{accountname}),'%')) </if>
+			<if test="openningbank != null">and LOWER(ei.openningbank) LIKE CONCAT(CONCAT('%',LOWER(#{openningbank}),'%')) </if>
+			<if test="enterprisecontact != null">and LOWER(ei.enterprisecontact) LIKE CONCAT(CONCAT('%',LOWER(#{enterprisecontact}),'%'))</if>
+			<if test="enterprisephone != null">and ei.enterprisephone = #{enterprisephone} </if>
+			<if test="enterpriseqq != null">and ei.enterpriseqq = #{enterpriseqq} </if>
+			<if test="enterpriseemail != null">and ei.enterpriseemail = #{enterpriseemail} </if>
+			<if test="currentbalance != null">and ei.currentbalance = #{currentbalance} </if>
+			<if test="enable != null">and ei.enable = #{enable} </if>
+			<!-- 视图关联字段 -->
+			<if test="bankname != null">and b.bankname = #{bankname} </if>
+		</where>
+	</sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="add" parameterType="map">
+		insert into enterprise_information
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterpriseinformationcode,
+			<if test="enterprisecode != null">enterprisecode,</if>
+			<if test="brandcode != null">brandcode,</if>
+			<if test="bankcode != null">bankcode,</if>
+			<if test="openningaccount != null">openningaccount,</if>
+			<if test="accountname != null">accountname,</if>
+			<if test="openningbank != null">openningbank,</if>
+			<if test="enterprisecontact != null">enterprisecontact,</if>
+			<if test="enterprisephone != null">enterprisephone,</if>
+			<if test="enterpriseqq != null">enterpriseqq,</if>
+			<if test="enterpriseemail != null">enterpriseemail,</if>
+			<if test="currentbalance != null">currentbalance,</if>
+			<if test="enable != null">enable, </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			ufn_get_next_string_by_tablename('enterprise_information',0),
+			<if test="enterprisecode != null">#{enterprisecode},</if>
+			<if test="brandcode != null">#{brandcode},</if>
+			<if test="bankcode != null">#{bankcode},</if>
+			<if test="openningaccount != null">#{openningaccount},</if>
+			<if test="accountname != null">#{accountname},</if>
+			<if test="openningbank != null">#{openningbank},</if>
+			<if test="enterprisecontact != null">#{enterprisecontact},</if>
+			<if test="enterprisephone != null">#{enterprisephone},</if>
+			<if test="enterpriseqq != null">#{enterpriseqq},</if>
+			<if test="enterpriseemail != null">#{enterpriseemail},</if>
+			<if test="currentbalance != null">0.0,</if>
+			<if test="enable != null">#{enable},</if>
+		</trim>
+	</insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="selectByPrimaryKey" resultMap="resultMap" parameterType="String">
+	select <include refid="dataColumn" /> 
+	from view_enterpriseinfomation ei inner join bank b on ei.bankcode= b.bankcode
+	where ei.enterpriseinformationcode=#{enterpriseinformationcode}
+</select>
+<select id="findEnterpriseInformation" resultMap="resultMap" parameterType="String">
+	select ei.accountname,b.bankcode as bankcode 
+	from enterprise_information ei LEFT JOIN bank b on ei.bankcode=b.bankcode 
+	where ei.openningaccount = #{enterprisepaymentaccount}
+</select>
+<select id="select" resultMap="resultMap" parameterType="Map">
+	select <include refid="dataColumn" />
+	from view_enterpriseinfomation ei inner join bank b on ei.bankcode= b.bankcode
+	<include refid="exactCondition" />
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="resultMap" parameterType="Map">
+	select <include refid="dataColumn" />
+	from view_enterpriseinfomation ei inner join bank b on ei.bankcode= b.bankcode
+	<include refid="rangeCondition" />
+	<include refid="ABasic.orderby"></include>
+	<include refid="ABasic.page"></include>
+</select>
+<select id="selectAllCount" resultType="long" parameterType="Map">
+	select count(1)
+	from view_enterpriseinfomation ei inner join bank b on ei.bankcode= b.bankcode
+	<include refid="rangeCondition" />
+</select>
+<!-- =================================================删除语句================================================================ -->
+<delete id="delete" parameterType="Map">
+	update enterprise_information set datastatus=-1 
+	where enterpriseinformationcode = #{enterpriseinformationcode}
+</delete>
+<update id="logicDelete">
+  <if test="list != null">
+  	update enterprise_information set datastatus=-1 where enterpriseinformationcode in 
+  	<foreach collection="list" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </if>
+  </update>
+<!-- =================================================修改语句================================================================ -->
+	<update id="update" parameterType="Map">
+		update enterprise_information
+		<set>
+			<if test="brandcode != null">brandcode,</if>
+			<if test="bankcode != null">bankcode = #{bankcode},</if>
+			<if test="openningaccount != null">openningaccount = #{openningaccount},</if>
+			<if test="accountname != null">accountname = #{accountname},</if>
+			<if test="openningbank != null">openningbank = #{openningbank}, </if>
+			<if test="enterprisecontact != null">enterprisecontact = #{enterprisecontact},</if>
+			<if test="enterprisephone != null">enterprisephone = #{enterprisephone},</if>
+			<if test="enterpriseqq != null">enterpriseqq = #{enterpriseqq}, </if>
+			<if test="enterpriseemail != null">enterpriseemail = #{enterpriseemail},</if>
+			<if test="currentbalance != null">currentbalance = #{currentbalance},</if>
+			<if test="enable != null">enable = #{enable},</if>
+		</set>
+		where enterpriseinformationcode = #{enterpriseinformationcode}
+	</update>
+	<update id="updateCurrentBalance" parameterType="com.maven.entity.EnterpriseInformation">
+		update enterprise_information set currentbalance = currentbalance + #{currentbalance} 
+		where enterprisecode=#{enterprisecode} and openningaccount=#{openningaccount}
+	</update>
+</mapper>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TakeDepositRecord" >
+  <resultMap id="resultMap" type="com.maven.entity.TakeDepositRecord" >
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="paymenttypecode" property="paymenttypecode" jdbcType="CHAR" />
+    <result column="orderdate" property="orderdate" jdbcType="TIMESTAMP" />
+    <result column="orderamount" property="orderamount" jdbcType="DECIMAL" />
+    <result column="exchangerate" property="exchangerate" jdbcType="DECIMAL" />
+    <result column="enterprisepaymentname" property="enterprisepaymentname" jdbcType="VARCHAR" />
+    <result column="enterprisepaymentaccount" property="enterprisepaymentaccount" jdbcType="VARCHAR" />
+    <result column="enterprisepaymentbank" property="enterprisepaymentbank" jdbcType="CHAR" />
+    <result column="employeepaymentname" property="employeepaymentname" jdbcType="VARCHAR" />
+    <result column="employeepaymentaccount" property="employeepaymentaccount" jdbcType="VARCHAR" />
+    <result column="employeepaymentbank" property="employeepaymentbank" jdbcType="CHAR" />
+    <result column="ordertype" property="ordertype" jdbcType="TINYINT" />
+    <result column="orderstatus" property="orderstatus" jdbcType="TINYINT" />
+    <result column="ordercreater" property="ordercreater" jdbcType="VARCHAR" />
+    <result column="ordercomment" property="ordercomment" jdbcType="VARCHAR" />
+    <result column="traceip" property="traceip" jdbcType="VARCHAR" />
+    <result column="favourableid" property="favourableid" jdbcType="VARCHAR" />
+    <result column="flowcode" property="flowcode" jdbcType="CHAR" />
+    <result column="delegatecode" property="delegatecode" jdbcType="INTEGER" />
+    <result column="handleemployee" property="handleemployee" jdbcType="VARCHAR" />
+    <result column="handleovertime" property="handleovertime" jdbcType="TIMESTAMP" />
+    <result column="num" property="quantity" jdbcType="INTEGER" />
+    <result column="start_date" property="start_date" jdbcType="DATE" />
+    <result column="end_date" property="end_date" jdbcType="DATE" />
+    <!-- 视图关联属性 -->
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="creditrating" property="creditrating" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="base_column">
+  	dwo.ordernumber,dwo.employeecode,dwo.parentemployeecode,dwo.orderdate,dwo.orderamount,dwo.paymenttypecode,dwo.enterprisepaymentaccount,
+  	dwo.enterprisepaymentname,dwo.enterprisepaymentbank,dwo.employeepaymentaccount,dwo.employeepaymentname,dwo.employeepaymentbank,dwo.ordertype,
+	dwo.orderstatus,dwo.ordercreater,dwo.ordercomment,dwo.flowcode,dwo.delegatecode,dwo.handleemployee,dwo.enterprisecode, dwo.favourableid
+  </sql>
+  <!--   查询条件拼接 -->
+	<sql id="exactCondition"> 
+		<where>
+		  <if test="ordernumber != null" > and  dwo.ordernumber = #{ordernumber} </if>
+		  <if test="enterprisecode != null" > and dwo.enterprisecode = #{enterprisecode} </if>
+		  <if test="brandcode != null" > and dwo.brandcode = #{brandcode} </if>
+		  <if test="employeecode != null" > and dwo.employeecode = #{employeecode} </if>
+		  <if test="parentemployeecode != null" >and dwo.parentemployeecode = #{parentemployeecode} </if>
+		  <if test="paymenttypecode != null" > and dwo.paymenttypecode = #{paymenttypecode} </if>
+		  <if test="orderdate !=null"> and date(dwo.orderdate) <![CDATA[ = ]]>#{orderdate}</if>
+		  <if test="orderamount !=null"> and  dwo.orderamount = #{orderamount}</if>
+		  <if test="enterprisepaymentaccount !=null"> and  dwo.enterprisepaymentaccount = #{enterprisepaymentaccount}</if>
+		  <if test="enterprisepaymentname !=null"> and  dwo.enterprisepaymentname = #{enterprisepaymentname}</if>
+		  <if test="enterprisepaymentbank !=null"> and  dwo.enterprisepaymentbank = #{enterprisepaymentbank}</if>
+		  <if test="employeepaymentaccount !=null"> and  dwo.employeepaymentaccount = #{employeepaymentaccount}</if>
+		  <if test="employeepaymentname !=null"> and  dwo.employeepaymentname = #{employeepaymentname}</if>
+		  <if test="employeepaymentbank !=null"> and  dwo.employeepaymentbank = #{employeepaymentbank}</if>
+		  <if test="ordertype !=null"> and  dwo.ordertype = #{ordertype}</if>
+		  <if test="orderstatus != null" > and dwo.orderstatus = #{orderstatus} </if>
+		  <if test="ordercreater != null" > and dwo.ordercreater = #{ordercreater} </if>
+		  <if test="traceip != null" > and dwo.traceip = #{traceip} </if>
+		  <if test="flowcode != null" > and dwo.flowcode = #{flowcode} </if>
+		  <if test="delegatecode != null" > and dwo.delegatecode = #{delegatecode} </if>
+		  <if test="handleemployee != null" > and dwo.handleemployee = #{handleemployee} </if>
+		  <if test="startDate !=null"> and dwo.orderdate <![CDATA[ >= ]]> #{startDate} </if>
+		  <if test="endDate !=null"> and dwo.orderdate <![CDATA[ <= ]]> #{endDate} </if>
+		  <if test="favourableid != null" > and dwo.favourableid = #{favourableid} </if>
+		</where>
+	</sql>
+	<sql id="rangeCondition"> 
+		  <if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (dwo.parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="teamLeaderCode != null" > or dwo.employeecode = #{teamLeaderCode} </if>)
+		  </if>
+		  <if test="brandcodes != null and brandcodes.size() !=0 ">
+		  	and dwo.brandcode IN
+		  		<foreach collection="brandcodes" item="item" separator="," open="(" close=")">
+		  			#{item.brandcode}
+		  		</foreach>
+		  </if>
+		  <if test="flowcodes != null and flowcodes.size>0" >
+	  		and dwo.flowcode IN 
+		  		<foreach collection="flowcodes" item="item" separator="," open="(" close=")">
+		  			#{item.flowcode}
+		  		</foreach>
+		  </if>
+		  <if test="order_statuss != null and order_statuss.length>0">
+		  	and orderstatus in
+		  	<foreach collection="order_statuss" item="item" separator="," open="(" close=")">
+		  			#{item}
+		  	</foreach>
+		  </if>
+		  <if test="ordernumber != null" > and  dwo.ordernumber = #{ordernumber} </if>
+		  <if test="enterprisecode != null" > and dwo.enterprisecode = #{enterprisecode} </if>
+		  <if test="brandcode != null" > and dwo.brandcode = #{brandcode} </if>
+		  <if test="employeecode != null" > and dwo.employeecode = #{employeecode} </if>
+		  <if test="parentemployeecode != null" >and dwo.parentemployeecode = #{parentemployeecode} </if>
+		  <if test="paymenttypecode != null" > and dwo.paymenttypecode = #{paymenttypecode} </if>
+		  <if test="orderdate != null"> and dwo.orderdate <![CDATA[ = ]]>#{orderdate}  </if>
+		  
+		  <if test="orderamount !=null"> and  dwo.orderamount = #{orderamount}</if>
+		  <if test="enterprisepaymentaccount !=null"> and  dwo.enterprisepaymentaccount LIKE CONCAT('%',#{enterprisepaymentaccount},'%')</if>
+		  <if test="enterprisepaymentbank !=null"> and  dwo.enterprisepaymentbank LIKE CONCAT('%',#{enterprisepaymentbank},'%')</if>
+		  <if test="enterprisepaymentname !=null"> and  dwo.enterprisepaymentname LIKE CONCAT('%',#{enterprisepaymentname},'%')</if>
+		  <if test="employeepaymentaccount !=null"> and  dwo.employeepaymentaccount LIKE CONCAT('%',#{employeepaymentaccount},'%')</if>
+		  <if test="employeepaymentname !=null"> and  dwo.employeepaymentname LIKE CONCAT('%',#{employeepaymentname},'%')</if>
+		  <if test="employeepaymentbank !=null"> and  dwo.employeepaymentbank LIKE CONCAT('%',#{employeepaymentbank},'%')</if>
+		  <if test="ordertype !=null"> and  dwo.ordertype = #{ordertype}</if>
+		  <if test="orderstatus != null" > and dwo.orderstatus = #{orderstatus} </if>
+		  <if test="ordercreater != null" > and dwo.ordercreater LIKE CONCAT('%',#{ordercreater},'%')</if>
+		  <if test="traceip != null" > and dwo.traceip =#{traceip}</if>
+		  <if test="handleemployee != null" > and dwo.handleemployee LIKE CONCAT('%',#{handleemployee},'%')</if>
+		  <if test="flowcode != null" > and dwo.flowcode = #{flowcode} </if>
+		  <if test="delegatecode != null" > and dwo.delegatecode = #{delegatecode} </if>
+		  
+		  <if test="orderamount_begin !=null"> and  dwo.orderamount <![CDATA[ >= ]]> #{orderamount_begin}</if>
+		  <if test="orderamount_end !=null"> and  dwo.orderamount <![CDATA[ <= ]]> #{orderamount_end}</if>
+		  <if test="startDate !=null">and dwo.handleovertime <![CDATA[ >= ]]> #{startDate}</if>
+		  <if test="endDate !=null">and dwo.handleovertime <![CDATA[ <= ]]> #{endDate}</if>
+		  <if test="startHandleTime !=null">and (dwo.handleovertime-dwo.orderdate) <![CDATA[ <= #{startHandleTime}]]> </if>
+		  <if test="endHandleTime !=null">and (dwo.handleovertime-dwo.orderdate) <![CDATA[ >= #{endHandleTime}]]> </if>
+		  
+		  <if test="orderdate_begin != null"> and dwo.orderdate  <![CDATA[ >= ]]> #{orderdate_begin}</if>
+		  <if test="orderdate_end != null"> and dwo.orderdate  <![CDATA[ <= ]]> #{orderdate_end}</if>
+		  
+		  <if test="orderStartDate != null"> and date(dwo.orderdate) <![CDATA[ >= ]]> #{orderStartDate}</if>
+		  <if test="orderEndDate != null"> and date(dwo.orderdate)  <![CDATA[ <= ]]> #{orderEndDate}</if>
+		  
+		  <!-- 关联字段 -->
+		  <if test="loginaccount !=null"> and  ee.loginaccount LIKE CONCAT(CONCAT('%',#{loginaccount}),'%')</if>
+		  <if test="favourableid != null" > and dwo.favourableid = #{favourableid} </if>
+	</sql>
+  	
+<!-- =================================================新增语句================================================================ -->
+<!-- 新增存取款单 -->
+	<insert id="save" parameterType="com.maven.entity.TakeDepositRecord">
+  	insert into deposit_withdraw_order
+		(ordernumber,employeecode,parentemployeecode,enterprisecode,brandcode,paymenttypecode,orderdate,
+		orderamount,enterprisepaymentaccount,enterprisepaymentname,enterprisepaymentbank,
+		employeepaymentaccount,employeepaymentname,employeepaymentbank,ordertype,orderstatus,
+		ordercreater,ordercomment,exchangerate,traceip,delegatecode,flowcode,favourableid)
+	values
+		(#{ordernumber},#{employeecode},#{parentemployeecode},#{enterprisecode},#{brandcode},#{paymenttypecode},now(),
+		#{orderamount},#{enterprisepaymentaccount},#{enterprisepaymentname},#{enterprisepaymentbank},
+		#{employeepaymentaccount},#{employeepaymentname},#{employeepaymentbank},#{ordertype},#{orderstatus},
+		#{ordercreater},#{ordercomment},#{exchangerate},#{traceip},#{delegatecode},#{flowcode},#{favourableid})
+	</insert>
+	
+<!-- =================================================精确查询================================================================ -->
+<!--   根据订单号查询  -->
+	<select id="findOrderNumberTakeDepositRecord" parameterType="String" resultType="com.maven.entity.TakeDepositRecord">
+		select 
+				dwo.ordernumber , dwo.employeecode,dwo.parentemployeecode,dwo.orderdate,dwo.brandcode,dwo.enterprisecode,
+				dwo.orderamount, dwo.paymenttypecode,dwo.enterprisepaymentaccount,dwo.enterprisepaymentname,dwo.enterprisepaymentbank,
+				dwo.employeepaymentaccount,dwo.employeepaymentname,dwo.employeepaymentbank,dwo.ordertype,dwo.orderstatus,dwo.ordercreater,
+				dwo.ordercomment,dwo.flowcode,dwo.delegatecode,dwo.handleemployee,dwo.paymenttypecode,dwo.traceip,dwo.handleovertime,
+				ee.loginaccount,ee.displayalias,ee.creditrating,
+				dwo.favourableid
+				
+				
+		from  deposit_withdraw_order dwo LEFT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode where dwo.ordernumber = #{orderNumber}
+	</select>
+<!--   根据订单号查询,多条  -->
+	<select id="findMutilOrdersByOrdernumber" resultMap="resultMap" >
+		select  
+				dwo.ordernumber , dwo.employeecode,dwo.parentemployeecode,dwo.orderdate,dwo.brandcode,dwo.enterprisecode,
+				dwo.orderamount, dwo.paymenttypecode,dwo.enterprisepaymentaccount,dwo.enterprisepaymentname,dwo.enterprisepaymentbank,
+				dwo.employeepaymentaccount,dwo.employeepaymentname,dwo.employeepaymentbank,dwo.ordertype,dwo.orderstatus,dwo.ordercreater,
+				dwo.ordercomment,dwo.flowcode,dwo.delegatecode,dwo.handleemployee,dwo.paymenttypecode,dwo.traceip,dwo.handleovertime
+		from  deposit_withdraw_order dwo 
+		where dwo.ordernumber in  
+  	  	<foreach collection="array" item="orderNumber" separator="," open="(" close=")">
+			#{orderNumber}
+		</foreach>
+	</select>
+
+<!-- 	业务办理报表统计 -->
+<select id="businessHandleCount" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_pay_time (#{enterprisecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<!-- 	存款排名报表统计 -->
+<select id="employeeDepositRankingReportCount" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call employee_deposit_ranking (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<!-- 	取款排名报表统计 -->
+<select id="queryEmployeeWithdrawalsRankingReportCount" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call employee_withdrawals_ranking (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<!-- 	取款次数排名 -->
+<select id="queryEmployeeWithdraNumberRanking" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_withdrawals_number_ranking (#{employeecode,mode=IN,jdbcType=VARCHAR},#{startDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP})}]]>
+</select>
+<!-- 	用户存取款统计 -->
+<select id="userDepositTakeCount" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_user_deposit_withdrawals_count (#{employeecode,mode=IN,jdbcType=VARCHAR},
+														#{startDate,mode=IN,jdbcType=TIMESTAMP},
+														#{endDate,mode=IN,jdbcType=TIMESTAMP},
+														#{start,mode=IN,jdbcType=TINYINT},
+														#{limit,mode=IN,jdbcType=TINYINT},
+														#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+</select>
+
+<!-- 	用户提存比分析统计（jason） -->
+<select id="userDepositTakeRate" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_user_deposit_withdrawals_rate (#{enterprisecode,mode=IN,jdbcType=VARCHAR},
+														#{loginaccount,mode=IN,jdbcType=VARCHAR},
+														#{startDate,mode=IN,jdbcType=TIMESTAMP},
+														#{endDate,mode=IN,jdbcType=TIMESTAMP},
+														#{start,mode=IN,jdbcType=TINYINT},
+														#{limit,mode=IN,jdbcType=TINYINT},
+														#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+</select>
+
+<!-- 	用户输赢概率统计分析（jason） -->
+<select id="userGameWinLoseRate" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_user_game_win_lose_rate (		#{platformtype,mode=IN,jdbcType=VARCHAR},
+														#{loginaccount,mode=IN,jdbcType=VARCHAR},
+														#{enterprisecode,mode=IN,jdbcType=VARCHAR},
+														#{startDate,mode=IN,jdbcType=TIMESTAMP},
+														#{endDate,mode=IN,jdbcType=TIMESTAMP},
+														#{start,mode=IN,jdbcType=TINYINT},
+														#{limit,mode=IN,jdbcType=TINYINT},
+														#{countNumber,mode=OUT,jdbcType=TINYINT})}]]>
+</select>
+
+<!-- 	存储过程,总计-取款稽查（新的jason） -->
+<select id="userTakemoneyInspectNew" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_tn_stat_takemoney_inspect_new (	#{ordernumber,mode=IN,jdbcType=VARCHAR},
+	
+														#{curren_money,mode=OUT,jdbcType=DECIMAL},
+														#{last_deposit_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{last_deposit_money,mode=OUT,jdbcType=DECIMAL},
+														#{last_deposit_balance,mode=OUT,jdbcType=DECIMAL},
+														#{last_take_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{last_take_money,mode=OUT,jdbcType=DECIMAL},
+														#{local_take_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{local_take_money,mode=OUT,jdbcType=DECIMAL},
+														#{need_stream_money,mode=OUT,jdbcType=DECIMAL}
+														)}]]>
+</select>
+
+<!-- 	统计用户在指定时间段内的存取款总额、优惠总额、应打码总额、投注总额、输赢总额 -->
+<select id="userAllTotalMoney" resultType="Map" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_tn_stat_all_total_money (	#{employeecode,mode=IN,jdbcType=VARCHAR},
+														#{start_time,mode=IN,jdbcType=TIMESTAMP},
+														#{end_time,mode=IN,jdbcType=TIMESTAMP}
+														)}]]>
+</select>
+
+
+<!-- 	统计用户当天或历史累计存款总额 -->
+<!-- flag = 0=昨天 1=当天 2=历史累计  -->
+<select id="userDepositTakeMoney" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_user_deposit_money (#{employeecode,mode=IN,jdbcType=VARCHAR},
+											#{flag,mode=IN,jdbcType=TINYINT},
+											#{allDepositMoney,mode=OUT,jdbcType=DECIMAL})}]]>
+</select>
+
+
+<!-- 	查询会员的存取款相关汇总信息 -->
+<select id="userAllInfoMoney" resultType="Map" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_tn_stat_employee_allinfo_order (	#{employeecode,mode=IN,jdbcType=VARCHAR},
+	
+														#{last_deposit_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{last_deposit_money,mode=OUT,jdbcType=DECIMAL},
+														#{last_deposit_ordernumber,mode=OUT,jdbcType=VARCHAR},
+														#{first_deposit_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{first_deposit_money,mode=OUT,jdbcType=DECIMAL},
+														#{first_deposit_ordernumber,mode=OUT,jdbcType=VARCHAR},
+														#{all_deposit_money,mode=OUT,jdbcType=DECIMAL},
+														#{all_deposit_count,mode=OUT,jdbcType=INTEGER},
+														
+														#{last_take_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{last_take_money,mode=OUT,jdbcType=DECIMAL},
+														#{last_take_ordernumber,mode=OUT,jdbcType=VARCHAR},
+														#{first_take_time,mode=OUT,jdbcType=TIMESTAMP},
+														#{first_take_money,mode=OUT,jdbcType=DECIMAL},
+														#{first_take_ordernumber,mode=OUT,jdbcType=VARCHAR},
+														#{all_take_money,mode=OUT,jdbcType=DECIMAL},
+														#{all_take_count,mode=OUT,jdbcType=INTEGER}
+														
+														)}]]>
+</select>
+
+
+<!-- 	查询会员的游戏和优惠和洗码等所有金额相关的数据 -->
+<select id="userAllInfoGame" resultMap="resultMap" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<![CDATA[{call usp_tn_stat_employee_allinfo_game (	#{employeecode,mode=IN,jdbcType=VARCHAR},
+	
+														#{pmoney_acvity,mode=OUT,jdbcType=DECIMAL},
+														#{pmoney_daily,mode=OUT,jdbcType=DECIMAL},
+														#{pmoney_up_fail,mode=OUT,jdbcType=DECIMAL},
+														#{pmoney_add,mode=OUT,jdbcType=DECIMAL},
+														#{pmoney_sub,mode=OUT,jdbcType=DECIMAL}
+														)}]]>
+</select>
+
+
+<!-- 	根据用户编码,类型,状态查询最后一条记录 -->
+<select id="selectLastByParames" resultMap="resultMap" parameterType="java.util.HashMap">
+	select <include refid="base_column" /> from deposit_withdraw_order dwo 
+	<include refid="exactCondition" /> order by dwo.orderdate desc limit 1
+</select>
+<!-- 	根据用户一段时间内金额交易总数 -->
+<select id="selectSumAmount" resultMap="resultMap" parameterType="java.util.HashMap">
+	select SUM(dwo.orderamount) as orderamount from deposit_withdraw_order dwo 
+	<include refid="exactCondition" />
+</select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="resultMap" parameterType="map">
+  		select  dwo.ordernumber,
+				dwo.employeecode,
+				dwo.parentemployeecode,
+				dwo.orderdate,
+				dwo.orderamount,
+				dwo.paymenttypecode,
+				dwo.enterprisepaymentaccount,
+  				dwo.enterprisepaymentname,
+				dwo.enterprisepaymentbank,
+				dwo.employeepaymentaccount,
+				dwo.employeepaymentname,
+				dwo.employeepaymentbank,
+				dwo.ordertype,
+				dwo.orderstatus,
+				dwo.ordercreater,
+				dwo.ordercomment,
+				dwo.flowcode,
+				dwo.delegatecode,
+				dwo.handleemployee,
+				dwo.enterprisecode,
+				eob.brandname as brandcode,
+				ee.loginaccount,
+				ee.displayalias,
+				ee.creditrating,
+				dwo.traceip,
+				dwo.handleemployee,
+				dwo.handleovertime,
+				ff.favourablename
+  		from  deposit_withdraw_order dwo 
+  				LEFT JOIN enterprise_operating_brand eob on dwo.brandcode = eob.brandcode
+  				LEFT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+  				LEFT JOIN favourable ff on ff.lsh = dwo.favourableid
+  				where 1=1 
+  				<include refid="rangeCondition"/>
+  				<include refid="ABasic.orderby"></include> 
+  				<include refid="ABasic.page"></include>
+	</select>
+<!--   数据统计 -->
+	<select id="selectAllCount" resultType="long" parameterType="map">
+  		select count(*)
+  		from deposit_withdraw_order dwo 
+  		LEFT JOIN enterprise_operating_brand eob on dwo.brandcode = eob.brandcode
+  		LEFT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+  		LEFT JOIN favourable ff on ff.lsh = dwo.favourableid
+  		where 1=1 <include refid="rangeCondition"/>
+	</select>
+<!--   分页查询 -->
+	<select id="findTakeDepositRecord" resultMap="resultMap" parameterType="map">
+  		select  dwo.ordernumber,
+				dwo.employeecode,
+				dwo.parentemployeecode,
+				dwo.orderdate,
+				dwo.orderamount,
+				dwo.paymenttypecode,
+				dwo.enterprisepaymentaccount,
+  				dwo.enterprisepaymentname,
+				dwo.enterprisepaymentbank,
+				dwo.employeepaymentaccount,
+				dwo.employeepaymentname,
+				dwo.employeepaymentbank,
+				dwo.ordertype,
+				dwo.orderstatus,
+				dwo.ordercreater,
+				dwo.ordercomment,
+				dwo.flowcode,
+				dwo.delegatecode,
+				dwo.handleemployee,
+				dwo.enterprisecode,
+				dwo.traceip,
+				dwo.handleemployee,
+				dwo.handleovertime,
+				eob.brandname as brandcode,
+				ee.loginaccount,
+				ee.displayalias,
+				ee.creditrating,
+				ff.favourablename
+  		from  deposit_withdraw_order dwo 
+  				LEFT JOIN enterprise_operating_brand eob on dwo.brandcode = eob.brandcode
+  				LEFT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+  				LEFT JOIN favourable ff on ff.lsh = dwo.favourableid
+  				where 1=1 
+  				<include refid="rangeCondition"/> 
+  				<include refid="ABasic.orderby"></include>
+  				<include refid="ABasic.page"></include>
+	</select>
+<!--   数据统计 -->
+	<select id="countTakeDepositRecord" resultType="Map" parameterType="map">
+  		select  count(*) count,sum(dwo.orderamount) orderamount
+  		from deposit_withdraw_order dwo 
+  		LEFT JOIN enterprise_operating_brand eob on dwo.brandcode = eob.brandcode
+  		LEFT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+  		LEFT JOIN favourable ff on ff.lsh = dwo.favourableid
+  		where 1=1 <include refid="rangeCondition"/>
+	</select>
+		
+<!-- 	存取款记录报表统计 -->
+	<select id="countDepositTakeRecordMoney" resultMap="resultMap" parameterType="map">
+  		SELECT 	ee.parentemployeeaccount as parentemployeeaccount,
+  				ee.loginaccount as loginaccount,
+  				SUM(CASE WHEN dwo.ordertype = '1' THEN dwo.orderamount ELSE 0 END) AS allDepositMoney,
+  				SUM(CASE WHEN dwo.ordertype= '2' THEN dwo.orderamount ELSE 0 END) AS allTakeMoney
+		from deposit_withdraw_order dwo RIGHT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+			<if test="parentemployeeaccount !=null"> and ee.parentemployeeaccount = #{parentemployeeaccount}</if>
+			<if test="loginaccount !=null"> and ee.loginaccount = #{loginaccount}</if>
+		where 1=1 <include refid="rangeCondition"/>  group by dwo.employeecode ORDER BY allDepositMoney DESC 
+		<include refid="ABasic.page"></include>
+	</select>
+<!--   数据统计 -->
+	<select id="countDepositTakeRecordMoneyCount" resultType="int" parameterType="map">
+  		select  count(1) 
+  		from (SELECT count(*) from deposit_withdraw_order dwo RIGHT JOIN enterprise_employee ee on dwo.employeecode = ee.employeecode 
+  				<if test="parentemployeeaccount !=null"> and ee.parentemployeeaccount = #{parentemployeeaccount}</if>
+  				<if test="loginaccount !=null"> and ee.loginaccount = #{loginaccount}</if>
+				where 1=1 <include refid="rangeCondition"/>  group by dwo.employeecode 
+  		) as temp
+	</select>
+<!--     根据员工编码统计该员工当天取款次数与取款总金额 -->
+    <select id="takeCountAndTakeTotalAmount" parameterType="java.lang.String" resultType="com.maven.entity.TakeDepositRecord">
+    	SELECT COUNT(1) AS quantity,ifnull(SUM(orderamount),0) AS allTakeMoney 
+    	FROM deposit_withdraw_order WHERE EMPLOYEECODE = #{employeecode} 
+    	AND date(ORDERDATE) = date(NOW()) AND ORDERTYPE = 2
+    </select>
+<!-- =================================================删除语句================================================================ -->
+<!--   单条记录删除 -->
+	<delete id="deleteTakeRepositRecord" parameterType="String">
+  		delete from deposit_withdraw_order where ordernumber = #{code}
+	</delete>
+	
+<!--   根据员工编码删除所有的存取款记录 -->
+	<delete id="deleteEmployeeRecord" parameterType="String">
+  		delete from deposit_withdraw_order where employeecode in
+  		<foreach collection="array" index="employeecode" open="(" separator="," close=")">
+  			#{employeecode}
+  		</foreach>
+	</delete>
+	
+<!--   多条记录删除 -->
+	<delete id="deleteSelectAllTakeRepositRecord" parameterType="String">
+  		delete from deposit_withdraw_order where ordernumber in 
+  		<foreach collection="array" item="ordernumber" open="(" separator="," close=")">
+  			#{ordernumber}
+  		</foreach>
+	</delete>
+
+<!-- =================================================修改语句================================================================ -->
+<!-- 	修改存取款记录 -->
+	<update id="updateTakeDepositRecord" parameterType="com.maven.entity.TakeDepositRecord">
+		update deposit_withdraw_order
+			<set> 
+			  <if test="employeecode != null" >employeecode = #{employeecode},</if>
+		      <if test="enterprisecode != null" >enterprisecode = #{enterprisecode},</if>
+		      <if test="brandcode != null" >brandcode = #{brandcode},</if>
+		      <if test="paymenttypecode != null" >paymenttypecode = #{paymenttypecode},</if>
+		      <if test="orderdate != null" >orderdate = #{orderdate},</if>
+		      <if test="orderamount != null" >orderamount = #{orderamount},</if>
+		      <if test="exchangerate != null" >exchangerate = #{exchangerate},</if>
+		      <if test="enterprisepaymentname != null" >enterprisepaymentname = #{enterprisepaymentname},</if>
+		      <if test="enterprisepaymentaccount != null" >enterprisepaymentaccount = #{enterprisepaymentaccount},</if>
+		      <if test="enterprisepaymentbank != null" >enterprisepaymentbank = #{enterprisepaymentbank},</if>
+		      <if test="employeepaymentname != null" >employeepaymentname = #{employeepaymentname},</if>
+		      <if test="employeepaymentaccount != null" >employeepaymentaccount = #{employeepaymentaccount},</if>
+		      <if test="employeepaymentbank != null" >employeepaymentbank = #{employeepaymentbank},</if>
+		      <if test="ordertype != null" >ordertype = #{ordertype},</if>
+		      <if test="orderstatus != null" >orderstatus = #{orderstatus},</if>
+		      <if test="ordercreater != null" >ordercreater = #{ordercreater},</if>
+		      <if test="traceip != null" >traceip = #{traceip},</if>
+		      <if test="ordercomment != null" >ordercomment = #{ordercomment},</if>
+		      <if test="flowcode != null" >flowcode = #{flowcode},</if>
+		      <if test="delegatecode != null" >delegatecode = #{delegatecode},</if>
+		      <if test="handleemployee != null" >handleemployee = #{handleemployee},</if>
+		      <if test="handleovertime != null" >handleovertime = #{handleovertime},</if>
+			</set>
+			where ordernumber = #{ordernumber}
+	</update>
+<!-- 	更新订单状态与图片名称 -->
+	<update id="updateTakeDepositRecoredStatus" parameterType="com.maven.entity.TakeDepositRecord">
+		update deposit_withdraw_order dwo set
+				dwo.orderstatus = #{orderstatus},
+				dwo.imgname = #{imgname}
+				where dwo.ordernumber = #{ordernumber}
+	</update>
+<!-- 修改工作流相关信息 -->
+	<update id="updateFlow" parameterType="com.maven.entity.TakeDepositRecord" >
+		update deposit_withdraw_order 
+		<set>
+			 <if test="flowcode != null" >flowcode = #{flowcode},</if>
+			 <if test="handleemployee != null" >handleemployee = #{handleemployee},</if>
+			 <if test="delegatecode != null" >delegatecode = #{delegatecode},</if>
+			 <if test="handleovertime != null" >handleovertime = now(),</if>
+			 <if test="orderstatus != null" >orderstatus = #{orderstatus},</if>
+			 <if test="ordercomment != null" >ordercomment = #{ordercomment},</if>
+		</set>
+		where ordernumber = #{ordernumber}
+	</update>
+<!-- 撤回当前审核人 -->	
+	<update id="cacelAudit" parameterType="com.maven.entity.TakeDepositRecord" >
+		update deposit_withdraw_order set  handleemployee=""
+		where ordernumber = #{ordernumber} and  handleemployee=#{handleemployee}
+	</update>
+<!-- 批量修改订单当前审核人 -->
+	<update id="updateBatchHandleemployee" parameterType="java.util.Map" >
+		update deposit_withdraw_order set  handleemployee=#{handleemployee}
+		where handleemployee='' and orderstatus != 2 and ordernumber in  
+		<foreach collection="orders" item="ordernumber" open="(" separator="," close=")">
+  			#{ordernumber}
+  		</foreach>
+		
+	</update>
+	
+
+</mapper>

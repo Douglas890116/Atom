@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseEmployeeLevel" >
+  <resultMap id="resultMaps" type="com.maven.entity.EnterpriseEmployeeLevel" >
+    <id column="employeelevelcode" property="employeeLevelCode" jdbcType="CHAR" />
+    <result column="employeelevel" property="employeeLevelName" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterpriseCode" jdbcType="CHAR" />
+    <result column="taketimeofday" property="takeTimeOfDay" jdbcType="TINYINT" />
+    <result column="ord" property="ord" jdbcType="TINYINT" />
+    <result column="takemoneyofday" property="takeMoneyOfDay" jdbcType="DECIMAL" />
+    <result column="isdefault" property="isdefault" jdbcType="VARCHAR" />
+    <result column="conditionlevel" property="conditionlevel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="columnList" >
+    ENTERPRISECODE,EMPLOYEELEVELCODE, EMPLOYEELEVEL,TAKETIMEOFDAY,TAKEMONEYOFDAY,ISDEFAULT,ORD,CONDITIONLEVEL
+  </sql>
+  <sql id="condition">
+  	<where>
+  		<if test="isdefault !=null">AND isdefault = #{isdefault}</if>
+  		<if test="employeelevelcode !=null">AND EMPLOYEELEVELCODE = #{employeeLevelCode}</if>
+  		<if test="employeeLevelName !=null">AND EMPLOYEELEVEL = #{employeeLevelName}</if>
+  		<if test="enterpriseCode !=null">AND ENTERPRISECODE = #{enterpriseCode}</if>
+  		<if test="takeTimeOfDay !=null">AND TAKETIMEOFDAY = #{takeTimeOfDay}</if>
+  		<if test="takeMoneyOfDay !=null">AND TAKEMONEYOFDAY = #{takeMoneyOfDay}</if>
+  		AND DATASTATUS = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="save" parameterType="com.maven.entity.EnterpriseEmployeeLevel">
+	INSERT INTO enterprise_employee_level(EMPLOYEELEVELCODE,EMPLOYEELEVEL,ENTERPRISECODE,TAKETIMEOFDAY,TAKEMONEYOFDAY, ISDEFAULT, ORD, CONDITIONLEVEL)
+	VALUES(ufn_get_next_string_by_tablename('enterprise_employee_level',0),#{employeeLevelName},#{enterpriseCode},#{takeTimeOfDay},#{takeMoneyOfDay} ,#{isdefault}, #{ord}, #{conditionlevel})
+</insert>
+<!-- =================================================精确查询================================================================<include refid="ABasic.page" /> -->
+  <select id="select" resultMap="resultMaps" >
+    	SELECT <include refid="columnList" /> FROM enterprise_employee_level WHERE DATASTATUS = 1 order by ord asc
+  </select>
+  <select id="selectObject" resultMap="resultMaps" parameterType="java.lang.String">
+    	SELECT <include refid="columnList" /> FROM enterprise_employee_level WHERE employeelevelcode = #{employeelevelcode}
+  </select>
+  <select id="levelQuery" resultMap="resultMaps" parameterType="java.util.HashMap">
+    	SELECT <include refid="columnList" /> FROM enterprise_employee_level <include refid="condition" />   order by ord asc <include refid="ABasic.page" />
+  </select>
+  <select id="count" resultType="int" parameterType="java.util.HashMap">
+    	SELECT COUNT(1) FROM enterprise_employee_level <include refid="condition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<update id="batchDelete" parameterType="java.lang.String">
+	UPDATE enterprise_employee_level SET DATASTATUS = -1 where employeelevelcode in
+	<foreach collection="array" item="employeelevelCode" open="(" separator="," close=")">
+		#{employeelevelCode}
+	</foreach>
+</update>
+<update id="delete" parameterType="java.lang.String">
+	UPDATE enterprise_employee_level SET DATASTATUS = -1 where employeelevelcode = #{employeelevelcode}
+</update>
+<update id="update" parameterType="com.maven.entity.EnterpriseEmployeeLevel">
+	update enterprise_employee_level set 
+			employeelevel = #{employeeLevelName},
+			taketimeofday = #{takeTimeOfDay},
+			isdefault = #{isdefault},
+			ord = #{ord},
+			conditionlevel = #{conditionlevel},
+			takemoneyofday = #{takeMoneyOfDay}
+	where employeelevelcode = #{employeeLevelCode}
+</update>
+
+  
+</mapper>

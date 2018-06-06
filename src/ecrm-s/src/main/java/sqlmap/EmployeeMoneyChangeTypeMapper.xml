@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeMoneyChangeType" >
+  <resultMap id="resultMap" type="com.maven.entity.EmployeeMoneyChangeType" >
+    <id column="moneychangetypecode" property="moneychangetypecode" jdbcType="CHAR" />
+    <result column="moneychangetype" property="moneychangetype" jdbcType="VARCHAR" />
+    <result column="moneyinouttype" property="moneyinouttype" jdbcType="CHAR" />
+    <result column="moneychangetypeclassify" property="moneychangetypeclassify" jdbcType="CHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="columnList" >
+     MONEYCHANGETYPECODE, MONEYCHANGETYPE,MONEYCHANGETYPECLASSIFY, MONEYINOUTTYPE
+  </sql>
+  <sql id="exactCondition">
+  	<where>
+  		<if test="moneychangetypecode !=null " >and moneychangetypecode = #{moneychangetypecode}</if>
+  		<if test="moneychangetype !=null " >and moneychangetype = #{moneychangetype}</if>
+  		<if test="moneychangetypeclassify !=null " >and moneychangetypeclassify = #{moneychangetypeclassify}</if>
+  		<if test="moneyinouttype !=null " >and moneyinouttype = #{moneyinouttype}</if>
+  		and datastatus = 1
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ --> 
+<insert id="save" parameterType="com.maven.entity.EmployeeMoneyChangeType">
+	insert into employee_money_change_type (moneychangetypecode, moneychangetype,moneychangetypeclassify, moneyinouttype, datastatus)
+    values (#{moneychangetypecode}, #{moneychangetype},#{moneychangetypeclassify},#{moneyinouttype}, 1)
+</insert>
+<!-- ================================================精确查询================================================================ -->
+<select id="selectAll" resultMap="resultMap">
+	select  <include refid="columnList" /> from employee_money_change_type <include refid="exactCondition" />
+</select>
+
+<select id="getEmployeeMoneyChangeType" resultType="com.maven.entity.EmployeeMoneyChangeType" parameterType="java.lang.String" >
+    select  <include refid="columnList" /> from employee_money_change_type where moneychangetypecode = #{moneychangetypecode}
+</select>
+
+<select id="select" resultMap="resultMap" parameterType="Map">
+	select  <include refid="columnList" /> from employee_money_change_type 
+	<include refid="exactCondition" /> 
+	<include refid="ABasic.page" />
+</select>
+
+<select id="selectCount" resultType="int" parameterType="Map">
+	select count(*) from employee_money_change_type <include refid="exactCondition" /> 
+</select>
+
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<update id="delete" parameterType="java.lang.String">
+	update employee_money_change_type set datastatus = -1 where moneychangetypecode = #{moneychangetypecode}
+</update>
+
+<update id="batchDelete" parameterType="String">
+	update employee_money_change_type set datastatus = -1 where moneychangetypecode in
+	<foreach collection="array" item="moneychangetypecode" open="(" separator="," close=")">
+		 #{moneychangetypecode}
+	</foreach>
+</update>
+
+<!-- =================================================修改语句================================================================ -->
+  <update id="update" parameterType="com.maven.entity.EmployeeMoneyChangeType">
+	update employee_money_change_type
+	<set >
+     <if test="moneychangetype != null" >
+       moneychangetype = #{moneychangetype},
+     </if>
+     <if test="moneychangetypeclassify != null" >
+       moneychangetypeclassify = #{moneychangetypeclassify},
+     </if>
+     <if test="moneyinouttype != null" >
+       moneyinouttype = #{moneyinouttype},
+     </if>
+   	</set>
+	 where moneychangetypecode = #{moneychangetypecode}
+</update>
+
+</mapper>

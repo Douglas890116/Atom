@@ -1,0 +1,105 @@
+*{padding:0;margin:0;}
+ul,ol,li{list-style:none;}
+img{display:block;}
+
+.top{
+	width:1180px;
+	height:33px;
+	border-radius:5px 5px 0 0;
+	background:#0088cc;
+	margin:0 auto;
+	color:white;
+	font-size:18px;
+	line-height:33px;
+	padding-left:20px;
+	margin-top:10px;
+}
+
+.payM{width:1138px;margin:0 auto;border:1px solid #ccc;border-radius:0 0 5px 5px;background:#F7F8F9;padding:30px;}
+.payMess{width:100%;height:30px;margin-bottom:30px;}
+.payMess>label{float:left;height:30px;line-height:30px;text-align:right;font-size:18px;font-weight:600;}
+.mess1{border:0 !important;float:left;width:20%;height:30px;}
+.payMess>input{border:1px solid #CCC;width:18%;height:28px;padding-left:10px;border-radius:3px;float:left;margin-left:10px;}
+.payMess>p{width:10%;height:30px;line-height:30px;float:left;font-size:14px;padding-left:10px;color:red;display:none;}
+
+.exp>input{border:1px solid #CCC;width:5%;height:28px;padding-left:10px;border-radius:3px;}
+.exp>p{width:10%;height:30px;line-height:30px;float:right;margin-right:683px;font-size:14px;padding-left:10px;color:red;display:none;}
+.tab_pay{
+	width:1200px;
+	height:auto;
+	margin:15px auto;
+
+}
+
+.tab_pay .tab{
+	width:1168px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	padding:15px;
+	padding-top:30px;
+	overflow:hidden;
+	background:#F7F8F9;
+}
+
+.tab_pay .tab>li{
+	width:150px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	float:left;
+	border:1px solid #ccc;
+	border-radius:3px;
+	margin-left:22px;
+	margin-right:20px;
+	margin-bottom:15px;
+	cursor:pointer;
+}
+
+.tab_pay .tab>li.on{
+	border:1px solid #0088cc;
+	font-weight:700;
+	color:#0088cc;
+}
+
+.pay_list{
+	width:1198px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	overflow:hidden;
+	margin-top:15px;
+}
+.pay_list>li{
+	width:1170px;
+	height:100%;
+	overflow:hidden;
+	padding:15px;
+	display:none;
+}
+
+.pay_list>li.show{display:block;}
+
+label.radio{
+	float:left;
+	width:150px;
+	height:36px;
+	margin-left:44px;
+	margin-right:35px;
+	margin-bottom:10px;
+}
+
+label.radio input{height:36px;}
+label.radio div{width:120px;height:36px;margin-left:5px;}
+
+.btn{float:left;width:100%;}
+
+button.paySure{
+	width:130px;
+	height:45px;
+	background:#006dcc;
+	border:0;
+	border-radius:10px;
+	font-size:18px;color:white;
+	cursor:pointer;
+	margin-left:28px;
+	margin-top:20px;outline:none;
+}	

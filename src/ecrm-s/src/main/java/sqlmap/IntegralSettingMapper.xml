@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="IntegralSetting" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.IntegralSetting" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="m2i_rate" property="m2iRate" jdbcType="DECIMAL" />
+    <result column="i2m_rate" property="i2mRate" jdbcType="DECIMAL" />
+    <result column="timeoutday" property="timeoutday" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+		<if test="gametype != null" > and gametype = #{gametype}</if>
+		<if test="gamebigtype != null" > and isdeault = #{gamebigtype}</if>
+	</where>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from integral_setting
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, enterprisecode, brandcode, gametype, gamebigtype, m2i_rate, i2m_rate, timeoutday
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from integral_setting
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="Map" >
+    delete from integral_setting
+    where enterprisecode = #{enterprisecode,jdbcType=CHAR} and brandcode = #{brandcode,jdbcType=CHAR}
+  </delete>
+  <insert id="add" parameterType="com.maven.entity.IntegralSetting" >
+    insert into integral_setting (lsh, enterprisecode, brandcode, gametype, gamebigtype, m2i_rate, i2m_rate, timeoutday)
+    values (#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{gametype,jdbcType=VARCHAR}, #{gamebigtype,jdbcType=VARCHAR}, #{m2iRate,jdbcType=DECIMAL}, 
+      #{i2mRate,jdbcType=DECIMAL}, #{timeoutday,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="saveRecordBatch1" >
+  <if test="list !=null and list.size()>0">
+   insert into integral_setting ( enterprisecode, brandcode, gametype, gamebigtype, m2i_rate, i2m_rate, timeoutday) values
+    <foreach collection="list" item="item" separator=",">
+    ( #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=CHAR}, 
+      #{item.gametype,jdbcType=VARCHAR}, #{item.gamebigtype,jdbcType=VARCHAR}, #{item.m2iRate,jdbcType=DECIMAL}, 
+      #{item.i2mRate,jdbcType=DECIMAL}, #{item.timeoutday,jdbcType=INTEGER})
+    </foreach>
+  </if>
+ </insert>
+ <insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   replace into integral_setting ( enterprisecode, brandcode, gametype, gamebigtype, m2i_rate, i2m_rate, timeoutday) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=CHAR}, 
+      #{item.gametype,jdbcType=VARCHAR}, #{item.gamebigtype,jdbcType=VARCHAR}, #{item.m2iRate,jdbcType=DECIMAL}, 
+      #{item.i2mRate,jdbcType=DECIMAL}, #{item.timeoutday,jdbcType=INTEGER})
+	    </foreach>
+	  </if>
+ </insert>
+  
+  <insert id="insertSelective" parameterType="com.maven.entity.IntegralSetting" >
+    insert into integral_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="m2iRate != null" >
+        m2i_rate,
+      </if>
+      <if test="i2mRate != null" >
+        i2m_rate,
+      </if>
+      <if test="timeoutday != null" >
+        timeoutday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="m2iRate != null" >
+        #{m2iRate,jdbcType=DECIMAL},
+      </if>
+      <if test="i2mRate != null" >
+        #{i2mRate,jdbcType=DECIMAL},
+      </if>
+      <if test="timeoutday != null" >
+        #{timeoutday,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.IntegralSetting" >
+    update integral_setting
+    <set >
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="m2iRate != null" >
+        m2i_rate = #{m2iRate,jdbcType=DECIMAL},
+      </if>
+      <if test="i2mRate != null" >
+        i2m_rate = #{i2mRate,jdbcType=DECIMAL},
+      </if>
+      <if test="timeoutday != null" >
+        timeoutday = #{timeoutday,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.IntegralSetting" >
+    update integral_setting
+    set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      gametype = #{gametype,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      m2i_rate = #{m2iRate,jdbcType=DECIMAL},
+      i2m_rate = #{i2mRate,jdbcType=DECIMAL},
+      timeoutday = #{timeoutday,jdbcType=INTEGER}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

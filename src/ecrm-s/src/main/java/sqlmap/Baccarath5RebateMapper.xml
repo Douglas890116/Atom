@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Baccarath5Rebate" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.Baccarath5Rebate" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="patchno" property="patchno" jdbcType="VARCHAR" />
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="orderamount" property="orderamount" jdbcType="DOUBLE" />
+    <result column="orderdate" property="orderdate" jdbcType="TIMESTAMP" />
+    <result column="currenlevel" property="currenlevel" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecurrenlevel" property="employeecurrenlevel" jdbcType="VARCHAR" />
+    <result column="rebate" property="rebate" jdbcType="DOUBLE" />
+    <result column="rebatemoney" property="rebatemoney" jdbcType="DOUBLE" />
+    <result column="rebatestatus" property="rebatestatus" jdbcType="INTEGER" />
+    <result column="rebatetime" property="rebatetime" jdbcType="TIMESTAMP" />
+    <result column="rebatedesc" property="rebatedesc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+		<if test="patchno != null" > and patchno = #{patchno}</if>
+	  	<if test="ordernumber != null" > and ordernumber = #{ordernumber}</if>
+	  	
+		<if test="employeecode != null" > and employeecode = #{employeecode}</if>
+		<if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+	  	<if test="brandcode != null" > and brandcode = #{brandcode}</if>
+	  	<if test="rebatestatus != null" > and rebatestatus = #{rebatestatus}</if>
+	  	
+	  	<if test="satrtDate != null" > and date(rebatetime) = #{satrtDate}</if>
+	  	<if test="endDate != null" > and date(rebatetime) = #{endDate}</if>
+	  	
+	  	<if test="rebatetime != null" > and date(rebatetime) = #{rebatetime}</if>
+	  	
+	  	
+	  	<if test="teamCodes !=null and teamCodes.length > 0">
+	  	  	and (parentemployeecode in 
+	  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+				#{teamcode}
+			</foreach>
+			<if test="createDate ==null">
+				<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>
+			</if>
+			)
+		  </if>
+	</where>
+  </sql>
+  
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_rebate
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from baccarath5_rebate
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="selectBetRecordCountMoney" resultType="Map" parameterType="Map">
+  	select 
+  	count(1) count,
+  	sum(money) money,
+  	sum(orderamount) orderamount,
+  	sum(rebatemoney) rebatemoney
+  	from baccarath5_rebate
+  	<include refid="exactCondition" />
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from baccarath5_rebate
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    lsh, patchno, ordernumber, loginaccount, money, orderamount, orderdate, currenlevel, 
+    employeecode, parentemployeecode, enterprisecode, brandcode, employeecurrenlevel, 
+    rebate, rebatemoney, rebatestatus, rebatetime, rebatedesc, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from baccarath5_rebate
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from baccarath5_rebate
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.Baccarath5Rebate" >
+    insert into baccarath5_rebate (lsh, patchno, ordernumber, 
+      loginaccount, money, orderamount, 
+      orderdate, currenlevel, employeecode, 
+      parentemployeecode, enterprisecode, brandcode, 
+      employeecurrenlevel, rebate, rebatemoney, 
+      rebatestatus, rebatetime, rebatedesc, 
+      remark)
+    values (#{lsh,jdbcType=VARCHAR}, #{patchno,jdbcType=VARCHAR}, #{ordernumber,jdbcType=VARCHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{orderamount,jdbcType=DOUBLE}, 
+      #{orderdate,jdbcType=TIMESTAMP}, #{currenlevel,jdbcType=VARCHAR}, #{employeecode,jdbcType=CHAR}, 
+      #{parentemployeecode,jdbcType=CHAR}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=CHAR}, 
+      #{employeecurrenlevel,jdbcType=VARCHAR}, #{rebate,jdbcType=DOUBLE}, #{rebatemoney,jdbcType=DOUBLE}, 
+      #{rebatestatus,jdbcType=INTEGER}, #{rebatetime,jdbcType=TIMESTAMP}, #{rebatedesc,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="saveRecordBatch" parameterType="java.util.List">
+	  <if test="list !=null and list.size()>0">
+	   insert into baccarath5_rebate (lsh, patchno, ordernumber, 
+      loginaccount, money, orderamount, 
+      orderdate, currenlevel, employeecode, 
+      parentemployeecode, enterprisecode, brandcode, 
+      employeecurrenlevel, rebate, rebatemoney, 
+      rebatestatus, rebatetime, rebatedesc, 
+      remark) values
+	    <foreach collection="list" item="item" separator=",">
+	    ( #{item.lsh,jdbcType=VARCHAR}, #{item.patchno,jdbcType=VARCHAR}, #{item.ordernumber,jdbcType=VARCHAR}, 
+      #{item.loginaccount,jdbcType=VARCHAR}, #{item.money,jdbcType=DOUBLE}, #{item.orderamount,jdbcType=DOUBLE}, 
+      #{item.orderdate,jdbcType=TIMESTAMP}, #{item.currenlevel,jdbcType=VARCHAR}, #{item.employeecode,jdbcType=CHAR}, 
+      #{item.parentemployeecode,jdbcType=CHAR}, #{item.enterprisecode,jdbcType=CHAR}, #{item.brandcode,jdbcType=CHAR}, 
+      #{item.employeecurrenlevel,jdbcType=VARCHAR}, #{item.rebate,jdbcType=DOUBLE}, #{item.rebatemoney,jdbcType=DOUBLE}, 
+      #{item.rebatestatus,jdbcType=INTEGER}, #{item.rebatetime,jdbcType=TIMESTAMP}, #{item.rebatedesc,jdbcType=VARCHAR}, 
+      #{item.remark,jdbcType=VARCHAR}
+	      )
+	    </foreach>
+	  </if>
+ </insert>
+ 
+  <insert id="insertSelective" parameterType="com.maven.entity.Baccarath5Rebate" >
+    insert into baccarath5_rebate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="patchno != null" >
+        patchno,
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="orderamount != null" >
+        orderamount,
+      </if>
+      <if test="orderdate != null" >
+        orderdate,
+      </if>
+      <if test="currenlevel != null" >
+        currenlevel,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecurrenlevel != null" >
+        employeecurrenlevel,
+      </if>
+      <if test="rebate != null" >
+        rebate,
+      </if>
+      <if test="rebatemoney != null" >
+        rebatemoney,
+      </if>
+      <if test="rebatestatus != null" >
+        rebatestatus,
+      </if>
+      <if test="rebatetime != null" >
+        rebatetime,
+      </if>
+      <if test="rebatedesc != null" >
+        rebatedesc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="patchno != null" >
+        #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="orderamount != null" >
+        #{orderamount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderdate != null" >
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currenlevel != null" >
+        #{currenlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecurrenlevel != null" >
+        #{employeecurrenlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="rebate != null" >
+        #{rebate,jdbcType=DOUBLE},
+      </if>
+      <if test="rebatemoney != null" >
+        #{rebatemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="rebatestatus != null" >
+        #{rebatestatus,jdbcType=INTEGER},
+      </if>
+      <if test="rebatetime != null" >
+        #{rebatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rebatedesc != null" >
+        #{rebatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.Baccarath5Rebate" >
+    update baccarath5_rebate
+    <set >
+      <if test="patchno != null" >
+        patchno = #{patchno,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber = #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="orderamount != null" >
+        orderamount = #{orderamount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderdate != null" >
+        orderdate = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currenlevel != null" >
+        currenlevel = #{currenlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=CHAR},
+      </if>
+      <if test="employeecurrenlevel != null" >
+        employeecurrenlevel = #{employeecurrenlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="rebate != null" >
+        rebate = #{rebate,jdbcType=DOUBLE},
+      </if>
+      <if test="rebatemoney != null" >
+        rebatemoney = #{rebatemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="rebatestatus != null" >
+        rebatestatus = #{rebatestatus,jdbcType=INTEGER},
+      </if>
+      <if test="rebatetime != null" >
+        rebatetime = #{rebatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rebatedesc != null" >
+        rebatedesc = #{rebatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.Baccarath5Rebate" >
+    update baccarath5_rebate
+    set patchno = #{patchno,jdbcType=VARCHAR},
+      ordernumber = #{ordernumber,jdbcType=VARCHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      orderamount = #{orderamount,jdbcType=DOUBLE},
+      orderdate = #{orderdate,jdbcType=TIMESTAMP},
+      currenlevel = #{currenlevel,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=CHAR},
+      employeecurrenlevel = #{employeecurrenlevel,jdbcType=VARCHAR},
+      rebate = #{rebate,jdbcType=DOUBLE},
+      rebatemoney = #{rebatemoney,jdbcType=DOUBLE},
+      rebatestatus = #{rebatestatus,jdbcType=INTEGER},
+      rebatetime = #{rebatetime,jdbcType=TIMESTAMP},
+      rebatedesc = #{rebatedesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateStatus" parameterType="com.maven.entity.Baccarath5Rebate" >
+    update baccarath5_rebate
+    set  
+    rebatestatus = #{rebatestatus,jdbcType=INTEGER},
+    rebatetime = #{rebatetime,jdbcType=TIMESTAMP},
+    rebatedesc = #{rebatedesc,jdbcType=VARCHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

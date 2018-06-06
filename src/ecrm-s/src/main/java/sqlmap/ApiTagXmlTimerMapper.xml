@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ApiTagXmlTimer" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ApiTagXmlTimer" >
+    <id column="agentcode" property="agentcode" jdbcType="VARCHAR" />
+    <id column="platformtype" property="platformtype" jdbcType="VARCHAR" />
+    <id column="xmltype" property="xmltype" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    agentcode, platformtype, xmltype, updatetime
+  </sql>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		1=1
+		<if test="agentcode != null" > and agentcode = #{agentcode}</if>
+		<if test="platformtype != null" > and platformtype = #{platformtype}</if>
+		<if test="xmltype != null" > and xmltype = #{xmltype}</if>
+	</where>
+  </sql>
+  
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from api_tag_xml_timer
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from api_tag_xml_timer
+  	<include refid="exactCondition" />
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    select 
+    <include refid="Base_Column_List" />
+    from api_tag_xml_timer
+    where agentcode = #{agentcode,jdbcType=VARCHAR}
+      and platformtype = #{platformtype,jdbcType=VARCHAR}
+      and xmltype = #{xmltype,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    delete from api_tag_xml_timer
+    where agentcode = #{agentcode,jdbcType=VARCHAR}
+      and platformtype = #{platformtype,jdbcType=VARCHAR}
+      and xmltype = #{xmltype,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    insert into api_tag_xml_timer (agentcode, platformtype, xmltype, 
+      updatetime)
+    values (#{agentcode,jdbcType=VARCHAR}, #{platformtype,jdbcType=VARCHAR}, #{xmltype,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    insert into api_tag_xml_timer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agentcode != null" >
+        agentcode,
+      </if>
+      <if test="platformtype != null" >
+        platformtype,
+      </if>
+      <if test="xmltype != null" >
+        xmltype,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agentcode != null" >
+        #{agentcode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformtype != null" >
+        #{platformtype,jdbcType=VARCHAR},
+      </if>
+      <if test="xmltype != null" >
+        #{xmltype,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    update api_tag_xml_timer set updatetime = #{updatetime,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ApiTagXmlTimer" >
+    update api_tag_xml_timer
+    set updatetime = #{updatetime,jdbcType=VARCHAR}
+    where agentcode = #{agentcode,jdbcType=VARCHAR}
+      and platformtype = #{platformtype,jdbcType=VARCHAR}
+      and xmltype = #{xmltype,jdbcType=VARCHAR}
+  </update>
+</mapper>

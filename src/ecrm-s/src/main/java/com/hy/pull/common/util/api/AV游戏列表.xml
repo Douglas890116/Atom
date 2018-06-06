@@ -1,0 +1,2079 @@
+<?xml version="1.0"?>
+<BBTECH>
+	<response>
+		<records>
+			<record>
+				<index>1</index>
+				<gameID>GS1020</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>My Sisters</gameName-en>
+				<gameName-ch>&#x59D0;&#x59B9;&#x82B1;</gameName-ch>
+				<gameName-jp>&#x59C9;&#x59B9;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>mysisters</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=mysisters&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1020.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>2</index>
+				<gameID>GS0025</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Yakinbyouto</gameName-en>
+				<gameName-ch>&#x7279;&#x6B8A;&#x75C5;&#x623F;</gameName-ch>
+				<gameName-jp>&#x7279;&#x5225;&#x75C5;&#x68DF;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_yakinbyouto_slots</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_yakinbyouto_slots&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0025.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>3</index>
+				<gameID>GS1029</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>AYU v2</gameName-en>
+				<gameName-ch>AYU v2</gameName-ch>
+				<gameName-jp>AYU v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>miracle_jq_ayu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=miracle_jq_ayu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1029.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>4</index>
+				<gameID>GS1009</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>DEKAKUTE</gameName-en>
+				<gameName-ch>&#x6211;&#x7684;&#x59D0;&#x59D0;&#x5F88;&#x8272;
+				</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>dekakute</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=dekakute&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1009.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>5</index>
+				<gameID>GS3008</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY CASCADING</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Nozokiana</gameName-en>
+				<gameName-ch>&#x5077;&#x7AA5;&#x7684;&#x6D1E;</gameName-ch>
+				<gameName-jp>&#x96A3;&#x306E;&#x5F7C;&#x5973;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>cascade_nozokiana</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=cascade_nozokiana&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS3008.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>6</index>
+				<gameID>GS0014</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>DEKAKUTE</gameName-en>
+				<gameName-ch>&#x6211;&#x7684;&#x59D0;&#x59D0;&#x5F88;&#x8272;
+				</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_dekakute_slots</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_dekakute_slots&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0014.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>7</index>
+				<gameID>GS0038</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Nozokiana</gameName-en>
+				<gameName-ch>&#x9694;&#x58C1;&#x7684;&#x5973;&#x5B69;</gameName-ch>
+				<gameName-jp>&#x96A3;&#x306E;&#x5F7C;&#x5973;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_nozokiana</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_nozokiana&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0038.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>8</index>
+				<gameID>GS1019</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Hugyou</gameName-en>
+				<gameName-ch>&#x62E5;&#x62B1;&#x6821;&#x56ED;&#x751F;&#x6D3B;
+				</gameName-ch>
+				<gameName-jp>&#x5F7C;&#x5973;&#x30CF;&#x30B0;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>hugyou</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=hugyou&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1019.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>9</index>
+				<gameID>GS0024</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Yokujtho bazooka</gameName-en>
+				<gameName-ch>&#x53D1;&#x60C5;&#x706B;&#x7BAD;&#x70AE;</gameName-ch>
+				<gameName-jp>&#x6B32;&#x60C5;&#x76EE;&#x7DDA;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_yokujtohbazooka</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_yokujtohbazooka&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0024.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>10</index>
+				<gameID>GS1028</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>AYU v1</gameName-en>
+				<gameName-ch>AYU v1</gameName-ch>
+				<gameName-jp>AYU v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>miracle_pg_ayu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=miracle_pg_ayu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1028.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>11</index>
+				<gameID>GS1008</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Kuroinu</gameName-en>
+				<gameName-ch>&#x5723;&#x5973;&#x7684;&#x5949;&#x732E;</gameName-ch>
+				<gameName-jp>&#x6C17;&#x9AD8;&#x8056;&#x5973;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>kuroinu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=kuroinu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1008.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>12</index>
+				<gameID>GS0044</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>MY SISTERS</gameName-en>
+				<gameName-ch>&#x59D0;&#x59B9;&#x82B1;</gameName-ch>
+				<gameName-jp>&#x59C9;&#x59B9;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_mysisters</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_mysisters&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0044.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>13</index>
+				<gameID>GS0062</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>RIN AZUMA v2</gameName-en>
+				<gameName-ch>&#x4E1C;&#x51DB; v2</gameName-ch>
+				<gameName-jp>&#x6771;&#x51DB; v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines30_rinazuma2</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines30_rinazuma2&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0062.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>14</index>
+				<gameID>GS0037</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Mahjong</gameName-en>
+				<gameName-ch>&#x9EBB;&#x5C06;</gameName-ch>
+				<gameName-jp>&#x9EBB;&#x96C0;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_mahjong</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_mahjong&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0037.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>15</index>
+				<gameID>GS0015</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Mahousyoujyoal</gameName-en>
+				<gameName-ch>&#x9B54;&#x6CD5;&#x5C11;&#x5973;</gameName-ch>
+				<gameName-jp>&#x30DE;&#x30B8;&#x30AB;&#x30EB;&#x30AC;&#x30FC;&#x30EB;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_mahousyoujyoal</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_mahousyoujyoal&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0015.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>16</index>
+				<gameID>GS1018</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Classmate Fcker</gameName-en>
+				<gameName-ch>&#x5927;&#x5976;&#x59B9;&#x4EEC;&#x7684;&#x8FD0;&#x52A8;&#x4F1A;
+				</gameName-ch>
+				<gameName-jp>&#x540C;&#x7D1A;&#x751F;&#x5B8C;&#x5168;&#x5236;&#x8987;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>classmatefcker</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=classmatefcker&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1018.png
+				</thumbnail>
+				<hit>9998</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>17</index>
+				<gameID>GS1007</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>SyohjyoxSyohjyoxSyohjyo</gameName-en>
+				<gameName-ch>&#x6E29;&#x6CC9;&#x4E61;&#x7684;&#x59B9;&#x59B9;
+				</gameName-ch>
+				<gameName-jp>&#x6E29;&#x6CC9;&#x306E;&#x59B9;&#x9054;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>girlxgirlxgirl</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=girlxgirlxgirl&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1007.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>18</index>
+				<gameID>GS0049</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Mega-Chuu</gameName-en>
+				<gameName-ch>&#x5973;&#x795E;&#x4E09;&#x59D0;&#x59B9;</gameName-ch>
+				<gameName-jp>Me&#x304C;&#x30C1;&#x30E5;&#x30FC;!</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_megachuu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_megachuu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0049.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>19</index>
+				<gameID>GS0061</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>RIN AZUMA v1</gameName-en>
+				<gameName-ch>&#x4E1C;&#x51DB; v1</gameName-ch>
+				<gameName-jp>&#x6771;&#x51DB; v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_rinazuma1</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_rinazuma1&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0061.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>20</index>
+				<gameID>GS0036</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Kuroinu</gameName-en>
+				<gameName-ch>&#x9ED1;&#x517D;</gameName-ch>
+				<gameName-jp>&#x6C17;&#x9AD8;&#x8056;&#x5973;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_kuroinu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_kuroinu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0036.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>21</index>
+				<gameID>GS0014</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Dekakute</gameName-en>
+				<gameName-ch>&#x597D;&#x7C97;&#x597D;&#x5927;</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_dekakute_slots</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_dekakute_slots&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0014.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>22</index>
+				<gameID>GS1017</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>You Will Be More And More Hard</gameName-en>
+				<gameName-ch>&#x786C;&#x5F1F;&#x6765;&#x4E86;</gameName-ch>
+				<gameName-jp>&#x30AF;&#x30EA;&#x30FC;&#x30F3;&#x30B0;&#x5C4B;&#x306E;&#x771F;&#x3061;&#x3083;&#x3093;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>youwillbemoreandmorehard</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=youwillbemoreandmorehard&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1017.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>23</index>
+				<gameID>GS1006</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Yariman Academy</gameName-en>
+				<gameName-ch>&#x6270;&#x4EA4;&#x53D1;&#x60C5;&#x5B66;&#x56ED;
+				</gameName-ch>
+				<gameName-jp>&#x30E4;&#x30EA;&#x307E;&#x3093;&#x63F4;&#x4EA4;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>yarimanenkoh</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=yarimanenkoh&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1006.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>24</index>
+				<gameID>GS3007</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY CASCADING</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Mahjong</gameName-en>
+				<gameName-ch>&#x9EBB;&#x5C06;</gameName-ch>
+				<gameName-jp>&#x9EBB;&#x96C0;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>cascade_mahjong</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=cascade_mahjong&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS3007.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>25</index>
+				<gameID>GS0056</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>AYU v2</gameName-en>
+				<gameName-ch>AYU v2</gameName-ch>
+				<gameName-jp>AYU v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines50_jqayu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines50_jqayu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0056.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>26</index>
+				<gameID>GS1027</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>WIFES &amp; MAMA MEGA BOOBS</gameName-en>
+				<gameName-ch>&#x5927;&#x5976;&#x59BB;&#x4E0E;&#x5988;&#x54AA;&#x7684;&#x6545;&#x4E8B;
+				</gameName-ch>
+				<gameName-jp>&#x5AC1;MAMA&#x30DC;&#x30A4;&#x30F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>mamaboin</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=mamaboin&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1027.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>27</index>
+				<gameID>GS0035</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Kunoichi Sakuya</gameName-en>
+				<gameName-ch>&#x5973;&#x5FCD;&#x8005;&#x7684;&#x4FEE;&#x884C;
+				</gameName-ch>
+				<gameName-jp>&#x30A4;&#x30C1;&#x200B;&#x304F;&#x30CE;&#x4FEE;&#x884C;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_kunoichisakuya</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_kunoichisakuya&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0035.png
+				</thumbnail>
+				<hit>9999</hit>
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>28</index>
+				<gameID>GS0013</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Resortboin</gameName-en>
+				<gameName-ch>&#x5DE8;&#x4E73;&#x59B9;&#x5EA6;&#x5047;&#x6751;
+				</gameName-ch>
+				<gameName-jp>&#x30EA;&#x30BE;&#x30FB;&#x30D1;&#x30E9;&#x30FB;&#x30DC;&#x30A4;&#x30F3;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_resortboin</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_resortboin&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0013.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>29</index>
+				<gameID>GS1016</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Yokujtoh Bazooka</gameName-en>
+				<gameName-ch>&#x53D1;&#x60C5;&#x706B;&#x7BAD;&#x70AE;</gameName-ch>
+				<gameName-jp>&#x6B32;&#x60C5;&#x76EE;&#x7DDA;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>yokujtoh_bazooka</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=yokujtoh_bazooka&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1016.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>30</index>
+				<gameID>GS1005</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Resortboin</gameName-en>
+				<gameName-ch>&#x5DE8;&#x4E73;&#x59B9;&#x6E21;&#x5047;&#x6751;
+				</gameName-ch>
+				<gameName-jp>&#x30EA;&#x30BE;&#x30FB;&#x30D1;&#x30E9;&#x30FB;&#x30DC;&#x30A4;&#x30F3;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>resortboin</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=resortboin&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1005.png
+				</thumbnail>
+				<hit>9998</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>31</index>
+				<gameID>GS0043</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>hugyou</gameName-en>
+				<gameName-ch>&#x62E5;&#x62B1;&#x6821;&#x56ED;&#x751F;&#x6D3B;
+				</gameName-ch>
+				<gameName-jp>&#x62B1;&#x304D;&#x30CF;&#x30B0;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_hugyou</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_hugyou&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0043.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>32</index>
+				<gameID>GS0055</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>AYU v1</gameName-en>
+				<gameName-ch>AYU v1</gameName-ch>
+				<gameName-jp>AYU v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines50_pgayu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines50_pgayu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0055.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>33</index>
+				<gameID>GS1026</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>OSHIETE NEI MAID</gameName-en>
+				<gameName-ch>&#x5973;&#x4EC6;&#x5927;&#x4F5C;&#x6218;</gameName-ch>
+				<gameName-jp>&#x6559;&#x3048;&#x3066;Ne!&#x3081;&#x3044;&#x3069;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>maidlesson</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=maidlesson&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1026.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>34</index>
+				<gameID>GS0034</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Koakuma Kanojyo</gameName-en>
+				<gameName-ch>&#x546A;&#x3044;&#x306E;DVD</gameName-ch>
+				<gameName-jp>&#x5C0F;&#x6076;&#x9B54;&#x5973;&#x53CB;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_koakumakanojyo</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_koakumakanojyo&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0034.png
+				</thumbnail>
+				<hit>9999</hit>
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>35</index>
+				<gameID>GS0012</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Chobatsu</gameName-en>
+				<gameName-ch>&#x60E9;&#x7F5A;&#x6307;&#x5BFC;</gameName-ch>
+				<gameName-jp>&#x6027;&#x7F70;&#x6307;&#x5C0E;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines50_chobatsu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines50_chobatsu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0012.png
+				</thumbnail>
+				<hit />
+				<line>50</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>36</index>
+				<gameID>GS1015</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Mahou Syoujyo</gameName-en>
+				<gameName-ch>&#x9B54;&#x6CD5;&#x5C11;&#x5973;</gameName-ch>
+				<gameName-jp>&#x30DE;&#x30B8;&#x30AB;&#x30EB;&#x30AC;&#x30FC;&#x30EB;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>mahousyoujyo</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=mahousyoujyo&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1015.png
+				</thumbnail>
+				<hit>9997</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>37</index>
+				<gameID>GS1004</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>PLEASE R&#x2665;PE ME!!</gameName-en>
+				<gameName-ch>&#x8BF7;&#x5F3A;&#x2665;&#x6211;</gameName-ch>
+				<gameName-jp>&#x30EC;&#x2665;&#x30D7;&#x30DF;&#x30FC;&#x3055;&#x304F;&#x3089;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>pleasmekujyosakura</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=pleasmekujyosakura&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1004.png
+				</thumbnail>
+				<hit>9998</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>38</index>
+				<gameID>GS0066</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Foretelling Cards</gameName-en>
+				<gameName-ch>&#x9884;&#x8A00;&#x4E4B;&#x5361;</gameName-ch>
+				<gameName-jp>&#x4E88;&#x8A00;&#x30AB;&#x30FC;&#x30C9;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines50_foretellingcards</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines50_foretellingcards&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0066.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>39</index>
+				<gameID>GS0046</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>SHELBY WAKATSUKI V3</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E; v3</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v3</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines30_wakatsukivr3</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines30_wakatsukivr3&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0046.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>40</index>
+				<gameID>GS1025</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Mega-Chuu</gameName-en>
+				<gameName-ch>&#x5973;&#x795E;&#x4E09;&#x59D0;&#x59B9;</gameName-ch>
+				<gameName-jp>Me&#x304C;&#x30C1;&#x30E5;&#x30FC;!</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>megachuu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=megachuu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1025.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>41</index>
+				<gameID>GS0033</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Himekishi Olivia</gameName-en>
+				<gameName-ch>&#x6027;&#x5974;&#x96B6;&#x5965;&#x5229;&#x7EF4;&#x4E9A;
+				</gameName-ch>
+				<gameName-jp>&#x6027;&#x5974;&#x96B7;&#x30AA;&#x30EA;&#x30D3;&#x30A2;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_hemekishiolivia</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_hemekishiolivia&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0033.png
+				</thumbnail>
+				<hit>9999</hit>
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>42</index>
+				<gameID>GS1014</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Kunoichi Sakuya</gameName-en>
+				<gameName-ch>&#x5973;&#x5FCD;&#x8005;&#x54B2;&#x591C;</gameName-ch>
+				<gameName-jp>&#x30A4;&#x30C1;&#x200B;&#x304F;&#x30CE;&#x4FEE;&#x884C;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>kunoichi_sakuya</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=kunoichi_sakuya&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1014.png
+				</thumbnail>
+				<hit>9996</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>43</index>
+				<gameID>GS0011</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>You will be more and more hard</gameName-en>
+				<gameName-ch>&#x786C;&#x8D77;&#x6765;</gameName-ch>
+				<gameName-jp>&#x30AF;&#x30EA;&#x30FC;&#x30CB;&#x30F3;&#x30B0;&#x5C4B;&#x306E;&#x771F;&#x3061;&#x3083;&#x3093;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_you_will_be_more_and_more_hard
+				</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_you_will_be_more_and_more_hard&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0011.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>44</index>
+				<gameID>GS1002</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Oppai No Ohjya48</gameName-en>
+				<gameName-ch>&#x4E73;&#x540E;&#xFF14;&#xFF18;</gameName-ch>
+				<gameName-jp>&#x30D1;&#x30A4;&#x30AA;&#x30C4;&#x738B;&#xFF14;&#xFF18;&#x200B;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>oppainoohjya48</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=oppainoohjya48&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1002.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>45</index>
+				<gameID>GS0058</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>EDO Sushi</gameName-en>
+				<gameName-ch>&#x6C5F;&#x6238;&#x5BFF;&#x53F8;</gameName-ch>
+				<gameName-jp>&#x6C5F;&#x6238;&#x3059;&#x3057;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines50_edosushi</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines50_edosushi&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0058.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>46</index>
+				<gameID>GS0045</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>SHELBY WAKATSUKI V2</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E; v2</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines30_wakatsukivr2</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines30_wakatsukivr2&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0045.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>47</index>
+				<gameID>GS1024</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>GF X GF x GF</gameName-en>
+				<gameName-ch>&#x6211;&#x7684;&#x5C0F;&#x5973;&#x53CB;&#x4EEC;
+				</gameName-ch>
+				<gameName-jp>&#x30AB;&#x30CE;&#x30B8;&#x30E7;&#x5F7C;&#x5973;&#x30AB;&#x30CE;&#x30B8;&#x30E7;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>kanojyo3</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=kanojyo3&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1024.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>48</index>
+				<gameID>GS0032</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Dekakute</gameName-en>
+				<gameName-ch>&#x597D;&#x7C97;&#x597D;&#x5927;</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_dekakute</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_dekakute&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0032.png
+				</thumbnail>
+				<hit>9999</hit>
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>49</index>
+				<gameID>GS1013</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Bible Black</gameName-en>
+				<gameName-ch>&#x9ED1;&#x6697;&#x5723;&#x7ECF;</gameName-ch>
+				<gameName-jp>&#x30D6;&#x30E9;&#x30C3;&#x30AF;&#x200B;&#x30D0;&#x30A4;&#x30D6;&#x30EB;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>bibleblack</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=bibleblack&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1013.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>50</index>
+				<gameID>GS0008</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Pleasmekujyosakura</gameName-en>
+				<gameName-ch>&#x4E5D;&#x5973;&#x5A74;</gameName-ch>
+				<gameName-jp>&#x30EC;&#x2665;&#x30D7;&#x30DF;&#x30FC;&#x3055;&#x304F;&#x3089;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines15_pleasmekujyosakura</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines15_pleasmekujyosakura&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0008.png
+				</thumbnail>
+				<hit />
+				<line>50</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>51</index>
+				<gameID>GS1001</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Chobatsu SHIDO</gameName-en>
+				<gameName-ch>&#x60E9;&#x7F5A;&#x6307;&#x5BFC;</gameName-ch>
+				<gameName-jp>&#x61F2;&#x7F70;&#x6307;&#x5C0E;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>chobatsu</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=chobatsu&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1001.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>52</index>
+				<gameID>GS0042</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>ClassMate Fcker</gameName-en>
+				<gameName-ch>&#x5927;&#x5976;&#x59B9;&#x4EEC;&#x7684;&#x8FD0;&#x52A8;&#x4F1A;
+				</gameName-ch>
+				<gameName-jp>&#x540C;&#x7D1A;&#x751F;&#x5B8C;&#x5168;&#x5236;&#x8987;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_classmatefcker</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_classmatefcker&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0042.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>53</index>
+				<gameID>GS1023</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>SHELBY WAKATSUKI V3</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E;-&#x5236;&#x670D;&#x8BF1;&#x60D1;
+				</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v3</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>wakatsukivr3</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=wakatsukivr3&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1023.png
+				</thumbnail>
+				<hit>9998</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>54</index>
+				<gameID>GS0031</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Byakuya Lin Ne</gameName-en>
+				<gameName-ch>&#x5BC6;&#x5BA4;&#x7684;&#x5BC2;&#x5BDE;&#x547B;&#x541F;
+				</gameName-ch>
+				<gameName-jp>&#x5BC6;&#x5BA4;&#x306E;&#x6DCB;&#x97F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_byakuyalinne</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_byakuyalinne&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0031.png
+				</thumbnail>
+				<hit>9999</hit>
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>55</index>
+				<gameID>GS0030</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>SHELBY WAKATSUKI V1</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E; v1</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines30_wakatsuki</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines30_wakatsuki&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0030.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>56</index>
+				<gameID>GS1012</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Yakin byoutou</gameName-en>
+				<gameName-ch>&#x591C;&#x52E4;&#x75C5;&#x680B;</gameName-ch>
+				<gameName-jp>&#x7279;&#x5225;&#x75C5;&#x68DF;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>cascade_yakinbyouto</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=cascade_yakinbyouto&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1012.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>57</index>
+				<gameID>GS0007</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Inyoushi</gameName-en>
+				<gameName-ch>&#x9634;&#x9633;&#x5E08;</gameName-ch>
+				<gameName-jp>&#x6DEB;&#x6B04;&#x5E2B;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_inyoushi</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_inyoushi&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0007.png
+				</thumbnail>
+				<hit />
+				<line>50</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>58</index>
+				<gameID>GS0041</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Yakin Byouto</gameName-en>
+				<gameName-ch>&#x7279;&#x6B8A;&#x75C5;&#x623F;</gameName-ch>
+				<gameName-jp>&#x7279;&#x5225;&#x75C5;&#x68DF;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_yakinbyouto</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_yakinbyouto&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0041.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>59</index>
+				<gameID>GS3001</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY CASCADING</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Byakuya Lin Ne</gameName-en>
+				<gameName-ch>&#x767D;&#x591C;&#x51DB;&#x97F3;</gameName-ch>
+				<gameName-jp>&#x5BC6;&#x5BA4;&#x306E;&#x6DCB;&#x97F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>cascade_byakuya_lin_ne</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=cascade_byakuya_lin_ne&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS3001.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>60</index>
+				<gameID>GS1022</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>SHELBY WAKATSUKI V2</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E;-&#x6DEB;&#x8361;&#x5B9D;&#x8D1D;
+				</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>wakatsukivr2</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=wakatsukivr2&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1022.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>61</index>
+				<gameID>GS0027</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Kunoichi Sakuya</gameName-en>
+				<gameName-ch>&#x5973;&#x5FCD;&#x8005;&#x7684;&#x4FEE;&#x884C;
+				</gameName-ch>
+				<gameName-jp>&#x30A4;&#x30C1;&#x200B;&#x304F;&#x30CE;&#x4FEE;&#x884C;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_kunoichisakuya_slots</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_kunoichisakuya_slots&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0027.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>62</index>
+				<gameID>GS1035</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>RIN AZUMA v2</gameName-en>
+				<gameName-ch>&#x4E1C;&#x51DB; v2</gameName-ch>
+				<gameName-jp>&#x6771;&#x51DB; v2</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>rinazuma2</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=rinazuma2&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1035.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>63</index>
+				<gameID>GS1011</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>Seishohjyo</gameName-en>
+				<gameName-ch>&#x5723;&#x5973;&#x5B66;&#x56ED;</gameName-ch>
+				<gameName-jp>&#x8056;&#x5A66;&#x5B66;&#x5712;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>seishohjyo</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=seishohjyo&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1011.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>64</index>
+				<gameID>GS0006</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Black Bible</gameName-en>
+				<gameName-ch>&#x9ED1;&#x6697;&#x5723;&#x7ECF;</gameName-ch>
+				<gameName-jp>&#x30D6;&#x30E9;&#x30C3;&#x30AF;&#x30D0;&#x30A4;&#x30D6;&#x30EB;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_blackbible</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_blackbible&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0006.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>65</index>
+				<gameID>GS3002</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY CASCADING</type1>
+				<type2>HTML5</type2>
+				<gameName-en>DEKAKUTE</gameName-en>
+				<gameName-ch>&#x6211;&#x7684;&#x59D0;&#x59D0;&#x5F88;&#x8272;
+				</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>cascade_dekakute</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=cascade_dekakute&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS3002.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>66</index>
+				<gameID>GS0040</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Seishohjyo</gameName-en>
+				<gameName-ch>&#x5723;&#x5987;&#x5B66;&#x56ED;</gameName-ch>
+				<gameName-jp>&#x8056;&#x5A66;&#x5B66;&#x5712;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_seishohjyo</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_seishohjyo&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0040.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>67</index>
+				<gameID>GS1021</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>SHELBY WAKATSUKI V1</gameName-en>
+				<gameName-ch>&#x82E5;&#x69FB;&#x8D1D;&#x7F8E;</gameName-ch>
+				<gameName-jp>&#x82E5;&#x69FB;&#x8C9D;&#x7F8E; v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>wakatsuki</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=wakatsuki&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1021.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>68</index>
+				<gameID>GS0026</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Oppai No Ohjya48</gameName-en>
+				<gameName-ch>&#x4E73;&#x540E;48</gameName-ch>
+				<gameName-jp>&#x30D1;&#x30A4;&#x30AA;&#x30C4;&#x738B;&#xFF14;&#xFF18;&#x200B;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_oppainoohjya48_slots</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_oppainoohjya48_slots&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0026.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>69</index>
+				<gameID>GS1034</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>RIN AZUMA v1</gameName-en>
+				<gameName-ch>&#x4E1C;&#x51DB; v1</gameName-ch>
+				<gameName-jp>&#x6771;&#x51DB; v1</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>rinazuma1</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=rinazuma1&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1034.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>70</index>
+				<gameID>GS1010</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT</type1>
+				<type2>HTML5</type2>
+				<gameName-en>ONMYOUJI</gameName-en>
+				<gameName-ch>&#x9634;&#x9633;&#x5E08;
+					&#x5996;&#x5A06;&#x7684;&#x5973;&#x795E;
+					&#xFF5E;&#x6DEB;&#x4E71;&#x6CD5;&#x672F;&#xFF5E;</gameName-ch>
+				<gameName-jp>&#x6DEB;&#x6B04;&#x5E2B;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>inuoshi</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=inuoshi&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS1010.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>71</index>
+				<gameID>GS2032</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>DEKAKUTE</gameName-en>
+				<gameName-ch>&#x6211;&#x7684;&#x59D0;&#x59D0;&#x5F88;&#x8272;
+				</gameName-ch>
+				<gameName-jp>&#x4FCA;&#x4ECB;&#x3068;3&#x4EBA;&#x306E;&#x59C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_dekakute</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_dekakute&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS2032.png
+				</thumbnail>
+				<hit />
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>72</index>
+				<gameID>GS0039</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>GSPOT</thirdParty>
+				<type1>SEXY SLOT CASCADING</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Oppai No Ohjya48</gameName-en>
+				<gameName-ch>&#x4E73;&#x540E;48</gameName-ch>
+				<gameName-jp>&#x30D1;&#x30A4;&#x30AA;&#x30C4;&#x738B;&#xFF14;&#xFF18;&#x200B;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>slotgames_lines25_oppainoohjya48</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=slotgames_lines25_oppainoohjya48&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/GS0039.png
+				</thumbnail>
+				<hit />
+				<line>25</line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>73</index>
+				<gameID>ARI0004</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>LUCKY 88</gameName-en>
+				<gameName-ch>&#x5E78;&#x8FD0;88</gameName-ch>
+				<gameName-jp>&#x30E9;&#x30C3;&#x30AD;&#x30FC; 88</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>lucky88</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=lucky88&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0004.png
+				</thumbnail>
+				<hit>0</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>74</index>
+				<gameID>ARI0003</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>CHOYSUNDOA</gameName-en>
+				<gameName-ch>&#x7EBF;&#x4E0A;&#x6253;&#x8D22;&#x795E;</gameName-ch>
+				<gameName-jp>&#x30C1;&#x30E7;&#x30A4;&#x30B5;&#x30F3;&#x30C9;&#x30FC;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>choysundoa</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=choysundoa&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0003.png
+				</thumbnail>
+				<hit>0</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>75</index>
+				<gameID>ARI0006</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>Slots</type1>
+				<type2>FLASH</type2>
+				<gameName-en>BIG BEN</gameName-en>
+				<gameName-ch>&#x5927;&#x672C;&#x949F;</gameName-ch>
+				<gameName-jp>&#x30D3;&#x30C3;&#x30B0; &#x30D9;&#x30F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>bigben</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=bigben&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0006.png
+				</thumbnail>
+				<hit>0</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>76</index>
+				<gameID>ARI0002</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>50 DRAGONS</gameName-en>
+				<gameName-ch>50&#x7EBF;&#x9F99;</gameName-ch>
+				<gameName-jp>50 &#x30C9;&#x30E9;&#x30B4;&#x30F3;&#x30BA;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>50dragons</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=50dragons&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0002.png
+				</thumbnail>
+				<hit>0</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>77</index>
+				<gameID>ARI0007</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>Slots</type1>
+				<type2>FLASH</type2>
+				<gameName-en>WEREWOLF WILD</gameName-en>
+				<gameName-ch>&#x91CE;&#x72FC;</gameName-ch>
+				<gameName-jp>&#x30A6;&#x30A3;&#x30A2; &#x30A6;&#x30EB;&#x30D5;
+					&#x30EF;&#x30A4;&#x30EB;&#x30C9;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>werewolfwild</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=werewolfwild&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0007.png
+				</thumbnail>
+				<hit>0</hit>
+				<line></line>
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>78</index>
+				<gameID>ARI0001</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>Slots</type1>
+				<type2>FLASH</type2>
+				<gameName-en>5 DRAGONS</gameName-en>
+				<gameName-ch>5&#x7EBF;&#x9F99;</gameName-ch>
+				<gameName-jp>5 &#x30C9;&#x30E9;&#x30B4;&#x30F3;&#x30BA;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>5dragons</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=5dragons&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0001.png
+				</thumbnail>
+				<hit>1</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>79</index>
+				<gameID>ARI0005</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>ARISTOCRAT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>MISS KITTY</gameName-en>
+				<gameName-ch>Kitty&#x5C0F;&#x59D0;</gameName-ch>
+				<gameName-jp>&#x30DF;&#x30B9;&#x30AD;&#x30C6;&#x30A3;&#x30FC;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>misskitty</gameLink>
+				<gameURL>http://bigboss2.bigboss-slot.com/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=misskitty&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/ARI0005.png
+				</thumbnail>
+				<hit>0</hit>
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>80</index>
+				<gameID>NT0014</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Egyptian Heroes</gameName-en>
+				<gameName-ch>&#x57C3;&#x53CA;&#x82F1;&#x96C4;</gameName-ch>
+				<gameName-jp>&#x30A8;&#x30B8;&#x30D7;&#x30B7;&#x30E3;&#x30F3;
+					&#x30D2;&#x30FC;&#x30ED;&#x30FC;&#x30BA;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>egyptianheroes</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=egyptianheroes&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0014.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>81</index>
+				<gameID>NT0003</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Bigbang</gameName-en>
+				<gameName-ch>&#x5927;&#x7206;&#x70B8;</gameName-ch>
+				<gameName-jp>&#x30D3;&#x30C3;&#x30B0;&#x30D0;&#x30F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>bigbang</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=bigbang&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0003.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>82</index>
+				<gameID>NT0013</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Lucky Angler</gameName-en>
+				<gameName-ch>&#x5E78;&#x8FD0;&#x7684;&#x5782;&#x9493;&#x8005;
+				</gameName-ch>
+				<gameName-jp>&#x30E9;&#x30C3;&#x30AD;&#x30FC;&#x30A2;&#x30F3;&#x30B0;&#x30E9;&#x30FC;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>luckyangler</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=luckyangler&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0013.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>83</index>
+				<gameID>NT0002</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Rabbits</gameName-en>
+				<gameName-ch>&#x5154;</gameName-ch>
+				<gameName-jp>&#x30E9;&#x30D3;&#x30C3;&#x30C4;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>rabbits</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=rabbits&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0002.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>84</index>
+				<gameID>NT0012</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Demolition Squad</gameName-en>
+				<gameName-ch>&#x62C6;&#x8FC1;&#x961F;</gameName-ch>
+				<gameName-jp>&#x30C7;&#x30E2;&#x30EA;&#x30B7;&#x30E7;&#x30F3;&#x30B9;&#x30AF;&#x30EF;&#x30C3;&#x30C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>demolitionsquad</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=demolitionsquad&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0012.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>85</index>
+				<gameID>NT0001</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Alien</gameName-en>
+				<gameName-ch>&#x5F02;&#x79CD;</gameName-ch>
+				<gameName-jp>&#x30A8;&#x30A4;&#x30EA;&#x30A2;&#x30F3;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>alien</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=alien&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0001.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>86</index>
+				<gameID>NT0011</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Thief</gameName-en>
+				<gameName-ch>&#x8D3C;</gameName-ch>
+				<gameName-jp>&#x30B7;&#x30FC;&#x30D5;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>thief</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=thief&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0011.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>87</index>
+				<gameID>NT0021</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Reel Rush</gameName-en>
+				<gameName-ch>&#x5377;&#x8F74;&#x72C2;&#x5954;</gameName-ch>
+				<gameName-jp>&#x30EA;&#x30FC;&#x30EB;&#x30E9;&#x30C3;&#x30B7;&#x30E5;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>reelrush</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=reelrush&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0021.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>88</index>
+				<gameID>NT0010</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Lost Island</gameName-en>
+				<gameName-ch>&#x5931;&#x843D;&#x4E4B;&#x5C9B;</gameName-ch>
+				<gameName-jp>&#x30ED;&#x30B9;&#x30C8;&#x30A2;&#x30A4;&#x30E9;&#x30F3;&#x30C9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>lostisland</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=lostisland&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0010.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>89</index>
+				<gameID>NT0020</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Star Burst</gameName-en>
+				<gameName-ch>&#x661F;&#x7206;</gameName-ch>
+				<gameName-jp>&#x30B9;&#x30BF;&#x30FC;&#x30D0;&#x30FC;&#x30B9;&#x30C8;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>starburst</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=starburst&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0020.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>90</index>
+				<gameID>NT0009</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Fruit Shop</gameName-en>
+				<gameName-ch>&#x6C34;&#x679C;&#x5E97;</gameName-ch>
+				<gameName-jp>&#x30D5;&#x30EB;&#x30FC;&#x30C4;&#x30B7;&#x30E7;&#x30C3;&#x30D7;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>fruitshop</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=fruitshop&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0009.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>91</index>
+				<gameID>NT0019</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Space Wars</gameName-en>
+				<gameName-ch>&#x592A;&#x7A7A;&#x5927;&#x6218;</gameName-ch>
+				<gameName-jp>&#x30B9;&#x30DA;&#x30FC;&#x30B9;&#x30A6;&#x30A9;&#x30FC;&#x30BA;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>spacewars</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=spacewars&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0019.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>92</index>
+				<gameID>NT0008</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Wild Turkey</gameName-en>
+				<gameName-ch>&#x91CE;&#x706B;&#x9E21;</gameName-ch>
+				<gameName-jp>&#x30EF;&#x30A4;&#x30EB;&#x30C9;&#x30BF;&#x30FC;&#x30AD;&#x30FC;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>wildturkey</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=wildturkey&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0008.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>93</index>
+				<gameID>NT0018</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Monkeys</gameName-en>
+				<gameName-ch>&#x7334;&#x5B50;</gameName-ch>
+				<gameName-jp> &#x30E2;&#x30F3;&#x30AD;&#x30FC;&#x30BA;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>monkeys</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=monkeys&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0018.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>94</index>
+				<gameID>NT0007</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Wild Rockets</gameName-en>
+				<gameName-ch>&#x91CE;&#x751F;&#x706B;&#x7BAD;</gameName-ch>
+				<gameName-jp>&#x30EF;&#x30A4;&#x30EB;&#x30C9;
+					&#x30ED;&#x30B1;&#x30C3;&#x30C4;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>wildrockets</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=wildrockets&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0007.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>95</index>
+				<gameID>NT0017</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Subtopia</gameName-en>
+				<gameName-ch>&#x6DF1;&#x6D77;&#x63A2;&#x9669;</gameName-ch>
+				<gameName-jp>&#x30B5;&#x30D6;&#x30C8;&#x30D4;&#x30A2;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>subtopia</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=subtopia&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0017.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>96</index>
+				<gameID>NT0006</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Thunder Fist</gameName-en>
+				<gameName-ch>&#x96F7;&#x9706;&#x62F3;</gameName-ch>
+				<gameName-jp>&#x30B5;&#x30F3;&#x30C0;&#x30FC;
+					&#x30D5;&#x30A3;&#x30B9;&#x30C8;</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>thunderfist</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=thunderfist&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0006.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>97</index>
+				<gameID>NT0016</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Evolution</gameName-en>
+				<gameName-ch>&#x6F14;&#x5316;</gameName-ch>
+				<gameName-jp>&#x30A8;&#x30DC;&#x30EA;&#x30E5;&#x30FC;&#x30B7;&#x30E7;&#x30F3;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>evolution</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=evolution&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0016.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>98</index>
+				<gameID>NT0005</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Victorious</gameName-en>
+				<gameName-ch>&#x83B7;&#x80DC;</gameName-ch>
+				<gameName-jp>&#x30D3;&#x30AF;&#x30C8;&#x30FC;&#x30EA;&#x30A2;&#x30B9;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>victorious</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=victorious&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0005.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>99</index>
+				<gameID>NT0015</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Magic Portals</gameName-en>
+				<gameName-ch>&#x9B54;&#x672F;&#x95E8;&#x6237;</gameName-ch>
+				<gameName-jp>&#x30DE;&#x30B8;&#x30C3;&#x30AF;&#x30DD;&#x30FC;&#x30BF;&#x30EB;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>magicportals</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=magicportals&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0015.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+			<record>
+				<index>100</index>
+				<gameID>NT0004</gameID>
+				<provider>BIGBOSS</provider>
+				<thirdParty>NETENT</thirdParty>
+				<type1>SLOT</type1>
+				<type2>FLASH</type2>
+				<gameName-en>Fireflies</gameName-en>
+				<gameName-ch>&#x8424;&#x706B;&#x866B;</gameName-ch>
+				<gameName-jp>&#x30D5;&#x30A1;&#x30A4;&#x30FC;&#x30A8;&#x30D5;&#x30E9;&#x30A4;&#x30BA;
+				</gameName-jp>
+				<gameName-kr></gameName-kr>
+				<gameLink>fireflies</gameLink>
+				<gameURL>http://gspotslots.bbtech.asia/UIS/connect?token={session}&amp;config=tokyo_ch&amp;gameconfig=fireflies&amp;room=10002
+				</gameURL>
+				<thumbnail>http://resource.us1.bbtech.asia/file/thumbnail/NT0004.png
+				</thumbnail>
+				<hit />
+				<line />
+				<jackpot>0</jackpot>
+			</record>
+		</records>
+	</response>
+</BBTECH>

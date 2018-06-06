@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ActivityRegBonus" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.ActivityRegBonus" >
+    <id column="regbonuscode" property="regbonuscode" jdbcType="INTEGER" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gettime" property="gettime" jdbcType="TIMESTAMP" />
+    <result column="regbonus" property="regbonus" jdbcType="DECIMAL" />
+    <result column="uniqueinfo" property="uniqueinfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    regbonuscode, employeecode, parentemployeecode, loginaccount, gettime, regbonus, 
+    uniqueinfo
+  </sql>
+  <sql id="regularcondition">
+  	<where>
+  	  <if test="regbonuscode != null" > and regbonuscode = #{regbonuscode}</if>
+      <if test="employeecode != null" > and employeecode = #{employeecode}</if>
+      <if test="parentemployeecode != null" > and parentemployeecode = #{parentemployeecode}</if>
+      <if test="loginaccount != null" > and loginaccount = #{loginaccount}</if>
+      <if test="gettime != null" > and gettime = #{gettime}</if>
+      <if test="regbonus != null" > and regbonus = #{regbonus}</if>
+      <if test="uniqueinfo != null" > and uniqueinfo = #{uniqueinfo}</if>
+  	</where>
+  </sql>
+  <sql id="fuzzycondition">
+  	<where>
+  	  <if test="housenumber != null" > or uniqueinfo like concat(#{housenumber}, '%')</if>
+      <if test="houseaddress != null" > or uniqueinfo like concat('%', #{houseaddress}, '%')</if>
+      <if test="email != null" > or uniqueinfo like concat('%', #{email}, '%')</if>
+      <if test="phonenumber != null" > or uniqueinfo like concat('%', #{phonenumber}, '%')</if>
+      <if test="payment != null" > or uniqueinfo like concat('%', #{payment}, '%')</if>
+      <if test="ip != null" > or uniqueinfo like concat('%', #{ip}, '%')</if>
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="insert" parameterType="com.maven.entity.ActivityRegBonus" >
+    insert into activity_reg_bonus (regbonuscode, employeecode, parentemployeecode, 
+      loginaccount, gettime, regbonus, 
+      uniqueinfo)
+    values (#{regbonuscode,jdbcType=INTEGER}, #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, 
+      #{loginaccount,jdbcType=VARCHAR}, #{gettime,jdbcType=TIMESTAMP}, #{regbonus,jdbcType=DECIMAL}, 
+      #{uniqueinfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ActivityRegBonus" >
+    insert into activity_reg_bonus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regbonuscode != null" >
+        regbonuscode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gettime != null" >
+        gettime,
+      </if>
+      <if test="regbonus != null" >
+        regbonus,
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regbonuscode != null" >
+        #{regbonuscode,jdbcType=INTEGER},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regbonus != null" >
+        #{regbonus,jdbcType=DECIMAL},
+      </if>
+      <if test="uniqueinfo != null" >
+        #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_reg_bonus
+    where regbonuscode = #{regbonuscode,jdbcType=INTEGER}
+  </select>
+  <select id="selectByLoginAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_reg_bonus
+    where loginaccount = #{loginaccount}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+  <select id="selectByUniqueinfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity_reg_bonus
+   	<include refid="fuzzycondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity_reg_bonus
+    where regbonuscode = #{regbonuscode,jdbcType=INTEGER}
+  </delete>
+<!-- =================================================修改语句================================================================ -->  
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ActivityRegBonus" >
+    update activity_reg_bonus
+    <set >
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gettime != null" >
+        gettime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regbonus != null" >
+        regbonus = #{regbonus,jdbcType=DECIMAL},
+      </if>
+      <if test="uniqueinfo != null" >
+        uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where regbonuscode = #{regbonuscode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ActivityRegBonus" >
+    update activity_reg_bonus
+    set employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gettime = #{gettime,jdbcType=TIMESTAMP},
+      regbonus = #{regbonus,jdbcType=DECIMAL},
+      uniqueinfo = #{uniqueinfo,jdbcType=VARCHAR}
+    where regbonuscode = #{regbonuscode,jdbcType=INTEGER}
+  </update>
+</mapper>

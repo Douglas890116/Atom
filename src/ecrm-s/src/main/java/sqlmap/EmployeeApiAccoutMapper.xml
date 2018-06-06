@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeApiAccout" >
+  <resultMap id="resultMap" type="com.maven.entity.EmployeeApiAccout" >
+    <id column="apiaccountcode" property="apiaccountcode" jdbcType="INTEGER" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" jdbcType="CHAR" property="parentemployeecode" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="CHAR" />
+    <result column="gameaccount" property="gameaccount" jdbcType="CHAR" />
+    <result column="gamepassword" property="gamepassword" jdbcType="CHAR" />
+    <result column="gamename" property="gamename" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    apiaccountcode,employeecode,loginaccount,parentemployeecode,gametype,enterprisecode,brandcode,gameaccount,gamepassword,createtime, balance, status
+  </sql>
+  
+  
+  <sql id="exactCondition">
+  	<where> 
+  	  <if test="enterprisecode !=null" >and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode !=null" >and brandcode = #{brandcode}</if>
+  	  <if test="createtime !=null" >and date(createtime) = date(#{createtime})</if>
+      <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+      <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+  	  <if test="gametype != null" >and gametype = #{gametype} </if>
+  	  <if test="gameaccount != null" >and gameaccount = #{gameaccount} </if>
+  	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+  	  <if test="status != null" >and status = #{status} </if>
+  	  <!-- 
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	   -->
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+ <insert id="add" parameterType="Map" >
+    insert into employee_api_accout (employeecode,parentemployeecode,loginaccount,enterprisecode,brandcode, gametype,gameaccount,gamepassword, createtime )
+    values (#{employeecode},#{parentemployeecode},#{loginaccount},#{enterprisecode},#{brandcode},#{gametype}, #{gameaccount},#{gamepassword}, #{createtime})
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<!-- Select SQL Area -->
+ <select id="select" resultMap="resultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" />  from employee_api_accout
+  	<include refid="exactCondition"/>
+  	order by createtime desc
+  </select>
+  <select id="selectUnionGName" resultMap="resultMap" parameterType="com.maven.entity.EmployeeApiAccout">
+  SELECT eaa.*,g.gamename FROM game g RIGHT JOIN (
+  select employeecode,loginaccount,parentemployeecode,gametype,enterprisecode,brandcode,gameaccount,gamepassword , createtime, balance, status
+  from employee_api_accout <include refid="exactCondition"/>
+  ) AS eaa ON g.gametype=eaa.gametype
+  </select>
+  
+  <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select <include refid="Base_Column_List" /> from employee_api_accout 
+    <include refid="exactCondition" /> 
+    <include refid="ABasic.orderby" /> 
+    <include refid="ABasic.page" />
+  </select>
+  <select id="selectAllCount" resultType="Long" parameterType="Map" >
+    select count(1) from employee_api_accout <include refid="exactCondition" />
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_api_accout
+    where apiaccountcode = #{apiaccountcode,jdbcType=INTEGER}
+  </select>
+  
+  
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+<!-- 禁用多个用户 -->
+	<update id="disableSelectEmployee" parameterType="Integer">
+		update employee_api_accout set status = '禁用' WHERE apiaccountcode in
+		<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+        	#{employeecode}  
+    	</foreach> 
+	</update>
+<!-- 启用多个用户 -->
+<update id="activateSelectEmployee" parameterType="Integer">
+	update employee_api_accout set status = '启用' WHERE apiaccountcode in
+	<foreach collection="array" index="index" item="employeecode" open="(" separator="," close=")">  
+       	#{employeecode}  
+   	</foreach> 
+</update>
+ 
+ <update id="update" parameterType="com.maven.entity.EmployeeApiAccout" >
+    update employee_api_accout eac
+    <set >
+      <if test="gameaccount != null" >eac.gameaccount = #{gameaccount},</if>
+      <if test="gamepassword != null" >eac.gamepassword = #{gamepassword},</if>
+      <if test="balance != null" >eac.balance = #{balance},</if>
+      <if test="status != null" >eac.status = #{status},</if>
+    </set>
+    where eac.enterprisecode = #{enterprisecode} and eac.employeecode = #{employeecode} and eac.loginaccount = #{loginaccount} and eac.gametype = #{gametype} and eac.gameaccount = #{gameaccount} 
+  </update>
+  
+</mapper>

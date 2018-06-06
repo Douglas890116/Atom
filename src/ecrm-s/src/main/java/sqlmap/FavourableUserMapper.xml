@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FavourableUser" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.FavourableUser" >
+    <id column="lsh" property="lsh" jdbcType="VARCHAR" />
+    <result column="favourableid" property="favourableid" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where> 
+  		ff.status=0
+		<if test="favourableid != null" > and fu.favourableid = #{favourableid}</if>
+		<if test="enterprisecode != null" > and ee.enterprisecode = #{enterprisecode}</if>
+		<if test="employeecode != null" > and ee.employeecode = #{employeecode}</if>
+		<if test="loginaccount != null" > and ee.loginaccount = #{loginaccount}</if>
+	</where>
+  </sql>
+  <select id="selectBetRecord" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from favourable_user fu inner join favourable ff on ff.lsh=fu.favourableid left join enterprise_employee ee on fu.employeecode=ee.employeecode
+  	
+  	<include refid="exactCondition" /> 
+  	<include refid="ABasic.orderby"></include> 
+  	<include refid="ABasic.page"></include>
+  </select>
+  <select id="selectBetRecordCount" resultType="java.lang.Integer" parameterType="Map">
+  	select count(1) from favourable_user fu inner join favourable ff on ff.lsh=fu.favourableid left join enterprise_employee ee on fu.employeecode=ee.employeecode
+  	<include refid="exactCondition" />
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="Map">
+  	select <include refid="Base_Column_List" /> from favourable_user fu inner join favourable ff on ff.lsh=fu.favourableid left join enterprise_employee ee on fu.employeecode=ee.employeecode
+  	<include refid="exactCondition" /> 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    fu.lsh, fu.favourableid, fu.enterprisecode, fu.employeecode, ee.loginaccount,ff.favourablename,     ff.isonce, ff.lsbs, ff.starttime, ff.endtime, ff.isdeault, ff.status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from favourable_user fu inner join favourable ff on ff.lsh=fu.favourableid left join enterprise_employee ee on fu.employeecode=ee.employeecode
+    where fu.lsh = #{lsh,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByFavourableid" parameterType="java.lang.String" >
+    delete from favourable_user
+    where favourableid = #{favourableid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="saveRecordBatch" parameterType="java.util.List" >
+    insert into favourable_user (lsh, favourableid, enterprisecode, employeecode) values
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.lsh}, #{item.favourableid}, #{item.enterprisecode}, #{item.employeecode})
+    </foreach>  
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from favourable_user
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.FavourableUser" >
+    insert into favourable_user (lsh, favourableid, enterprisecode, 
+      employeecode)
+    values (#{lsh,jdbcType=VARCHAR}, #{favourableid,jdbcType=VARCHAR}, #{enterprisecode,jdbcType=CHAR}, 
+      #{employeecode,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.FavourableUser" >
+    insert into favourable_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="favourableid != null" >
+        favourableid,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="favourableid != null" >
+        #{favourableid,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.FavourableUser" >
+    update favourable_user
+    <set >
+      <if test="favourableid != null" >
+        favourableid = #{favourableid,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.FavourableUser" >
+    update favourable_user
+    set favourableid = #{favourableid,jdbcType=VARCHAR},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      employeecode = #{employeecode,jdbcType=CHAR}
+    where lsh = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

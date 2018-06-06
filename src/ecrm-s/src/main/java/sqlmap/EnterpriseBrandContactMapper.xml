@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EnterpriseBrandContact" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.EnterpriseBrandContact" >
+    <id column="contactcode" property="contactcode" jdbcType="CHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="contacttitle" property="contacttitle" jdbcType="VARCHAR" />
+    <result column="contacttype" property="contacttype" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="contenttype" property="contenttype" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="CHAR" />
+    <result column="datastatus" property="datastatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ebc.CONTACTCODE,ebc.ENTERPRISECODE, ebc.BRANDCODE, ebc.CONTACTTITLE, ebc.CONTACTTYPE, ebc.CONTENT, ebc.CONTENTTYPE, ebc.ENABLE, ebc.DATASTATUS,eob.BRANDNAME
+  </sql>
+  <sql id="condition">
+	<where>
+		<if test="contactcode!=null">AND ebc.contactcode = #{contactcode}</if>
+		<if test="enterprisecode">AND ebc.enterprisecode = #{enterprisecode}</if>
+		<if test="brandcode!=null">AND ebc.brandcode = #{brandcode}</if>
+		<if test="contacttitle!=null">AND ebc.contacttitle = #{contacttitle}</if>
+		<if test="contacttype!=null">AND ebc.contacttype = #{contacttype}</if>
+		<if test="content!=null">AND ebc.content = #{content}</if>
+		<if test="contenttype!=null">AND ebc.contenttype = #{contenttype}</if>
+		<if test="enable!=null">AND ebc.enable = #{enable}</if>
+		<if test="brandname!=null">AND eob.brandname = #{brandname}</if>
+		AND ebc.datastatus = 1
+	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+<insert id="insert" parameterType="com.maven.entity.EnterpriseBrandContact" >
+    insert into enterprise_brand_contact
+      (contactcode,enterprisecode, brandcode, contacttitle, contacttype, content, contenttype, enable, datastatus)
+    values
+      (#{contactcode,jdbcType=CHAR},#{enterprisecode}, #{brandcode,jdbcType=CHAR}, #{contacttitle,jdbcType=VARCHAR}, #{contacttype,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{contenttype,jdbcType=VARCHAR}, #{enable,jdbcType=CHAR}, #{datastatus,jdbcType=CHAR})
+  </insert>
+  <insert id="saveBrandContact" parameterType="com.maven.entity.EnterpriseBrandContact" >
+    insert into enterprise_brand_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        contactcode,
+        <if test="enterprisecode != null"> enterprisecode,</if>
+        <if test="brandcode != null">  brandcode,</if>
+		<if test="contacttitle != null"> contacttitle,</if>
+		<if test="contacttype != null"> contacttype,</if>
+		<if test="content != null"> content,</if>
+		<if test="contenttype != null"> contenttype,</if>
+		<if test="enable != null"> enable,</if>
+		<if test="datastatus != null"> datastatus,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ufn_get_next_string_by_tablename('enterprise_brand_contact',0),
+      <if test="enterprisecode != null" >#{enterprisecode,jdbcType=CHAR}, </if>
+      <if test="brandcode != null" >#{brandcode,jdbcType=CHAR}, </if>
+      <if test="contacttitle != null" >#{contacttitle,jdbcType=VARCHAR}, </if>
+      <if test="contacttype != null" >#{contacttype,jdbcType=VARCHAR}, </if>
+      <if test="content != null" >#{content,jdbcType=VARCHAR}, </if>
+      <if test="contenttype != null" >#{contenttype,jdbcType=VARCHAR}, </if>
+      <if test="enable != null" >#{enable,jdbcType=CHAR}, </if>
+      <if test="datastatus != null" >#{datastatus,jdbcType=CHAR}, </if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="getBrandContact" resultType="com.maven.entity.EnterpriseBrandContact" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM enterprise_brand_contact ebc INNER JOIN enterprise_operating_brand eob on ebc.brandcode=eob.brandcode
+    <include refid="condition" />
+  </select>
+  <select id="queryBrandContact" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    SELECT <include refid="Base_Column_List" /> FROM enterprise_brand_contact ebc INNER JOIN enterprise_operating_brand eob on ebc.brandcode=eob.brandcode
+    <include refid="condition" /> <include refid="ABasic.page"/>
+  </select>
+  <select id="queryBrandContactCount" resultType="java.lang.Integer" parameterType="java.util.HashMap" >
+    SELECT COUNT(*) FROM enterprise_brand_contact ebc INNER JOIN enterprise_operating_brand eob ON ebc.brandcode=eob.brandcode <include refid="condition" />
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+<!-- =================================================修改语句================================================================ -->
+  <update id="updateBrandContact" parameterType="com.maven.entity.EnterpriseBrandContact" >
+    update enterprise_brand_contact
+    <set >
+      <if test="brandcode != null" >brandcode = #{brandcode,jdbcType=CHAR},</if>
+      <if test="contacttitle != null" >contacttitle = #{contacttitle,jdbcType=VARCHAR},</if>
+      <if test="contacttype != null" >contacttype = #{contacttype,jdbcType=VARCHAR},</if>
+      <if test="content != null" >content = #{content,jdbcType=VARCHAR},</if>
+      <if test="contenttype != null" >contenttype = #{contenttype,jdbcType=VARCHAR},</if>
+      <if test="enable != null" >enable = #{enable,jdbcType=CHAR},</if>
+      <if test="datastatus != null" >datastatus = #{datastatus,jdbcType=CHAR},</if>
+    </set>
+    where contactcode = #{contactcode,jdbcType=CHAR}
+  </update>
+  <update id="deleteBrandContact" parameterType="java.lang.String" >
+    UPDATE enterprise_brand_contact set datastatus = -1 WHERE contactcode IN
+    <foreach collection="array" item="contactcode" open="(" separator="," close=")">
+    	#{contactcode}
+    </foreach>
+  </update>
+</mapper>

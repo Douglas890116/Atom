@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AgentBannerInfo">
+
+	<resultMap id="BaseResultMap" type="com.maven.entity.AgentBannerInfo">
+		<id column="lsh" property="lsh" jdbcType="INTEGER" />
+		<result column="enterprisecode" property="enterprisecode"
+			jdbcType="CHAR" />
+		<result column="brandcode" property="brandcode" jdbcType="CHAR" />
+		<result column="bannertype" property="bannertype" jdbcType="CHAR" />
+		<result column="imgpath" property="imgpath" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pay.lsh, pay.enterprisecode, pay.brandcode, pay.bannertype,
+		pay.imgpath
+	</sql>
+	<sql id="rangecondition">
+		<where>
+			brand.datastatus = 1
+			<if test="enterprisecode != null"> and pay.enterprisecode =
+				#{enterprisecode}
+			</if>
+			<if test="brandcode != null"> and pay.brandcode = #{brandcode}
+			</if>
+			<if test="bannertype != null"> and pay.bannertype = #{bannertype}
+			</if>
+		</where>
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from agent_banner_info pay
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="List">
+		delete from
+		agent_banner_info
+		where lsh in
+		<foreach collection="list" item="item" open="(" close=")"
+			separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	<insert id="insert" parameterType="com.maven.entity.AgentBannerInfo">
+		insert into agent_banner_info
+		(lsh, enterprisecode, brandcode,
+		bannertype, imgpath)
+		values
+		(#{lsh,jdbcType=INTEGER}, #{enterprisecode,jdbcType=CHAR},
+		#{brandcode,jdbcType=CHAR},
+		#{bannertype,jdbcType=CHAR},
+		#{imgpath,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.maven.entity.AgentBannerInfo">
+		insert into agent_banner_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lsh != null">
+				lsh,
+			</if>
+			<if test="enterprisecode != null">
+				enterprisecode,
+			</if>
+			<if test="brandcode != null">
+				brandcode,
+			</if>
+			<if test="bannertype != null">
+				bannertype,
+			</if>
+			<if test="imgpath != null">
+				imgpath,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lsh != null">
+				#{lsh,jdbcType=INTEGER},
+			</if>
+			<if test="enterprisecode != null">
+				#{enterprisecode,jdbcType=CHAR},
+			</if>
+			<if test="brandcode != null">
+				#{brandcode,jdbcType=CHAR},
+			</if>
+			<if test="bannertype != null">
+				#{bannertype,jdbcType=CHAR},
+			</if>
+			<if test="imgpath != null">
+				#{imgpath,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.AgentBannerInfo">
+		update agent_banner_info
+		<set>
+			<if test="enterprisecode != null">
+				enterprisecode = #{enterprisecode,jdbcType=CHAR},
+			</if>
+			<if test="brandcode != null">
+				brandcode = #{brandcode,jdbcType=CHAR},
+			</if>
+			<if test="bannertype != null">
+				bannertype = #{bannertype,jdbcType=CHAR},
+			</if>
+			<if test="imgpath != null">
+				imgpath = #{imgpath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.maven.entity.AgentBannerInfo">
+		update
+		agent_banner_info
+		set enterprisecode = #{enterprisecode,jdbcType=CHAR},
+		brandcode = #{brandcode,jdbcType=CHAR},
+		bannertype =
+		#{bannertype,jdbcType=CHAR},
+		imgpath = #{imgpath,jdbcType=VARCHAR}
+		where lsh = #{lsh,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectAll" resultType="java.util.Map" parameterType="Map">
+		select
+		<include refid="Base_Column_List" />
+		,brand.brandname from agent_banner_info as pay inner join
+		enterprise_operating_brand as brand on brand.brandcode=pay.brandcode
+		<include refid="rangecondition" />
+		order by pay.lsh asc
+		<include refid="ABasic.page" />
+	</select>
+
+	<select id="selectAllCount" resultType="Integer" parameterType="Map">
+		select count(1) from agent_banner_info as pay inner join
+		enterprise_operating_brand as brand on brand.brandcode=pay.brandcode
+		<include refid="rangecondition" />
+	</select>
+
+	<select id="selectBrandCode" resultType="String" parameterType="String">
+		select DISTINCT pay.brandcode from agent_banner_info as pay inner join
+		enterprise_operating_brand as brand on brand.brandcode=pay.brandcode
+		where pay.enterprisecode=#{enterprisecode}
+	</select>
+
+	<insert id="addDefaultAgentBannerInfo" parameterType="Map">
+		INSERT INTO
+		agent_banner_info (
+		enterprisecode,
+		brandcode,
+		bannertype,
+		imgpath
+		) SELECT
+		#{enterprisecode},
+		#{brandcode},
+		bannertype,
+		imgpath
+		FROM
+		agent_banner_info a
+		WHERE
+		a.enterprisecode IS NULL
+		AND a.brandcode IS NULL;
+	</insert>
+</mapper>

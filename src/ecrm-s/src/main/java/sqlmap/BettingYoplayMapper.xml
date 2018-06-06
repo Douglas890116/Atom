@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="BettingYoplay" >
+  <resultMap id="BaseResultMap" type="com.maven.entity.BettingYoplay" >
+    <id column="bill_No" property="billNo" jdbcType="VARCHAR" />
+    <result column="player_Name" property="playerName" jdbcType="VARCHAR" />
+    <result column="agent_Code" property="agentCode" jdbcType="VARCHAR" />
+    <result column="game_Code" property="gameCode" jdbcType="VARCHAR" />
+    <result column="net_Amount" property="netAmount" jdbcType="VARCHAR" />
+    <result column="bet_Time" property="betTime" jdbcType="TIMESTAMP" />
+    <result column="game_Type" property="gameType" jdbcType="VARCHAR" />
+    <result column="bet_Amount" property="betAmount" jdbcType="VARCHAR" />
+    <result column="valid_Bet_Amount" property="validBetAmount" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="play_Type" property="playType" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="table_Code" property="tableCode" jdbcType="VARCHAR" />
+    <result column="login_IP" property="loginIp" jdbcType="VARCHAR" />
+    <result column="recalcu_Time" property="recalcuTime" jdbcType="VARCHAR" />
+    <result column="platform_Type" property="platformType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="round" property="round" jdbcType="VARCHAR" />
+    <result column="slottype" property="slottype" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="mainbillno" property="mainbillno" jdbcType="VARCHAR" />
+    <result column="before_Credit" property="beforeCredit" jdbcType="VARCHAR" />
+    <result column="device_Type" property="deviceType" jdbcType="VARCHAR" />
+    <result column="bet_Amount_Base" property="betAmountBase" jdbcType="VARCHAR" />
+    <result column="bet_Amount_Bonus" property="betAmountBonus" jdbcType="VARCHAR" />
+    <result column="net_Amount_Base" property="netAmountBase" jdbcType="VARCHAR" />
+    <result column="net_Amount_Bonus" property="netAmountBonus" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="betmoney" property="betmoney" jdbcType="DOUBLE" />
+    <result column="netmoney" property="netmoney" jdbcType="DOUBLE" />
+    <result column="validmoney" property="validmoney" jdbcType="DOUBLE" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="VARCHAR" />
+    <result column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <result column="parentemployeecode" property="parentemployeecode" jdbcType="CHAR" />
+    <result column="loginaccount" property="loginaccount" jdbcType="VARCHAR" />
+    <result column="gamebigtype" property="gamebigtype" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bill_No, player_Name, agent_Code, game_Code, net_Amount, bet_Time, game_Type, bet_Amount, 
+    valid_Bet_Amount, flag, play_Type, currency, table_Code, login_IP, recalcu_Time, 
+    platform_Type, remark, round, slottype, result, mainbillno, before_Credit, device_Type, 
+    bet_Amount_Base, bet_Amount_Bonus, net_Amount_Base, net_Amount_Bonus, createtime, 
+    betmoney, netmoney, validmoney, enterprisecode, brandcode, employeecode, parentemployeecode, 
+    loginaccount, gamebigtype, status
+  </sql>
+  
+  <!-- 范围查询 -->
+  <sql id="rangecondition">
+  	<where>
+  	  <if test="teamCodes !=null and teamCodes.length > 0">
+  	  	and (parentemployeecode in 
+  	  	<foreach collection="teamCodes" item="teamcode" separator="," open="(" close=")">
+			#{teamcode}
+		</foreach>
+		<if test="teamLeaderCode != null" > or employeecode = #{teamLeaderCode} </if>)
+	  </if>
+	  <if test="enterprisecode != null" >and enterprisecode = #{enterprisecode} </if>
+	  <if test="brandcode != null" >and brandcode = #{brandcode} </if>
+	  <if test="employeecode != null" >and employeecode = #{employeecode} </if>
+	  <if test="parentemployeecode != null" >and parentemployeecode = #{parentemployeecode} </if>
+	  <if test="loginaccount != null" >and loginaccount = #{loginaccount} </if>
+	  <if test="billNo != null" >and bill_No = #{billNo} </if>
+  	  <if test="playerName != null" >and player_Name = #{playerName} </if>
+  	  <if test="betTime !=null">and bet_Time = #{betTime}</if>
+  	  <if test="gameType !=null">and game_Type = #{gameType}</if>
+  	  <if test="betAmount !=null">and bet_Amount = #{betAmount}</if>
+  	  <if test="startDate != null" >and bet_Time <![CDATA[ >= ]]> #{startDate} </if>
+      <if test="endDate != null" >and bet_Time <![CDATA[ <= ]]> #{endDate} </if>
+      
+      <if test="deviceType != null" >and device_Type = #{deviceType} </if>
+      <if test="platformType != null" >and platform_Type = #{platformType} </if>
+      <if test="round != null" >and round = #{round} </if>
+      
+      <!-- 前端查询使用 -->
+      <if test="StartDate != null" >and bet_Time <![CDATA[ >= ]]> #{StartDate} </if>
+      <if test="EndDate != null" >and bet_Time <![CDATA[ <= ]]> #{EndDate} </if>
+      
+  	</where>
+  </sql>
+  
+  <!-- =================================================新增语句================================================================ -->
+<!-- =================================================精确查询================================================================ -->
+ <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from betting_yoplay
+    where bill_No = #{billNo}
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" parameterType="Map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from betting_yoplay
+    <include refid="rangecondition" />
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" parameterType="Map" resultType="Long">
+    select count(1) 
+    from betting_yoplay 
+    <include refid="rangecondition" />
+  </select>
+  
+<!-- 数据统计之金额 -->  
+    <select id="takeRecordCountMoney" parameterType="Map" resultType="Map">
+    select count(1) count, 
+    sum(betmoney) betmoney,
+    sum(validmoney) validmoney,
+    sum(netmoney) netmoney
+    
+    from betting_yoplay
+    <include refid="rangecondition"></include>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from betting_yoplay
+    where bill_No = #{billNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from betting_yoplay
+    where bill_No = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.BettingYoplay" >
+    insert into betting_yoplay (bill_No, player_Name, agent_Code, 
+      game_Code, net_Amount, bet_Time, 
+      game_Type, bet_Amount, valid_Bet_Amount, 
+      flag, play_Type, currency, 
+      table_Code, login_IP, recalcu_Time, 
+      platform_Type, remark, round, 
+      slottype, result, mainbillno, 
+      before_Credit, device_Type, bet_Amount_Base, 
+      bet_Amount_Bonus, net_Amount_Base, net_Amount_Bonus, 
+      createtime, betmoney, netmoney, 
+      validmoney, enterprisecode, brandcode, 
+      employeecode, parentemployeecode, loginaccount, 
+      gamebigtype, status)
+    values (#{billNo,jdbcType=VARCHAR}, #{playerName,jdbcType=VARCHAR}, #{agentCode,jdbcType=VARCHAR}, 
+      #{gameCode,jdbcType=VARCHAR}, #{netAmount,jdbcType=VARCHAR}, #{betTime,jdbcType=VARCHAR}, 
+      #{gameType,jdbcType=VARCHAR}, #{betAmount,jdbcType=VARCHAR}, #{validBetAmount,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{playType,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, 
+      #{tableCode,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, #{recalcuTime,jdbcType=VARCHAR}, 
+      #{platformType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{round,jdbcType=VARCHAR}, 
+      #{slottype,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{mainbillno,jdbcType=VARCHAR}, 
+      #{beforeCredit,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, #{betAmountBase,jdbcType=VARCHAR}, 
+      #{betAmountBonus,jdbcType=VARCHAR}, #{netAmountBase,jdbcType=VARCHAR}, #{netAmountBonus,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{betmoney,jdbcType=DOUBLE}, #{netmoney,jdbcType=DOUBLE}, 
+      #{validmoney,jdbcType=DOUBLE}, #{enterprisecode,jdbcType=CHAR}, #{brandcode,jdbcType=VARCHAR}, 
+      #{employeecode,jdbcType=CHAR}, #{parentemployeecode,jdbcType=CHAR}, #{loginaccount,jdbcType=VARCHAR}, 
+      #{gamebigtype,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.BettingYoplay" >
+    insert into betting_yoplay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billNo != null" >
+        bill_No,
+      </if>
+      <if test="playerName != null" >
+        player_Name,
+      </if>
+      <if test="agentCode != null" >
+        agent_Code,
+      </if>
+      <if test="gameCode != null" >
+        game_Code,
+      </if>
+      <if test="netAmount != null" >
+        net_Amount,
+      </if>
+      <if test="betTime != null" >
+        bet_Time,
+      </if>
+      <if test="gameType != null" >
+        game_Type,
+      </if>
+      <if test="betAmount != null" >
+        bet_Amount,
+      </if>
+      <if test="validBetAmount != null" >
+        valid_Bet_Amount,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="playType != null" >
+        play_Type,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="tableCode != null" >
+        table_Code,
+      </if>
+      <if test="loginIp != null" >
+        login_IP,
+      </if>
+      <if test="recalcuTime != null" >
+        recalcu_Time,
+      </if>
+      <if test="platformType != null" >
+        platform_Type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="round != null" >
+        round,
+      </if>
+      <if test="slottype != null" >
+        slottype,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="mainbillno != null" >
+        mainbillno,
+      </if>
+      <if test="beforeCredit != null" >
+        before_Credit,
+      </if>
+      <if test="deviceType != null" >
+        device_Type,
+      </if>
+      <if test="betAmountBase != null" >
+        bet_Amount_Base,
+      </if>
+      <if test="betAmountBonus != null" >
+        bet_Amount_Bonus,
+      </if>
+      <if test="netAmountBase != null" >
+        net_Amount_Base,
+      </if>
+      <if test="netAmountBonus != null" >
+        net_Amount_Bonus,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="betmoney != null" >
+        betmoney,
+      </if>
+      <if test="netmoney != null" >
+        netmoney,
+      </if>
+      <if test="validmoney != null" >
+        validmoney,
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode,
+      </if>
+      <if test="brandcode != null" >
+        brandcode,
+      </if>
+      <if test="employeecode != null" >
+        employeecode,
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode,
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount,
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="playerName != null" >
+        #{playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentCode != null" >
+        #{agentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gameCode != null" >
+        #{gameCode,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmount != null" >
+        #{netAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="betTime != null" >
+        #{betTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gameType != null" >
+        #{gameType,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmount != null" >
+        #{betAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="validBetAmount != null" >
+        #{validBetAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="playType != null" >
+        #{playType,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCode != null" >
+        #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="recalcuTime != null" >
+        #{recalcuTime,jdbcType=VARCHAR},
+      </if>
+      <if test="platformType != null" >
+        #{platformType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="round != null" >
+        #{round,jdbcType=VARCHAR},
+      </if>
+      <if test="slottype != null" >
+        #{slottype,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="mainbillno != null" >
+        #{mainbillno,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeCredit != null" >
+        #{beforeCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmountBase != null" >
+        #{betAmountBase,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmountBonus != null" >
+        #{betAmountBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmountBase != null" >
+        #{netAmountBase,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmountBonus != null" >
+        #{netAmountBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betmoney != null" >
+        #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validmoney != null" >
+        #{validmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="enterprisecode != null" >
+        #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.BettingYoplay" >
+    update betting_yoplay
+    <set >
+      <if test="playerName != null" >
+        player_Name = #{playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentCode != null" >
+        agent_Code = #{agentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gameCode != null" >
+        game_Code = #{gameCode,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmount != null" >
+        net_Amount = #{netAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="betTime != null" >
+        bet_Time = #{betTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gameType != null" >
+        game_Type = #{gameType,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmount != null" >
+        bet_Amount = #{betAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="validBetAmount != null" >
+        valid_Bet_Amount = #{validBetAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="playType != null" >
+        play_Type = #{playType,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCode != null" >
+        table_Code = #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null" >
+        login_IP = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="recalcuTime != null" >
+        recalcu_Time = #{recalcuTime,jdbcType=VARCHAR},
+      </if>
+      <if test="platformType != null" >
+        platform_Type = #{platformType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="round != null" >
+        round = #{round,jdbcType=VARCHAR},
+      </if>
+      <if test="slottype != null" >
+        slottype = #{slottype,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="mainbillno != null" >
+        mainbillno = #{mainbillno,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeCredit != null" >
+        before_Credit = #{beforeCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        device_Type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmountBase != null" >
+        bet_Amount_Base = #{betAmountBase,jdbcType=VARCHAR},
+      </if>
+      <if test="betAmountBonus != null" >
+        bet_Amount_Bonus = #{betAmountBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmountBase != null" >
+        net_Amount_Base = #{netAmountBase,jdbcType=VARCHAR},
+      </if>
+      <if test="netAmountBonus != null" >
+        net_Amount_Bonus = #{netAmountBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betmoney != null" >
+        betmoney = #{betmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="netmoney != null" >
+        netmoney = #{netmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="validmoney != null" >
+        validmoney = #{validmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="enterprisecode != null" >
+        enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      </if>
+      <if test="brandcode != null" >
+        brandcode = #{brandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecode != null" >
+        employeecode = #{employeecode,jdbcType=CHAR},
+      </if>
+      <if test="parentemployeecode != null" >
+        parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      </if>
+      <if test="loginaccount != null" >
+        loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="gamebigtype != null" >
+        gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bill_No = #{billNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.BettingYoplay" >
+    update betting_yoplay
+    set player_Name = #{playerName,jdbcType=VARCHAR},
+      agent_Code = #{agentCode,jdbcType=VARCHAR},
+      game_Code = #{gameCode,jdbcType=VARCHAR},
+      net_Amount = #{netAmount,jdbcType=VARCHAR},
+      bet_Time = #{betTime,jdbcType=VARCHAR},
+      game_Type = #{gameType,jdbcType=VARCHAR},
+      bet_Amount = #{betAmount,jdbcType=VARCHAR},
+      valid_Bet_Amount = #{validBetAmount,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      play_Type = #{playType,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      table_Code = #{tableCode,jdbcType=VARCHAR},
+      login_IP = #{loginIp,jdbcType=VARCHAR},
+      recalcu_Time = #{recalcuTime,jdbcType=VARCHAR},
+      platform_Type = #{platformType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      round = #{round,jdbcType=VARCHAR},
+      slottype = #{slottype,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      mainbillno = #{mainbillno,jdbcType=VARCHAR},
+      before_Credit = #{beforeCredit,jdbcType=VARCHAR},
+      device_Type = #{deviceType,jdbcType=VARCHAR},
+      bet_Amount_Base = #{betAmountBase,jdbcType=VARCHAR},
+      bet_Amount_Bonus = #{betAmountBonus,jdbcType=VARCHAR},
+      net_Amount_Base = #{netAmountBase,jdbcType=VARCHAR},
+      net_Amount_Bonus = #{netAmountBonus,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      betmoney = #{betmoney,jdbcType=DOUBLE},
+      netmoney = #{netmoney,jdbcType=DOUBLE},
+      validmoney = #{validmoney,jdbcType=DOUBLE},
+      enterprisecode = #{enterprisecode,jdbcType=CHAR},
+      brandcode = #{brandcode,jdbcType=VARCHAR},
+      employeecode = #{employeecode,jdbcType=CHAR},
+      parentemployeecode = #{parentemployeecode,jdbcType=CHAR},
+      loginaccount = #{loginaccount,jdbcType=VARCHAR},
+      gamebigtype = #{gamebigtype,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where bill_No = #{billNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

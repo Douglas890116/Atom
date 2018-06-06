@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ApiSoltGametype" >
+  <resultMap id="resultMap" type="com.maven.entity.ApiSoltGametype" >
+    <id column="lsh" property="lsh" jdbcType="INTEGER" />
+    <result column="biggametype" property="biggametype" jdbcType="VARCHAR" />
+    <result column="enname" property="enname" jdbcType="VARCHAR" />
+    <result column="cnname" property="cnname" jdbcType="VARCHAR" />
+    <result column="trname" property="trname" jdbcType="VARCHAR" />
+    <result column="japname" property="japname" jdbcType="VARCHAR" />
+    <result column="krname" property="krname" jdbcType="VARCHAR" />
+    <result column="stype" property="stype" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="category2" property="category2" jdbcType="VARCHAR" />
+    <result column="category3" property="category3" jdbcType="VARCHAR" />
+    <result column="imagename" property="imagename" jdbcType="VARCHAR" />
+    <result column="gamecodeweb" property="gamecodeweb" jdbcType="VARCHAR" />
+    <result column="gamecodeh5" property="gamecodeh5" jdbcType="VARCHAR" />
+    <result column="isweb" property="isweb" jdbcType="VARCHAR" />
+    <result column="ish5" property="ish5" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ord" property="ord" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lsh, biggametype, enname, cnname, trname, japname, krname, stype, category, category2, category3, 
+    imagename, gamecodeweb, gamecodeh5, isweb, ish5, remark, createtime,ord
+  </sql>
+  
+  <sql id="rangeCondition">
+	<where>
+	  <if test="biggametype != null" > and biggametype = #{biggametype} </if>
+	  <if test="enname != null" > and enname = #{enname} </if>
+	  <if test="cnname != null" > and cnname = #{cnname} </if>
+	  <if test="trname != null" > and trname = #{trname} </if>
+	  
+	  <if test="stype != null" > and stype = #{stype} </if>
+	  <if test="category != null" > and category = #{category} </if>
+      <if test="category2 != null" > and  category2 = #{category2} </if>
+      <if test="gamecodeweb != null" > and gamecodeweb = #{gamecodeweb} </if>
+      <if test="gamecodeh5 != null" > and gamecodeh5  =  #{gamecodeh5} </if>
+      <if test="isweb != null" > and isweb  =  #{isweb} </if>
+      <if test="ish5 != null" > and ish5  =  #{ish5} </if>
+	</where>
+  </sql>
+  
+  <insert id="save" parameterType="com.maven.entity.Enterprise">
+    insert into api_solt_gametype (biggametype, enname, 
+      cnname, trname, japname, 
+      krname, stype, category, category2, 
+      category3, imagename, gamecodeweb, 
+      gamecodeh5, isweb, ish5, 
+      remark, createtime,ord)
+    values ( #{biggametype,jdbcType=VARCHAR}, #{enname,jdbcType=VARCHAR}, 
+      #{cnname,jdbcType=VARCHAR}, #{trname,jdbcType=VARCHAR}, #{japname,jdbcType=VARCHAR}, 
+      #{krname,jdbcType=VARCHAR}, #{stype,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{category2,jdbcType=VARCHAR}, 
+      #{category3,jdbcType=VARCHAR}, #{imagename,jdbcType=VARCHAR}, #{gamecodeweb,jdbcType=VARCHAR}, 
+      #{gamecodeh5,jdbcType=VARCHAR}, #{isweb,jdbcType=VARCHAR}, #{ish5,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{ord,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- =================================================模糊查询================================================================ -->
+<select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="Base_Column_List" /> 
+    from api_solt_gametype 
+    <include refid="rangeCondition" /> 
+    <include refid="ABasic.orderby"></include>
+    <include refid="ABasic.page"></include>
+  </select>
+  <select id="selectAllCount" resultType="Integer" parameterType="Map" >
+    select count(1) 
+    from api_solt_gametype 
+    <include refid="rangeCondition" />
+  </select>
+  <select id="select" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="Base_Column_List" /> 
+    from api_solt_gametype 
+    <include refid="rangeCondition" /> 
+    order by ord asc
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from api_solt_gametype
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from api_solt_gametype
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.maven.entity.ApiSoltGametype" >
+    insert into api_solt_gametype (biggametype, enname, 
+      cnname, trname, japname, 
+      krname, stype, category, category2, 
+      category3, imagename, gamecodeweb, 
+      gamecodeh5, isweb, ish5, 
+      remark, createtime, ord)
+    values ( #{biggametype,jdbcType=VARCHAR}, #{enname,jdbcType=VARCHAR}, 
+      #{cnname,jdbcType=VARCHAR}, #{trname,jdbcType=VARCHAR}, #{japname,jdbcType=VARCHAR}, 
+      #{krname,jdbcType=VARCHAR}, #{stype,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{category2,jdbcType=VARCHAR}, 
+      #{category3,jdbcType=VARCHAR}, #{imagename,jdbcType=VARCHAR}, #{gamecodeweb,jdbcType=VARCHAR}, 
+      #{gamecodeh5,jdbcType=VARCHAR}, #{isweb,jdbcType=VARCHAR}, #{ish5,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{ord,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maven.entity.ApiSoltGametype" >
+    insert into api_solt_gametype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        lsh,
+      </if>
+      <if test="biggametype != null" >
+        biggametype,
+      </if>
+      <if test="enname != null" >
+        enname,
+      </if>
+      <if test="cnname != null" >
+        cnname,
+      </if>
+      <if test="trname != null" >
+        trname,
+      </if>
+      <if test="japname != null" >
+        japname,
+      </if>
+      <if test="krname != null" >
+        krname,
+      </if>
+      <if test="stype != null" >
+        stype,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="category2 != null" >
+        category2,
+      </if>
+      <if test="category3 != null" >
+        category3,
+      </if>
+      <if test="imagename != null" >
+        imagename,
+      </if>
+      <if test="gamecodeweb != null" >
+        gamecodeweb,
+      </if>
+      <if test="gamecodeh5 != null" >
+        gamecodeh5,
+      </if>
+      <if test="isweb != null" >
+        isweb,
+      </if>
+      <if test="ish5 != null" >
+        ish5,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="ord != null" >
+        ord,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=INTEGER},
+      </if>
+      <if test="biggametype != null" >
+        #{biggametype,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="trname != null" >
+        #{trname,jdbcType=VARCHAR},
+      </if>
+      <if test="japname != null" >
+        #{japname,jdbcType=VARCHAR},
+      </if>
+      <if test="krname != null" >
+        #{krname,jdbcType=VARCHAR},
+      </if>
+      <if test="stype != null" >
+        #{stype,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="category2 != null" >
+        #{category2,jdbcType=VARCHAR},
+      </if>
+      <if test="category3 != null" >
+        #{category3,jdbcType=VARCHAR},
+      </if>
+      <if test="imagename != null" >
+        #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="gamecodeweb != null" >
+        #{gamecodeweb,jdbcType=VARCHAR},
+      </if>
+      <if test="gamecodeh5 != null" >
+        #{gamecodeh5,jdbcType=VARCHAR},
+      </if>
+      <if test="isweb != null" >
+        #{isweb,jdbcType=VARCHAR},
+      </if>
+      <if test="ish5 != null" >
+        #{ish5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ord != null" >
+        #{ord,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maven.entity.ApiSoltGametype" >
+    update api_solt_gametype
+    <set >
+      <if test="biggametype != null" >
+        biggametype = #{biggametype,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        enname = #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        cnname = #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="trname != null" >
+        trname = #{trname,jdbcType=VARCHAR},
+      </if>
+      <if test="japname != null" >
+        japname = #{japname,jdbcType=VARCHAR},
+      </if>
+      <if test="krname != null" >
+        krname = #{krname,jdbcType=VARCHAR},
+      </if>
+      <if test="stype != null" >
+        stype = #{stype,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="category2 != null" >
+        category2 = #{category2,jdbcType=VARCHAR},
+      </if>
+      <if test="category3 != null" >
+        category3 = #{category3,jdbcType=VARCHAR},
+      </if>
+      <if test="imagename != null" >
+        imagename = #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="gamecodeweb != null" >
+        gamecodeweb = #{gamecodeweb,jdbcType=VARCHAR},
+      </if>
+      <if test="gamecodeh5 != null" >
+        gamecodeh5 = #{gamecodeh5,jdbcType=VARCHAR},
+      </if>
+      <if test="isweb != null" >
+        isweb = #{isweb,jdbcType=VARCHAR},
+      </if>
+      <if test="ish5 != null" >
+        ish5 = #{ish5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ord != null" >
+        ord = #{ord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maven.entity.ApiSoltGametype" >
+    update api_solt_gametype
+    set biggametype = #{biggametype,jdbcType=VARCHAR},
+      enname = #{enname,jdbcType=VARCHAR},
+      cnname = #{cnname,jdbcType=VARCHAR},
+      trname = #{trname,jdbcType=VARCHAR},
+      japname = #{japname,jdbcType=VARCHAR},
+      krname = #{krname,jdbcType=VARCHAR},
+      stype = #{stype,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      category2 = #{category2,jdbcType=VARCHAR},
+      category3 = #{category3,jdbcType=VARCHAR},
+      imagename = #{imagename,jdbcType=VARCHAR},
+      gamecodeweb = #{gamecodeweb,jdbcType=VARCHAR},
+      gamecodeh5 = #{gamecodeh5,jdbcType=VARCHAR},
+      isweb = #{isweb,jdbcType=VARCHAR},
+      ish5 = #{ish5,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      ord = #{ord,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where lsh = #{lsh,jdbcType=INTEGER}
+  </update>
+</mapper>

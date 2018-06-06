@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EmployeeMappingMenu" >
+  <resultMap id="resultMap" type="com.maven.entity.EmployeeMappingMenu" >
+    <id column="employeecode" property="employeecode" jdbcType="CHAR" />
+    <id column="menucode" property="menucode" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="exactCondition">
+  	<where>
+  		<if test="menucode != null">and menucode = #{menucode}</if>
+  		<if test="employeecode != null"> and employeecode = #{employeecode}</if>
+  		
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+   <!--   批量保存用户权限 -->
+  <insert id="addBatch" parameterType="java.util.List" >
+    insert into employee_mapping_menu (employeecode, menucode)
+    values 
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.employeecode}, #{item.menucode}) 
+    </foreach>  
+  </insert>
+  <!-- 对代理进行默认授权 -->
+  <insert id="agentAuthorization" parameterType="com.maven.entity.EnterpriseEmployee">
+	  insert into employee_mapping_menu( employeecode, menucode) 
+	  	select #{employeecode},menucode from employee_mapping_menu where employeecode=#{parentemployeecode};
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<select id="select" parameterType="Map" resultMap="resultMap" >
+    select employeecode,menucode from employee_mapping_menu
+    <include refid="exactCondition"></include>
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!-- =================================================删除语句================================================================ -->
+  <delete id="delete" parameterType="Map" >
+    delete from employee_mapping_menu 
+    <include refid="exactCondition"></include>
+  </delete>
+  
+  <!--   根据员工编码删除权限 -->
+  <delete id="deleteByEmployeecode" parameterType="String">
+	delete from employee_mapping_menu where employeecode = #{employeecode}
+  </delete>
+  
+   <!--   删除用户权限 -->
+   <delete id="deleteEmployeePesrsssion" parameterType="Map">
+		delete from employee_mapping_menu 
+		<where> 
+		<if test="employeecodes !=null and employeecodes.length > 0">
+	  	  	and employeecode in 
+	  	  	<foreach collection="employeecodes" item="employeecode" separator="," open="(" close=")">
+				#{employeecode}
+			</foreach>
+		  </if>
+	   	and menucode in 
+	   	<foreach collection="menucodes" index="index" item="item" open="(" separator="," close=")">  
+	       	#{item.menucode}  
+	   	</foreach> 
+	   	</where>
+	</delete>
+<!-- =================================================修改语句================================================================ -->
+ 
+  
+</mapper>

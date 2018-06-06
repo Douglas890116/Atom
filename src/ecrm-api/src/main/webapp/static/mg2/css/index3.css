@@ -1,0 +1,78 @@
+/*div.top*/
+ul.top_left{
+	width:67%;
+	height:50px;
+	font-size:0.8em;
+	float:left;
+	margin-left:4% !important;
+	margin-bottom:0 !important;
+}
+ul.top_left>li{
+	height:50px;float:left;line-height:50px;text-align:center;
+}
+
+ul.top_left>li>a{
+	border-right:1px solid #d4d5d6;
+	color:#d4d5d6;
+	padding-left:0.7em;
+	padding-right:0.7em;
+}
+
+ul.top_left>li>a.last{border:0;}
+
+div.top_right{
+	float:right;
+	width:22%;
+	height:34px;
+	margin:8px 4% 0 0 !important;
+	border:1px solid #333536;
+	border-radius:20px;
+}
+
+div.top_right input{
+	float:left;
+	width:70%;height:100%;
+	background:#222222;
+	border:0;outline:none;
+	padding-left:5%;
+	border-radius:21px 0 0 21px;
+}
+
+div.top_right p{
+	float:left;
+	width:30%;height:100%;
+	line-height:34px;
+	text-align:center;
+	background:#3254b9;
+	border-radius:0 21px 21px 0;
+}
+
+/*div.games*/
+div.games>h5{
+	float:left;
+	height:100%;
+	line-height:84px;
+	margin:0 0 0 4%;
+	font-size:2em;
+}
+
+ol.gameN{
+	float:right;
+	height:100%;
+	margin-right:4%;
+	margin-bottom:0 !important;
+}
+
+ol.gameN>li{
+	float:left;
+	height:100%;line-height:84px;
+	padding-left:1em;
+	padding-right:1em;
+	font-size:0.9em;
+	cursor:pointer;
+}
+
+ol.gameN>li.on{
+	background:#511514;
+	border-bottom:2px solid red;
+}

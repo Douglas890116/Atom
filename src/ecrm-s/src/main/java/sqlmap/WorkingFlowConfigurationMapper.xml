@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WorkingFlowConfiguration" >
+  <resultMap id="resultMap" type="com.maven.entity.WorkingFlowConfiguration" >
+    <id column="flowcode" property="flowcode" jdbcType="CHAR" />
+    <result column="flowname" property="flowname" jdbcType="VARCHAR" />
+    <result column="enterprisecode" property="enterprisecode" jdbcType="CHAR" />
+    <result column="brandcode" property="brandcode" jdbcType="CHAR" />
+    <result column="flowtype" property="flowtype" jdbcType="SMALLINT" />
+    <result column="enable" property="enable" jdbcType="SMALLINT" />
+    <result column="flowsort" property="flowsort" jdbcType="SMALLINT" />
+    <result column="flowthreshold" property="flowthreshold" jdbcType="DECIMAL" />
+    <result column="handletime" property="handletime" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="datastatus" property="datastatus" jdbcType="SMALLINT" />
+    <!-- 视图字段 -->
+    <result column="brandname" property="brandname" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- Common SQL Area -->
+  <sql id="columnList" >
+    FLOWCODE,ENTERPRISECODE,BRANDCODE, FLOWTYPE, ENABLE, FLOWSORT, FLOWTHRESHOLD, HANDLETIME,
+    CREATETIME, DATASTATUS,FLOWNAME
+    <!-- 视图字段 -->
+    ,BRANDNAME
+  </sql>
+  <sql id="exactCondition">
+  	<where> 
+  	  <if test="flowcode != null" > and flowcode = #{flowcode}</if>
+  	  <if test="flowname != null" > and flowname = #{flowname}</if>
+  	  <if test="flowtype != null" > and flowtype = #{flowtype}</if>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode != null" > and brandcode = #{brandcode}</if>
+      <if test="enable != null" > and enable = #{enable}</if>
+      <if test="flowsort != null" > and flowsort = #{flowsort}</if>
+      <if test="flowthreshold != null" > and flowthreshold = #{flowthreshold}</if>
+      <if test="handletime != null" > and handletime = #{handletime}</if>
+      and datastatus = 1
+  	</where>
+  </sql>
+  <sql id="rangeCondition">
+  	<where> 
+  	  <if test="flowcode != null" > and flowcode = #{flowcode}</if>
+  	  <if test="flowname != null" > and flowname like CONCAT('%',CONCAT(#{flowname},'%'))</if>
+  	  <if test="flowtype != null" > and flowtype = #{flowtype}</if>
+  	  <if test="enterprisecode != null" > and enterprisecode = #{enterprisecode}</if>
+  	  <if test="brandcode != null" > and brandcode = #{brandcode}</if>
+      <if test="enable != null" > and enable = #{enable}</if>
+      <if test="flowsort != null" > and flowsort = #{flowsort}</if>
+      <if test="flowthreshold != null" > and flowthreshold = #{flowthreshold}</if>
+      <if test="handletime != null" > and handletime = #{handletime}</if>
+      <if test="createtime_begin != null" > and createtime >= #{createtime} </if>
+      <if test="createtime_end != null" > and createtime <![CDATA[ < ]]>  #{createtime} </if>
+      and datastatus = 1 
+  	</where>
+  </sql>
+<!-- =================================================新增语句================================================================ -->
+  <insert id="add" parameterType="Map" >
+    insert into working_flow_configuration
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      flowcode, flowname,createtime,enterprisecode,datastatus,
+      <if test="brandcode != null" >brandcode,</if>
+      <if test="flowtype != null" >flowtype,</if>
+      <if test="enable != null" >enable,</if>
+      <if test="flowsort != null" >flowsort,</if>
+      <if test="flowthreshold != null" >flowthreshold,</if>
+      <if test="handletime != null" >handletime,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ufn_get_next_string_by_tablename('working_flow_configuration',0),
+      #{flowname},NOW(),#{enterprisecode},1,
+      <if test="brandcode != null" >#{brandcode},</if>
+      <if test="flowtype != null" >#{flowtype},</if>
+      <if test="enable != null" >#{enable},</if>
+      <if test="flowsort != null" >#{flowsort},</if>
+      <if test="flowthreshold != null" >#{flowthreshold},</if>
+      <if test="handletime != null" >#{handletime},</if>
+    </trim>
+  </insert>
+<!-- =================================================精确查询================================================================ -->
+<!-- 根据code查询 -->
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select <include refid="columnList" /> from working_flow_configuration where flowcode = #{flowcode}
+  </select>
+   <select id="select" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" /> from view_workingflowconfiguration <include refid="exactCondition" /> 
+  </select>
+<!-- =================================================模糊查询================================================================ -->
+<!--   数据查询 -->
+  <select id="selectAll" resultMap="resultMap" parameterType="Map" >
+    select  <include refid="columnList" /> from view_workingflowconfiguration <include refid="rangeCondition" /> order by enterprisecode,flowsort asc <include refid="ABasic.page" />
+  </select>
+  
+<!--   数据统计-->
+   <select id="selectAllCount" resultType="long" parameterType="Map" >
+    select count(1) from view_workingflowconfiguration <include refid="rangeCondition" />
+  </select>
+<!-- =================================================删除语句================================================================ -->
+<!-- 根据code删除 -->
+  <delete id="delete" parameterType="Map" >
+    delete from working_flow_configuration where flowcode=#{flowcode}
+  </delete>
+  
+  <update id="logicDelete"  parameterType="String" >
+  	update working_flow_configuration set datastatus = #{datastatus} where flowcode=#{flowcode}
+  </update>
+<!-- =================================================修改语句================================================================ -->
+  <!-- 根据code更新 -->
+  <update id="update" parameterType="Map" >
+    update working_flow_configuration
+    <set>
+      <if test="flowname != null" >flowname = #{flowname},</if>
+      <if test="flowtype != null" >flowtype = #{flowtype},</if>
+      <if test="enable != null" >enable = #{enable},</if>
+      <if test="flowsort != null" >flowsort = #{flowsort},</if>
+      <if test="flowthreshold != null" >flowthreshold = #{flowthreshold},</if>
+      <if test="handletime != null" >handletime = #{handletime},</if>
+      <if test="datastatus != null" >datastatus = #{datastatus},</if>
+    </set>
+    where flowcode=#{flowcode}
+  </update>
+  <!-- 更新排序字段 -->
+  <update id="updateSort" parameterType="Map">
+  	UPDATE working_flow_configuration wfc  SET wfc.flowsort =  wfc.flowsort +1  
+  	 WHERE wfc.enterprisecode = #{enterprisecode} and wfc.flowsort >= #{flowsort}   
+  	 AND wfc.flowtype=#{flowtype} AND (SELECT COUNT(1) FROM (SELECT * FROM working_flow_configuration wfc1  
+  	 WHERE wfc1.enterprisecode = #{enterprisecode} AND wfc1.flowsort=#{flowsort}  AND wfc1.flowtype=#{flowtype}
+  	 <if test="flowcode != null" >
+	 	AND  wfc1.flowcode!=#{flowcode}
+  	 </if>
+  	 )a)>0
+  </update>
+<!--   批量更新 -->
+  <update id="updateBatch" parameterType="java.util.List" >
+  <foreach collection="list" item="item" index="index" open="" close="" separator=";" > 
+	    update working_flow_configuration
+	    <set >
+	      <if test="flowname != null" >flowname = #{item.flowname},</if>
+	      <if test="flowtype != null" >flowtype = #{item.flowtype},</if>
+	      <if test="enable != null" >enable = #{item.enable},</if>
+	      <if test="flowsort != null" >flowsort = #{item.flowsort},</if>
+	      <if test="flowthreshold != null" >flowthreshold = #{item.flowthreshold},</if>
+	      <if test="handletime != null" > handletime = #{handletime},</if>
+	    </set>
+	    where flowcode = #{item.flowcode}
+    </foreach>
+  </update>
+  
+  
+  
+</mapper>

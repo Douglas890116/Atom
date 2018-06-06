@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	  	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" >
+	<!-- 通过annotation来进行bean的创建 -->
+	<context:annotation-config/>
+	<!-- spring 启动时扫描包 -->
+	<context:component-scan base-package="com.maven" />
+	<!-- 开启AOP的自动代理，只要加入了@Aspect标签就自动代理 -->
+	<aop:aspectj-autoproxy/>
+	
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<bean class="com.maven.utility.SpringContextHolder" />
+	
+	<!-- 只读DataSource数据源 -->
+	<bean id="slavedataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url2}"/>
+        <property name="username" value="${jdbc.username2}"/>
+        <property name="password" value="${jdbc.password2}"/>
+        <property name="validationQuery" value="select 1 from dual"/>  
+  		<property name="testOnBorrow" value="false"></property>
+        <property name="testWhileIdle" value="true"></property> 
+        <property name="logAbandoned" value="true"></property> 
+        <property name="timeBetweenEvictionRunsMillis" value="30000"></property>
+        <property name="minEvictableIdleTimeMillis" value="1800000"></property>
+        <property name="numTestsPerEvictionRun" value="3"></property>        
+        
+        <property name="initialSize" value="5"></property>  
+        <property name="maxActive" value="30"></property>  
+        <property name="maxIdle" value="20"></property> 
+        <property name="minIdle" value="1"></property> 
+        <property name="maxWait"><value>10000</value></property>   
+        <property name="removeAbandoned"><value>true</value></property>   
+        <property name="removeAbandonedTimeout"><value>60</value></property>   
+        
+	</bean>
+	
+	<!-- 可读写DataSource数据源（切记：jdbc.url2是PL那台机，是设为主库的） -->
+	<bean id="masterdataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url2}"/>
+        <property name="username" value="${jdbc.username2}"/>
+        <property name="password" value="${jdbc.password2}"/>
+        <property name="validationQuery" value="select 1 from dual"/>  
+  		<property name="testOnBorrow" value="false"></property>
+        <property name="testWhileIdle" value="true"></property> 
+        <property name="logAbandoned" value="true"></property> 
+        <property name="timeBetweenEvictionRunsMillis" value="30000"></property>  
+        <property name="minEvictableIdleTimeMillis" value="1800000"></property>    
+        <property name="numTestsPerEvictionRun" value="3"></property>        
+        
+        <property name="initialSize" value="5"></property>  
+        <property name="maxActive" value="30"></property> 
+        <property name="maxIdle" value="20"></property>  
+        <property name="minIdle" value="1"></property> 
+        <property name="maxWait"><value>10000</value></property>   
+        <property name="removeAbandoned"><value>true</value></property>   
+        <property name="removeAbandonedTimeout"><value>60</value></property>   
+        
+	</bean>
+	<bean id="dataSource" class="com.maven.base.dao.DynamicDataSource">
+        <property name="targetDataSources">  
+              <map key-type="java.lang.String">  
+                  <!-- write -->
+                 <entry key="master" value-ref="masterdataSource"/>  
+                 <!-- read -->
+                 <entry key="slave" value-ref="slavedataSource"/>  
+              </map>  
+        </property>  
+        <property name="defaultTargetDataSource" ref="masterdataSource"/>  
+    </bean>
+	
+	<!-- spring-mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sqlmap-config.xml" />
+	</bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">  
+        <constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>  
+    </bean>
+ 
+ 	<!--事务管理器 (声明式事物)-->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+   	<!-- 拦截式 事物 -->
+   	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" propagation="REQUIRED" />
+			<tx:method name="get*" read-only="true" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="true" propagation="REQUIRED" />
+			<tx:method name="take*" read-only="true" propagation="REQUIRED" />
+			<tx:method name="query*" read-only="true" propagation="REQUIRED" />
+			<tx:method name="call_*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="edit*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="save*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="logicDelete*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+			<tx:method name="tc_*" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+		</tx:attributes>
+	</tx:advice>
+   	<aop:config expose-proxy="true">
+		<aop:pointcut id="txPointcut" expression="execution(* com.maven.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+	<!-- 读写分离切面 -->
+    <bean id="manyDataSourceAspect" class="com.maven.base.dao.DataSourceAspect" />
+    <aop:config>
+        <aop:aspect id="c" ref="manyDataSourceAspect">
+            <aop:pointcut id="tx" expression="execution(* com.maven.service.*.*(..))"/>
+            <aop:before pointcut-ref="tx" method="before"/>
+        </aop:aspect>
+    </aop:config>
+    
+
+	
+</beans>
