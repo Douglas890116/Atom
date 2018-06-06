@@ -38,5 +38,6 @@ bin/
 
 .mymetadata
 .classpath
+.DS_Store
 .project
 *.iml
