@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+*.log.*
 
 # BlueJ files
 *.ctxt
@@ -21,3 +22,21 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Customize Files #
+# 若本机上会生成一些与项目无关的文件，请自行在此添加忽略#
+.externalToolBuilders
+.externalToolBuilders/
+.settings
+.settings/
+META-INF
+META-INF/
+target
+target/
+bin
+bin/
+
+.mymetadata
+.classpath
+.project
+*.iml
