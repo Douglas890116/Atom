@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiTagXmlRecordMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_tag_xml_record(agentcode,platformtype,filenumber,xmltype,filepath,createtime,status)  values (#{agentcode},#{platformtype},#{filenumber},#{xmltype},#{filepath},#{createtime},#{status})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_tag_xml_record(agentcode,platformtype,filenumber,xmltype,filepath,createtime,status)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.agentcode},#{item.platformtype},#{item.filenumber},#{item.xmltype},#{item.filepath},#{item.createtime},#{item.status})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_tag_xml_record
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="agentcode != null">
+				agentcode,
+			</if>
+			<if test="platformtype != null">
+				platformtype,
+			</if>
+			<if test="filenumber != null">
+				filenumber,
+			</if>
+			<if test="xmltype != null">
+				xmltype,
+			</if>
+			<if test="filepath != null">
+				filepath,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="status != null">
+				status
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="agentcode != null">
+				#{agentcode},
+			</if>
+			<if test="platformtype != null">
+				#{platformtype},
+			</if>
+			<if test="filenumber != null">
+				#{filenumber},
+			</if>
+			<if test="xmltype != null">
+				#{xmltype},
+			</if>
+			<if test="filepath != null">
+				#{filepath},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="status != null">
+				#{status}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_tag_xml_record
+		<where>
+			<if test="agentcode != null">
+				agentcode=#{agentcode}
+			</if>
+			<if test="platformtype != null">
+				and platformtype=#{platformtype}
+			</if>
+			<if test="filenumber != null">
+				and filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and xmltype=#{xmltype}
+			</if>
+			<if test="filepath != null">
+				and filepath=#{filepath}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="ids != null">
+				and agentcode in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_tag_xml_record
+		<set>
+			<if test="platformtype != null">
+				platformtype=#{platformtype},
+			</if>
+			<if test="filenumber != null">
+				filenumber=#{filenumber},
+			</if>
+			<if test="xmltype != null">
+				xmltype=#{xmltype},
+			</if>
+			<if test="filepath != null">
+				filepath=#{filepath},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="status != null">
+				status=#{status}
+			</if>
+		</set>
+		where agentcode=#{agentcode}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_tag_xml_record set
+			platformtype=#{item.platformtype},filenumber=#{item.filenumber},xmltype=#{item.xmltype},filepath=#{item.filepath},createtime=#{item.createtime},status=#{item.status}
+			where agentcode =#{item.agentcode}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_tag_xml_record a where a.agentcode=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_tag_xml_record a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				a.agentcode=#{agentcode}
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype=#{platformtype}
+			</if>
+			<if test="filenumber != null">
+				and a.filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and a.xmltype=#{xmltype}
+			</if>
+			<if test="filepath != null">
+				and a.filepath=#{filepath}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.filenumber asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				 a.agentcode like '%${agentcode}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="filenumber != null">
+				and a.filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and a.xmltype like '%${xmltype}%'
+			</if>
+			<if test="filepath != null">
+				and a.filepath like '%${filepath}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.agentcode asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				 a.agentcode like '%${agentcode}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="filenumber != null">
+				and a.filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and a.xmltype like '%${xmltype}%'
+			</if>
+			<if test="filepath != null">
+				and a.filepath like '%${filepath}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.agentcode asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				 a.agentcode like '%${agentcode}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="filenumber != null">
+				and a.filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and a.xmltype like '%${xmltype}%'
+			</if>
+			<if test="filepath != null">
+				and a.filepath like '%${filepath}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				 a.agentcode like '%${agentcode}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="filenumber != null">
+				and a.filenumber=#{filenumber}
+			</if>
+			<if test="xmltype != null">
+				and a.xmltype like '%${xmltype}%'
+			</if>
+			<if test="filepath != null">
+				and a.filepath like '%${filepath}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+
+		</where>
+	</select>
+
+	<!--查最大值 -->
+	<select id="max" resultType="string" parameterType="hashmap">
+		select max(filenumber) from api_tag_xml_record a
+		<where>
+			<if test="agentcode != null">
+				 and a.agentcode = '${agentcode}'
+			</if>
+			<if test="platformtype != null">
+				 and a.platformtype = '${platformtype}'
+			</if>
+			<if test="xmltype != null">
+				 and a.xmltype = '${xmltype}'
+			</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,18 @@
+Window版本
+keytool -import -alias AddTrustExternalCARoot -file E:\\pt\\AddTrustExternalCARoot.crt -keystore "%JAVA_HOME%/jre/lib/security/cacerts"
+keytool -import -alias COMODOCertificationAuthority -file E:\\pt\\COMODOCertificationAuthority.crt -keystore "%JAVA_HOME%/jre/lib/security/cacerts"
+keytool -import -alias COMODORSACertificationAuthority -file E:\\pt\\COMODORSACertificationAuthority.crt -keystore "%JAVA_HOME%/jre/lib/security/cacerts"
+keytool -import -alias COMODORSADomainValidationSecureServerCA -file E:\\pt\\COMODORSADomainValidationSecureServerCA.crt -keystore "%JAVA_HOME%/jre/lib/security/cacerts"
+keytool -import -alias EssentialSSLCA -file E:\\pt\\EssentialSSLCA.crt -keystore "%JAVA_HOME%/jre/lib/security/cacerts"
+
+密码：changeit
+
+
+Liunx版本
+keytool -import -alias AddTrustExternalCARoot -file /data/p12/AddTrustExternalCARoot.crt -keystore "$JAVA_HOME/jre/lib/security/cacerts"
+keytool -import -alias COMODOCertificationAuthority -file /data/p12/COMODOCertificationAuthority.crt -keystore "$JAVA_HOME/jre/lib/security/cacerts"
+keytool -import -alias COMODORSACertificationAuthority -file /data/p12/COMODORSACertificationAuthority.crt -keystore "$JAVA_HOME/jre/lib/security/cacerts"
+keytool -import -alias COMODORSADomainValidationSecureServerCA -file /data/p12/COMODORSADomainValidationSecureServerCA.crt -keystore "$JAVA_HOME/jre/lib/security/cacerts"
+keytool -import -alias EssentialSSLCA -file /data/p12/EssentialSSLCA.crt -keystore "$JAVA_HOME/jre/lib/security/cacerts"
+
+密码：changeit

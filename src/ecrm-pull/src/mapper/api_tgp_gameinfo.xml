@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiTgpGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_tgp_gameinfo(ugsbetid,txid,betid,beton,betclosedon,betupdatedon,timestamp,roundid,roundstatus,userid,username,riskamt,winamt,winloss,beforebal,postbal,cur,gameprovider,gamename,gameid,platformtype,ipaddress,bettype,playtype,betmoney,netmoney,bettime,Platformflag,createtime,validmoney)  values (#{ugsbetid},#{txid},#{betid},#{beton},#{betclosedon},#{betupdatedon},#{timestamp},#{roundid},#{roundstatus},#{userid},#{username},#{riskamt},#{winamt},#{winloss},#{beforebal},#{postbal},#{cur},#{gameprovider},#{gamename},#{gameid},#{platformtype},#{ipaddress},#{bettype},#{playtype},#{betmoney},#{netmoney},#{bettime},#{Platformflag},#{createtime},#{validmoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_tgp_gameinfo(ugsbetid,txid,betid,beton,betclosedon,betupdatedon,timestamp,roundid,roundstatus,userid,username,riskamt,winamt,winloss,beforebal,postbal,cur,gameprovider,gamename,gameid,platformtype,ipaddress,bettype,playtype,betmoney,netmoney,bettime,Platformflag,createtime,validmoney)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.ugsbetid},#{item.txid},#{item.betid},#{item.beton},#{item.betclosedon},#{item.betupdatedon},#{item.timestamp},#{item.roundid},#{item.roundstatus},#{item.userid},#{item.username},#{item.riskamt},#{item.winamt},#{item.winloss},#{item.beforebal},#{item.postbal},#{item.cur},#{item.gameprovider},#{item.gamename},#{item.gameid},#{item.platformtype},#{item.ipaddress},#{item.bettype},#{item.playtype},#{item.betmoney},#{item.netmoney},#{item.bettime},#{item.Platformflag},#{item.createtime},#{item.validmoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_tgp_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="ugsbetid != null">
+				ugsbetid,
+			</if>
+			<if test="txid != null">
+				txid,
+			</if>
+			<if test="betid != null">
+				betid,
+			</if>
+			<if test="beton != null">
+				beton,
+			</if>
+			<if test="betclosedon != null">
+				betclosedon,
+			</if>
+			<if test="betupdatedon != null">
+				betupdatedon,
+			</if>
+			<if test="timestamp != null">
+				timestamp,
+			</if>
+			<if test="roundid != null">
+				roundid,
+			</if>
+			<if test="roundstatus != null">
+				roundstatus,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="riskamt != null">
+				riskamt,
+			</if>
+			<if test="winamt != null">
+				winamt,
+			</if>
+			<if test="winloss != null">
+				winloss,
+			</if>
+			<if test="beforebal != null">
+				beforebal,
+			</if>
+			<if test="postbal != null">
+				postbal,
+			</if>
+			<if test="cur != null">
+				cur,
+			</if>
+			<if test="gameprovider != null">
+				gameprovider,
+			</if>
+			<if test="gamename != null">
+				gamename,
+			</if>
+			<if test="gameid != null">
+				gameid,
+			</if>
+			<if test="platformtype != null">
+				platformtype,
+			</if>
+			<if test="ipaddress != null">
+				ipaddress,
+			</if>
+			<if test="bettype != null">
+				bettype,
+			</if>
+			<if test="playtype != null">
+				playtype,
+			</if>
+			<if test="betmoney != null">
+				betmoney,
+			</if>
+			<if test="netmoney != null">
+				netmoney,
+			</if>
+			<if test="bettime != null">
+				bettime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="validmoney != null">
+				validmoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="ugsbetid != null">
+				#{ugsbetid},
+			</if>
+			<if test="txid != null">
+				#{txid},
+			</if>
+			<if test="betid != null">
+				#{betid},
+			</if>
+			<if test="beton != null">
+				#{beton},
+			</if>
+			<if test="betclosedon != null">
+				#{betclosedon},
+			</if>
+			<if test="betupdatedon != null">
+				#{betupdatedon},
+			</if>
+			<if test="timestamp != null">
+				#{timestamp},
+			</if>
+			<if test="roundid != null">
+				#{roundid},
+			</if>
+			<if test="roundstatus != null">
+				#{roundstatus},
+			</if>
+			<if test="userid != null">
+				#{userid},
+			</if>
+			<if test="username != null">
+				#{username},
+			</if>
+			<if test="riskamt != null">
+				#{riskamt},
+			</if>
+			<if test="winamt != null">
+				#{winamt},
+			</if>
+			<if test="winloss != null">
+				#{winloss},
+			</if>
+			<if test="beforebal != null">
+				#{beforebal},
+			</if>
+			<if test="postbal != null">
+				#{postbal},
+			</if>
+			<if test="cur != null">
+				#{cur},
+			</if>
+			<if test="gameprovider != null">
+				#{gameprovider},
+			</if>
+			<if test="gamename != null">
+				#{gamename},
+			</if>
+			<if test="gameid != null">
+				#{gameid},
+			</if>
+			<if test="platformtype != null">
+				#{platformtype},
+			</if>
+			<if test="ipaddress != null">
+				#{ipaddress},
+			</if>
+			<if test="bettype != null">
+				#{bettype},
+			</if>
+			<if test="playtype != null">
+				#{playtype},
+			</if>
+			<if test="betmoney != null">
+				#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				#{netmoney},
+			</if>
+			<if test="bettime != null">
+				#{bettime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="validmoney != null">
+				#{validmoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_tgp_gameinfo
+		<where>
+			<if test="ugsbetid != null">
+				ugsbetid=#{ugsbetid}
+			</if>
+			<if test="txid != null">
+				and txid=#{txid}
+			</if>
+			<if test="betid != null">
+				and betid=#{betid}
+			</if>
+			<if test="beton != null">
+				and beton=#{beton}
+			</if>
+			<if test="betclosedon != null">
+				and betclosedon=#{betclosedon}
+			</if>
+			<if test="betupdatedon != null">
+				and betupdatedon=#{betupdatedon}
+			</if>
+			<if test="timestamp != null">
+				and timestamp=#{timestamp}
+			</if>
+			<if test="roundid != null">
+				and roundid=#{roundid}
+			</if>
+			<if test="roundstatus != null">
+				and roundstatus=#{roundstatus}
+			</if>
+			<if test="userid != null">
+				and userid=#{userid}
+			</if>
+			<if test="username != null">
+				and username=#{username}
+			</if>
+			<if test="riskamt != null">
+				and riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and cur=#{cur}
+			</if>
+			<if test="gameprovider != null">
+				and gameprovider=#{gameprovider}
+			</if>
+			<if test="gamename != null">
+				and gamename=#{gamename}
+			</if>
+			<if test="gameid != null">
+				and gameid=#{gameid}
+			</if>
+			<if test="platformtype != null">
+				and platformtype=#{platformtype}
+			</if>
+			<if test="ipaddress != null">
+				and ipaddress=#{ipaddress}
+			</if>
+			<if test="bettype != null">
+				and bettype=#{bettype}
+			</if>
+			<if test="playtype != null">
+				and playtype=#{playtype}
+			</if>
+			<if test="betmoney != null">
+				and betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and netmoney=#{netmoney}
+			</if>
+			<if test="bettime != null">
+				and bettime=#{bettime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="validmoney != null">
+				and validmoney=#{validmoney}
+			</if>
+			<if test="ids != null">
+				and ugsbetid in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_tgp_gameinfo
+		<set>
+			<if test="txid != null">
+				txid=#{txid},
+			</if>
+			<if test="betid != null">
+				betid=#{betid},
+			</if>
+			<if test="beton != null">
+				beton=#{beton},
+			</if>
+			<if test="betclosedon != null">
+				betclosedon=#{betclosedon},
+			</if>
+			<if test="betupdatedon != null">
+				betupdatedon=#{betupdatedon},
+			</if>
+			<if test="timestamp != null">
+				timestamp=#{timestamp},
+			</if>
+			<if test="roundid != null">
+				roundid=#{roundid},
+			</if>
+			<if test="roundstatus != null">
+				roundstatus=#{roundstatus},
+			</if>
+			<if test="userid != null">
+				userid=#{userid},
+			</if>
+			<if test="username != null">
+				username=#{username},
+			</if>
+			<if test="riskamt != null">
+				riskamt=#{riskamt},
+			</if>
+			<if test="winamt != null">
+				winamt=#{winamt},
+			</if>
+			<if test="winloss != null">
+				winloss=#{winloss},
+			</if>
+			<if test="beforebal != null">
+				beforebal=#{beforebal},
+			</if>
+			<if test="postbal != null">
+				postbal=#{postbal},
+			</if>
+			<if test="cur != null">
+				cur=#{cur},
+			</if>
+			<if test="gameprovider != null">
+				gameprovider=#{gameprovider},
+			</if>
+			<if test="gamename != null">
+				gamename=#{gamename},
+			</if>
+			<if test="gameid != null">
+				gameid=#{gameid},
+			</if>
+			<if test="platformtype != null">
+				platformtype=#{platformtype},
+			</if>
+			<if test="ipaddress != null">
+				ipaddress=#{ipaddress},
+			</if>
+			<if test="bettype != null">
+				bettype=#{bettype},
+			</if>
+			<if test="playtype != null">
+				playtype=#{playtype},
+			</if>
+			<if test="betmoney != null">
+				betmoney=#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				netmoney=#{netmoney},
+			</if>
+			<if test="bettime != null">
+				bettime=#{bettime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="validmoney != null">
+				validmoney=#{validmoney}
+			</if>
+		</set>
+		where ugsbetid=#{ugsbetid}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_tgp_gameinfo set
+			txid=#{item.txid},betid=#{item.betid},beton=#{item.beton},betclosedon=#{item.betclosedon},betupdatedon=#{item.betupdatedon},timestamp=#{item.timestamp},roundid=#{item.roundid},roundstatus=#{item.roundstatus},userid=#{item.userid},username=#{item.username},riskamt=#{item.riskamt},winamt=#{item.winamt},winloss=#{item.winloss},beforebal=#{item.beforebal},postbal=#{item.postbal},cur=#{item.cur},gameprovider=#{item.gameprovider},gamename=#{item.gamename},gameid=#{item.gameid},platformtype=#{item.platformtype},ipaddress=#{item.ipaddress},bettype=#{item.bettype},playtype=#{item.playtype},betmoney=#{item.betmoney},netmoney=#{item.netmoney},bettime=#{item.bettime},Platformflag=#{item.Platformflag},createtime=#{item.createtime},validmoney=#{item.validmoney}
+			where ugsbetid =#{item.ugsbetid}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_tgp_gameinfo a where a.ugsbetid=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_tgp_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_tgp_gameinfo a
+		<where>
+			<if test="ugsbetid != null">
+				a.ugsbetid=#{ugsbetid}
+			</if>
+			<if test="txid != null">
+				and a.txid=#{txid}
+			</if>
+			<if test="betid != null">
+				and a.betid=#{betid}
+			</if>
+			<if test="beton != null">
+				and a.beton=#{beton}
+			</if>
+			<if test="betclosedon != null">
+				and a.betclosedon=#{betclosedon}
+			</if>
+			<if test="betupdatedon != null">
+				and a.betupdatedon=#{betupdatedon}
+			</if>
+			<if test="timestamp != null">
+				and a.timestamp=#{timestamp}
+			</if>
+			<if test="roundid != null">
+				and a.roundid=#{roundid}
+			</if>
+			<if test="roundstatus != null">
+				and a.roundstatus=#{roundstatus}
+			</if>
+			<if test="userid != null">
+				and a.userid=#{userid}
+			</if>
+			<if test="username != null">
+				and a.username=#{username}
+			</if>
+			<if test="riskamt != null">
+				and a.riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and a.winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and a.winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and a.beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and a.postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and a.cur=#{cur}
+			</if>
+			<if test="gameprovider != null">
+				and a.gameprovider=#{gameprovider}
+			</if>
+			<if test="gamename != null">
+				and a.gamename=#{gamename}
+			</if>
+			<if test="gameid != null">
+				and a.gameid=#{gameid}
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype=#{platformtype}
+			</if>
+			<if test="ipaddress != null">
+				and a.ipaddress=#{ipaddress}
+			</if>
+			<if test="bettype != null">
+				and a.bettype=#{bettype}
+			</if>
+			<if test="playtype != null">
+				and a.playtype=#{playtype}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+			<if test="bettime != null">
+				and a.bettime=#{bettime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="validmoney != null">
+				and a.validmoney=#{validmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ugsbetid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_tgp_gameinfo a
+		<where>
+			<if test="ugsbetid != null">
+				 a.ugsbetid like '%${ugsbetid}%'
+			</if>
+			<if test="txid != null">
+				and a.txid like '%${txid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.beton between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betclosedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betupdatedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.timestamp between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="roundid != null">
+				and a.roundid like '%${roundid}%'
+			</if>
+			<if test="roundstatus != null">
+				and a.roundstatus like '%${roundstatus}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="riskamt != null">
+				and a.riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and a.winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and a.winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and a.beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and a.postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and a.cur like '%${cur}%'
+			</if>
+			<if test="gameprovider != null">
+				and a.gameprovider like '%${gameprovider}%'
+			</if>
+			<if test="gamename != null">
+				and a.gamename like '%${gamename}%'
+			</if>
+			<if test="gameid != null">
+				and a.gameid like '%${gameid}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="ipaddress != null">
+				and a.ipaddress like '%${ipaddress}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="playtype != null">
+				and a.playtype like '%${playtype}%'
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validmoney != null">
+				and a.validmoney=#{validmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ugsbetid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_tgp_gameinfo a
+		<where>
+			<if test="ugsbetid != null">
+				 a.ugsbetid like '%${ugsbetid}%'
+			</if>
+			<if test="txid != null">
+				and a.txid like '%${txid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.beton between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betclosedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betupdatedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.timestamp between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="roundid != null">
+				and a.roundid like '%${roundid}%'
+			</if>
+			<if test="roundstatus != null">
+				and a.roundstatus like '%${roundstatus}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="riskamt != null">
+				and a.riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and a.winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and a.winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and a.beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and a.postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and a.cur like '%${cur}%'
+			</if>
+			<if test="gameprovider != null">
+				and a.gameprovider like '%${gameprovider}%'
+			</if>
+			<if test="gamename != null">
+				and a.gamename like '%${gamename}%'
+			</if>
+			<if test="gameid != null">
+				and a.gameid like '%${gameid}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="ipaddress != null">
+				and a.ipaddress like '%${ipaddress}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="playtype != null">
+				and a.playtype like '%${playtype}%'
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validmoney != null">
+				and a.validmoney=#{validmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ugsbetid asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_tgp_gameinfo a
+		<where>
+			<if test="ugsbetid != null">
+				 a.ugsbetid like '%${ugsbetid}%'
+			</if>
+			<if test="txid != null">
+				and a.txid like '%${txid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.beton between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betclosedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betupdatedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.timestamp between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="roundid != null">
+				and a.roundid like '%${roundid}%'
+			</if>
+			<if test="roundstatus != null">
+				and a.roundstatus like '%${roundstatus}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="riskamt != null">
+				and a.riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and a.winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and a.winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and a.beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and a.postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and a.cur like '%${cur}%'
+			</if>
+			<if test="gameprovider != null">
+				and a.gameprovider like '%${gameprovider}%'
+			</if>
+			<if test="gamename != null">
+				and a.gamename like '%${gamename}%'
+			</if>
+			<if test="gameid != null">
+				and a.gameid like '%${gameid}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="ipaddress != null">
+				and a.ipaddress like '%${ipaddress}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="playtype != null">
+				and a.playtype like '%${playtype}%'
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validmoney != null">
+				and a.validmoney=#{validmoney}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_tgp_gameinfo a
+		<where>
+			<if test="ugsbetid != null">
+				 a.ugsbetid like '%${ugsbetid}%'
+			</if>
+			<if test="txid != null">
+				and a.txid like '%${txid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.beton between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betclosedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betupdatedon between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.timestamp between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="roundid != null">
+				and a.roundid like '%${roundid}%'
+			</if>
+			<if test="roundstatus != null">
+				and a.roundstatus like '%${roundstatus}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="riskamt != null">
+				and a.riskamt=#{riskamt}
+			</if>
+			<if test="winamt != null">
+				and a.winamt=#{winamt}
+			</if>
+			<if test="winloss != null">
+				and a.winloss=#{winloss}
+			</if>
+			<if test="beforebal != null">
+				and a.beforebal=#{beforebal}
+			</if>
+			<if test="postbal != null">
+				and a.postbal=#{postbal}
+			</if>
+			<if test="cur != null">
+				and a.cur like '%${cur}%'
+			</if>
+			<if test="gameprovider != null">
+				and a.gameprovider like '%${gameprovider}%'
+			</if>
+			<if test="gamename != null">
+				and a.gamename like '%${gamename}%'
+			</if>
+			<if test="gameid != null">
+				and a.gameid like '%${gameid}%'
+			</if>
+			<if test="platformtype != null">
+				and a.platformtype like '%${platformtype}%'
+			</if>
+			<if test="ipaddress != null">
+				and a.ipaddress like '%${ipaddress}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="playtype != null">
+				and a.playtype like '%${playtype}%'
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validmoney != null">
+				and a.validmoney=#{validmoney}
+			</if>
+
+		</where>
+	</select>
+</mapper>

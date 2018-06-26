@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiGbGameInfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_gb_gameinfo(settleid,betid,betgrpno,tpcode,gbsn,memberid,curcode,betdt,bettype,bettypeparam1,bettypeparam2,wintype,hxmguid,initbetamt,realbetamt,holdingamt,initbetrate,realbetrate,prewinamt,betresult,wlamt,refundbetamt,ticketbetamt,ticketresult,ticketwlamt,settledt,kenolist,lottolist,ssclist,pkxlist,createtime,bettime,betmoney,netmoney)  values (#{settleid},#{betid},#{betgrpno},#{tpcode},#{gbsn},#{memberid},#{curcode},#{betdt},#{bettype},#{bettypeparam1},#{bettypeparam2},#{wintype},#{hxmguid},#{initbetamt},#{realbetamt},#{holdingamt},#{initbetrate},#{realbetrate},#{prewinamt},#{betresult},#{wlamt},#{refundbetamt},#{ticketbetamt},#{ticketresult},#{ticketwlamt},#{settledt},#{kenolist},#{lottolist},#{ssclist},#{pkxlist},#{createtime},#{bettime},#{betmoney},#{netmoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_gb_gameinfo(settleid,betid,betgrpno,tpcode,gbsn,memberid,curcode,betdt,bettype,bettypeparam1,bettypeparam2,wintype,hxmguid,initbetamt,realbetamt,holdingamt,initbetrate,realbetrate,prewinamt,betresult,wlamt,refundbetamt,ticketbetamt,ticketresult,ticketwlamt,settledt,kenolist,lottolist,ssclist,pkxlist,createtime,bettime,betmoney,netmoney)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.settleid},#{item.betid},#{item.betgrpno},#{item.tpcode},#{item.gbsn},#{item.memberid},#{item.curcode},#{item.betdt},#{item.bettype},#{item.bettypeparam1},#{item.bettypeparam2},#{item.wintype},#{item.hxmguid},#{item.initbetamt},#{item.realbetamt},#{item.holdingamt},#{item.initbetrate},#{item.realbetrate},#{item.prewinamt},#{item.betresult},#{item.wlamt},#{item.refundbetamt},#{item.ticketbetamt},#{item.ticketresult},#{item.ticketwlamt},#{item.settledt},#{item.kenolist},#{item.lottolist},#{item.ssclist},#{item.pkxlist},#{item.createtime},#{item.bettime},#{item.betmoney},#{item.netmoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_gb_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="settleid != null">
+				settleid,
+			</if>
+			<if test="betid != null">
+				betid,
+			</if>
+			<if test="betgrpno != null">
+				betgrpno,
+			</if>
+			<if test="tpcode != null">
+				tpcode,
+			</if>
+			<if test="gbsn != null">
+				gbsn,
+			</if>
+			<if test="memberid != null">
+				memberid,
+			</if>
+			<if test="curcode != null">
+				curcode,
+			</if>
+			<if test="betdt != null">
+				betdt,
+			</if>
+			<if test="bettype != null">
+				bettype,
+			</if>
+			<if test="bettypeparam1 != null">
+				bettypeparam1,
+			</if>
+			<if test="bettypeparam2 != null">
+				bettypeparam2,
+			</if>
+			<if test="wintype != null">
+				wintype,
+			</if>
+			<if test="hxmguid != null">
+				hxmguid,
+			</if>
+			<if test="initbetamt != null">
+				initbetamt,
+			</if>
+			<if test="realbetamt != null">
+				realbetamt,
+			</if>
+			<if test="holdingamt != null">
+				holdingamt,
+			</if>
+			<if test="initbetrate != null">
+				initbetrate,
+			</if>
+			<if test="realbetrate != null">
+				realbetrate,
+			</if>
+			<if test="prewinamt != null">
+				prewinamt,
+			</if>
+			<if test="betresult != null">
+				betresult,
+			</if>
+			<if test="wlamt != null">
+				wlamt,
+			</if>
+			<if test="refundbetamt != null">
+				refundbetamt,
+			</if>
+			<if test="ticketbetamt != null">
+				ticketbetamt,
+			</if>
+			<if test="ticketresult != null">
+				ticketresult,
+			</if>
+			<if test="ticketwlamt != null">
+				ticketwlamt,
+			</if>
+			<if test="settledt != null">
+				settledt,
+			</if>
+			<if test="kenolist != null">
+				kenolist,
+			</if>
+			<if test="lottolist != null">
+				lottolist,
+			</if>
+			<if test="ssclist != null">
+				ssclist,
+			</if>
+			<if test="pkxlist != null">
+				pkxlist,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="bettime != null">
+				bettime,
+			</if>
+			<if test="betmoney != null">
+				betmoney,
+			</if>
+			<if test="netmoney != null">
+				netmoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="settleid != null">
+				#{settleid},
+			</if>
+			<if test="betid != null">
+				#{betid},
+			</if>
+			<if test="betgrpno != null">
+				#{betgrpno},
+			</if>
+			<if test="tpcode != null">
+				#{tpcode},
+			</if>
+			<if test="gbsn != null">
+				#{gbsn},
+			</if>
+			<if test="memberid != null">
+				#{memberid},
+			</if>
+			<if test="curcode != null">
+				#{curcode},
+			</if>
+			<if test="betdt != null">
+				#{betdt},
+			</if>
+			<if test="bettype != null">
+				#{bettype},
+			</if>
+			<if test="bettypeparam1 != null">
+				#{bettypeparam1},
+			</if>
+			<if test="bettypeparam2 != null">
+				#{bettypeparam2},
+			</if>
+			<if test="wintype != null">
+				#{wintype},
+			</if>
+			<if test="hxmguid != null">
+				#{hxmguid},
+			</if>
+			<if test="initbetamt != null">
+				#{initbetamt},
+			</if>
+			<if test="realbetamt != null">
+				#{realbetamt},
+			</if>
+			<if test="holdingamt != null">
+				#{holdingamt},
+			</if>
+			<if test="initbetrate != null">
+				#{initbetrate},
+			</if>
+			<if test="realbetrate != null">
+				#{realbetrate},
+			</if>
+			<if test="prewinamt != null">
+				#{prewinamt},
+			</if>
+			<if test="betresult != null">
+				#{betresult},
+			</if>
+			<if test="wlamt != null">
+				#{wlamt},
+			</if>
+			<if test="refundbetamt != null">
+				#{refundbetamt},
+			</if>
+			<if test="ticketbetamt != null">
+				#{ticketbetamt},
+			</if>
+			<if test="ticketresult != null">
+				#{ticketresult},
+			</if>
+			<if test="ticketwlamt != null">
+				#{ticketwlamt},
+			</if>
+			<if test="settledt != null">
+				#{settledt},
+			</if>
+			<if test="kenolist != null">
+				#{kenolist},
+			</if>
+			<if test="lottolist != null">
+				#{lottolist},
+			</if>
+			<if test="ssclist != null">
+				#{ssclist},
+			</if>
+			<if test="pkxlist != null">
+				#{pkxlist},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="bettime != null">
+				#{bettime},
+			</if>
+			<if test="betmoney != null">
+				#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				#{netmoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_gb_gameinfo
+		<where>
+			<if test="settleid != null">
+				settleid=#{settleid}
+			</if>
+			<if test="betid != null">
+				and betid=#{betid}
+			</if>
+			<if test="betgrpno != null">
+				and betgrpno=#{betgrpno}
+			</if>
+			<if test="tpcode != null">
+				and tpcode=#{tpcode}
+			</if>
+			<if test="gbsn != null">
+				and gbsn=#{gbsn}
+			</if>
+			<if test="memberid != null">
+				and memberid=#{memberid}
+			</if>
+			<if test="curcode != null">
+				and curcode=#{curcode}
+			</if>
+			<if test="betdt != null">
+				and betdt=#{betdt}
+			</if>
+			<if test="bettype != null">
+				and bettype=#{bettype}
+			</if>
+			<if test="bettypeparam1 != null">
+				and bettypeparam1=#{bettypeparam1}
+			</if>
+			<if test="bettypeparam2 != null">
+				and bettypeparam2=#{bettypeparam2}
+			</if>
+			<if test="wintype != null">
+				and wintype=#{wintype}
+			</if>
+			<if test="hxmguid != null">
+				and hxmguid=#{hxmguid}
+			</if>
+			<if test="initbetamt != null">
+				and initbetamt=#{initbetamt}
+			</if>
+			<if test="realbetamt != null">
+				and realbetamt=#{realbetamt}
+			</if>
+			<if test="holdingamt != null">
+				and holdingamt=#{holdingamt}
+			</if>
+			<if test="initbetrate != null">
+				and initbetrate=#{initbetrate}
+			</if>
+			<if test="realbetrate != null">
+				and realbetrate=#{realbetrate}
+			</if>
+			<if test="prewinamt != null">
+				and prewinamt=#{prewinamt}
+			</if>
+			<if test="betresult != null">
+				and betresult=#{betresult}
+			</if>
+			<if test="wlamt != null">
+				and wlamt=#{wlamt}
+			</if>
+			<if test="refundbetamt != null">
+				and refundbetamt=#{refundbetamt}
+			</if>
+			<if test="ticketbetamt != null">
+				and ticketbetamt=#{ticketbetamt}
+			</if>
+			<if test="ticketresult != null">
+				and ticketresult=#{ticketresult}
+			</if>
+			<if test="ticketwlamt != null">
+				and ticketwlamt=#{ticketwlamt}
+			</if>
+			<if test="settledt != null">
+				and settledt=#{settledt}
+			</if>
+			<if test="kenolist != null">
+				and kenolist=#{kenolist}
+			</if>
+			<if test="lottolist != null">
+				and lottolist=#{lottolist}
+			</if>
+			<if test="ssclist != null">
+				and ssclist=#{ssclist}
+			</if>
+			<if test="pkxlist != null">
+				and pkxlist=#{pkxlist}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and netmoney=#{netmoney}
+			</if>
+			<if test="ids != null">
+				and settleid in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_gb_gameinfo
+		<set>
+			<if test="betid != null">
+				betid=#{betid},
+			</if>
+			<if test="betgrpno != null">
+				betgrpno=#{betgrpno},
+			</if>
+			<if test="tpcode != null">
+				tpcode=#{tpcode},
+			</if>
+			<if test="gbsn != null">
+				gbsn=#{gbsn},
+			</if>
+			<if test="memberid != null">
+				memberid=#{memberid},
+			</if>
+			<if test="curcode != null">
+				curcode=#{curcode},
+			</if>
+			<if test="betdt != null">
+				betdt=#{betdt},
+			</if>
+			<if test="bettype != null">
+				bettype=#{bettype},
+			</if>
+			<if test="bettypeparam1 != null">
+				bettypeparam1=#{bettypeparam1},
+			</if>
+			<if test="bettypeparam2 != null">
+				bettypeparam2=#{bettypeparam2},
+			</if>
+			<if test="wintype != null">
+				wintype=#{wintype},
+			</if>
+			<if test="hxmguid != null">
+				hxmguid=#{hxmguid},
+			</if>
+			<if test="initbetamt != null">
+				initbetamt=#{initbetamt},
+			</if>
+			<if test="realbetamt != null">
+				realbetamt=#{realbetamt},
+			</if>
+			<if test="holdingamt != null">
+				holdingamt=#{holdingamt},
+			</if>
+			<if test="initbetrate != null">
+				initbetrate=#{initbetrate},
+			</if>
+			<if test="realbetrate != null">
+				realbetrate=#{realbetrate},
+			</if>
+			<if test="prewinamt != null">
+				prewinamt=#{prewinamt},
+			</if>
+			<if test="betresult != null">
+				betresult=#{betresult},
+			</if>
+			<if test="wlamt != null">
+				wlamt=#{wlamt},
+			</if>
+			<if test="refundbetamt != null">
+				refundbetamt=#{refundbetamt},
+			</if>
+			<if test="ticketbetamt != null">
+				ticketbetamt=#{ticketbetamt},
+			</if>
+			<if test="ticketresult != null">
+				ticketresult=#{ticketresult},
+			</if>
+			<if test="ticketwlamt != null">
+				ticketwlamt=#{ticketwlamt},
+			</if>
+			<if test="settledt != null">
+				settledt=#{settledt},
+			</if>
+			<if test="kenolist != null">
+				kenolist=#{kenolist},
+			</if>
+			<if test="lottolist != null">
+				lottolist=#{lottolist},
+			</if>
+			<if test="ssclist != null">
+				ssclist=#{ssclist},
+			</if>
+			<if test="pkxlist != null">
+				pkxlist=#{pkxlist},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="bettime != null">
+				bettime=#{bettime},
+			</if>
+			<if test="betmoney != null">
+				betmoney=#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				netmoney=#{netmoney}
+			</if>
+		</set>
+		where settleid=#{settleid}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_gb_gameinfo set
+			betid=#{item.betid},betgrpno=#{item.betgrpno},tpcode=#{item.tpcode},gbsn=#{item.gbsn},memberid=#{item.memberid},curcode=#{item.curcode},betdt=#{item.betdt},bettype=#{item.bettype},bettypeparam1=#{item.bettypeparam1},bettypeparam2=#{item.bettypeparam2},wintype=#{item.wintype},hxmguid=#{item.hxmguid},initbetamt=#{item.initbetamt},realbetamt=#{item.realbetamt},holdingamt=#{item.holdingamt},initbetrate=#{item.initbetrate},realbetrate=#{item.realbetrate},prewinamt=#{item.prewinamt},betresult=#{item.betresult},wlamt=#{item.wlamt},refundbetamt=#{item.refundbetamt},ticketbetamt=#{item.ticketbetamt},ticketresult=#{item.ticketresult},ticketwlamt=#{item.ticketwlamt},settledt=#{item.settledt},kenolist=#{item.kenolist},lottolist=#{item.lottolist},ssclist=#{item.ssclist},pkxlist=#{item.pkxlist},createtime=#{item.createtime},bettime=#{item.bettime},betmoney=#{item.betmoney},netmoney=#{item.netmoney}
+			where settleid =#{item.settleid}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_gb_gameinfo a where a.settleid=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_gb_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_gb_gameinfo a
+		<where>
+			<if test="settleid != null">
+				a.settleid=#{settleid}
+			</if>
+			<if test="betid != null">
+				and a.betid=#{betid}
+			</if>
+			<if test="betgrpno != null">
+				and a.betgrpno=#{betgrpno}
+			</if>
+			<if test="tpcode != null">
+				and a.tpcode=#{tpcode}
+			</if>
+			<if test="gbsn != null">
+				and a.gbsn=#{gbsn}
+			</if>
+			<if test="memberid != null">
+				and a.memberid=#{memberid}
+			</if>
+			<if test="curcode != null">
+				and a.curcode=#{curcode}
+			</if>
+			<if test="betdt != null">
+				and a.betdt=#{betdt}
+			</if>
+			<if test="bettype != null">
+				and a.bettype=#{bettype}
+			</if>
+			<if test="bettypeparam1 != null">
+				and a.bettypeparam1=#{bettypeparam1}
+			</if>
+			<if test="bettypeparam2 != null">
+				and a.bettypeparam2=#{bettypeparam2}
+			</if>
+			<if test="wintype != null">
+				and a.wintype=#{wintype}
+			</if>
+			<if test="hxmguid != null">
+				and a.hxmguid=#{hxmguid}
+			</if>
+			<if test="initbetamt != null">
+				and a.initbetamt=#{initbetamt}
+			</if>
+			<if test="realbetamt != null">
+				and a.realbetamt=#{realbetamt}
+			</if>
+			<if test="holdingamt != null">
+				and a.holdingamt=#{holdingamt}
+			</if>
+			<if test="initbetrate != null">
+				and a.initbetrate=#{initbetrate}
+			</if>
+			<if test="realbetrate != null">
+				and a.realbetrate=#{realbetrate}
+			</if>
+			<if test="prewinamt != null">
+				and a.prewinamt=#{prewinamt}
+			</if>
+			<if test="betresult != null">
+				and a.betresult=#{betresult}
+			</if>
+			<if test="wlamt != null">
+				and a.wlamt=#{wlamt}
+			</if>
+			<if test="refundbetamt != null">
+				and a.refundbetamt=#{refundbetamt}
+			</if>
+			<if test="ticketbetamt != null">
+				and a.ticketbetamt=#{ticketbetamt}
+			</if>
+			<if test="ticketresult != null">
+				and a.ticketresult=#{ticketresult}
+			</if>
+			<if test="ticketwlamt != null">
+				and a.ticketwlamt=#{ticketwlamt}
+			</if>
+			<if test="settledt != null">
+				and a.settledt=#{settledt}
+			</if>
+			<if test="kenolist != null">
+				and a.kenolist=#{kenolist}
+			</if>
+			<if test="lottolist != null">
+				and a.lottolist=#{lottolist}
+			</if>
+			<if test="ssclist != null">
+				and a.ssclist=#{ssclist}
+			</if>
+			<if test="pkxlist != null">
+				and a.pkxlist=#{pkxlist}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and a.bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.settleid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_gb_gameinfo a
+		<where>
+			<if test="settleid != null">
+				 a.settleid like '%${settleid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="betgrpno != null">
+				and a.betgrpno like '%${betgrpno}%'
+			</if>
+			<if test="tpcode != null">
+				and a.tpcode like '%${tpcode}%'
+			</if>
+			<if test="gbsn != null">
+				and a.gbsn like '%${gbsn}%'
+			</if>
+			<if test="memberid != null">
+				and a.memberid like '%${memberid}%'
+			</if>
+			<if test="curcode != null">
+				and a.curcode like '%${curcode}%'
+			</if>
+			<if test="betdt != null">
+				and a.betdt like '%${betdt}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="bettypeparam1 != null">
+				and a.bettypeparam1 like '%${bettypeparam1}%'
+			</if>
+			<if test="bettypeparam2 != null">
+				and a.bettypeparam2 like '%${bettypeparam2}%'
+			</if>
+			<if test="wintype != null">
+				and a.wintype like '%${wintype}%'
+			</if>
+			<if test="hxmguid != null">
+				and a.hxmguid like '%${hxmguid}%'
+			</if>
+			<if test="initbetamt != null">
+				and a.initbetamt like '%${initbetamt}%'
+			</if>
+			<if test="realbetamt != null">
+				and a.realbetamt like '%${realbetamt}%'
+			</if>
+			<if test="holdingamt != null">
+				and a.holdingamt like '%${holdingamt}%'
+			</if>
+			<if test="initbetrate != null">
+				and a.initbetrate like '%${initbetrate}%'
+			</if>
+			<if test="realbetrate != null">
+				and a.realbetrate like '%${realbetrate}%'
+			</if>
+			<if test="prewinamt != null">
+				and a.prewinamt like '%${prewinamt}%'
+			</if>
+			<if test="betresult != null">
+				and a.betresult like '%${betresult}%'
+			</if>
+			<if test="wlamt != null">
+				and a.wlamt like '%${wlamt}%'
+			</if>
+			<if test="refundbetamt != null">
+				and a.refundbetamt like '%${refundbetamt}%'
+			</if>
+			<if test="ticketbetamt != null">
+				and a.ticketbetamt like '%${ticketbetamt}%'
+			</if>
+			<if test="ticketresult != null">
+				and a.ticketresult like '%${ticketresult}%'
+			</if>
+			<if test="ticketwlamt != null">
+				and a.ticketwlamt like '%${ticketwlamt}%'
+			</if>
+			<if test="settledt != null">
+				and a.settledt like '%${settledt}%'
+			</if>
+			<if test="kenolist != null">
+				and a.kenolist like '%${kenolist}%'
+			</if>
+			<if test="lottolist != null">
+				and a.lottolist like '%${lottolist}%'
+			</if>
+			<if test="ssclist != null">
+				and a.ssclist like '%${ssclist}%'
+			</if>
+			<if test="pkxlist != null">
+				and a.pkxlist like '%${pkxlist}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.settleid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_gb_gameinfo a
+		<where>
+			<if test="settleid != null">
+				 a.settleid like '%${settleid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="betgrpno != null">
+				and a.betgrpno like '%${betgrpno}%'
+			</if>
+			<if test="tpcode != null">
+				and a.tpcode like '%${tpcode}%'
+			</if>
+			<if test="gbsn != null">
+				and a.gbsn like '%${gbsn}%'
+			</if>
+			<if test="memberid != null">
+				and a.memberid like '%${memberid}%'
+			</if>
+			<if test="curcode != null">
+				and a.curcode like '%${curcode}%'
+			</if>
+			<if test="betdt != null">
+				and a.betdt like '%${betdt}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="bettypeparam1 != null">
+				and a.bettypeparam1 like '%${bettypeparam1}%'
+			</if>
+			<if test="bettypeparam2 != null">
+				and a.bettypeparam2 like '%${bettypeparam2}%'
+			</if>
+			<if test="wintype != null">
+				and a.wintype like '%${wintype}%'
+			</if>
+			<if test="hxmguid != null">
+				and a.hxmguid like '%${hxmguid}%'
+			</if>
+			<if test="initbetamt != null">
+				and a.initbetamt like '%${initbetamt}%'
+			</if>
+			<if test="realbetamt != null">
+				and a.realbetamt like '%${realbetamt}%'
+			</if>
+			<if test="holdingamt != null">
+				and a.holdingamt like '%${holdingamt}%'
+			</if>
+			<if test="initbetrate != null">
+				and a.initbetrate like '%${initbetrate}%'
+			</if>
+			<if test="realbetrate != null">
+				and a.realbetrate like '%${realbetrate}%'
+			</if>
+			<if test="prewinamt != null">
+				and a.prewinamt like '%${prewinamt}%'
+			</if>
+			<if test="betresult != null">
+				and a.betresult like '%${betresult}%'
+			</if>
+			<if test="wlamt != null">
+				and a.wlamt like '%${wlamt}%'
+			</if>
+			<if test="refundbetamt != null">
+				and a.refundbetamt like '%${refundbetamt}%'
+			</if>
+			<if test="ticketbetamt != null">
+				and a.ticketbetamt like '%${ticketbetamt}%'
+			</if>
+			<if test="ticketresult != null">
+				and a.ticketresult like '%${ticketresult}%'
+			</if>
+			<if test="ticketwlamt != null">
+				and a.ticketwlamt like '%${ticketwlamt}%'
+			</if>
+			<if test="settledt != null">
+				and a.settledt like '%${settledt}%'
+			</if>
+			<if test="kenolist != null">
+				and a.kenolist like '%${kenolist}%'
+			</if>
+			<if test="lottolist != null">
+				and a.lottolist like '%${lottolist}%'
+			</if>
+			<if test="ssclist != null">
+				and a.ssclist like '%${ssclist}%'
+			</if>
+			<if test="pkxlist != null">
+				and a.pkxlist like '%${pkxlist}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.settleid asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_gb_gameinfo a
+		<where>
+			<if test="settleid != null">
+				 a.settleid like '%${settleid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="betgrpno != null">
+				and a.betgrpno like '%${betgrpno}%'
+			</if>
+			<if test="tpcode != null">
+				and a.tpcode like '%${tpcode}%'
+			</if>
+			<if test="gbsn != null">
+				and a.gbsn like '%${gbsn}%'
+			</if>
+			<if test="memberid != null">
+				and a.memberid like '%${memberid}%'
+			</if>
+			<if test="curcode != null">
+				and a.curcode like '%${curcode}%'
+			</if>
+			<if test="betdt != null">
+				and a.betdt like '%${betdt}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="bettypeparam1 != null">
+				and a.bettypeparam1 like '%${bettypeparam1}%'
+			</if>
+			<if test="bettypeparam2 != null">
+				and a.bettypeparam2 like '%${bettypeparam2}%'
+			</if>
+			<if test="wintype != null">
+				and a.wintype like '%${wintype}%'
+			</if>
+			<if test="hxmguid != null">
+				and a.hxmguid like '%${hxmguid}%'
+			</if>
+			<if test="initbetamt != null">
+				and a.initbetamt like '%${initbetamt}%'
+			</if>
+			<if test="realbetamt != null">
+				and a.realbetamt like '%${realbetamt}%'
+			</if>
+			<if test="holdingamt != null">
+				and a.holdingamt like '%${holdingamt}%'
+			</if>
+			<if test="initbetrate != null">
+				and a.initbetrate like '%${initbetrate}%'
+			</if>
+			<if test="realbetrate != null">
+				and a.realbetrate like '%${realbetrate}%'
+			</if>
+			<if test="prewinamt != null">
+				and a.prewinamt like '%${prewinamt}%'
+			</if>
+			<if test="betresult != null">
+				and a.betresult like '%${betresult}%'
+			</if>
+			<if test="wlamt != null">
+				and a.wlamt like '%${wlamt}%'
+			</if>
+			<if test="refundbetamt != null">
+				and a.refundbetamt like '%${refundbetamt}%'
+			</if>
+			<if test="ticketbetamt != null">
+				and a.ticketbetamt like '%${ticketbetamt}%'
+			</if>
+			<if test="ticketresult != null">
+				and a.ticketresult like '%${ticketresult}%'
+			</if>
+			<if test="ticketwlamt != null">
+				and a.ticketwlamt like '%${ticketwlamt}%'
+			</if>
+			<if test="settledt != null">
+				and a.settledt like '%${settledt}%'
+			</if>
+			<if test="kenolist != null">
+				and a.kenolist like '%${kenolist}%'
+			</if>
+			<if test="lottolist != null">
+				and a.lottolist like '%${lottolist}%'
+			</if>
+			<if test="ssclist != null">
+				and a.ssclist like '%${ssclist}%'
+			</if>
+			<if test="pkxlist != null">
+				and a.pkxlist like '%${pkxlist}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_gb_gameinfo a
+		<where>
+			<if test="settleid != null">
+				 a.settleid like '%${settleid}%'
+			</if>
+			<if test="betid != null">
+				and a.betid like '%${betid}%'
+			</if>
+			<if test="betgrpno != null">
+				and a.betgrpno like '%${betgrpno}%'
+			</if>
+			<if test="tpcode != null">
+				and a.tpcode like '%${tpcode}%'
+			</if>
+			<if test="gbsn != null">
+				and a.gbsn like '%${gbsn}%'
+			</if>
+			<if test="memberid != null">
+				and a.memberid like '%${memberid}%'
+			</if>
+			<if test="curcode != null">
+				and a.curcode like '%${curcode}%'
+			</if>
+			<if test="betdt != null">
+				and a.betdt like '%${betdt}%'
+			</if>
+			<if test="bettype != null">
+				and a.bettype like '%${bettype}%'
+			</if>
+			<if test="bettypeparam1 != null">
+				and a.bettypeparam1 like '%${bettypeparam1}%'
+			</if>
+			<if test="bettypeparam2 != null">
+				and a.bettypeparam2 like '%${bettypeparam2}%'
+			</if>
+			<if test="wintype != null">
+				and a.wintype like '%${wintype}%'
+			</if>
+			<if test="hxmguid != null">
+				and a.hxmguid like '%${hxmguid}%'
+			</if>
+			<if test="initbetamt != null">
+				and a.initbetamt like '%${initbetamt}%'
+			</if>
+			<if test="realbetamt != null">
+				and a.realbetamt like '%${realbetamt}%'
+			</if>
+			<if test="holdingamt != null">
+				and a.holdingamt like '%${holdingamt}%'
+			</if>
+			<if test="initbetrate != null">
+				and a.initbetrate like '%${initbetrate}%'
+			</if>
+			<if test="realbetrate != null">
+				and a.realbetrate like '%${realbetrate}%'
+			</if>
+			<if test="prewinamt != null">
+				and a.prewinamt like '%${prewinamt}%'
+			</if>
+			<if test="betresult != null">
+				and a.betresult like '%${betresult}%'
+			</if>
+			<if test="wlamt != null">
+				and a.wlamt like '%${wlamt}%'
+			</if>
+			<if test="refundbetamt != null">
+				and a.refundbetamt like '%${refundbetamt}%'
+			</if>
+			<if test="ticketbetamt != null">
+				and a.ticketbetamt like '%${ticketbetamt}%'
+			</if>
+			<if test="ticketresult != null">
+				and a.ticketresult like '%${ticketresult}%'
+			</if>
+			<if test="ticketwlamt != null">
+				and a.ticketwlamt like '%${ticketwlamt}%'
+			</if>
+			<if test="settledt != null">
+				and a.settledt like '%${settledt}%'
+			</if>
+			<if test="kenolist != null">
+				and a.kenolist like '%${kenolist}%'
+			</if>
+			<if test="lottolist != null">
+				and a.lottolist like '%${lottolist}%'
+			</if>
+			<if test="ssclist != null">
+				and a.ssclist like '%${ssclist}%'
+			</if>
+			<if test="pkxlist != null">
+				and a.pkxlist like '%${pkxlist}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+</mapper>

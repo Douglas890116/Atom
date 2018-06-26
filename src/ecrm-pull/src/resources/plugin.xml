@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<plugins>
+		<!-- 上线时关闭，调试的时候打印SQL使用。插件顺序不要调换 -->
+		<plugin interceptor="com.hy.pull.common.plugin.SQLInterceptor" />
+	</plugins>
+</configuration>

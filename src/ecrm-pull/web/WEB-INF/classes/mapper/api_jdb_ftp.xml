@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiJdbFtpMapper">
+	<insert id="insert" parameterType="hashmap">
+		insert into api_jdb_ftp(ftpname,ftppswd,ftpip,ftpport,datefolder,endfolder,localfolder,updatetime,lastnum,totalnum,status,remark) values
+		(#{ftpname},#{ftppswd},#{ftpip},#{ftpport},#{datefolder},#{endfolder},#{localfolder},#{updatetime},#{lastnum},#{totalnum},#{status},#{remark})
+	</insert>
+
+	<insert id="batchInsert" parameterType="list">
+		insert into api_jdb_ftp(ftpname,ftppswd,ftpip,ftpport,datefolder,endfolder,localfolder,updatetime,lastnum,totalnum,status,remark) values
+		<foreach item="item" index="index" collection="list" separator=",">
+		(#{item.ftpname},#{item.ftppswd},#{item.ftpip},#{item.ftpport},#{item.datefolder},#{item.endfolder},#{item.localfolder},#{item.updatetime},#{item.lastnum},#{item.totalnum},#{item.status},#{item.remark})
+		</foreach>
+	</insert>
+
+	<delete id="delete" parameterType="hashmap">
+		update api_jdb_ftp set status = 0 where configid = #{configid}
+	</delete>
+
+	<update id="update" parameterType="hashmap">
+		update api_jdb_ftp
+		<set>
+			<if test="datefolder != null">datefolder = #{datefolder},</if>
+			<if test="endfolder  != null">endfolder  = #{endfolder},</if>
+			<if test="updatetime != null">updatetime = #{updatetime},</if>
+			<if test="lastnum    != null">lastnum    = #{lastnum},</if>
+			<if test="totalnum   != null">totalnum   = #{totalnum},</if>
+			<if test="remark     != null">remark     = #{remark},</if>
+			<if test="status     != null">status     = #{status},</if>
+		</set>
+		where configid = #{configid}
+	</update>
+		
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_jdb_ftp
+		<where>
+			<if test="ftpname != null">and ftpname = #{ftpname}</if>
+			<if test="ftppswd != null">and ftppswd = #{ftppswd}</if>
+			<if test="ftpip != null">and ftpip = #{ftpip}</if>
+			<if test="ftpport != null">and ftpport = #{ftpport}</if>
+			<if test="datefolder != null">and datefolder = #{datefolder}</if>
+			<if test="endfolder != null">and endfolder = #{endfolder}</if>
+			<if test="localfolder != null">and localfolder = #{localfolder}</if>
+			<if test="updatetime != null">and updatetime = #{updatetime}</if>
+			<if test="lastnum != null">and lastnum = #{lastnum}</if>
+			<if test="totalnum != null">and totalnum = #{totalnum}</if>
+			<if test="status != null">and status = #{status}</if>
+			<if test="remark != null">and remark = #{remark}</if>
+		</where>
+	</select>
+	
+	<select id="selectByPrimaryKey" parameterType="string" resultType="hashmap">
+		select * from api_jdb_ftp where configid = #{configid} 
+	</select>
+</mapper>

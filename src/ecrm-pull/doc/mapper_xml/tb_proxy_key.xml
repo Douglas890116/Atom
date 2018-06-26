@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.TbProxyKeyMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />  
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="PROXY_KEY_ID">
+		insert into api_tb_proxy_key(PROXY_ID,GAME_ID,PROXY_MD5_KEY,PROXY_API_URL)  values (#{PROXY_ID},#{GAME_ID},#{PROXY_MD5_KEY},#{PROXY_API_URL})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_tb_proxy_key(PROXY_ID,GAME_ID,PROXY_MD5_KEY,PROXY_API_URL)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.PROXY_ID},#{item.GAME_ID},#{item.PROXY_MD5_KEY},#{item.PROXY_API_URL})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_tb_proxy_key
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="PROXY_ID != null">
+				PROXY_ID,
+			</if>
+			<if test="GAME_ID != null">
+				GAME_ID,
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				PROXY_MD5_KEY,
+			</if>
+			<if test="PROXY_API_URL != null">
+				PROXY_API_URL
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="PROXY_ID != null">
+				#{PROXY_ID},
+			</if>
+			<if test="GAME_ID != null">
+				#{GAME_ID},
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				#{PROXY_MD5_KEY},
+			</if>
+			<if test="PROXY_API_URL != null">
+				#{PROXY_API_URL}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_tb_proxy_key
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and PROXY_MD5_KEY=#{PROXY_MD5_KEY}
+			</if>
+			<if test="PROXY_API_URL != null">
+				and PROXY_API_URL=#{PROXY_API_URL}
+			</if>
+			<if test="ids != null">
+				and PROXY_KEY_ID in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_tb_proxy_key
+		<set>
+			<if test="PROXY_ID != null">
+				PROXY_ID=#{PROXY_ID},
+			</if>
+			<if test="GAME_ID != null">
+				GAME_ID=#{GAME_ID},
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				PROXY_MD5_KEY=#{PROXY_MD5_KEY},
+			</if>
+			<if test="PROXY_API_URL != null">
+				PROXY_API_URL=#{PROXY_API_URL}
+			</if>
+		</set>
+		where PROXY_KEY_ID=#{PROXY_KEY_ID}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_tb_proxy_key set
+			PROXY_ID=#{item.PROXY_ID},GAME_ID=#{item.GAME_ID},PROXY_MD5_KEY=#{item.PROXY_MD5_KEY},PROXY_API_URL=#{item.PROXY_API_URL}
+			where PROXY_KEY_ID =#{item.PROXY_KEY_ID}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_tb_proxy_key a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_proxy c on a.PROXY_ID=c.PROXY_ID where a.PROXY_KEY_ID=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_tb_proxy_key a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_proxy c on a.PROXY_ID=c.PROXY_ID
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_tb_proxy_key a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_proxy c on a.PROXY_ID=c.PROXY_ID
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				a.PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and a.PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and a.PROXY_MD5_KEY=#{PROXY_MD5_KEY}
+			</if>
+			<if test="PROXY_API_URL != null">
+				and a.PROXY_API_URL=#{PROXY_API_URL}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.PROXY_KEY_ID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_tb_proxy_key a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_proxy c on a.PROXY_ID=c.PROXY_ID
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				 a.PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and a.PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and a.PROXY_MD5_KEY like '%${PROXY_MD5_KEY}%'
+			</if>
+			<if test="PROXY_API_URL != null">
+				and a.PROXY_API_URL like '%${PROXY_API_URL}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.PROXY_KEY_ID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_tb_proxy_key a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_proxy c on a.PROXY_ID=c.PROXY_ID
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				 a.PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and a.PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and a.PROXY_MD5_KEY like '%${PROXY_MD5_KEY}%'
+			</if>
+			<if test="PROXY_API_URL != null">
+				and a.PROXY_API_URL like '%${PROXY_API_URL}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.PROXY_KEY_ID asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_tb_proxy_key a
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				 a.PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and a.PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and a.PROXY_MD5_KEY like '%${PROXY_MD5_KEY}%'
+			</if>
+			<if test="PROXY_API_URL != null">
+				and a.PROXY_API_URL like '%${PROXY_API_URL}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_tb_proxy_key a
+		<where>
+			<if test="PROXY_KEY_ID != null">
+				 a.PROXY_KEY_ID=#{PROXY_KEY_ID}
+			</if>
+			<if test="PROXY_ID != null">
+				and a.PROXY_ID=#{PROXY_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="PROXY_MD5_KEY != null">
+				and a.PROXY_MD5_KEY like '%${PROXY_MD5_KEY}%'
+			</if>
+			<if test="PROXY_API_URL != null">
+				and a.PROXY_API_URL like '%${PROXY_API_URL}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

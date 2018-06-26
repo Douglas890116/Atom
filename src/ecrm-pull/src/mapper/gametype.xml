@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.GametypeMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_gametype(gametype_id,gametype_name,gametype_code,gametype_state,gametype_createtime,gametype_createuser,gametype_remarks)  values (#{gametype_id},#{gametype_name},#{gametype_code},#{gametype_state},#{gametype_createtime},#{gametype_createuser},#{gametype_remarks})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_gametype(gametype_id,gametype_name,gametype_code,gametype_state,gametype_createtime,gametype_createuser,gametype_remarks)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.gametype_id},#{item.gametype_name},#{item.gametype_code},#{item.gametype_state},#{item.gametype_createtime},#{item.gametype_createuser},#{item.gametype_remarks})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_gametype
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="gametype_id != null">
+				gametype_id,
+			</if>
+			<if test="gametype_name != null">
+				gametype_name,
+			</if>
+			<if test="gametype_code != null">
+				gametype_code,
+			</if>
+			<if test="gametype_state != null">
+				gametype_state,
+			</if>
+			<if test="gametype_createtime != null">
+				gametype_createtime,
+			</if>
+			<if test="gametype_createuser != null">
+				gametype_createuser,
+			</if>
+			<if test="gametype_remarks != null">
+				gametype_remarks
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="gametype_id != null">
+				#{gametype_id},
+			</if>
+			<if test="gametype_name != null">
+				#{gametype_name},
+			</if>
+			<if test="gametype_code != null">
+				#{gametype_code},
+			</if>
+			<if test="gametype_state != null">
+				#{gametype_state},
+			</if>
+			<if test="gametype_createtime != null">
+				#{gametype_createtime},
+			</if>
+			<if test="gametype_createuser != null">
+				#{gametype_createuser},
+			</if>
+			<if test="gametype_remarks != null">
+				#{gametype_remarks}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_gametype
+		<where>
+			<if test="gametype_id != null">
+				gametype_id=#{gametype_id}
+			</if>
+			<if test="gametype_name != null">
+				and gametype_name=#{gametype_name}
+			</if>
+			<if test="gametype_code != null">
+				and gametype_code=#{gametype_code}
+			</if>
+			<if test="gametype_state != null">
+				and gametype_state=#{gametype_state}
+			</if>
+			<if test="gametype_createtime != null">
+				and gametype_createtime=#{gametype_createtime}
+			</if>
+			<if test="gametype_createuser != null">
+				and gametype_createuser=#{gametype_createuser}
+			</if>
+			<if test="gametype_remarks != null">
+				and gametype_remarks=#{gametype_remarks}
+			</if>
+			<if test="ids != null">
+				and gametype_id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_gametype
+		<set>
+			<if test="gametype_name != null">
+				gametype_name=#{gametype_name},
+			</if>
+			<if test="gametype_code != null">
+				gametype_code=#{gametype_code},
+			</if>
+			<if test="gametype_state != null">
+				gametype_state=#{gametype_state},
+			</if>
+			<if test="gametype_createtime != null">
+				gametype_createtime=#{gametype_createtime},
+			</if>
+			<if test="gametype_createuser != null">
+				gametype_createuser=#{gametype_createuser},
+			</if>
+			<if test="gametype_remarks != null">
+				gametype_remarks=#{gametype_remarks}
+			</if>
+		</set>
+		where gametype_id=#{gametype_id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_gametype set
+			gametype_name=#{item.gametype_name},gametype_code=#{item.gametype_code},gametype_state=#{item.gametype_state},gametype_createtime=#{item.gametype_createtime},gametype_createuser=#{item.gametype_createuser},gametype_remarks=#{item.gametype_remarks}
+			where gametype_id =#{item.gametype_id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_gametype a where a.gametype_id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_gametype a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_gametype a
+		<where>
+			<if test="gametype_id != null">
+				a.gametype_id=#{gametype_id}
+			</if>
+			<if test="gametype_name != null">
+				and a.gametype_name=#{gametype_name}
+			</if>
+			<if test="gametype_code != null">
+				and a.gametype_code=#{gametype_code}
+			</if>
+			<if test="gametype_state != null">
+				and a.gametype_state=#{gametype_state}
+			</if>
+			<if test="gametype_createtime != null">
+				and a.gametype_createtime=#{gametype_createtime}
+			</if>
+			<if test="gametype_createuser != null">
+				and a.gametype_createuser=#{gametype_createuser}
+			</if>
+			<if test="gametype_remarks != null">
+				and a.gametype_remarks=#{gametype_remarks}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_gametype a
+		<where>
+			<if test="gametype_id != null">
+				 a.gametype_id like '%${gametype_id}%'
+			</if>
+			<if test="gametype_name != null">
+				and a.gametype_name like '%${gametype_name}%'
+			</if>
+			<if test="gametype_code != null">
+				and a.gametype_code like '%${gametype_code}%'
+			</if>
+			<if test="gametype_state != null">
+				and a.gametype_state=#{gametype_state}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.gametype_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gametype_createuser != null">
+				and a.gametype_createuser like '%${gametype_createuser}%'
+			</if>
+			<if test="gametype_remarks != null">
+				and a.gametype_remarks like '%${gametype_remarks}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_gametype a
+		<where>
+			<if test="gametype_id != null">
+				 a.gametype_id like '%${gametype_id}%'
+			</if>
+			<if test="gametype_name != null">
+				and a.gametype_name like '%${gametype_name}%'
+			</if>
+			<if test="gametype_code != null">
+				and a.gametype_code like '%${gametype_code}%'
+			</if>
+			<if test="gametype_state != null">
+				and a.gametype_state=#{gametype_state}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.gametype_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gametype_createuser != null">
+				and a.gametype_createuser like '%${gametype_createuser}%'
+			</if>
+			<if test="gametype_remarks != null">
+				and a.gametype_remarks like '%${gametype_remarks}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype_id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_gametype a
+		<where>
+			<if test="gametype_id != null">
+				 a.gametype_id like '%${gametype_id}%'
+			</if>
+			<if test="gametype_name != null">
+				and a.gametype_name like '%${gametype_name}%'
+			</if>
+			<if test="gametype_code != null">
+				and a.gametype_code like '%${gametype_code}%'
+			</if>
+			<if test="gametype_state != null">
+				and a.gametype_state=#{gametype_state}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.gametype_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gametype_createuser != null">
+				and a.gametype_createuser like '%${gametype_createuser}%'
+			</if>
+			<if test="gametype_remarks != null">
+				and a.gametype_remarks like '%${gametype_remarks}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_gametype a
+		<where>
+			<if test="gametype_id != null">
+				 a.gametype_id like '%${gametype_id}%'
+			</if>
+			<if test="gametype_name != null">
+				and a.gametype_name like '%${gametype_name}%'
+			</if>
+			<if test="gametype_code != null">
+				and a.gametype_code like '%${gametype_code}%'
+			</if>
+			<if test="gametype_state != null">
+				and a.gametype_state=#{gametype_state}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.gametype_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gametype_createuser != null">
+				and a.gametype_createuser like '%${gametype_createuser}%'
+			</if>
+			<if test="gametype_remarks != null">
+				and a.gametype_remarks like '%${gametype_remarks}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

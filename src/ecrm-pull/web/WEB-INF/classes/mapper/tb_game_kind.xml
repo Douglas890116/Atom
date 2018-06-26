@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.TbGameKindMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />  
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="GAME_KIND_ID">
+		insert into api_tb_game_kind(GAME_ID,GAME_KIND_NO,GAME_KIND_PARENT,GAME_KIND_NAME)  values (#{GAME_ID},#{GAME_KIND_NO},#{GAME_KIND_PARENT},#{GAME_KIND_NAME})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_tb_game_kind(GAME_ID,GAME_KIND_NO,GAME_KIND_PARENT,GAME_KIND_NAME)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.GAME_ID},#{item.GAME_KIND_NO},#{item.GAME_KIND_PARENT},#{item.GAME_KIND_NAME})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_tb_game_kind
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="GAME_ID != null">
+				GAME_ID,
+			</if>
+			<if test="GAME_KIND_NO != null">
+				GAME_KIND_NO,
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				GAME_KIND_PARENT,
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				GAME_KIND_NAME
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="GAME_ID != null">
+				#{GAME_ID},
+			</if>
+			<if test="GAME_KIND_NO != null">
+				#{GAME_KIND_NO},
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				#{GAME_KIND_PARENT},
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				#{GAME_KIND_NAME}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_tb_game_kind
+		<where>
+			<if test="GAME_KIND_ID != null">
+				GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+			<if test="ids != null">
+				and GAME_KIND_ID in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_tb_game_kind
+		<set>
+			<if test="GAME_ID != null">
+				GAME_ID=#{GAME_ID},
+			</if>
+			<if test="GAME_KIND_NO != null">
+				GAME_KIND_NO=#{GAME_KIND_NO},
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				GAME_KIND_PARENT=#{GAME_KIND_PARENT},
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+		</set>
+		where GAME_KIND_ID=#{GAME_KIND_ID}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_tb_game_kind set
+			GAME_ID=#{item.GAME_ID},GAME_KIND_NO=#{item.GAME_KIND_NO},GAME_KIND_PARENT=#{item.GAME_KIND_PARENT},GAME_KIND_NAME=#{item.GAME_KIND_NAME}
+			where GAME_KIND_ID =#{item.GAME_KIND_ID}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select a.*,b.*,c.GAME_KIND_NAME as PARENT_NAME from api_tb_game_kind a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_game_kind c on a.GAME_KIND_PARENT=c.GAME_KIND_ID where a.GAME_KIND_ID=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select a.*,b.*,c.GAME_KIND_NAME as PARENT_NAME from api_tb_game_kind a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_game_kind c on a.GAME_KIND_PARENT=c.GAME_KIND_ID
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select a.*,b.*,c.GAME_KIND_NAME as PARENT_NAME from api_tb_game_kind a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_game_kind c on a.GAME_KIND_PARENT=c.GAME_KIND_ID
+		<where>
+			<if test="GAME_KIND_ID != null">
+				a.GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and a.GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and a.GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and a.GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.GAME_KIND_ID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select a.*,b.*,c.GAME_KIND_NAME as PARENT_NAME from api_tb_game_kind a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_game_kind c on a.GAME_KIND_PARENT=c.GAME_KIND_ID
+		<where>
+			<if test="GAME_KIND_ID != null">
+				 a.GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and a.GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and a.GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and a.GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.GAME_KIND_ID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select a.*,b.*,c.GAME_KIND_NAME as PARENT_NAME from api_tb_game_kind a left join api_tb_game b on a.GAME_ID=b.GAME_ID left join api_tb_game_kind c on a.GAME_KIND_PARENT=c.GAME_KIND_ID
+		<where>
+			<if test="GAME_KIND_ID != null">
+				 a.GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and a.GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and a.GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and a.GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.GAME_KIND_ID asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_tb_game_kind a
+		<where>
+			<if test="GAME_KIND_ID != null">
+				 a.GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and a.GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and a.GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and a.GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_tb_game_kind a
+		<where>
+			<if test="GAME_KIND_ID != null">
+				 a.GAME_KIND_ID=#{GAME_KIND_ID}
+			</if>
+			<if test="GAME_ID != null">
+				and a.GAME_ID=#{GAME_ID}
+			</if>
+			<if test="GAME_KIND_NO != null">
+				and a.GAME_KIND_NO=#{GAME_KIND_NO}
+			</if>
+			<if test="GAME_KIND_PARENT != null">
+				and a.GAME_KIND_PARENT=#{GAME_KIND_PARENT}
+			</if>
+			<if test="GAME_KIND_NAME != null">
+				and a.GAME_KIND_NAME=#{GAME_KIND_NAME}
+			</if>
+
+		</where>
+	</select>
+</mapper>

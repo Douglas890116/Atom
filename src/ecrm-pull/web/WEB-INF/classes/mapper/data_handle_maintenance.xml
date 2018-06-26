@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.DataHandleMaintenanceMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into data_handle_maintenance(gametype,flag,lasttime,remark)  values (#{gametype},#{flag},#{lasttime},#{remark})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into data_handle_maintenance(gametype,flag,lasttime,remark)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.gametype},#{item.flag},#{item.lasttime},#{item.remark})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into data_handle_maintenance
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="gametype != null">
+				gametype,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="lasttime != null">
+				lasttime,
+			</if>
+			<if test="remark != null">
+				remark
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="gametype != null">
+				#{gametype},
+			</if>
+			<if test="flag != null">
+				#{flag},
+			</if>
+			<if test="lasttime != null">
+				#{lasttime},
+			</if>
+			<if test="remark != null">
+				#{remark}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from data_handle_maintenance
+		<where>
+			<if test="gametype != null">
+				gametype=#{gametype}
+			</if>
+			<if test="flag != null">
+				and flag=#{flag}
+			</if>
+			<if test="lasttime != null">
+				and lasttime=#{lasttime}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="ids != null">
+				and gametype in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update data_handle_maintenance
+		<set>
+			<if test="flag != null">
+				flag=#{flag},
+			</if>
+			<if test="lasttime != null">
+				lasttime=#{lasttime},
+			</if>
+			<if test="remark != null">
+				remark=#{remark}
+			</if>
+		</set>
+		where gametype=#{gametype}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update data_handle_maintenance set
+			flag=#{item.flag},lasttime=#{item.lasttime},remark=#{item.remark}
+			where gametype =#{item.gametype}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from data_handle_maintenance a where a.gametype=#{key}
+	</select>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from data_handle_maintenance a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_maintenance a
+		<where>
+			<if test="gametype != null">
+				a.gametype=#{gametype}
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime=#{lasttime}
+			</if>
+			<if test="remark != null">
+				and a.remark=#{remark}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_maintenance a
+		<where>
+			<if test="gametype != null">
+				 a.gametype like '%${gametype}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_maintenance a
+		<where>
+			<if test="gametype != null">
+				 a.gametype like '%${gametype}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.gametype asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from data_handle_maintenance a
+		<where>
+			<if test="gametype != null">
+				 a.gametype like '%${gametype}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from data_handle_maintenance a
+		<where>
+			<if test="gametype != null">
+				 a.gametype like '%${gametype}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

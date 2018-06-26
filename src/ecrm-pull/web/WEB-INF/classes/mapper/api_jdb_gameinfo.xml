@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiJDBGameInfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_jdb_gameinfo(seqNo,playerId,mtype,gameDate,bet,gambleBet,win,total,currency,denom,lastModifyTime,playerIp,clientType,gType,hasGamble,hasBonusGame,hasFreegame,roomType,systemTakeWin,jackpot,jackpotContribute,beforeBalance,afterBalance,createtime,bettime,betmoney,netmoney)  values (#{seqNo},#{playerId},#{mtype},#{gameDate},#{bet},#{gambleBet},#{win},#{total},#{currency},#{denom},#{lastModifyTime},#{playerIp},#{clientType},#{gType},#{hasGamble},#{hasBonusGame},#{hasFreegame},#{roomType},#{systemTakeWin},#{jackpot},#{jackpotContribute},#{beforeBalance},#{afterBalance},#{createtime},#{bettime},#{betmoney},#{netmoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_jdb_gameinfo(seqNo,playerId,mtype,gameDate,bet,gambleBet,win,total,currency,denom,lastModifyTime,playerIp,clientType,gType,hasGamble,hasBonusGame,hasFreegame,roomType,systemTakeWin,jackpot,jackpotContribute,beforeBalance,afterBalance,createtime,bettime,betmoney,netmoney)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.seqNo},#{item.playerId},#{item.mtype},#{item.gameDate},#{item.bet},#{item.gambleBet},#{item.win},#{item.total},#{item.currency},#{item.denom},#{item.lastModifyTime},#{item.playerIp},#{item.clientType},#{item.gType},#{item.hasGamble},#{item.hasBonusGame},#{item.hasFreegame},#{item.roomType},#{item.systemTakeWin},#{item.jackpot},#{item.jackpotContribute},#{item.beforeBalance},#{item.afterBalance},#{item.createtime},#{item.bettime},#{item.betmoney},#{item.netmoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_jdb_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="seqNo != null">
+				seqNo,
+			</if>
+			<if test="playerId != null">
+				playerId,
+			</if>
+			<if test="mtype != null">
+				mtype,
+			</if>
+			<if test="gameDate != null">
+				gameDate,
+			</if>
+			<if test="bet != null">
+				bet,
+			</if>
+			<if test="gambleBet != null">
+				gambleBet,
+			</if>
+			<if test="win != null">
+				win,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="currency != null">
+				currency,
+			</if>
+			<if test="denom != null">
+				denom,
+			</if>
+			<if test="lastModifyTime != null">
+				lastModifyTime,
+			</if>
+			<if test="playerIp != null">
+				playerIp,
+			</if>
+			<if test="clientType != null">
+				clientType,
+			</if>
+			<if test="gType != null">
+				gType,
+			</if>
+			<if test="hasGamble != null">
+				hasGamble,
+			</if>
+			<if test="hasBonusGame != null">
+				hasBonusGame,
+			</if>
+			<if test="hasFreegame != null">
+				hasFreegame,
+			</if>
+			<if test="roomType != null">
+				roomType,
+			</if>
+			<if test="systemTakeWin != null">
+				systemTakeWin,
+			</if>
+			<if test="jackpot != null">
+				jackpot,
+			</if>
+			<if test="jackpotContribute != null">
+				jackpotContribute,
+			</if>
+			<if test="beforeBalance != null">
+				beforeBalance,
+			</if>
+			<if test="afterBalance != null">
+				afterBalance,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="bettime != null">
+				bettime,
+			</if>
+			<if test="betmoney != null">
+				betmoney,
+			</if>
+			<if test="netmoney != null">
+				netmoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="seqNo != null">
+				#{seqNo},
+			</if>
+			<if test="playerId != null">
+				#{playerId},
+			</if>
+			<if test="mtype != null">
+				#{mtype},
+			</if>
+			<if test="gameDate != null">
+				#{gameDate},
+			</if>
+			<if test="bet != null">
+				#{bet},
+			</if>
+			<if test="gambleBet != null">
+				#{gambleBet},
+			</if>
+			<if test="win != null">
+				#{win},
+			</if>
+			<if test="total != null">
+				#{total},
+			</if>
+			<if test="currency != null">
+				#{currency},
+			</if>
+			<if test="denom != null">
+				#{denom},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime},
+			</if>
+			<if test="playerIp != null">
+				#{playerIp},
+			</if>
+			<if test="clientType != null">
+				#{clientType},
+			</if>
+			<if test="gType != null">
+				#{gType},
+			</if>
+			<if test="hasGamble != null">
+				#{hasGamble},
+			</if>
+			<if test="hasBonusGame != null">
+				#{hasBonusGame},
+			</if>
+			<if test="hasFreegame != null">
+				#{hasFreegame},
+			</if>
+			<if test="roomType != null">
+				#{roomType},
+			</if>
+			<if test="systemTakeWin != null">
+				#{systemTakeWin},
+			</if>
+			<if test="jackpot != null">
+				#{jackpot},
+			</if>
+			<if test="jackpotContribute != null">
+				#{jackpotContribute},
+			</if>
+			<if test="beforeBalance != null">
+				#{beforeBalance},
+			</if>
+			<if test="afterBalance != null">
+				#{afterBalance},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="bettime != null">
+				#{bettime},
+			</if>
+			<if test="betmoney != null">
+				#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				#{netmoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_jdb_gameinfo
+		<where>
+			<if test="seqNo != null">
+				seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and playerId=#{playerId}
+			</if>
+			<if test="mtype != null">
+				and mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and gameDate=#{gameDate}
+			</if>
+			<if test="bet != null">
+				and bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and win=#{win}
+			</if>
+			<if test="total != null">
+				and total=#{total}
+			</if>
+			<if test="currency != null">
+				and currency=#{currency}
+			</if>
+			<if test="denom != null">
+				and denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and lastModifyTime=#{lastModifyTime}
+			</if>
+			<if test="playerIp != null">
+				and playerIp=#{playerIp}
+			</if>
+			<if test="clientType != null">
+				and clientType=#{clientType}
+			</if>
+			<if test="gType != null">
+				and gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and afterBalance=#{afterBalance}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and netmoney=#{netmoney}
+			</if>
+			<if test="ids != null">
+				and seqNo in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_jdb_gameinfo
+		<set>
+			<if test="playerId != null">
+				playerId=#{playerId},
+			</if>
+			<if test="mtype != null">
+				mtype=#{mtype},
+			</if>
+			<if test="gameDate != null">
+				gameDate=#{gameDate},
+			</if>
+			<if test="bet != null">
+				bet=#{bet},
+			</if>
+			<if test="gambleBet != null">
+				gambleBet=#{gambleBet},
+			</if>
+			<if test="win != null">
+				win=#{win},
+			</if>
+			<if test="total != null">
+				total=#{total},
+			</if>
+			<if test="currency != null">
+				currency=#{currency},
+			</if>
+			<if test="denom != null">
+				denom=#{denom},
+			</if>
+			<if test="lastModifyTime != null">
+				lastModifyTime=#{lastModifyTime},
+			</if>
+			<if test="playerIp != null">
+				playerIp=#{playerIp},
+			</if>
+			<if test="clientType != null">
+				clientType=#{clientType},
+			</if>
+			<if test="gType != null">
+				gType=#{gType},
+			</if>
+			<if test="hasGamble != null">
+				hasGamble=#{hasGamble},
+			</if>
+			<if test="hasBonusGame != null">
+				hasBonusGame=#{hasBonusGame},
+			</if>
+			<if test="hasFreegame != null">
+				hasFreegame=#{hasFreegame},
+			</if>
+			<if test="roomType != null">
+				roomType=#{roomType},
+			</if>
+			<if test="systemTakeWin != null">
+				systemTakeWin=#{systemTakeWin},
+			</if>
+			<if test="jackpot != null">
+				jackpot=#{jackpot},
+			</if>
+			<if test="jackpotContribute != null">
+				jackpotContribute=#{jackpotContribute},
+			</if>
+			<if test="beforeBalance != null">
+				beforeBalance=#{beforeBalance},
+			</if>
+			<if test="afterBalance != null">
+				afterBalance=#{afterBalance},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="bettime != null">
+				bettime=#{bettime},
+			</if>
+			<if test="betmoney != null">
+				betmoney=#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				netmoney=#{netmoney}
+			</if>
+		</set>
+		where seqNo=#{seqNo}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_jdb_gameinfo set
+			playerId=#{item.playerId},mtype=#{item.mtype},gameDate=#{item.gameDate},bet=#{item.bet},gambleBet=#{item.gambleBet},win=#{item.win},total=#{item.total},currency=#{item.currency},denom=#{item.denom},lastModifyTime=#{item.lastModifyTime},playerIp=#{item.playerIp},clientType=#{item.clientType},gType=#{item.gType},hasGamble=#{item.hasGamble},hasBonusGame=#{item.hasBonusGame},hasFreegame=#{item.hasFreegame},roomType=#{item.roomType},systemTakeWin=#{item.systemTakeWin},jackpot=#{item.jackpot},jackpotContribute=#{item.jackpotContribute},beforeBalance=#{item.beforeBalance},afterBalance=#{item.afterBalance},createtime=#{item.createtime},bettime=#{item.bettime},betmoney=#{item.betmoney},netmoney=#{item.netmoney}
+			where seqNo =#{item.seqNo}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_jdb_gameinfo a where a.seqNo=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_jdb_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_jdb_gameinfo a
+		<where>
+			<if test="seqNo != null">
+				a.seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and a.playerId=#{playerId}
+			</if>
+			<if test="mtype != null">
+				and a.mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and a.gameDate=#{gameDate}
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and a.gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and a.win=#{win}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="currency != null">
+				and a.currency=#{currency}
+			</if>
+			<if test="denom != null">
+				and a.denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and a.lastModifyTime=#{lastModifyTime}
+			</if>
+			<if test="playerIp != null">
+				and a.playerIp=#{playerIp}
+			</if>
+			<if test="clientType != null">
+				and a.clientType=#{clientType}
+			</if>
+			<if test="gType != null">
+				and a.gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and a.hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and a.hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and a.hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and a.roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and a.systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and a.jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and a.jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and a.beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and a.afterBalance=#{afterBalance}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and a.bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.seqNo asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_jdb_gameinfo a
+		<where>
+			<if test="seqNo != null">
+				 a.seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="mtype != null">
+				and a.mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and a.gameDate like '%${gameDate}%'
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and a.gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and a.win=#{win}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="denom != null">
+				and a.denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and a.lastModifyTime like '%${lastModifyTime}%'
+			</if>
+			<if test="playerIp != null">
+				and a.playerIp like '%${playerIp}%'
+			</if>
+			<if test="clientType != null">
+				and a.clientType like '%${clientType}%'
+			</if>
+			<if test="gType != null">
+				and a.gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and a.hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and a.hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and a.hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and a.roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and a.systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and a.jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and a.jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and a.beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and a.afterBalance=#{afterBalance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.seqNo asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_jdb_gameinfo a
+		<where>
+			<if test="seqNo != null">
+				 a.seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="mtype != null">
+				and a.mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and a.gameDate like '%${gameDate}%'
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and a.gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and a.win=#{win}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="denom != null">
+				and a.denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and a.lastModifyTime like '%${lastModifyTime}%'
+			</if>
+			<if test="playerIp != null">
+				and a.playerIp like '%${playerIp}%'
+			</if>
+			<if test="clientType != null">
+				and a.clientType like '%${clientType}%'
+			</if>
+			<if test="gType != null">
+				and a.gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and a.hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and a.hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and a.hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and a.roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and a.systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and a.jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and a.jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and a.beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and a.afterBalance=#{afterBalance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.seqNo asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_jdb_gameinfo a
+		<where>
+			<if test="seqNo != null">
+				 a.seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="mtype != null">
+				and a.mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and a.gameDate like '%${gameDate}%'
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and a.gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and a.win=#{win}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="denom != null">
+				and a.denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and a.lastModifyTime like '%${lastModifyTime}%'
+			</if>
+			<if test="playerIp != null">
+				and a.playerIp like '%${playerIp}%'
+			</if>
+			<if test="clientType != null">
+				and a.clientType like '%${clientType}%'
+			</if>
+			<if test="gType != null">
+				and a.gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and a.hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and a.hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and a.hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and a.roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and a.systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and a.jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and a.jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and a.beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and a.afterBalance=#{afterBalance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_jdb_gameinfo a
+		<where>
+			<if test="seqNo != null">
+				 a.seqNo=#{seqNo}
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="mtype != null">
+				and a.mtype=#{mtype}
+			</if>
+			<if test="gameDate != null">
+				and a.gameDate like '%${gameDate}%'
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="gambleBet != null">
+				and a.gambleBet=#{gambleBet}
+			</if>
+			<if test="win != null">
+				and a.win=#{win}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="denom != null">
+				and a.denom=#{denom}
+			</if>
+			<if test="lastModifyTime != null">
+				and a.lastModifyTime like '%${lastModifyTime}%'
+			</if>
+			<if test="playerIp != null">
+				and a.playerIp like '%${playerIp}%'
+			</if>
+			<if test="clientType != null">
+				and a.clientType like '%${clientType}%'
+			</if>
+			<if test="gType != null">
+				and a.gType=#{gType}
+			</if>
+			<if test="hasGamble != null">
+				and a.hasGamble=#{hasGamble}
+			</if>
+			<if test="hasBonusGame != null">
+				and a.hasBonusGame=#{hasBonusGame}
+			</if>
+			<if test="hasFreegame != null">
+				and a.hasFreegame=#{hasFreegame}
+			</if>
+			<if test="roomType != null">
+				and a.roomType=#{roomType}
+			</if>
+			<if test="systemTakeWin != null">
+				and a.systemTakeWin=#{systemTakeWin}
+			</if>
+			<if test="jackpot != null">
+				and a.jackpot=#{jackpot}
+			</if>
+			<if test="jackpotContribute != null">
+				and a.jackpotContribute=#{jackpotContribute}
+			</if>
+			<if test="beforeBalance != null">
+				and a.beforeBalance=#{beforeBalance}
+			</if>
+			<if test="afterBalance != null">
+				and a.afterBalance=#{afterBalance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+</mapper>

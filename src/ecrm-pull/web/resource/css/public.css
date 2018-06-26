@@ -1,0 +1,470 @@
+td {
+	font-size: 9pt;
+}
+th {
+	font-size: 9pt;
+}
+
+a {
+	color: #0066FF;
+	text-decoration: none;
+	font-size: 9pt;
+}
+
+a:hover {
+	color: #FF0000;
+	text-decoration: none;
+	font-size: 9pt;
+}
+body {
+	font-size: 9pt;
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;
+
+
+}
+
+.toInput {
+	background-color: #ffffff;
+	border: 1px solid #000000;
+	font-size: 9pt;
+
+}
+
+.toseleBtnLab {
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #FFFFFF;
+	font-size: 9pt;
+	background-color: #fafafa;
+	text-decoration: none;
+	height: 15pt;
+	text-indent: 2pt;
+}
+.toseleBtnLab:hover {
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	border-left-color: #000000;
+	font-size: 9pt;
+	background-color: #CCCCCC;
+	text-decoration: none;
+	height: 15pt;
+	text-indent: 2pt;
+	color: #FF0000;
+
+
+}
+
+
+.toNavTd {
+	background-color: #FFCC00;
+	color: #000000;
+	margin-left: 20px;
+	background-image: url(../img/navbg.jpg);
+}
+.toNavHref {
+	color: #0000CC;
+}
+
+
+.toTopMenu {
+	color: #000066;
+	text-decoration: none;
+}
+.toTopMenu:hover {
+	color: #990000;
+}
+.toDateSelectBtn {
+	background-image: url(../img/bt_selDate.gif);
+	height: 20px;
+	width: 27px;
+	background-repeat: no-repeat;
+
+}
+.toDateSelectBtn:hover {
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: double;
+	border-right-style: double;
+	border-bottom-style: double;
+	border-left-style: double;
+	border-top-color: #000000;
+	border-right-color: #eeeeee;
+	border-bottom-color: #eeeeee;
+	border-left-color: #000000;
+}
+
+.toLine0 {
+	background-color: #ffffcc;
+}
+
+.toNavContent {
+	font-size: 12px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+}
+.toLabelTd {
+	background-color: #e0f0ff;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #003366;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #003366;
+}
+
+.toDataTd {
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #003366;
+	border-bottom-color: #003366;
+}
+
+.toDataTd_N123 {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #003366;
+}
+
+.toDataTdC {
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #003366;
+	border-bottom-color: #003366;
+	text-align: center;
+}
+
+.toDataTdL {
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #003366;
+	border-bottom-color: #003366;
+	text-align: left;
+}
+
+.toDataTdL_P5 {
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #003366;
+	text-align: left;
+	padding:5px;
+}
+
+.toDataTdR {
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #003366;
+	border-bottom-color: #003366;
+	text-align: right;
+}
+
+.toTabLine{
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #003366;
+}
+
+.toTab{
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-top-color: #003366;
+	border-left-color: #003366;
+}
+.toTab2 {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #000000;
+}
+.toFormTitle {
+	background-image: url(../img/btnbar.jpg);
+	height: 24px;
+	border-right: 1px solid #003366;
+	border-bottom: 1px solid #003366;
+	font-weight: bold;
+
+
+}
+.toFullTable {
+	border: 1px solid #003366;
+}
+
+.toMsgDIV1 {
+	position: absolute;
+	width: 150px;
+	visibility: visible;
+	color: #FF0000;
+	background-color: #CCCCCC;
+	margin-top: 20px;
+}
+.toMsgDIV {
+	color: #FF0000;
+	display:none;
+}
+.toMsgDIV2 {
+	color: #FF0000;
+}
+.toSelectLine {
+	background-color: #e0e0FF;
+}
+.disableWinHide{
+	position: absolute;
+	z-index: 1;
+	height: 1;
+	width: 1;
+	visibility: hidden;
+	left: -1000px;
+	top: -1000px;
+}
+.disableWinShow {
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 1;
+	height: 100%;
+	width: 100%;
+	visibility: visible;
+	filter: Alpha(Opacity=50);
+	left: 0px;
+	top: 0px;
+}
+.detailWinShow {
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 100;
+	height: 100%;
+	width: 100%;
+	visibility: visible;
+	left: 0px;
+	top: 0px;
+}
+
+.hideWin {
+	position: absolute;
+	z-index: 1;
+	height: 100px;
+	width: 100px;
+	left: -10000px;
+	top: -100000px;
+}
+.toLine1 {
+}
+
+
+
+.btn3_mouseout
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 2px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 2px;
+    font-size: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#ffffff,  EndColorStr=#C3DAF5);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 2px;
+    border-bottom: #2C59AA 1px solid;
+}
+.btn3_mouseover
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 2px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 2px;
+    font-size: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#ffffff,  EndColorStr=RED);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 2px;
+    border-bottom: #2C59AA 1px solid;
+}
+.btn3_mousedown
+{
+    border-right: #FFE400 1px solid;
+    padding-right: 2px;
+    border-top: #FFE400 1px solid;
+    padding-left: 2px;
+    font-size: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#ffffff,  EndColorStr=#C3DAF5);
+    border-left: #FFE400 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 2px;
+    border-bottom: #FFE400 1px solid;
+}
+.btn3_mouseup
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 2px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 2px;
+    font-size: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#ffffff,  EndColorStr=#C3DAF5);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 2px;
+    border-bottom: #2C59AA 1px solid;
+}
+
+
+
+.tabPanelForm {
+	visibility: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+
+}
+
+.tabLeftUp #LEFTTD
+{
+  BACKGROUND: url(../img/tab/tlUp1.gif) no-repeat;
+  width:      12px;
+}
+.tabLeftUp #CENTERTD
+{
+  BACKGROUND: url(../img/tab/tlUp2.gif) repeat-x;
+}
+.tabLeftUp #RIGHTTD
+{
+  BACKGROUND: url(../img/tab/tlUp3.gif) no-repeat;
+  width:      10px;
+}
+
+
+.tabUp #LEFTTD
+{
+  BACKGROUND: url(../img/tab/tUp1.gif) no-repeat;
+  width:      12px;
+}
+.tabUp #CENTERTD
+{
+  BACKGROUND: url(../img/tab/tUp2.gif) repeat-x;
+}
+.tabUp #RIGHTTD
+{
+  BACKGROUND: url(../img/tab/tUp3.gif) no-repeat;
+  width:      10px;
+}
+
+.tabLeftDown #LEFTTD
+{
+  BACKGROUND: url(../img/tab/tlDown1.gif) no-repeat;
+  width:      12px;
+}
+.tabLeftDown #CENTERTD
+{
+  BACKGROUND: url(../img/tab/tlDown2.gif) repeat-x;
+}
+.tabLeftDown #RIGHTTD
+{
+  BACKGROUND: url(../img/tab/tlDown3.gif) no-repeat;
+  width:      10px;
+}
+
+
+
+.tabDown #LEFTTD
+{
+  BACKGROUND: url(../img/tab/tDown1.gif) no-repeat;
+  width:      11px;
+}
+.tabDown #CENTERTD
+{
+  BACKGROUND: url(../img/tab/tDown2.gif) repeat-x;
+}
+.tabDown #RIGHTTD
+{
+  BACKGROUND: url(../img/tab/tDown3.gif) no-repeat;
+  width:      10px;
+}
+
+.tabPanleTopBg
+{
+  BACKGROUND: url(../img/tab/tTBG.gif);
+  height: 33px;
+}
+.tabPanleTopRight
+{
+  BACKGROUND: url(../img/tab/tTRight.gif);
+  height: 33px;
+  width:13px;
+  font-size: 9px;
+}
+.tabPanleMainLeft{
+  BACKGROUND: url(../img/tab/tMLeft.gif);
+  width:12px;
+  font-size: 9px;
+}
+.tabPanleMainBg{
+  BACKGROUND: url(../img/tab/tMBg.gif);
+  font-size: 9pt;
+}
+.tabPanleMainRight
+{
+  BACKGROUND: url(../img/tab/tMRight.gif);
+  width:13px;
+  font-size: 9px;
+}
+.tabPanleBottomLeft{
+  BACKGROUND: url(../img/tab/tBLeft.gif);
+  width:12px;
+  height: 14px;
+  font-size: 9px;
+}
+.tabPanleBottomBg{
+  BACKGROUND: url(../img/tab/tBBg.gif);
+  height: 14px;
+  font-size: 9px;
+}
+.tabPanleBottomRight
+{
+  BACKGROUND: url(../img/tab/tBRight.gif);
+  height: 14px;
+  width: 13px;
+  font-size: 9px;
+}
+
+
+.tabDown{cursor: hand;height: 33px;}
+.tabUp{cursor: hand;height: 33px;}
+.tabLeftDown{cursor: hand;height: 33px;}
+.tabLeftUp{cursor: hand;height: 33px;}
+.clsCheck2{background-color: #ccffff;}
+.clsCheck1{background-color: #FFccFF;}

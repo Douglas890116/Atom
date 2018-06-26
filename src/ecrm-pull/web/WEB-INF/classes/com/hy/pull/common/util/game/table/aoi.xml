@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="aoi_ProductID" name2="aoi_ProductID" />
+	<column name1="aoi_UserName" name2="aoi_UserName" />
+	<column name1="aoi_GameRecordID" name2="aoi_GameRecordID" />
+	<column name1="aoi_OrderNumber" name2="aoi_OrderNumber" />
+	<column name1="aoi_TableID" name2="aoi_TableID" />	
+	<column name1="aoi_Stage" name2="aoi_Stage" />
+	<column name1="aoi_Inning" name2="aoi_Inning" />
+	<column name1="aoi_GameNameID" name2="aoi_GameNameID" />
+	<column name1="aoi_GameBettingKind" name2="aoi_GameBettingKind" />	
+	<column name1="aoi_GameBettingContent" name2="aoi_GameBettingContent" />
+	<column name1="aoi_ResultType" name2="aoi_ResultType" />
+	<column name1="aoi_BettingAmount" name2="aoi_BettingAmount" />
+	<column name1="aoi_CompensateRate" name2="aoi_CompensateRate" />	
+	<column name1="aoi_WinLoseAmount" name2="aoi_WinLoseAmount" />
+	<column name1="aoi_Balance" name2="aoi_Balance" />
+	<column name1="aoi_AddTime" name2="aoi_AddTime" />
+	<column name1="aoi_VendorId" name2="aoi_VendorId" />
+	<column name1="aoi_ValidAmount" name2="aoi_ValidAmount" />	
+	<column name1="aoi_createtime" name2="aoi_createtime" />
+	<column name1="aoi_PlatformID" name2="aoi_PlatformID" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

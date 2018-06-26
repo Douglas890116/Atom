@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.NhqGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_nhq_gameinfo(BettingCredits,PreCreditsPoint,GameResult,GameRoomName,AgentAccount,GamblingCode,AfterPayoutCredits,UserAccount,GameType,BettingDate,BettingNO,DealerName,GameName,SetGameNo,IsPayout,ParentUserID,WinningCredits,BettingPoint,TableName,TrackIP,CreateTime,WashCodeCredits,UpdateTime,BettingID,Platformflag)  values (#{BettingCredits},#{PreCreditsPoint},#{GameResult},#{GameRoomName},#{AgentAccount},#{GamblingCode},#{AfterPayoutCredits},#{UserAccount},#{GameType},#{BettingDate},#{BettingNO},#{DealerName},#{GameName},#{SetGameNo},#{IsPayout},#{ParentUserID},#{WinningCredits},#{BettingPoint},#{TableName},#{TrackIP},#{CreateTime},#{WashCodeCredits},#{UpdateTime},#{BettingID},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_nhq_gameinfo(BettingCredits,PreCreditsPoint,GameResult,GameRoomName,AgentAccount,GamblingCode,AfterPayoutCredits,UserAccount,GameType,BettingDate,BettingNO,DealerName,GameName,SetGameNo,IsPayout,ParentUserID,WinningCredits,BettingPoint,TableName,TrackIP,CreateTime,WashCodeCredits,UpdateTime,BettingID,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.BettingCredits},#{item.PreCreditsPoint},#{item.GameResult},#{item.GameRoomName},#{item.AgentAccount},#{item.GamblingCode},#{item.AfterPayoutCredits},#{item.UserAccount},#{item.GameType},#{item.BettingDate},#{item.BettingNO},#{item.DealerName},#{item.GameName},#{item.SetGameNo},#{item.IsPayout},#{item.ParentUserID},#{item.WinningCredits},#{item.BettingPoint},#{item.TableName},#{item.TrackIP},#{item.CreateTime},#{item.WashCodeCredits},#{item.UpdateTime},#{item.BettingID},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_nhq_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="BettingCredits != null">
+				BettingCredits,
+			</if>
+			<if test="PreCreditsPoint != null">
+				PreCreditsPoint,
+			</if>
+			<if test="GameResult != null">
+				GameResult,
+			</if>
+			<if test="GameRoomName != null">
+				GameRoomName,
+			</if>
+			<if test="AgentAccount != null">
+				AgentAccount,
+			</if>
+			<if test="GamblingCode != null">
+				GamblingCode,
+			</if>
+			<if test="AfterPayoutCredits != null">
+				AfterPayoutCredits,
+			</if>
+			<if test="UserAccount != null">
+				UserAccount,
+			</if>
+			<if test="GameType != null">
+				GameType,
+			</if>
+			<if test="BettingDate != null">
+				BettingDate,
+			</if>
+			<if test="BettingNO != null">
+				BettingNO,
+			</if>
+			<if test="DealerName != null">
+				DealerName,
+			</if>
+			<if test="GameName != null">
+				GameName,
+			</if>
+			<if test="SetGameNo != null">
+				SetGameNo,
+			</if>
+			<if test="IsPayout != null">
+				IsPayout,
+			</if>
+			<if test="ParentUserID != null">
+				ParentUserID,
+			</if>
+			<if test="WinningCredits != null">
+				WinningCredits,
+			</if>
+			<if test="BettingPoint != null">
+				BettingPoint,
+			</if>
+			<if test="TableName != null">
+				TableName,
+			</if>
+			<if test="TrackIP != null">
+				TrackIP,
+			</if>
+			<if test="CreateTime != null">
+				CreateTime,
+			</if>
+			<if test="WashCodeCredits != null">
+				WashCodeCredits,
+			</if>
+			<if test="UpdateTime != null">
+				UpdateTime,
+			</if>
+			<if test="BettingID != null">
+				BettingID,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="BettingCredits != null">
+				#{BettingCredits},
+			</if>
+			<if test="PreCreditsPoint != null">
+				#{PreCreditsPoint},
+			</if>
+			<if test="GameResult != null">
+				#{GameResult},
+			</if>
+			<if test="GameRoomName != null">
+				#{GameRoomName},
+			</if>
+			<if test="AgentAccount != null">
+				#{AgentAccount},
+			</if>
+			<if test="GamblingCode != null">
+				#{GamblingCode},
+			</if>
+			<if test="AfterPayoutCredits != null">
+				#{AfterPayoutCredits},
+			</if>
+			<if test="UserAccount != null">
+				#{UserAccount},
+			</if>
+			<if test="GameType != null">
+				#{GameType},
+			</if>
+			<if test="BettingDate != null">
+				#{BettingDate},
+			</if>
+			<if test="BettingNO != null">
+				#{BettingNO},
+			</if>
+			<if test="DealerName != null">
+				#{DealerName},
+			</if>
+			<if test="GameName != null">
+				#{GameName},
+			</if>
+			<if test="SetGameNo != null">
+				#{SetGameNo},
+			</if>
+			<if test="IsPayout != null">
+				#{IsPayout},
+			</if>
+			<if test="ParentUserID != null">
+				#{ParentUserID},
+			</if>
+			<if test="WinningCredits != null">
+				#{WinningCredits},
+			</if>
+			<if test="BettingPoint != null">
+				#{BettingPoint},
+			</if>
+			<if test="TableName != null">
+				#{TableName},
+			</if>
+			<if test="TrackIP != null">
+				#{TrackIP},
+			</if>
+			<if test="CreateTime != null">
+				#{CreateTime},
+			</if>
+			<if test="WashCodeCredits != null">
+				#{WashCodeCredits},
+			</if>
+			<if test="UpdateTime != null">
+				#{UpdateTime},
+			</if>
+			<if test="BettingID != null">
+				#{BettingID},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_nhq_gameinfo
+		<where>
+			<if test="BettingCredits != null">
+				BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and GameResult=#{GameResult}
+			</if>
+			<if test="GameRoomName != null">
+				and GameRoomName=#{GameRoomName}
+			</if>
+			<if test="AgentAccount != null">
+				and AgentAccount=#{AgentAccount}
+			</if>
+			<if test="GamblingCode != null">
+				and GamblingCode=#{GamblingCode}
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and UserAccount=#{UserAccount}
+			</if>
+			<if test="GameType != null">
+				and GameType=#{GameType}
+			</if>
+			<if test="BettingDate != null">
+				and BettingDate=#{BettingDate}
+			</if>
+			<if test="BettingNO != null">
+				and BettingNO=#{BettingNO}
+			</if>
+			<if test="DealerName != null">
+				and DealerName=#{DealerName}
+			</if>
+			<if test="GameName != null">
+				and GameName=#{GameName}
+			</if>
+			<if test="SetGameNo != null">
+				and SetGameNo=#{SetGameNo}
+			</if>
+			<if test="IsPayout != null">
+				and IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and ParentUserID=#{ParentUserID}
+			</if>
+			<if test="WinningCredits != null">
+				and WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and BettingPoint=#{BettingPoint}
+			</if>
+			<if test="TableName != null">
+				and TableName=#{TableName}
+			</if>
+			<if test="TrackIP != null">
+				and TrackIP=#{TrackIP}
+			</if>
+			<if test="CreateTime != null">
+				and CreateTime=#{CreateTime}
+			</if>
+			<if test="WashCodeCredits != null">
+				and WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="UpdateTime != null">
+				and UpdateTime=#{UpdateTime}
+			</if>
+			<if test="BettingID != null">
+				and BettingID=#{BettingID}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and BettingID in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_nhq_gameinfo
+		<set>
+			<if test="PreCreditsPoint != null">
+				PreCreditsPoint=#{PreCreditsPoint},
+			</if>
+			<if test="GameResult != null">
+				GameResult=#{GameResult},
+			</if>
+			<if test="GameRoomName != null">
+				GameRoomName=#{GameRoomName},
+			</if>
+			<if test="AgentAccount != null">
+				AgentAccount=#{AgentAccount},
+			</if>
+			<if test="GamblingCode != null">
+				GamblingCode=#{GamblingCode},
+			</if>
+			<if test="AfterPayoutCredits != null">
+				AfterPayoutCredits=#{AfterPayoutCredits},
+			</if>
+			<if test="UserAccount != null">
+				UserAccount=#{UserAccount},
+			</if>
+			<if test="GameType != null">
+				GameType=#{GameType},
+			</if>
+			<if test="BettingDate != null">
+				BettingDate=#{BettingDate},
+			</if>
+			<if test="BettingNO != null">
+				BettingNO=#{BettingNO},
+			</if>
+			<if test="DealerName != null">
+				DealerName=#{DealerName},
+			</if>
+			<if test="GameName != null">
+				GameName=#{GameName},
+			</if>
+			<if test="SetGameNo != null">
+				SetGameNo=#{SetGameNo},
+			</if>
+			<if test="IsPayout != null">
+				IsPayout=#{IsPayout},
+			</if>
+			<if test="ParentUserID != null">
+				ParentUserID=#{ParentUserID},
+			</if>
+			<if test="WinningCredits != null">
+				WinningCredits=#{WinningCredits},
+			</if>
+			<if test="BettingPoint != null">
+				BettingPoint=#{BettingPoint},
+			</if>
+			<if test="TableName != null">
+				TableName=#{TableName},
+			</if>
+			<if test="TrackIP != null">
+				TrackIP=#{TrackIP},
+			</if>
+			<if test="CreateTime != null">
+				CreateTime=#{CreateTime},
+			</if>
+			<if test="WashCodeCredits != null">
+				WashCodeCredits=#{WashCodeCredits},
+			</if>
+			<if test="UpdateTime != null">
+				UpdateTime=#{UpdateTime},
+			</if>
+			<if test="BettingID != null">
+				BettingID=#{BettingID},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where BettingID=#{BettingID}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_nhq_gameinfo set
+			PreCreditsPoint=#{item.PreCreditsPoint},GameResult=#{item.GameResult},GameRoomName=#{item.GameRoomName},AgentAccount=#{item.AgentAccount},GamblingCode=#{item.GamblingCode},AfterPayoutCredits=#{item.AfterPayoutCredits},UserAccount=#{item.UserAccount},GameType=#{item.GameType},BettingDate=#{item.BettingDate},BettingNO=#{item.BettingNO},DealerName=#{item.DealerName},GameName=#{item.GameName},SetGameNo=#{item.SetGameNo},IsPayout=#{item.IsPayout},ParentUserID=#{item.ParentUserID},WinningCredits=#{item.WinningCredits},BettingPoint=#{item.BettingPoint},TableName=#{item.TableName},TrackIP=#{item.TrackIP},CreateTime=#{item.CreateTime},WashCodeCredits=#{item.WashCodeCredits},UpdateTime=#{item.UpdateTime},BettingID=#{item.BettingID},Platformflag=#{item.Platformflag}
+			where BettingID =#{item.BettingID}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_nhq_gameinfo a where a.BettingID=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_nhq_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult=#{GameResult}
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName=#{GameRoomName}
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount=#{AgentAccount}
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode=#{GamblingCode}
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount=#{UserAccount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType=#{GameType}
+			</if>
+			<if test="BettingDate != null">
+				and a.BettingDate=#{BettingDate}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO=#{BettingNO}
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName=#{DealerName}
+			</if>
+			<if test="GameName != null">
+				and a.GameName=#{GameName}
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo=#{SetGameNo}
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID=#{ParentUserID}
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint=#{BettingPoint}
+			</if>
+			<if test="TableName != null">
+				and a.TableName=#{TableName}
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP=#{TrackIP}
+			</if>
+			<if test="CreateTime != null">
+				and a.CreateTime=#{CreateTime}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="UpdateTime != null">
+				and a.UpdateTime=#{UpdateTime}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID=#{BettingID}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BettingID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				 a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult like '%${GameResult}%'
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName like '%${GameRoomName}%'
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount like '%${AgentAccount}%'
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode like '%${GamblingCode}%'
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount like '%${UserAccount}%'
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.BettingDate between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO like '%${BettingNO}%'
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName like '%${DealerName}%'
+			</if>
+			<if test="GameName != null">
+				and a.GameName like '%${GameName}%'
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo like '%${SetGameNo}%'
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID like '%${ParentUserID}%'
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint like '%${BettingPoint}%'
+			</if>
+			<if test="TableName != null">
+				and a.TableName like '%${TableName}%'
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP like '%${TrackIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.CreateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.UpdateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID like '%${BettingID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BettingID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				 a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult like '%${GameResult}%'
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName like '%${GameRoomName}%'
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount like '%${AgentAccount}%'
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode like '%${GamblingCode}%'
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount like '%${UserAccount}%'
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.BettingDate between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO like '%${BettingNO}%'
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName like '%${DealerName}%'
+			</if>
+			<if test="GameName != null">
+				and a.GameName like '%${GameName}%'
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo like '%${SetGameNo}%'
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID like '%${ParentUserID}%'
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint like '%${BettingPoint}%'
+			</if>
+			<if test="TableName != null">
+				and a.TableName like '%${TableName}%'
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP like '%${TrackIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.CreateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.UpdateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID like '%${BettingID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BettingID asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				 a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult like '%${GameResult}%'
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName like '%${GameRoomName}%'
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount like '%${AgentAccount}%'
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode like '%${GamblingCode}%'
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount like '%${UserAccount}%'
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.BettingDate between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO like '%${BettingNO}%'
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName like '%${DealerName}%'
+			</if>
+			<if test="GameName != null">
+				and a.GameName like '%${GameName}%'
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo like '%${SetGameNo}%'
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID like '%${ParentUserID}%'
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint like '%${BettingPoint}%'
+			</if>
+			<if test="TableName != null">
+				and a.TableName like '%${TableName}%'
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP like '%${TrackIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.CreateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.UpdateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID like '%${BettingID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				 a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult like '%${GameResult}%'
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName like '%${GameRoomName}%'
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount like '%${AgentAccount}%'
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode like '%${GamblingCode}%'
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount like '%${UserAccount}%'
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.BettingDate between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO like '%${BettingNO}%'
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName like '%${DealerName}%'
+			</if>
+			<if test="GameName != null">
+				and a.GameName like '%${GameName}%'
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo like '%${SetGameNo}%'
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID like '%${ParentUserID}%'
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint like '%${BettingPoint}%'
+			</if>
+			<if test="TableName != null">
+				and a.TableName like '%${TableName}%'
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP like '%${TrackIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.CreateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.UpdateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID like '%${BettingID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+	
+	
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="max" resultType="string" parameterType="hashmap">
+		select max(a.BettingDate) from api_nhq_gameinfo a
+		<where>
+			<if test="BettingCredits != null">
+				 a.BettingCredits=#{BettingCredits}
+			</if>
+			<if test="PreCreditsPoint != null">
+				and a.PreCreditsPoint=#{PreCreditsPoint}
+			</if>
+			<if test="GameResult != null">
+				and a.GameResult like '%${GameResult}%'
+			</if>
+			<if test="GameRoomName != null">
+				and a.GameRoomName like '%${GameRoomName}%'
+			</if>
+			<if test="AgentAccount != null">
+				and a.AgentAccount like '%${AgentAccount}%'
+			</if>
+			<if test="GamblingCode != null">
+				and a.GamblingCode like '%${GamblingCode}%'
+			</if>
+			<if test="AfterPayoutCredits != null">
+				and a.AfterPayoutCredits=#{AfterPayoutCredits}
+			</if>
+			<if test="UserAccount != null">
+				and a.UserAccount like '%${UserAccount}%'
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.BettingDate between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingNO != null">
+				and a.BettingNO like '%${BettingNO}%'
+			</if>
+			<if test="DealerName != null">
+				and a.DealerName like '%${DealerName}%'
+			</if>
+			<if test="GameName != null">
+				and a.GameName like '%${GameName}%'
+			</if>
+			<if test="SetGameNo != null">
+				and a.SetGameNo like '%${SetGameNo}%'
+			</if>
+			<if test="IsPayout != null">
+				and a.IsPayout=#{IsPayout}
+			</if>
+			<if test="ParentUserID != null">
+				and a.ParentUserID like '%${ParentUserID}%'
+			</if>
+			<if test="WinningCredits != null">
+				and a.WinningCredits=#{WinningCredits}
+			</if>
+			<if test="BettingPoint != null">
+				and a.BettingPoint like '%${BettingPoint}%'
+			</if>
+			<if test="TableName != null">
+				and a.TableName like '%${TableName}%'
+			</if>
+			<if test="TrackIP != null">
+				and a.TrackIP like '%${TrackIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.CreateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="WashCodeCredits != null">
+				and a.WashCodeCredits=#{WashCodeCredits}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.UpdateTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BettingID != null">
+				and a.BettingID like '%${BettingID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+	</select>
+</mapper>

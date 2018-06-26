@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.DataHandleMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into data_handle(handlecode,handledesc,updatetime,lasttime,lastnum,daynum,allnum,intervalnum,remark)  values (#{handlecode},#{handledesc},#{updatetime},#{lasttime},#{lastnum},#{daynum},#{allnum},#{intervalnum},#{remark})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into data_handle(handlecode,handledesc,updatetime,lasttime,lastnum,daynum,allnum,intervalnum,remark)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.handlecode},#{item.handledesc},#{item.updatetime},#{item.lasttime},#{item.lastnum},#{item.daynum},#{item.allnum},#{item.intervalnum},#{item.remark})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into data_handle
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="handlecode != null">
+				handlecode,
+			</if>
+			<if test="handledesc != null">
+				handledesc,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="lasttime != null">
+				lasttime,
+			</if>
+			<if test="lastnum != null">
+				lastnum,
+			</if>
+			<if test="daynum != null">
+				daynum,
+			</if>
+			<if test="allnum != null">
+				allnum,
+			</if>
+			<if test="intervalnum != null">
+				intervalnum,
+			</if>
+			<if test="remark != null">
+				remark
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="handlecode != null">
+				#{handlecode},
+			</if>
+			<if test="handledesc != null">
+				#{handledesc},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime},
+			</if>
+			<if test="lasttime != null">
+				#{lasttime},
+			</if>
+			<if test="lastnum != null">
+				#{lastnum},
+			</if>
+			<if test="daynum != null">
+				#{daynum},
+			</if>
+			<if test="allnum != null">
+				#{allnum},
+			</if>
+			<if test="intervalnum != null">
+				#{intervalnum},
+			</if>
+			<if test="remark != null">
+				#{remark}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from data_handle
+		<where>
+			<if test="handlecode != null">
+				handlecode=#{handlecode}
+			</if>
+			<if test="handledesc != null">
+				and handledesc=#{handledesc}
+			</if>
+			<if test="updatetime != null">
+				and updatetime=#{updatetime}
+			</if>
+			<if test="lasttime != null">
+				and lasttime=#{lasttime}
+			</if>
+			<if test="lastnum != null">
+				and lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="ids != null">
+				and handlecode in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update data_handle
+		<set>
+			<if test="handledesc != null">
+				handledesc=#{handledesc},
+			</if>
+			<if test="updatetime != null">
+				updatetime=#{updatetime},
+			</if>
+			<if test="lasttime != null">
+				lasttime=#{lasttime},
+			</if>
+			<if test="lastnum != null">
+				lastnum=#{lastnum},
+			</if>
+			<if test="daynum != null">
+				daynum=#{daynum},
+			</if>
+			<if test="allnum != null">
+				allnum=#{allnum},
+			</if>
+			<if test="intervalnum != null">
+				intervalnum=#{intervalnum},
+			</if>
+			<if test="remark != null">
+				remark=#{remark}
+			</if>
+		</set>
+		where handlecode=#{handlecode}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update data_handle set
+			handledesc=#{item.handledesc},updatetime=#{item.updatetime},lasttime=#{item.lasttime},lastnum=#{item.lastnum},daynum=#{item.daynum},allnum=#{item.allnum},intervalnum=#{item.intervalnum},remark=#{item.remark}
+			where handlecode =#{item.handlecode}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from data_handle a where a.handlecode=#{key}
+	</select>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from data_handle a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle a
+		<where>
+			<if test="handlecode != null">
+				a.handlecode=#{handlecode}
+			</if>
+			<if test="handledesc != null">
+				and a.handledesc=#{handledesc}
+			</if>
+			<if test="updatetime != null">
+				and a.updatetime=#{updatetime}
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime=#{lasttime}
+			</if>
+			<if test="lastnum != null">
+				and a.lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and a.daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and a.allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and a.intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and a.remark=#{remark}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.handlecode asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle a
+		<where>
+			<if test="handlecode != null">
+				 a.handlecode like '%${handlecode}%'
+			</if>
+			<if test="handledesc != null">
+				and a.handledesc like '%${handledesc}%'
+			</if>
+			<if test="updatetime != null">
+				and a.updatetime like '%${updatetime}%'
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime like '%${lasttime}%'
+			</if>
+			<if test="lastnum != null">
+				and a.lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and a.daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and a.allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and a.intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.handlecode asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle a
+		<where>
+			<if test="handlecode != null">
+				 a.handlecode like '%${handlecode}%'
+			</if>
+			<if test="handledesc != null">
+				and a.handledesc like '%${handledesc}%'
+			</if>
+			<if test="updatetime != null">
+				and a.updatetime like '%${updatetime}%'
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime like '%${lasttime}%'
+			</if>
+			<if test="lastnum != null">
+				and a.lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and a.daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and a.allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and a.intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.handlecode asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from data_handle a
+		<where>
+			<if test="handlecode != null">
+				 a.handlecode like '%${handlecode}%'
+			</if>
+			<if test="handledesc != null">
+				and a.handledesc like '%${handledesc}%'
+			</if>
+			<if test="updatetime != null">
+				and a.updatetime like '%${updatetime}%'
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime like '%${lasttime}%'
+			</if>
+			<if test="lastnum != null">
+				and a.lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and a.daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and a.allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and a.intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from data_handle a
+		<where>
+			<if test="handlecode != null">
+				 a.handlecode like '%${handlecode}%'
+			</if>
+			<if test="handledesc != null">
+				and a.handledesc like '%${handledesc}%'
+			</if>
+			<if test="updatetime != null">
+				and a.updatetime like '%${updatetime}%'
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime like '%${lasttime}%'
+			</if>
+			<if test="lastnum != null">
+				and a.lastnum=#{lastnum}
+			</if>
+			<if test="daynum != null">
+				and a.daynum=#{daynum}
+			</if>
+			<if test="allnum != null">
+				and a.allnum=#{allnum}
+			</if>
+			<if test="intervalnum != null">
+				and a.intervalnum=#{intervalnum}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

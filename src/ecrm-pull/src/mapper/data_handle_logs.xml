@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.DataHandleLogsMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into data_handle_logs(lsh,gametype,lasttime,dataparams,datalog,agentaccount,flag,remark)  values (#{lsh},#{gametype},#{lasttime},#{dataparams},#{datalog},#{agentaccount},#{flag},#{remark})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into data_handle_logs(lsh,gametype,lasttime,dataparams,datalog,agentaccount,flag,remark)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.lsh},#{item.gametype},#{item.lasttime},#{item.dataparams},#{item.datalog},#{item.agentaccount},#{item.flag},#{item.remark})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into data_handle_logs
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="lsh != null">
+				lsh,
+			</if>
+			<if test="gametype != null">
+				gametype,
+			</if>
+			<if test="lasttime != null">
+				lasttime,
+			</if>
+			<if test="dataparams != null">
+				dataparams,
+			</if>
+			<if test="datalog != null">
+				datalog,
+			</if>
+			<if test="agentaccount != null">
+				agentaccount,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="remark != null">
+				remark
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="lsh != null">
+				#{lsh},
+			</if>
+			<if test="gametype != null">
+				#{gametype},
+			</if>
+			<if test="lasttime != null">
+				#{lasttime},
+			</if>
+			<if test="dataparams != null">
+				#{dataparams},
+			</if>
+			<if test="datalog != null">
+				#{datalog},
+			</if>
+			<if test="agentaccount != null">
+				#{agentaccount},
+			</if>
+			<if test="flag != null">
+				#{flag},
+			</if>
+			<if test="remark != null">
+				#{remark}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from data_handle_logs
+		<where>
+			<if test="lsh != null">
+				lsh=#{lsh}
+			</if>
+			<if test="gametype != null">
+				and gametype=#{gametype}
+			</if>
+			<if test="lasttime != null">
+				and lasttime=#{lasttime}
+			</if>
+			<if test="dataparams != null">
+				and dataparams=#{dataparams}
+			</if>
+			<if test="datalog != null">
+				and datalog=#{datalog}
+			</if>
+			<if test="agentaccount != null">
+				and agentaccount=#{agentaccount}
+			</if>
+			<if test="flag != null">
+				and flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="ids != null">
+				and lsh in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update data_handle_logs
+		<set>
+			<if test="gametype != null">
+				gametype=#{gametype},
+			</if>
+			<if test="lasttime != null">
+				lasttime=#{lasttime},
+			</if>
+			<if test="dataparams != null">
+				dataparams=#{dataparams},
+			</if>
+			<if test="datalog != null">
+				datalog=#{datalog},
+			</if>
+			<if test="agentaccount != null">
+				agentaccount=#{agentaccount},
+			</if>
+			<if test="flag != null">
+				flag=#{flag},
+			</if>
+			<if test="remark != null">
+				remark=#{remark}
+			</if>
+		</set>
+		where lsh=#{lsh}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update data_handle_logs set
+			gametype=#{item.gametype},lasttime=#{item.lasttime},dataparams=#{item.dataparams},datalog=#{item.datalog},agentaccount=#{item.agentaccount},flag=#{item.flag},remark=#{item.remark}
+			where lsh =#{item.lsh}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from data_handle_logs a where a.lsh=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from data_handle_logs a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_logs a
+		<where>
+			<if test="lsh != null">
+				a.lsh=#{lsh}
+			</if>
+			<if test="gametype != null">
+				and a.gametype=#{gametype}
+			</if>
+			<if test="lasttime != null">
+				and a.lasttime=#{lasttime}
+			</if>
+			<if test="dataparams != null">
+				and a.dataparams=#{dataparams}
+			</if>
+			<if test="datalog != null">
+				and a.datalog=#{datalog}
+			</if>
+			<if test="agentaccount != null">
+				and a.agentaccount=#{agentaccount}
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and a.remark=#{remark}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.lsh asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_logs a
+		<where>
+			<if test="lsh != null">
+				 a.lsh like '%${lsh}%'
+			</if>
+			<if test="gametype != null">
+				and a.gametype like '%${gametype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="dataparams != null">
+				and a.dataparams like '%${dataparams}%'
+			</if>
+			<if test="datalog != null">
+				and a.datalog like '%${datalog}%'
+			</if>
+			<if test="agentaccount != null">
+				and a.agentaccount like '%${agentaccount}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.lsh asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from data_handle_logs a
+		<where>
+			<if test="lsh != null">
+				 a.lsh like '%${lsh}%'
+			</if>
+			<if test="gametype != null">
+				and a.gametype like '%${gametype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="dataparams != null">
+				and a.dataparams like '%${dataparams}%'
+			</if>
+			<if test="datalog != null">
+				and a.datalog like '%${datalog}%'
+			</if>
+			<if test="agentaccount != null">
+				and a.agentaccount like '%${agentaccount}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.lsh asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from data_handle_logs a
+		<where>
+			<if test="lsh != null">
+				 a.lsh like '%${lsh}%'
+			</if>
+			<if test="gametype != null">
+				and a.gametype like '%${gametype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="dataparams != null">
+				and a.dataparams like '%${dataparams}%'
+			</if>
+			<if test="datalog != null">
+				and a.datalog like '%${datalog}%'
+			</if>
+			<if test="agentaccount != null">
+				and a.agentaccount like '%${agentaccount}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from data_handle_logs a
+		<where>
+			<if test="lsh != null">
+				 a.lsh like '%${lsh}%'
+			</if>
+			<if test="gametype != null">
+				and a.gametype like '%${gametype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.lasttime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="dataparams != null">
+				and a.dataparams like '%${dataparams}%'
+			</if>
+			<if test="datalog != null">
+				and a.datalog like '%${datalog}%'
+			</if>
+			<if test="agentaccount != null">
+				and a.agentaccount like '%${agentaccount}%'
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

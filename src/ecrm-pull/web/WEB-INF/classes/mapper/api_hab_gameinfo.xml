@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiHabGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_hab_gameinfo(playerid,brandid,username,brandgameid,gamekeyname,gametypeid,dtstarted,dtcompleted,friendlygameinstanceid,gameinstanceid,stake,payout,jackpotwin,jackpotcontribution,currencycode,channeltypeid,createtime,bettime,betmoney,netmoney)  values (#{playerid},#{brandid},#{username},#{brandgameid},#{gamekeyname},#{gametypeid},#{dtstarted},#{dtcompleted},#{friendlygameinstanceid},#{gameinstanceid},#{stake},#{payout},#{jackpotwin},#{jackpotcontribution},#{currencycode},#{channeltypeid},#{createtime},#{bettime},#{betmoney},#{netmoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_hab_gameinfo(playerid,brandid,username,brandgameid,gamekeyname,gametypeid,dtstarted,dtcompleted,friendlygameinstanceid,gameinstanceid,stake,payout,jackpotwin,jackpotcontribution,currencycode,channeltypeid,createtime,bettime,betmoney,netmoney)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.playerid},#{item.brandid},#{item.username},#{item.brandgameid},#{item.gamekeyname},#{item.gametypeid},#{item.dtstarted},#{item.dtcompleted},#{item.friendlygameinstanceid},#{item.gameinstanceid},#{item.stake},#{item.payout},#{item.jackpotwin},#{item.jackpotcontribution},#{item.currencycode},#{item.channeltypeid},#{item.createtime},#{item.bettime},#{item.betmoney},#{item.netmoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_hab_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="playerid != null">
+				playerid,
+			</if>
+			<if test="brandid != null">
+				brandid,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="brandgameid != null">
+				brandgameid,
+			</if>
+			<if test="gamekeyname != null">
+				gamekeyname,
+			</if>
+			<if test="gametypeid != null">
+				gametypeid,
+			</if>
+			<if test="dtstarted != null">
+				dtstarted,
+			</if>
+			<if test="dtcompleted != null">
+				dtcompleted,
+			</if>
+			<if test="friendlygameinstanceid != null">
+				friendlygameinstanceid,
+			</if>
+			<if test="gameinstanceid != null">
+				gameinstanceid,
+			</if>
+			<if test="stake != null">
+				stake,
+			</if>
+			<if test="payout != null">
+				payout,
+			</if>
+			<if test="jackpotwin != null">
+				jackpotwin,
+			</if>
+			<if test="jackpotcontribution != null">
+				jackpotcontribution,
+			</if>
+			<if test="currencycode != null">
+				currencycode,
+			</if>
+			<if test="channeltypeid != null">
+				channeltypeid,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="bettime != null">
+				bettime,
+			</if>
+			<if test="betmoney != null">
+				betmoney,
+			</if>
+			<if test="netmoney != null">
+				netmoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="playerid != null">
+				#{playerid},
+			</if>
+			<if test="brandid != null">
+				#{brandid},
+			</if>
+			<if test="username != null">
+				#{username},
+			</if>
+			<if test="brandgameid != null">
+				#{brandgameid},
+			</if>
+			<if test="gamekeyname != null">
+				#{gamekeyname},
+			</if>
+			<if test="gametypeid != null">
+				#{gametypeid},
+			</if>
+			<if test="dtstarted != null">
+				#{dtstarted},
+			</if>
+			<if test="dtcompleted != null">
+				#{dtcompleted},
+			</if>
+			<if test="friendlygameinstanceid != null">
+				#{friendlygameinstanceid},
+			</if>
+			<if test="gameinstanceid != null">
+				#{gameinstanceid},
+			</if>
+			<if test="stake != null">
+				#{stake},
+			</if>
+			<if test="payout != null">
+				#{payout},
+			</if>
+			<if test="jackpotwin != null">
+				#{jackpotwin},
+			</if>
+			<if test="jackpotcontribution != null">
+				#{jackpotcontribution},
+			</if>
+			<if test="currencycode != null">
+				#{currencycode},
+			</if>
+			<if test="channeltypeid != null">
+				#{channeltypeid},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="bettime != null">
+				#{bettime},
+			</if>
+			<if test="betmoney != null">
+				#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				#{netmoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_hab_gameinfo
+		<where>
+			<if test="playerid != null">
+				playerid=#{playerid}
+			</if>
+			<if test="brandid != null">
+				and brandid=#{brandid}
+			</if>
+			<if test="username != null">
+				and username=#{username}
+			</if>
+			<if test="brandgameid != null">
+				and brandgameid=#{brandgameid}
+			</if>
+			<if test="gamekeyname != null">
+				and gamekeyname=#{gamekeyname}
+			</if>
+			<if test="gametypeid != null">
+				and gametypeid=#{gametypeid}
+			</if>
+			<if test="dtstarted != null">
+				and dtstarted=#{dtstarted}
+			</if>
+			<if test="dtcompleted != null">
+				and dtcompleted=#{dtcompleted}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and friendlygameinstanceid=#{friendlygameinstanceid}
+			</if>
+			<if test="gameinstanceid != null">
+				and gameinstanceid=#{gameinstanceid}
+			</if>
+			<if test="stake != null">
+				and stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and currencycode=#{currencycode}
+			</if>
+			<if test="channeltypeid != null">
+				and channeltypeid=#{channeltypeid}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and netmoney=#{netmoney}
+			</if>
+			<if test="ids != null">
+				and playerid in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_hab_gameinfo
+		<set>
+			<if test="brandid != null">
+				brandid=#{brandid},
+			</if>
+			<if test="username != null">
+				username=#{username},
+			</if>
+			<if test="brandgameid != null">
+				brandgameid=#{brandgameid},
+			</if>
+			<if test="gamekeyname != null">
+				gamekeyname=#{gamekeyname},
+			</if>
+			<if test="gametypeid != null">
+				gametypeid=#{gametypeid},
+			</if>
+			<if test="dtstarted != null">
+				dtstarted=#{dtstarted},
+			</if>
+			<if test="dtcompleted != null">
+				dtcompleted=#{dtcompleted},
+			</if>
+			<if test="friendlygameinstanceid != null">
+				friendlygameinstanceid=#{friendlygameinstanceid},
+			</if>
+			<if test="gameinstanceid != null">
+				gameinstanceid=#{gameinstanceid},
+			</if>
+			<if test="stake != null">
+				stake=#{stake},
+			</if>
+			<if test="payout != null">
+				payout=#{payout},
+			</if>
+			<if test="jackpotwin != null">
+				jackpotwin=#{jackpotwin},
+			</if>
+			<if test="jackpotcontribution != null">
+				jackpotcontribution=#{jackpotcontribution},
+			</if>
+			<if test="currencycode != null">
+				currencycode=#{currencycode},
+			</if>
+			<if test="channeltypeid != null">
+				channeltypeid=#{channeltypeid},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="bettime != null">
+				bettime=#{bettime},
+			</if>
+			<if test="betmoney != null">
+				betmoney=#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				netmoney=#{netmoney}
+			</if>
+		</set>
+		where playerid=#{playerid}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_hab_gameinfo set
+			brandid=#{item.brandid},username=#{item.username},brandgameid=#{item.brandgameid},gamekeyname=#{item.gamekeyname},gametypeid=#{item.gametypeid},dtstarted=#{item.dtstarted},dtcompleted=#{item.dtcompleted},friendlygameinstanceid=#{item.friendlygameinstanceid},gameinstanceid=#{item.gameinstanceid},stake=#{item.stake},payout=#{item.payout},jackpotwin=#{item.jackpotwin},jackpotcontribution=#{item.jackpotcontribution},currencycode=#{item.currencycode},channeltypeid=#{item.channeltypeid},createtime=#{item.createtime},bettime=#{item.bettime},betmoney=#{item.betmoney},netmoney=#{item.netmoney}
+			where playerid =#{item.playerid}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_hab_gameinfo a where a.playerid=#{key}
+	</select>
+
+	<!--查询�?��记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_hab_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_hab_gameinfo a
+		<where>
+			<if test="playerid != null">
+				a.playerid=#{playerid}
+			</if>
+			<if test="brandid != null">
+				and a.brandid=#{brandid}
+			</if>
+			<if test="username != null">
+				and a.username=#{username}
+			</if>
+			<if test="brandgameid != null">
+				and a.brandgameid=#{brandgameid}
+			</if>
+			<if test="gamekeyname != null">
+				and a.gamekeyname=#{gamekeyname}
+			</if>
+			<if test="gametypeid != null">
+				and a.gametypeid=#{gametypeid}
+			</if>
+			<if test="dtstarted != null">
+				and a.dtstarted=#{dtstarted}
+			</if>
+			<if test="dtcompleted != null">
+				and a.dtcompleted=#{dtcompleted}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and a.friendlygameinstanceid=#{friendlygameinstanceid}
+			</if>
+			<if test="gameinstanceid != null">
+				and a.gameinstanceid=#{gameinstanceid}
+			</if>
+			<if test="stake != null">
+				and a.stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and a.payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and a.jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and a.jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and a.currencycode=#{currencycode}
+			</if>
+			<if test="channeltypeid != null">
+				and a.channeltypeid=#{channeltypeid}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and a.bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.playerid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_hab_gameinfo a
+		<where>
+			<if test="playerid != null">
+				 a.playerid like '%${playerid}%'
+			</if>
+			<if test="brandid != null">
+				and a.brandid like '%${brandid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="brandgameid != null">
+				and a.brandgameid like '%${brandgameid}%'
+			</if>
+			<if test="gamekeyname != null">
+				and a.gamekeyname like '%${gamekeyname}%'
+			</if>
+			<if test="gametypeid != null">
+				and a.gametypeid like '%${gametypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtstarted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtcompleted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and a.friendlygameinstanceid like '%${friendlygameinstanceid}%'
+			</if>
+			<if test="gameinstanceid != null">
+				and a.gameinstanceid like '%${gameinstanceid}%'
+			</if>
+			<if test="stake != null">
+				and a.stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and a.payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and a.jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and a.jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and a.currencycode like '%${currencycode}%'
+			</if>
+			<if test="channeltypeid != null">
+				and a.channeltypeid like '%${channeltypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.netmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.playerid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_hab_gameinfo a
+		<where>
+			<if test="playerid != null">
+				 a.playerid like '%${playerid}%'
+			</if>
+			<if test="brandid != null">
+				and a.brandid like '%${brandid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="brandgameid != null">
+				and a.brandgameid like '%${brandgameid}%'
+			</if>
+			<if test="gamekeyname != null">
+				and a.gamekeyname like '%${gamekeyname}%'
+			</if>
+			<if test="gametypeid != null">
+				and a.gametypeid like '%${gametypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtstarted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtcompleted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and a.friendlygameinstanceid like '%${friendlygameinstanceid}%'
+			</if>
+			<if test="gameinstanceid != null">
+				and a.gameinstanceid like '%${gameinstanceid}%'
+			</if>
+			<if test="stake != null">
+				and a.stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and a.payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and a.jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and a.jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and a.currencycode like '%${currencycode}%'
+			</if>
+			<if test="channeltypeid != null">
+				and a.channeltypeid like '%${channeltypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.netmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.playerid asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段�?��结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_hab_gameinfo a
+		<where>
+			<if test="playerid != null">
+				 a.playerid like '%${playerid}%'
+			</if>
+			<if test="brandid != null">
+				and a.brandid like '%${brandid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="brandgameid != null">
+				and a.brandgameid like '%${brandgameid}%'
+			</if>
+			<if test="gamekeyname != null">
+				and a.gamekeyname like '%${gamekeyname}%'
+			</if>
+			<if test="gametypeid != null">
+				and a.gametypeid like '%${gametypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtstarted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtcompleted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and a.friendlygameinstanceid like '%${friendlygameinstanceid}%'
+			</if>
+			<if test="gameinstanceid != null">
+				and a.gameinstanceid like '%${gameinstanceid}%'
+			</if>
+			<if test="stake != null">
+				and a.stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and a.payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and a.jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and a.jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and a.currencycode like '%${currencycode}%'
+			</if>
+			<if test="channeltypeid != null">
+				and a.channeltypeid like '%${channeltypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.netmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段�?��结果按某个字段求和汇�?-->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_hab_gameinfo a
+		<where>
+			<if test="playerid != null">
+				 a.playerid like '%${playerid}%'
+			</if>
+			<if test="brandid != null">
+				and a.brandid like '%${brandid}%'
+			</if>
+			<if test="username != null">
+				and a.username like '%${username}%'
+			</if>
+			<if test="brandgameid != null">
+				and a.brandgameid like '%${brandgameid}%'
+			</if>
+			<if test="gamekeyname != null">
+				and a.gamekeyname like '%${gamekeyname}%'
+			</if>
+			<if test="gametypeid != null">
+				and a.gametypeid like '%${gametypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtstarted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.dtcompleted between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="friendlygameinstanceid != null">
+				and a.friendlygameinstanceid like '%${friendlygameinstanceid}%'
+			</if>
+			<if test="gameinstanceid != null">
+				and a.gameinstanceid like '%${gameinstanceid}%'
+			</if>
+			<if test="stake != null">
+				and a.stake=#{stake}
+			</if>
+			<if test="payout != null">
+				and a.payout=#{payout}
+			</if>
+			<if test="jackpotwin != null">
+				and a.jackpotwin=#{jackpotwin}
+			</if>
+			<if test="jackpotcontribution != null">
+				and a.jackpotcontribution=#{jackpotcontribution}
+			</if>
+			<if test="currencycode != null">
+				and a.currencycode like '%${currencycode}%'
+			</if>
+			<if test="channeltypeid != null">
+				and a.channeltypeid like '%${channeltypeid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.netmoney between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+	</select>
+</mapper>

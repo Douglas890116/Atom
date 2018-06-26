@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="BettingCredits" name2="BettingCredits" />
+	<column name1="PreCreditsPoint" name2="PreCreditsPoint" />
+	<column name1="GameResult" name2="GameResult" />
+	<column name1="GameRoomName" name2="GameRoomName" />
+	<column name1="AgentAccount" name2="AgentAccount" />	
+	<column name1="GamblingCode" name2="GamblingCode" />
+	<column name1="AfterPayoutCredits" name2="AfterPayoutCredits" />
+	<column name1="UserAccount" name2="UserAccount" />
+	<column name1="GameType" name2="GameType" />	
+	<column name1="BettingDate" name2="BettingDate" />
+	<column name1="BettingNO" name2="BettingNO" />
+	<column name1="DealerName" name2="DealerName" />
+	<column name1="GameName" name2="GameName" />	
+	<column name1="SetGameNo" name2="SetGameNo" />
+	<column name1="IsPayout" name2="IsPayout" />
+	<column name1="ParentUserID" name2="ParentUserID" />
+	<column name1="WinningCredits" name2="WinningCredits" />
+	<column name1="BettingPoint" name2="BettingPoint" />	
+	<column name1="TableName" name2="TableName" />
+	<column name1="TrackIP" name2="TrackIP" />
+	<column name1="CreateTime" name2="CreateTime" />	
+	<column name1="WashCodeCredits" name2="WashCodeCredits" />
+	<column name1="UpdateTime" name2="UpdateTime" />	
+	<column name1="BettingID" name2="BettingID" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

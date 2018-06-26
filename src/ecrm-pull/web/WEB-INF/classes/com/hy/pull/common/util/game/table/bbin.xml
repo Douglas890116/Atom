@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="bbin_WagersID" name2="bbin_WagersID" />
+	<column name1="bbin_UserName" name2="bbin_UserName" />
+	<column name1="bbin_WagersDate" name2="bbin_WagersDate" />
+	<column name1="bbin_GameType" name2="bbin_GameType" />
+	<column name1="bbin_Result" name2="bbin_Result" />	
+	<column name1="bbin_BetAmount" name2="bbin_BetAmount" />
+	<column name1="bbin_Payoff" name2="bbin_Payoff" />
+	<column name1="bbin_Currency" name2="bbin_Currency" />
+	<column name1="bbin_Commissionable" name2="bbin_Commissionable" />	
+	<column name1="bbin_SerialID" name2="bbin_SerialID" />
+	<column name1="bbin_RoundNo" name2="bbin_RoundNo" />
+	<column name1="bbin_GameCode" name2="bbin_GameCode" />
+	<column name1="bbin_ResultType" name2="bbin_ResultType" />	
+	<column name1="bbin_Card" name2="bbin_Card" />
+	<column name1="bbin_ExchangeRate" name2="bbin_ExchangeRate" />
+	<column name1="bbin_Commission" name2="bbin_Commission" />
+	<column name1="bbin_Origin" name2="bbin_Origin" />
+	<column name1="bbin_IsPaid" name2="bbin_IsPaid" />	
+	<column name1="bbin_createtime" name2="bbin_createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

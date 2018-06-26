@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiJdbFileMapper">
+	<insert id="insert" parameterType="hashmap">
+		insert ignore into api_jdb_file(lsh,parent,date,file,times,status) values
+		(#{lsh},#{parent},#{date},#{file},#{times},#{status})
+	</insert>
+	
+	<insert id="batchInsert" parameterType="list">
+		insert ignore into api_jdb_file(lsh,parent,date,file,times,status) values
+		<foreach item="item" index="index" collection="list" separator=",">
+		(#{item.lsh},#{item.parent},#{item.date},#{item.file},#{item.times},#{item.status})
+		</foreach>
+	</insert>
+	
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_jdb_file
+		<where>
+			1 = 1
+			<if test="lsh != null">and lsh = #{lsh}</if>
+			<if test="parent != null">and parent = #{parent}</if>
+			<if test="date != null">and date = #{date}</if>
+			<if test="file != null">and file = #{file}</if>
+			<if test="times != null">and times = #{times}</if>
+			<if test="status != null">and status = #{status}</if>
+		</where>
+		order by times asc limit #{limit}
+	</select>
+	
+	<update id="batchUpdate" parameterType="list">
+		update api_jdb_file set status = #{item.status} where lsh in 
+		<foreach item="item" index="index" collection="list" separator="," open="(" close=")">
+			#{item.lsh}
+		</foreach>
+	</update>
+</mapper>

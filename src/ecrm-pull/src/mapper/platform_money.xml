@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.PlatformMoneyMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_platform_money(money_id,platform_id,money_money,money_gametype)  values (#{money_id},#{platform_id},#{money_money},#{money_gametype})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_platform_money(money_id,platform_id,money_money,money_gametype)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.money_id},#{item.platform_id},#{item.money_money},#{item.money_gametype})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_platform_money
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="money_id != null">
+				money_id,
+			</if>
+			<if test="platform_id != null">
+				platform_id,
+			</if>
+			<if test="money_money != null">
+				money_money,
+			</if>
+			<if test="money_gametype != null">
+				money_gametype
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="money_id != null">
+				#{money_id},
+			</if>
+			<if test="platform_id != null">
+				#{platform_id},
+			</if>
+			<if test="money_money != null">
+				#{money_money},
+			</if>
+			<if test="money_gametype != null">
+				#{money_gametype}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_platform_money
+		<where>
+			<if test="money_id != null">
+				money_id=#{money_id}
+			</if>
+			<if test="platform_id != null">
+				and platform_id=#{platform_id}
+			</if>
+			<if test="money_money != null">
+				and money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and money_gametype=#{money_gametype}
+			</if>
+			<if test="ids != null">
+				and money_id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_platform_money
+		<set>
+			<if test="platform_id != null">
+				platform_id=#{platform_id},
+			</if>
+			<if test="money_money != null">
+				money_money=#{money_money},
+			</if>
+			<if test="money_gametype != null">
+				money_gametype=#{money_gametype}
+			</if>
+		</set>
+		where money_id=#{money_id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_platform_money set
+			platform_id=#{item.platform_id},money_money=#{item.money_money},money_gametype=#{item.money_gametype}
+			where money_id =#{item.money_id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_platform_money a where a.money_id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_platform_money a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_money a
+		<where>
+			<if test="money_id != null">
+				a.money_id=#{money_id}
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id=#{platform_id}
+			</if>
+			<if test="money_money != null">
+				and a.money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and a.money_gametype=#{money_gametype}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.money_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_money a
+		<where>
+			<if test="money_id != null">
+				 a.money_id like '%${money_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="money_money != null">
+				and a.money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and a.money_gametype like '%${money_gametype}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.money_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_money a
+		<where>
+			<if test="money_id != null">
+				 a.money_id like '%${money_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="money_money != null">
+				and a.money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and a.money_gametype like '%${money_gametype}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.money_id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_platform_money a
+		<where>
+			<if test="money_id != null">
+				 a.money_id like '%${money_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="money_money != null">
+				and a.money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and a.money_gametype like '%${money_gametype}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_platform_money a
+		<where>
+			<if test="money_id != null">
+				 a.money_id like '%${money_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="money_money != null">
+				and a.money_money=#{money_money}
+			</if>
+			<if test="money_gametype != null">
+				and a.money_gametype like '%${money_gametype}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

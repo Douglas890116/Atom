@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiIdnGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_idn_gameinfo(transactionno,tableno,userid,betdate,game,bettable,periode,room,bet,currbet,rbet,status,card,hand,prize,curr,currplayer,curramount,amount,total,agentcomission,agentbill,createtime,bettime,betmoney,netmoney)  values (#{transactionno},#{tableno},#{userid},#{betdate},#{game},#{bettable},#{periode},#{room},#{bet},#{currbet},#{rbet},#{status},#{card},#{hand},#{prize},#{curr},#{currplayer},#{curramount},#{amount},#{total},#{agentcomission},#{agentbill},#{createtime},#{bettime},#{betmoney},#{netmoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_idn_gameinfo(transactionno,tableno,userid,betdate,game,bettable,periode,room,bet,currbet,rbet,status,card,hand,prize,curr,currplayer,curramount,amount,total,agentcomission,agentbill,createtime,bettime,betmoney,netmoney)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.transactionno},#{item.tableno},#{item.userid},#{item.betdate},#{item.game},#{item.bettable},#{item.periode},#{item.room},#{item.bet},#{item.currbet},#{item.rbet},#{item.status},#{item.card},#{item.hand},#{item.prize},#{item.curr},#{item.currplayer},#{item.curramount},#{item.amount},#{item.total},#{item.agentcomission},#{item.agentbill},#{item.createtime},#{item.bettime},#{item.betmoney},#{item.netmoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		replace into api_idn_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="transactionno != null">
+				transactionno,
+			</if>
+			<if test="tableno != null">
+				tableno,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="betdate != null">
+				betdate,
+			</if>
+			<if test="game != null">
+				game,
+			</if>
+			<if test="bettable != null">
+				bettable,
+			</if>
+			<if test="periode != null">
+				periode,
+			</if>
+			<if test="room != null">
+				room,
+			</if>
+			<if test="bet != null">
+				bet,
+			</if>
+			<if test="currbet != null">
+				currbet,
+			</if>
+			<if test="rbet != null">
+				rbet,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="card != null">
+				card,
+			</if>
+			<if test="hand != null">
+				hand,
+			</if>
+			<if test="prize != null">
+				prize,
+			</if>
+			<if test="curr != null">
+				curr,
+			</if>
+			<if test="currplayer != null">
+				currplayer,
+			</if>
+			<if test="curramount != null">
+				curramount,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="agentcomission != null">
+				agentcomission,
+			</if>
+			<if test="agentbill != null">
+				agentbill,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="bettime != null">
+				bettime,
+			</if>
+			<if test="betmoney != null">
+				betmoney,
+			</if>
+			<if test="netmoney != null">
+				netmoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="transactionno != null">
+				#{transactionno},
+			</if>
+			<if test="tableno != null">
+				#{tableno},
+			</if>
+			<if test="userid != null">
+				#{userid},
+			</if>
+			<if test="betdate != null">
+				#{betdate},
+			</if>
+			<if test="game != null">
+				#{game},
+			</if>
+			<if test="bettable != null">
+				#{bettable},
+			</if>
+			<if test="periode != null">
+				#{periode},
+			</if>
+			<if test="room != null">
+				#{room},
+			</if>
+			<if test="bet != null">
+				#{bet},
+			</if>
+			<if test="currbet != null">
+				#{currbet},
+			</if>
+			<if test="rbet != null">
+				#{rbet},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="card != null">
+				#{card},
+			</if>
+			<if test="hand != null">
+				#{hand},
+			</if>
+			<if test="prize != null">
+				#{prize},
+			</if>
+			<if test="curr != null">
+				#{curr},
+			</if>
+			<if test="currplayer != null">
+				#{currplayer},
+			</if>
+			<if test="curramount != null">
+				#{curramount},
+			</if>
+			<if test="amount != null">
+				#{amount},
+			</if>
+			<if test="total != null">
+				#{total},
+			</if>
+			<if test="agentcomission != null">
+				#{agentcomission},
+			</if>
+			<if test="agentbill != null">
+				#{agentbill},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="bettime != null">
+				#{bettime},
+			</if>
+			<if test="betmoney != null">
+				#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				#{netmoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_idn_gameinfo
+		<where>
+			<if test="transactionno != null">
+				transactionno=#{transactionno}
+			</if>
+			<if test="tableno != null">
+				and tableno=#{tableno}
+			</if>
+			<if test="userid != null">
+				and userid=#{userid}
+			</if>
+			<if test="betdate != null">
+				and betdate=#{betdate}
+			</if>
+			<if test="game != null">
+				and game=#{game}
+			</if>
+			<if test="bettable != null">
+				and bettable=#{bettable}
+			</if>
+			<if test="periode != null">
+				and periode=#{periode}
+			</if>
+			<if test="room != null">
+				and room=#{room}
+			</if>
+			<if test="bet != null">
+				and bet=#{bet}
+			</if>
+			<if test="currbet != null">
+				and currbet=#{currbet}
+			</if>
+			<if test="rbet != null">
+				and rbet=#{rbet}
+			</if>
+			<if test="status != null">
+				and status=#{status}
+			</if>
+			<if test="card != null">
+				and card=#{card}
+			</if>
+			<if test="hand != null">
+				and hand=#{hand}
+			</if>
+			<if test="prize != null">
+				and prize=#{prize}
+			</if>
+			<if test="curr != null">
+				and curr=#{curr}
+			</if>
+			<if test="currplayer != null">
+				and currplayer=#{currplayer}
+			</if>
+			<if test="curramount != null">
+				and curramount=#{curramount}
+			</if>
+			<if test="amount != null">
+				and amount=#{amount}
+			</if>
+			<if test="total != null">
+				and total=#{total}
+			</if>
+			<if test="agentcomission != null">
+				and agentcomission=#{agentcomission}
+			</if>
+			<if test="agentbill != null">
+				and agentbill=#{agentbill}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and netmoney=#{netmoney}
+			</if>
+			<if test="ids != null">
+				and transactionno in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_idn_gameinfo
+		<set>
+			<if test="tableno != null">
+				tableno=#{tableno},
+			</if>
+			<if test="userid != null">
+				userid=#{userid},
+			</if>
+			<if test="betdate != null">
+				betdate=#{betdate},
+			</if>
+			<if test="game != null">
+				game=#{game},
+			</if>
+			<if test="bettable != null">
+				bettable=#{bettable},
+			</if>
+			<if test="periode != null">
+				periode=#{periode},
+			</if>
+			<if test="room != null">
+				room=#{room},
+			</if>
+			<if test="bet != null">
+				bet=#{bet},
+			</if>
+			<if test="currbet != null">
+				currbet=#{currbet},
+			</if>
+			<if test="rbet != null">
+				rbet=#{rbet},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="card != null">
+				card=#{card},
+			</if>
+			<if test="hand != null">
+				hand=#{hand},
+			</if>
+			<if test="prize != null">
+				prize=#{prize},
+			</if>
+			<if test="curr != null">
+				curr=#{curr},
+			</if>
+			<if test="currplayer != null">
+				currplayer=#{currplayer},
+			</if>
+			<if test="curramount != null">
+				curramount=#{curramount},
+			</if>
+			<if test="amount != null">
+				amount=#{amount},
+			</if>
+			<if test="total != null">
+				total=#{total},
+			</if>
+			<if test="agentcomission != null">
+				agentcomission=#{agentcomission},
+			</if>
+			<if test="agentbill != null">
+				agentbill=#{agentbill},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="bettime != null">
+				bettime=#{bettime},
+			</if>
+			<if test="betmoney != null">
+				betmoney=#{betmoney},
+			</if>
+			<if test="netmoney != null">
+				netmoney=#{netmoney}
+			</if>
+		</set>
+		where transactionno=#{transactionno}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_idn_gameinfo set
+			tableno=#{item.tableno},userid=#{item.userid},betdate=#{item.betdate},game=#{item.game},bettable=#{item.bettable},periode=#{item.periode},room=#{item.room},bet=#{item.bet},currbet=#{item.currbet},rbet=#{item.rbet},status=#{item.status},card=#{item.card},hand=#{item.hand},prize=#{item.prize},curr=#{item.curr},currplayer=#{item.currplayer},curramount=#{item.curramount},amount=#{item.amount},total=#{item.total},agentcomission=#{item.agentcomission},agentbill=#{item.agentbill},createtime=#{item.createtime},bettime=#{item.bettime},betmoney=#{item.betmoney},netmoney=#{item.netmoney}
+			where transactionno =#{item.transactionno}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_idn_gameinfo a where a.transactionno=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_idn_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_idn_gameinfo a
+		<where>
+			<if test="transactionno != null">
+				a.transactionno=#{transactionno}
+			</if>
+			<if test="tableno != null">
+				and a.tableno=#{tableno}
+			</if>
+			<if test="userid != null">
+				and a.userid=#{userid}
+			</if>
+			<if test="betdate != null">
+				and a.betdate=#{betdate}
+			</if>
+			<if test="game != null">
+				and a.game=#{game}
+			</if>
+			<if test="bettable != null">
+				and a.bettable=#{bettable}
+			</if>
+			<if test="periode != null">
+				and a.periode=#{periode}
+			</if>
+			<if test="room != null">
+				and a.room=#{room}
+			</if>
+			<if test="bet != null">
+				and a.bet=#{bet}
+			</if>
+			<if test="currbet != null">
+				and a.currbet=#{currbet}
+			</if>
+			<if test="rbet != null">
+				and a.rbet=#{rbet}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+			<if test="card != null">
+				and a.card=#{card}
+			</if>
+			<if test="hand != null">
+				and a.hand=#{hand}
+			</if>
+			<if test="prize != null">
+				and a.prize=#{prize}
+			</if>
+			<if test="curr != null">
+				and a.curr=#{curr}
+			</if>
+			<if test="currplayer != null">
+				and a.currplayer=#{currplayer}
+			</if>
+			<if test="curramount != null">
+				and a.curramount=#{curramount}
+			</if>
+			<if test="amount != null">
+				and a.amount=#{amount}
+			</if>
+			<if test="total != null">
+				and a.total=#{total}
+			</if>
+			<if test="agentcomission != null">
+				and a.agentcomission=#{agentcomission}
+			</if>
+			<if test="agentbill != null">
+				and a.agentbill=#{agentbill}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="bettime != null">
+				and a.bettime=#{bettime}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionno asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_idn_gameinfo a
+		<where>
+			<if test="transactionno != null">
+				 a.transactionno like '%${transactionno}%'
+			</if>
+			<if test="tableno != null">
+				and a.tableno like '%${tableno}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="betdate != null">
+				and a.betdate like '%${betdate}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="bettable != null">
+				and a.bettable like '%${bettable}%'
+			</if>
+			<if test="periode != null">
+				and a.periode like '%${periode}%'
+			</if>
+			<if test="room != null">
+				and a.room like '%${room}%'
+			</if>
+			<if test="bet != null">
+				and a.bet like '%${bet}%'
+			</if>
+			<if test="currbet != null">
+				and a.currbet like '%${currbet}%'
+			</if>
+			<if test="rbet != null">
+				and a.rbet like '%${rbet}%'
+			</if>
+			<if test="status != null">
+				and a.status like '%${status}%'
+			</if>
+			<if test="card != null">
+				and a.card like '%${card}%'
+			</if>
+			<if test="hand != null">
+				and a.hand like '%${hand}%'
+			</if>
+			<if test="prize != null">
+				and a.prize like '%${prize}%'
+			</if>
+			<if test="curr != null">
+				and a.curr like '%${curr}%'
+			</if>
+			<if test="currplayer != null">
+				and a.currplayer like '%${currplayer}%'
+			</if>
+			<if test="curramount != null">
+				and a.curramount like '%${curramount}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="total != null">
+				and a.total like '%${total}%'
+			</if>
+			<if test="agentcomission != null">
+				and a.agentcomission like '%${agentcomission}%'
+			</if>
+			<if test="agentbill != null">
+				and a.agentbill like '%${agentbill}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionno asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_idn_gameinfo a
+		<where>
+			<if test="transactionno != null">
+				 a.transactionno like '%${transactionno}%'
+			</if>
+			<if test="tableno != null">
+				and a.tableno like '%${tableno}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="betdate != null">
+				and a.betdate like '%${betdate}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="bettable != null">
+				and a.bettable like '%${bettable}%'
+			</if>
+			<if test="periode != null">
+				and a.periode like '%${periode}%'
+			</if>
+			<if test="room != null">
+				and a.room like '%${room}%'
+			</if>
+			<if test="bet != null">
+				and a.bet like '%${bet}%'
+			</if>
+			<if test="currbet != null">
+				and a.currbet like '%${currbet}%'
+			</if>
+			<if test="rbet != null">
+				and a.rbet like '%${rbet}%'
+			</if>
+			<if test="status != null">
+				and a.status like '%${status}%'
+			</if>
+			<if test="card != null">
+				and a.card like '%${card}%'
+			</if>
+			<if test="hand != null">
+				and a.hand like '%${hand}%'
+			</if>
+			<if test="prize != null">
+				and a.prize like '%${prize}%'
+			</if>
+			<if test="curr != null">
+				and a.curr like '%${curr}%'
+			</if>
+			<if test="currplayer != null">
+				and a.currplayer like '%${currplayer}%'
+			</if>
+			<if test="curramount != null">
+				and a.curramount like '%${curramount}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="total != null">
+				and a.total like '%${total}%'
+			</if>
+			<if test="agentcomission != null">
+				and a.agentcomission like '%${agentcomission}%'
+			</if>
+			<if test="agentbill != null">
+				and a.agentbill like '%${agentbill}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionno asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_idn_gameinfo a
+		<where>
+			<if test="transactionno != null">
+				 a.transactionno like '%${transactionno}%'
+			</if>
+			<if test="tableno != null">
+				and a.tableno like '%${tableno}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="betdate != null">
+				and a.betdate like '%${betdate}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="bettable != null">
+				and a.bettable like '%${bettable}%'
+			</if>
+			<if test="periode != null">
+				and a.periode like '%${periode}%'
+			</if>
+			<if test="room != null">
+				and a.room like '%${room}%'
+			</if>
+			<if test="bet != null">
+				and a.bet like '%${bet}%'
+			</if>
+			<if test="currbet != null">
+				and a.currbet like '%${currbet}%'
+			</if>
+			<if test="rbet != null">
+				and a.rbet like '%${rbet}%'
+			</if>
+			<if test="status != null">
+				and a.status like '%${status}%'
+			</if>
+			<if test="card != null">
+				and a.card like '%${card}%'
+			</if>
+			<if test="hand != null">
+				and a.hand like '%${hand}%'
+			</if>
+			<if test="prize != null">
+				and a.prize like '%${prize}%'
+			</if>
+			<if test="curr != null">
+				and a.curr like '%${curr}%'
+			</if>
+			<if test="currplayer != null">
+				and a.currplayer like '%${currplayer}%'
+			</if>
+			<if test="curramount != null">
+				and a.curramount like '%${curramount}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="total != null">
+				and a.total like '%${total}%'
+			</if>
+			<if test="agentcomission != null">
+				and a.agentcomission like '%${agentcomission}%'
+			</if>
+			<if test="agentbill != null">
+				and a.agentbill like '%${agentbill}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_idn_gameinfo a
+		<where>
+			<if test="transactionno != null">
+				 a.transactionno like '%${transactionno}%'
+			</if>
+			<if test="tableno != null">
+				and a.tableno like '%${tableno}%'
+			</if>
+			<if test="userid != null">
+				and a.userid like '%${userid}%'
+			</if>
+			<if test="betdate != null">
+				and a.betdate like '%${betdate}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="bettable != null">
+				and a.bettable like '%${bettable}%'
+			</if>
+			<if test="periode != null">
+				and a.periode like '%${periode}%'
+			</if>
+			<if test="room != null">
+				and a.room like '%${room}%'
+			</if>
+			<if test="bet != null">
+				and a.bet like '%${bet}%'
+			</if>
+			<if test="currbet != null">
+				and a.currbet like '%${currbet}%'
+			</if>
+			<if test="rbet != null">
+				and a.rbet like '%${rbet}%'
+			</if>
+			<if test="status != null">
+				and a.status like '%${status}%'
+			</if>
+			<if test="card != null">
+				and a.card like '%${card}%'
+			</if>
+			<if test="hand != null">
+				and a.hand like '%${hand}%'
+			</if>
+			<if test="prize != null">
+				and a.prize like '%${prize}%'
+			</if>
+			<if test="curr != null">
+				and a.curr like '%${curr}%'
+			</if>
+			<if test="currplayer != null">
+				and a.currplayer like '%${currplayer}%'
+			</if>
+			<if test="curramount != null">
+				and a.curramount like '%${curramount}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="total != null">
+				and a.total like '%${total}%'
+			</if>
+			<if test="agentcomission != null">
+				and a.agentcomission like '%${agentcomission}%'
+			</if>
+			<if test="agentbill != null">
+				and a.agentbill like '%${agentbill}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.bettime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="betmoney != null">
+				and a.betmoney=#{betmoney}
+			</if>
+			<if test="netmoney != null">
+				and a.netmoney=#{netmoney}
+			</if>
+
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.MgGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_mg_gameinfo(mg_key,mg_colId,mg_horNeKey,mg_mbrNeKey,mg_betTransKey,mg_gameKey,mg_type,mg_product,mg_transactionTimestampDate,mg_amount,mg_mbrCode,mg_mbrAlias,mg_mbrUsername,mg_gameCasinoId,mg_gamePokerId,mg_gamePokerType,mg_refKey,mg_refType,mg_afterTxWalletAmount,mg_mgsGameId,mg_mgsActionId,mg_clrngAmnt,mg_createtime,Platformflag)  values (#{mg_key},#{mg_colId},#{mg_horNeKey},#{mg_mbrNeKey},#{mg_betTransKey},#{mg_gameKey},#{mg_type},#{mg_product},#{mg_transactionTimestampDate},#{mg_amount},#{mg_mbrCode},#{mg_mbrAlias},#{mg_mbrUsername},#{mg_gameCasinoId},#{mg_gamePokerId},#{mg_gamePokerType},#{mg_refKey},#{mg_refType},#{mg_afterTxWalletAmount},#{mg_mgsGameId},#{mg_mgsActionId},#{mg_clrngAmnt},#{mg_createtime},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace api_mg_gameinfo(mg_key,mg_colId,mg_horNeKey,mg_mbrNeKey,mg_betTransKey,mg_gameKey,mg_type,mg_product,mg_transactionTimestampDate,mg_amount,mg_mbrCode,mg_mbrAlias,mg_mbrUsername,mg_gameCasinoId,mg_gamePokerId,mg_gamePokerType,mg_refKey,mg_refType,mg_afterTxWalletAmount,mg_mgsGameId,mg_mgsActionId,mg_clrngAmnt,mg_createtime,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.mg_key},#{item.mg_colId},#{item.mg_horNeKey},#{item.mg_mbrNeKey},#{item.mg_betTransKey},#{item.mg_gameKey},#{item.mg_type},#{item.mg_product},#{item.mg_transactionTimestampDate},#{item.mg_amount},#{item.mg_mbrCode},#{item.mg_mbrAlias},#{item.mg_mbrUsername},#{item.mg_gameCasinoId},#{item.mg_gamePokerId},#{item.mg_gamePokerType},#{item.mg_refKey},#{item.mg_refType},#{item.mg_afterTxWalletAmount},#{item.mg_mgsGameId},#{item.mg_mgsActionId},#{item.mg_clrngAmnt},#{item.mg_createtime},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_mg_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="mg_key != null">
+				mg_key,
+			</if>
+			<if test="mg_colId != null">
+				mg_colId,
+			</if>
+			<if test="mg_horNeKey != null">
+				mg_horNeKey,
+			</if>
+			<if test="mg_mbrNeKey != null">
+				mg_mbrNeKey,
+			</if>
+			<if test="mg_betTransKey != null">
+				mg_betTransKey,
+			</if>
+			<if test="mg_gameKey != null">
+				mg_gameKey,
+			</if>
+			<if test="mg_type != null">
+				mg_type,
+			</if>
+			<if test="mg_product != null">
+				mg_product,
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				mg_transactionTimestampDate,
+			</if>
+			<if test="mg_amount != null">
+				mg_amount,
+			</if>
+			<if test="mg_mbrCode != null">
+				mg_mbrCode,
+			</if>
+			<if test="mg_mbrAlias != null">
+				mg_mbrAlias,
+			</if>
+			<if test="mg_mbrUsername != null">
+				mg_mbrUsername,
+			</if>
+			<if test="mg_gameCasinoId != null">
+				mg_gameCasinoId,
+			</if>
+			<if test="mg_gamePokerId != null">
+				mg_gamePokerId,
+			</if>
+			<if test="mg_gamePokerType != null">
+				mg_gamePokerType,
+			</if>
+			<if test="mg_refKey != null">
+				mg_refKey,
+			</if>
+			<if test="mg_refType != null">
+				mg_refType,
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				mg_afterTxWalletAmount,
+			</if>
+			<if test="mg_mgsGameId != null">
+				mg_mgsGameId,
+			</if>
+			<if test="mg_mgsActionId != null">
+				mg_mgsActionId,
+			</if>
+			<if test="mg_clrngAmnt != null">
+				mg_clrngAmnt,
+			</if>
+			<if test="mg_createtime != null">
+				mg_createtime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="mg_key != null">
+				#{mg_key},
+			</if>
+			<if test="mg_colId != null">
+				#{mg_colId},
+			</if>
+			<if test="mg_horNeKey != null">
+				#{mg_horNeKey},
+			</if>
+			<if test="mg_mbrNeKey != null">
+				#{mg_mbrNeKey},
+			</if>
+			<if test="mg_betTransKey != null">
+				#{mg_betTransKey},
+			</if>
+			<if test="mg_gameKey != null">
+				#{mg_gameKey},
+			</if>
+			<if test="mg_type != null">
+				#{mg_type},
+			</if>
+			<if test="mg_product != null">
+				#{mg_product},
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				#{mg_transactionTimestampDate},
+			</if>
+			<if test="mg_amount != null">
+				#{mg_amount},
+			</if>
+			<if test="mg_mbrCode != null">
+				#{mg_mbrCode},
+			</if>
+			<if test="mg_mbrAlias != null">
+				#{mg_mbrAlias},
+			</if>
+			<if test="mg_mbrUsername != null">
+				#{mg_mbrUsername},
+			</if>
+			<if test="mg_gameCasinoId != null">
+				#{mg_gameCasinoId},
+			</if>
+			<if test="mg_gamePokerId != null">
+				#{mg_gamePokerId},
+			</if>
+			<if test="mg_gamePokerType != null">
+				#{mg_gamePokerType},
+			</if>
+			<if test="mg_refKey != null">
+				#{mg_refKey},
+			</if>
+			<if test="mg_refType != null">
+				#{mg_refType},
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				#{mg_afterTxWalletAmount},
+			</if>
+			<if test="mg_mgsGameId != null">
+				#{mg_mgsGameId},
+			</if>
+			<if test="mg_mgsActionId != null">
+				#{mg_mgsActionId},
+			</if>
+			<if test="mg_clrngAmnt != null">
+				#{mg_clrngAmnt},
+			</if>
+			<if test="mg_createtime != null">
+				#{mg_createtime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_mg_gameinfo
+		<where>
+			<if test="mg_key != null">
+				mg_key=#{mg_key}
+			</if>
+			<if test="mg_colId != null">
+				and mg_colId=#{mg_colId}
+			</if>
+			<if test="mg_horNeKey != null">
+				and mg_horNeKey=#{mg_horNeKey}
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and mg_mbrNeKey=#{mg_mbrNeKey}
+			</if>
+			<if test="mg_betTransKey != null">
+				and mg_betTransKey=#{mg_betTransKey}
+			</if>
+			<if test="mg_gameKey != null">
+				and mg_gameKey=#{mg_gameKey}
+			</if>
+			<if test="mg_type != null">
+				and mg_type=#{mg_type}
+			</if>
+			<if test="mg_product != null">
+				and mg_product=#{mg_product}
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and mg_transactionTimestampDate=#{mg_transactionTimestampDate}
+			</if>
+			<if test="mg_amount != null">
+				and mg_amount=#{mg_amount}
+			</if>
+			<if test="mg_mbrCode != null">
+				and mg_mbrCode=#{mg_mbrCode}
+			</if>
+			<if test="mg_mbrAlias != null">
+				and mg_mbrAlias=#{mg_mbrAlias}
+			</if>
+			<if test="mg_mbrUsername != null">
+				and mg_mbrUsername=#{mg_mbrUsername}
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and mg_gameCasinoId=#{mg_gameCasinoId}
+			</if>
+			<if test="mg_gamePokerId != null">
+				and mg_gamePokerId=#{mg_gamePokerId}
+			</if>
+			<if test="mg_gamePokerType != null">
+				and mg_gamePokerType=#{mg_gamePokerType}
+			</if>
+			<if test="mg_refKey != null">
+				and mg_refKey=#{mg_refKey}
+			</if>
+			<if test="mg_refType != null">
+				and mg_refType=#{mg_refType}
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and mg_afterTxWalletAmount=#{mg_afterTxWalletAmount}
+			</if>
+			<if test="mg_mgsGameId != null">
+				and mg_mgsGameId=#{mg_mgsGameId}
+			</if>
+			<if test="mg_mgsActionId != null">
+				and mg_mgsActionId=#{mg_mgsActionId}
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and mg_clrngAmnt=#{mg_clrngAmnt}
+			</if>
+			<if test="mg_createtime != null">
+				and mg_createtime=#{mg_createtime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and mg_key in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_mg_gameinfo
+		<set>
+			<if test="mg_colId != null">
+				mg_colId=#{mg_colId},
+			</if>
+			<if test="mg_horNeKey != null">
+				mg_horNeKey=#{mg_horNeKey},
+			</if>
+			<if test="mg_mbrNeKey != null">
+				mg_mbrNeKey=#{mg_mbrNeKey},
+			</if>
+			<if test="mg_betTransKey != null">
+				mg_betTransKey=#{mg_betTransKey},
+			</if>
+			<if test="mg_gameKey != null">
+				mg_gameKey=#{mg_gameKey},
+			</if>
+			<if test="mg_type != null">
+				mg_type=#{mg_type},
+			</if>
+			<if test="mg_product != null">
+				mg_product=#{mg_product},
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				mg_transactionTimestampDate=#{mg_transactionTimestampDate},
+			</if>
+			<if test="mg_amount != null">
+				mg_amount=#{mg_amount},
+			</if>
+			<if test="mg_mbrCode != null">
+				mg_mbrCode=#{mg_mbrCode},
+			</if>
+			<if test="mg_mbrAlias != null">
+				mg_mbrAlias=#{mg_mbrAlias},
+			</if>
+			<if test="mg_mbrUsername != null">
+				mg_mbrUsername=#{mg_mbrUsername},
+			</if>
+			<if test="mg_gameCasinoId != null">
+				mg_gameCasinoId=#{mg_gameCasinoId},
+			</if>
+			<if test="mg_gamePokerId != null">
+				mg_gamePokerId=#{mg_gamePokerId},
+			</if>
+			<if test="mg_gamePokerType != null">
+				mg_gamePokerType=#{mg_gamePokerType},
+			</if>
+			<if test="mg_refKey != null">
+				mg_refKey=#{mg_refKey},
+			</if>
+			<if test="mg_refType != null">
+				mg_refType=#{mg_refType},
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				mg_afterTxWalletAmount=#{mg_afterTxWalletAmount},
+			</if>
+			<if test="mg_mgsGameId != null">
+				mg_mgsGameId=#{mg_mgsGameId},
+			</if>
+			<if test="mg_mgsActionId != null">
+				mg_mgsActionId=#{mg_mgsActionId},
+			</if>
+			<if test="mg_clrngAmnt != null">
+				mg_clrngAmnt=#{mg_clrngAmnt},
+			</if>
+			<if test="mg_createtime != null">
+				mg_createtime=#{mg_createtime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where mg_key=#{mg_key}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_mg_gameinfo set
+			mg_colId=#{item.mg_colId},mg_horNeKey=#{item.mg_horNeKey},mg_mbrNeKey=#{item.mg_mbrNeKey},mg_betTransKey=#{item.mg_betTransKey},mg_gameKey=#{item.mg_gameKey},mg_type=#{item.mg_type},mg_product=#{item.mg_product},mg_transactionTimestampDate=#{item.mg_transactionTimestampDate},mg_amount=#{item.mg_amount},mg_mbrCode=#{item.mg_mbrCode},mg_mbrAlias=#{item.mg_mbrAlias},mg_mbrUsername=#{item.mg_mbrUsername},mg_gameCasinoId=#{item.mg_gameCasinoId},mg_gamePokerId=#{item.mg_gamePokerId},mg_gamePokerType=#{item.mg_gamePokerType},mg_refKey=#{item.mg_refKey},mg_refType=#{item.mg_refType},mg_afterTxWalletAmount=#{item.mg_afterTxWalletAmount},mg_mgsGameId=#{item.mg_mgsGameId},mg_mgsActionId=#{item.mg_mgsActionId},mg_clrngAmnt=#{item.mg_clrngAmnt},mg_createtime=#{item.mg_createtime},Platformflag=#{item.Platformflag}
+			where mg_key =#{item.mg_key}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_mg_gameinfo a where a.mg_key=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_mg_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_mg_gameinfo a
+		<where>
+			<if test="mg_key != null">
+				a.mg_key=#{mg_key}
+			</if>
+			<if test="mg_colId != null">
+				and a.mg_colId=#{mg_colId}
+			</if>
+			<if test="mg_horNeKey != null">
+				and a.mg_horNeKey=#{mg_horNeKey}
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and a.mg_mbrNeKey=#{mg_mbrNeKey}
+			</if>
+			<if test="mg_betTransKey != null">
+				and a.mg_betTransKey=#{mg_betTransKey}
+			</if>
+			<if test="mg_gameKey != null">
+				and a.mg_gameKey=#{mg_gameKey}
+			</if>
+			<if test="mg_type != null">
+				and a.mg_type=#{mg_type}
+			</if>
+			<if test="mg_product != null">
+				and a.mg_product=#{mg_product}
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and a.mg_transactionTimestampDate=#{mg_transactionTimestampDate}
+			</if>
+			<if test="mg_amount != null">
+				and a.mg_amount=#{mg_amount}
+			</if>
+			<if test="mg_mbrCode != null">
+				and a.mg_mbrCode=#{mg_mbrCode}
+			</if>
+			<if test="mg_mbrAlias != null">
+				and a.mg_mbrAlias=#{mg_mbrAlias}
+			</if>
+			<if test="mg_mbrUsername != null">
+				and a.mg_mbrUsername=#{mg_mbrUsername}
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and a.mg_gameCasinoId=#{mg_gameCasinoId}
+			</if>
+			<if test="mg_gamePokerId != null">
+				and a.mg_gamePokerId=#{mg_gamePokerId}
+			</if>
+			<if test="mg_gamePokerType != null">
+				and a.mg_gamePokerType=#{mg_gamePokerType}
+			</if>
+			<if test="mg_refKey != null">
+				and a.mg_refKey=#{mg_refKey}
+			</if>
+			<if test="mg_refType != null">
+				and a.mg_refType=#{mg_refType}
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and a.mg_afterTxWalletAmount=#{mg_afterTxWalletAmount}
+			</if>
+			<if test="mg_mgsGameId != null">
+				and a.mg_mgsGameId=#{mg_mgsGameId}
+			</if>
+			<if test="mg_mgsActionId != null">
+				and a.mg_mgsActionId=#{mg_mgsActionId}
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and a.mg_clrngAmnt=#{mg_clrngAmnt}
+			</if>
+			<if test="mg_createtime != null">
+				and a.mg_createtime=#{mg_createtime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.mg_key asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_mg_gameinfo a
+		<where>
+			<if test="mg_key != null">
+				 a.mg_key like '%${mg_key}%'
+			</if>
+			<if test="mg_colId != null">
+				and a.mg_colId like '%${mg_colId}%'
+			</if>
+			<if test="mg_horNeKey != null">
+				and a.mg_horNeKey like '%${mg_horNeKey}%'
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and a.mg_mbrNeKey like '%${mg_mbrNeKey}%'
+			</if>
+			<if test="mg_betTransKey != null">
+				and a.mg_betTransKey like '%${mg_betTransKey}%'
+			</if>
+			<if test="mg_gameKey != null">
+				and a.mg_gameKey like '%${mg_gameKey}%'
+			</if>
+			<if test="mg_type != null">
+				and a.mg_type like '%${mg_type}%'
+			</if>
+			<if test="mg_product != null">
+				and a.mg_product like '%${mg_product}%'
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and a.mg_transactionTimestampDate like '%${mg_transactionTimestampDate}%'
+			</if>
+			<if test="mg_amount != null">
+				and a.mg_amount like '%${mg_amount}%'
+			</if>
+			<if test="mg_mbrCode != null">
+				and a.mg_mbrCode like '%${mg_mbrCode}%'
+			</if>
+			<if test="mg_mbrAlias != null">
+				and a.mg_mbrAlias like '%${mg_mbrAlias}%'
+			</if>
+			<if test="mg_mbrUsername != null">
+				and a.mg_mbrUsername like '%${mg_mbrUsername}%'
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and a.mg_gameCasinoId like '%${mg_gameCasinoId}%'
+			</if>
+			<if test="mg_gamePokerId != null">
+				and a.mg_gamePokerId like '%${mg_gamePokerId}%'
+			</if>
+			<if test="mg_gamePokerType != null">
+				and a.mg_gamePokerType like '%${mg_gamePokerType}%'
+			</if>
+			<if test="mg_refKey != null">
+				and a.mg_refKey like '%${mg_refKey}%'
+			</if>
+			<if test="mg_refType != null">
+				and a.mg_refType like '%${mg_refType}%'
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and a.mg_afterTxWalletAmount like '%${mg_afterTxWalletAmount}%'
+			</if>
+			<if test="mg_mgsGameId != null">
+				and a.mg_mgsGameId like '%${mg_mgsGameId}%'
+			</if>
+			<if test="mg_mgsActionId != null">
+				and a.mg_mgsActionId like '%${mg_mgsActionId}%'
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and a.mg_clrngAmnt like '%${mg_clrngAmnt}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.mg_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.mg_key asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_mg_gameinfo a
+		<where>
+			<if test="mg_key != null">
+				 a.mg_key like '%${mg_key}%'
+			</if>
+			<if test="mg_colId != null">
+				and a.mg_colId like '%${mg_colId}%'
+			</if>
+			<if test="mg_horNeKey != null">
+				and a.mg_horNeKey like '%${mg_horNeKey}%'
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and a.mg_mbrNeKey like '%${mg_mbrNeKey}%'
+			</if>
+			<if test="mg_betTransKey != null">
+				and a.mg_betTransKey like '%${mg_betTransKey}%'
+			</if>
+			<if test="mg_gameKey != null">
+				and a.mg_gameKey like '%${mg_gameKey}%'
+			</if>
+			<if test="mg_type != null">
+				and a.mg_type like '%${mg_type}%'
+			</if>
+			<if test="mg_product != null">
+				and a.mg_product like '%${mg_product}%'
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and a.mg_transactionTimestampDate like '%${mg_transactionTimestampDate}%'
+			</if>
+			<if test="mg_amount != null">
+				and a.mg_amount like '%${mg_amount}%'
+			</if>
+			<if test="mg_mbrCode != null">
+				and a.mg_mbrCode like '%${mg_mbrCode}%'
+			</if>
+			<if test="mg_mbrAlias != null">
+				and a.mg_mbrAlias like '%${mg_mbrAlias}%'
+			</if>
+			<if test="mg_mbrUsername != null">
+				and a.mg_mbrUsername like '%${mg_mbrUsername}%'
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and a.mg_gameCasinoId like '%${mg_gameCasinoId}%'
+			</if>
+			<if test="mg_gamePokerId != null">
+				and a.mg_gamePokerId like '%${mg_gamePokerId}%'
+			</if>
+			<if test="mg_gamePokerType != null">
+				and a.mg_gamePokerType like '%${mg_gamePokerType}%'
+			</if>
+			<if test="mg_refKey != null">
+				and a.mg_refKey like '%${mg_refKey}%'
+			</if>
+			<if test="mg_refType != null">
+				and a.mg_refType like '%${mg_refType}%'
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and a.mg_afterTxWalletAmount like '%${mg_afterTxWalletAmount}%'
+			</if>
+			<if test="mg_mgsGameId != null">
+				and a.mg_mgsGameId like '%${mg_mgsGameId}%'
+			</if>
+			<if test="mg_mgsActionId != null">
+				and a.mg_mgsActionId like '%${mg_mgsActionId}%'
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and a.mg_clrngAmnt like '%${mg_clrngAmnt}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.mg_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.mg_key asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_mg_gameinfo a
+		<where>
+			<if test="mg_key != null">
+				 a.mg_key like '%${mg_key}%'
+			</if>
+			<if test="mg_colId != null">
+				and a.mg_colId like '%${mg_colId}%'
+			</if>
+			<if test="mg_horNeKey != null">
+				and a.mg_horNeKey like '%${mg_horNeKey}%'
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and a.mg_mbrNeKey like '%${mg_mbrNeKey}%'
+			</if>
+			<if test="mg_betTransKey != null">
+				and a.mg_betTransKey like '%${mg_betTransKey}%'
+			</if>
+			<if test="mg_gameKey != null">
+				and a.mg_gameKey like '%${mg_gameKey}%'
+			</if>
+			<if test="mg_type != null">
+				and a.mg_type like '%${mg_type}%'
+			</if>
+			<if test="mg_product != null">
+				and a.mg_product like '%${mg_product}%'
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and a.mg_transactionTimestampDate like '%${mg_transactionTimestampDate}%'
+			</if>
+			<if test="mg_amount != null">
+				and a.mg_amount like '%${mg_amount}%'
+			</if>
+			<if test="mg_mbrCode != null">
+				and a.mg_mbrCode like '%${mg_mbrCode}%'
+			</if>
+			<if test="mg_mbrAlias != null">
+				and a.mg_mbrAlias like '%${mg_mbrAlias}%'
+			</if>
+			<if test="mg_mbrUsername != null">
+				and a.mg_mbrUsername like '%${mg_mbrUsername}%'
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and a.mg_gameCasinoId like '%${mg_gameCasinoId}%'
+			</if>
+			<if test="mg_gamePokerId != null">
+				and a.mg_gamePokerId like '%${mg_gamePokerId}%'
+			</if>
+			<if test="mg_gamePokerType != null">
+				and a.mg_gamePokerType like '%${mg_gamePokerType}%'
+			</if>
+			<if test="mg_refKey != null">
+				and a.mg_refKey like '%${mg_refKey}%'
+			</if>
+			<if test="mg_refType != null">
+				and a.mg_refType like '%${mg_refType}%'
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and a.mg_afterTxWalletAmount like '%${mg_afterTxWalletAmount}%'
+			</if>
+			<if test="mg_mgsGameId != null">
+				and a.mg_mgsGameId like '%${mg_mgsGameId}%'
+			</if>
+			<if test="mg_mgsActionId != null">
+				and a.mg_mgsActionId like '%${mg_mgsActionId}%'
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and a.mg_clrngAmnt like '%${mg_clrngAmnt}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.mg_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_mg_gameinfo a
+		<where>
+			<if test="mg_key != null">
+				 a.mg_key like '%${mg_key}%'
+			</if>
+			<if test="mg_colId != null">
+				and a.mg_colId like '%${mg_colId}%'
+			</if>
+			<if test="mg_horNeKey != null">
+				and a.mg_horNeKey like '%${mg_horNeKey}%'
+			</if>
+			<if test="mg_mbrNeKey != null">
+				and a.mg_mbrNeKey like '%${mg_mbrNeKey}%'
+			</if>
+			<if test="mg_betTransKey != null">
+				and a.mg_betTransKey like '%${mg_betTransKey}%'
+			</if>
+			<if test="mg_gameKey != null">
+				and a.mg_gameKey like '%${mg_gameKey}%'
+			</if>
+			<if test="mg_type != null">
+				and a.mg_type like '%${mg_type}%'
+			</if>
+			<if test="mg_product != null">
+				and a.mg_product like '%${mg_product}%'
+			</if>
+			<if test="mg_transactionTimestampDate != null">
+				and a.mg_transactionTimestampDate like '%${mg_transactionTimestampDate}%'
+			</if>
+			<if test="mg_amount != null">
+				and a.mg_amount like '%${mg_amount}%'
+			</if>
+			<if test="mg_mbrCode != null">
+				and a.mg_mbrCode like '%${mg_mbrCode}%'
+			</if>
+			<if test="mg_mbrAlias != null">
+				and a.mg_mbrAlias like '%${mg_mbrAlias}%'
+			</if>
+			<if test="mg_mbrUsername != null">
+				and a.mg_mbrUsername like '%${mg_mbrUsername}%'
+			</if>
+			<if test="mg_gameCasinoId != null">
+				and a.mg_gameCasinoId like '%${mg_gameCasinoId}%'
+			</if>
+			<if test="mg_gamePokerId != null">
+				and a.mg_gamePokerId like '%${mg_gamePokerId}%'
+			</if>
+			<if test="mg_gamePokerType != null">
+				and a.mg_gamePokerType like '%${mg_gamePokerType}%'
+			</if>
+			<if test="mg_refKey != null">
+				and a.mg_refKey like '%${mg_refKey}%'
+			</if>
+			<if test="mg_refType != null">
+				and a.mg_refType like '%${mg_refType}%'
+			</if>
+			<if test="mg_afterTxWalletAmount != null">
+				and a.mg_afterTxWalletAmount like '%${mg_afterTxWalletAmount}%'
+			</if>
+			<if test="mg_mgsGameId != null">
+				and a.mg_mgsGameId like '%${mg_mgsGameId}%'
+			</if>
+			<if test="mg_mgsActionId != null">
+				and a.mg_mgsActionId like '%${mg_mgsActionId}%'
+			</if>
+			<if test="mg_clrngAmnt != null">
+				and a.mg_clrngAmnt like '%${mg_clrngAmnt}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.mg_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiSaGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_sa_gameinfo(BetTime,PayoutTime,Username,HostID,GameID,Round,Sets,BetID,BetAmount,ResultAmount,GameType,BetType,BetSource,State,Detail,createtime,Platformflag,validbet)  values (#{BetTime},#{PayoutTime},#{Username},#{HostID},#{GameID},#{Round},#{Sets},#{BetID},#{BetAmount},#{ResultAmount},#{GameType},#{BetType},#{BetSource},#{State},#{Detail},#{createtime},#{Platformflag},#{validbet})
+	</insert>
+    
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_sa_gameinfo(BetTime,PayoutTime,Username,HostID,GameID,Round,Sets,BetID,BetAmount,ResultAmount,GameType,BetType,BetSource,State,Detail,createtime,Platformflag,validbet)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.BetTime},#{item.PayoutTime},#{item.Username},#{item.HostID},#{item.GameID},#{item.Round},#{item.Sets},#{item.BetID},#{item.BetAmount},#{item.ResultAmount},#{item.GameType},#{item.BetType},#{item.BetSource},#{item.State},#{item.Detail},#{item.createtime},#{item.Platformflag},#{item.validbet})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_sa_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="BetTime != null">
+				BetTime,
+			</if>
+			<if test="PayoutTime != null">
+				PayoutTime,
+			</if>
+			<if test="Username != null">
+				Username,
+			</if>
+			<if test="HostID != null">
+				HostID,
+			</if>
+			<if test="GameID != null">
+				GameID,
+			</if>
+			<if test="Round != null">
+				Round,
+			</if>
+			<if test="Sets != null">
+				Sets,
+			</if>
+			<if test="BetID != null">
+				BetID,
+			</if>
+			<if test="BetAmount != null">
+				BetAmount,
+			</if>
+			<if test="ResultAmount != null">
+				ResultAmount,
+			</if>
+			<if test="GameType != null">
+				GameType,
+			</if>
+			<if test="BetType != null">
+				BetType,
+			</if>
+			<if test="BetSource != null">
+				BetSource,
+			</if>
+			<if test="State != null">
+				State,
+			</if>
+			<if test="Detail != null">
+				Detail,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag,
+			</if>
+			<if test="validbet != null">
+				validbet
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="BetTime != null">
+				#{BetTime},
+			</if>
+			<if test="PayoutTime != null">
+				#{PayoutTime},
+			</if>
+			<if test="Username != null">
+				#{Username},
+			</if>
+			<if test="HostID != null">
+				#{HostID},
+			</if>
+			<if test="GameID != null">
+				#{GameID},
+			</if>
+			<if test="Round != null">
+				#{Round},
+			</if>
+			<if test="Sets != null">
+				#{Sets},
+			</if>
+			<if test="BetID != null">
+				#{BetID},
+			</if>
+			<if test="BetAmount != null">
+				#{BetAmount},
+			</if>
+			<if test="ResultAmount != null">
+				#{ResultAmount},
+			</if>
+			<if test="GameType != null">
+				#{GameType},
+			</if>
+			<if test="BetType != null">
+				#{BetType},
+			</if>
+			<if test="BetSource != null">
+				#{BetSource},
+			</if>
+			<if test="State != null">
+				#{State},
+			</if>
+			<if test="Detail != null">
+				#{Detail},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag},
+			</if>
+			<if test="validbet != null">
+				#{validbet}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_sa_gameinfo
+		<where>
+			<if test="BetTime != null">
+				BetTime=#{BetTime}
+			</if>
+			<if test="PayoutTime != null">
+				and PayoutTime=#{PayoutTime}
+			</if>
+			<if test="Username != null">
+				and Username=#{Username}
+			</if>
+			<if test="HostID != null">
+				and HostID=#{HostID}
+			</if>
+			<if test="GameID != null">
+				and GameID=#{GameID}
+			</if>
+			<if test="Round != null">
+				and Round=#{Round}
+			</if>
+			<if test="Sets != null">
+				and Sets=#{Sets}
+			</if>
+			<if test="BetID != null">
+				and BetID=#{BetID}
+			</if>
+			<if test="BetAmount != null">
+				and BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and GameType=#{GameType}
+			</if>
+			<if test="BetType != null">
+				and BetType=#{BetType}
+			</if>
+			<if test="BetSource != null">
+				and BetSource=#{BetSource}
+			</if>
+			<if test="State != null">
+				and State=#{State}
+			</if>
+			<if test="Detail != null">
+				and Detail=#{Detail}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="validbet != null">
+				and validbet=#{validbet}
+			</if>
+			<if test="ids != null">
+				and BetID in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_sa_gameinfo
+		<set>
+			<if test="PayoutTime != null">
+				PayoutTime=#{PayoutTime},
+			</if>
+			<if test="Username != null">
+				Username=#{Username},
+			</if>
+			<if test="HostID != null">
+				HostID=#{HostID},
+			</if>
+			<if test="GameID != null">
+				GameID=#{GameID},
+			</if>
+			<if test="Round != null">
+				Round=#{Round},
+			</if>
+			<if test="Sets != null">
+				Sets=#{Sets},
+			</if>
+			<if test="BetID != null">
+				BetID=#{BetID},
+			</if>
+			<if test="BetAmount != null">
+				BetAmount=#{BetAmount},
+			</if>
+			<if test="ResultAmount != null">
+				ResultAmount=#{ResultAmount},
+			</if>
+			<if test="GameType != null">
+				GameType=#{GameType},
+			</if>
+			<if test="BetType != null">
+				BetType=#{BetType},
+			</if>
+			<if test="BetSource != null">
+				BetSource=#{BetSource},
+			</if>
+			<if test="State != null">
+				State=#{State},
+			</if>
+			<if test="Detail != null">
+				Detail=#{Detail},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag},
+			</if>
+			<if test="validbet != null">
+				validbet=#{validbet}
+			</if>
+		</set>
+		where BetID=#{BetID}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_sa_gameinfo set
+			PayoutTime=#{item.PayoutTime},Username=#{item.Username},HostID=#{item.HostID},GameID=#{item.GameID},Round=#{item.Round},Sets=#{item.Sets},BetID=#{item.BetID},BetAmount=#{item.BetAmount},ResultAmount=#{item.ResultAmount},GameType=#{item.GameType},BetType=#{item.BetType},BetSource=#{item.BetSource},State=#{item.State},Detail=#{item.Detail},createtime=#{item.createtime},Platformflag=#{item.Platformflag},validbet=#{item.validbet}
+			where BetID =#{item.BetID}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_sa_gameinfo a where a.BetID=#{key}
+	</select>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from api_sa_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_sa_gameinfo a
+		<where>
+			<if test="BetTime != null">
+				a.BetTime=#{BetTime}
+			</if>
+			<if test="PayoutTime != null">
+				and a.PayoutTime=#{PayoutTime}
+			</if>
+			<if test="Username != null">
+				and a.Username=#{Username}
+			</if>
+			<if test="HostID != null">
+				and a.HostID=#{HostID}
+			</if>
+			<if test="GameID != null">
+				and a.GameID=#{GameID}
+			</if>
+			<if test="Round != null">
+				and a.Round=#{Round}
+			</if>
+			<if test="Sets != null">
+				and a.Sets=#{Sets}
+			</if>
+			<if test="BetID != null">
+				and a.BetID=#{BetID}
+			</if>
+			<if test="BetAmount != null">
+				and a.BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and a.ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType=#{GameType}
+			</if>
+			<if test="BetType != null">
+				and a.BetType=#{BetType}
+			</if>
+			<if test="BetSource != null">
+				and a.BetSource=#{BetSource}
+			</if>
+			<if test="State != null">
+				and a.State=#{State}
+			</if>
+			<if test="Detail != null">
+				and a.Detail=#{Detail}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+			<if test="validbet != null">
+				and a.validbet=#{validbet}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BetID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_sa_gameinfo a
+		<where>
+			<if test="BetTime != null">
+				 a.BetTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.PayoutTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Username != null">
+				and a.Username like '%${Username}%'
+			</if>
+			<if test="HostID != null">
+				and a.HostID like '%${HostID}%'
+			</if>
+			<if test="GameID != null">
+				and a.GameID like '%${GameID}%'
+			</if>
+			<if test="Round != null">
+				and a.Round like '%${Round}%'
+			</if>
+			<if test="Sets != null">
+				and a.Sets like '%${Sets}%'
+			</if>
+			<if test="BetID != null">
+				and a.BetID like '%${BetID}%'
+			</if>
+			<if test="BetAmount != null">
+				and a.BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and a.ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BetType != null">
+				and a.BetType like '%${BetType}%'
+			</if>
+			<if test="BetSource != null">
+				and a.BetSource like '%${BetSource}%'
+			</if>
+			<if test="State != null">
+				and a.State like '%${State}%'
+			</if>
+			<if test="Detail != null">
+				and a.Detail like '%${Detail}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="validbet != null">
+				and a.validbet=#{validbet}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BetID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_sa_gameinfo a
+		<where>
+			<if test="BetTime != null">
+				 a.BetTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.PayoutTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Username != null">
+				and a.Username like '%${Username}%'
+			</if>
+			<if test="HostID != null">
+				and a.HostID like '%${HostID}%'
+			</if>
+			<if test="GameID != null">
+				and a.GameID like '%${GameID}%'
+			</if>
+			<if test="Round != null">
+				and a.Round like '%${Round}%'
+			</if>
+			<if test="Sets != null">
+				and a.Sets like '%${Sets}%'
+			</if>
+			<if test="BetID != null">
+				and a.BetID like '%${BetID}%'
+			</if>
+			<if test="BetAmount != null">
+				and a.BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and a.ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BetType != null">
+				and a.BetType like '%${BetType}%'
+			</if>
+			<if test="BetSource != null">
+				and a.BetSource like '%${BetSource}%'
+			</if>
+			<if test="State != null">
+				and a.State like '%${State}%'
+			</if>
+			<if test="Detail != null">
+				and a.Detail like '%${Detail}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="validbet != null">
+				and a.validbet=#{validbet}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.BetID asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_sa_gameinfo a
+		<where>
+			<if test="BetTime != null">
+				 a.BetTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.PayoutTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Username != null">
+				and a.Username like '%${Username}%'
+			</if>
+			<if test="HostID != null">
+				and a.HostID like '%${HostID}%'
+			</if>
+			<if test="GameID != null">
+				and a.GameID like '%${GameID}%'
+			</if>
+			<if test="Round != null">
+				and a.Round like '%${Round}%'
+			</if>
+			<if test="Sets != null">
+				and a.Sets like '%${Sets}%'
+			</if>
+			<if test="BetID != null">
+				and a.BetID like '%${BetID}%'
+			</if>
+			<if test="BetAmount != null">
+				and a.BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and a.ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BetType != null">
+				and a.BetType like '%${BetType}%'
+			</if>
+			<if test="BetSource != null">
+				and a.BetSource like '%${BetSource}%'
+			</if>
+			<if test="State != null">
+				and a.State like '%${State}%'
+			</if>
+			<if test="Detail != null">
+				and a.Detail like '%${Detail}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="validbet != null">
+				and a.validbet=#{validbet}
+			</if>
+
+		</where>
+	</select>
+
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_sa_gameinfo a
+		<where>
+			<if test="BetTime != null">
+				 a.BetTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.PayoutTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Username != null">
+				and a.Username like '%${Username}%'
+			</if>
+			<if test="HostID != null">
+				and a.HostID like '%${HostID}%'
+			</if>
+			<if test="GameID != null">
+				and a.GameID like '%${GameID}%'
+			</if>
+			<if test="Round != null">
+				and a.Round like '%${Round}%'
+			</if>
+			<if test="Sets != null">
+				and a.Sets like '%${Sets}%'
+			</if>
+			<if test="BetID != null">
+				and a.BetID like '%${BetID}%'
+			</if>
+			<if test="BetAmount != null">
+				and a.BetAmount=#{BetAmount}
+			</if>
+			<if test="ResultAmount != null">
+				and a.ResultAmount=#{ResultAmount}
+			</if>
+			<if test="GameType != null">
+				and a.GameType like '%${GameType}%'
+			</if>
+			<if test="BetType != null">
+				and a.BetType like '%${BetType}%'
+			</if>
+			<if test="BetSource != null">
+				and a.BetSource like '%${BetSource}%'
+			</if>
+			<if test="State != null">
+				and a.State like '%${State}%'
+			</if>
+			<if test="Detail != null">
+				and a.Detail like '%${Detail}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+			<if test="validbet != null">
+				and a.validbet=#{validbet}
+			</if>
+
+		</where>
+	</select>
+</mapper>

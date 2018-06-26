@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.ApiQWPGameInfoMapper">
+	<!-- 新增 或 更新 记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_qwp_gameinfo(TurnNumber,ServerId,KindId,RoomName,StartTime,EndTime,RecordTime ,CardData,Account,Score,TurnScore,Revenue) values
+		(#{TurnNumber},#{ServerId},#{KindId},#{RoomName},#{StartTime},#{EndTime},#{RecordTime },#{CardData},#{Account},#{Score},#{TurnScore},#{Revenue})
+	</insert>
+	<!-- 批量 新增 或 更新 记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_qwp_gameinfo(TurnNumber,ServerId,KindId,RoomName,StartTime,EndTime,RecordTime ,CardData,Account,Score,TurnScore,Revenue) values
+		<foreach item="item" index="index" collection="list" separator=",">
+		(#{item.TurnNumber},#{item.ServerId},#{item.KindId},#{item.RoomName},#{item.StartTime},#{item.EndTime},#{item.RecordTime },#{item.CardData},#{item.Account},#{item.Score},#{item.TurnScore},#{item.Revenue})
+		</foreach>
+	</insert>
+	<!-- 根据主键删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_qwp_gameinfo where TurnNumber = #{TurnNumber} and ServerId = #{ServerId} and KindId = #{KindId}
+	</delete>
+	<!-- 更新数据 -->
+	<update id="update" parameterType="hashmap">
+		update api_qwp_gameinfo
+		<set>
+			<if test="RoomName != null">RoomName = #{RoomName},</if>
+			<if test="StartTime != null">StartTime = #{StartTime},</if>
+			<if test="EndTime != null">EndTime = #{EndTime},</if>
+			<if test="RecordTime != null">RecordTime = #{RecordTime },</if>
+			<if test="CardData != null">CardData = #{CardData},</if>
+			<if test="Account != null">Account = #{Account},</if>
+			<if test="Score != null">Score = #{Score},</if>
+			<if test="TurnScore != null">TurnScore = #{TurnScore},</if>
+			<if test="Revenue != null">Revenue = #{Revenue}</if>
+		</set>
+		<where>
+			1 = 1
+			<if test="TurnNumber != null">and TurnNumber = #{TurnNumber}</if>
+			<if test="ServerId != null">and ServerId = #{ServerId}</if>
+			<if test="KindId != null">and KindId = #{KindId}</if>
+		</where>
+	</update>
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="hashmap">
+		select * from api_qwp_gameinfo
+		<where>
+			1 = 1
+			<if test="TurnNumber != null">and TurnNumber = #{TurnNumber}</if>
+			<if test="ServerId != null">and ServerId = #{ServerId}</if>
+			<if test="KindId != null">and KindId = #{KindId}</if>
+		</where>
+	</select>
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_qwp_gameinfo
+		<where>
+			1 = 1
+			<if test="TurnNumber != null">and TurnNumber = #{TurnNumber}</if>
+			<if test="ServerId != null">and ServerId = #{ServerId}</if>
+			<if test="KindId != null">and KindId = #{KindId}</if>
+			<if test="RoomName != null">and RoomName = #{RoomName}</if>
+			<if test="StartTime != null">and StartTime = #{StartTime}</if>
+			<if test="EndTime != null">and EndTime = #{EndTime}</if>
+			<if test="RecordTime != null">and RecordTime = #{RecordTime }</if>
+			<if test="CardData != null">and CardData = #{CardData}</if>
+			<if test="Account != null">and Account = #{Account}</if>
+			<if test="Score != null">and Score = #{Score}</if>
+			<if test="TurnScore != null">and TurnScore = #{TurnScore}</if>
+			<if test="Revenue != null">and Revenue = #{Revenue}</if>
+		</where>
+	</select>
+</mapper>

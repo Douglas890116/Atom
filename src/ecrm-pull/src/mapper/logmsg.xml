@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.api_logmsgMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_logmsg(log_id,platform_id,log_createtime,log_type,log_result,log_state,log_gametype,log_username)  values (#{log_id},#{platform_id},#{log_createtime},#{log_type},#{log_result},#{log_state},#{log_gametype},#{log_username})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_logmsg(log_id,platform_id,log_createtime,log_type,log_result,log_state,log_gametype,log_username)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.log_id},#{item.platform_id},#{item.log_createtime},#{item.log_type},#{item.log_result},#{item.log_state},#{item.log_gametype},#{item.log_username})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_logmsg
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="log_id != null">
+				log_id,
+			</if>
+			<if test="platform_id != null">
+				platform_id,
+			</if>
+			<if test="log_createtime != null">
+				log_createtime,
+			</if>
+			<if test="log_type != null">
+				log_type,
+			</if>
+			<if test="log_result != null">
+				log_result,
+			</if>
+			<if test="log_state != null">
+				log_state,
+			</if>
+			<if test="log_gametype != null">
+				log_gametype,
+			</if>
+			<if test="log_username != null">
+				log_username
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="log_id != null">
+				#{log_id},
+			</if>
+			<if test="platform_id != null">
+				#{platform_id},
+			</if>
+			<if test="log_createtime != null">
+				#{log_createtime},
+			</if>
+			<if test="log_type != null">
+				#{log_type},
+			</if>
+			<if test="log_result != null">
+				#{log_result},
+			</if>
+			<if test="log_state != null">
+				#{log_state},
+			</if>
+			<if test="log_gametype != null">
+				#{log_gametype},
+			</if>
+			<if test="log_username != null">
+				#{log_username}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_logmsg
+		<where>
+			<if test="log_id != null">
+				log_id=#{log_id}
+			</if>
+			<if test="platform_id != null">
+				and platform_id=#{platform_id}
+			</if>
+			<if test="log_createtime != null">
+				and log_createtime=#{log_createtime}
+			</if>
+			<if test="log_type != null">
+				and log_type=#{log_type}
+			</if>
+			<if test="log_result != null">
+				and log_result=#{log_result}
+			</if>
+			<if test="log_state != null">
+				and log_state=#{log_state}
+			</if>
+			<if test="log_gametype != null">
+				and log_gametype=#{log_gametype}
+			</if>
+			<if test="log_username != null">
+				and log_username=#{log_username}
+			</if>
+			<if test="ids != null">
+				and log_id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_logmsg
+		<set>
+			<if test="platform_id != null">
+				platform_id=#{platform_id},
+			</if>
+			<if test="log_createtime != null">
+				log_createtime=#{log_createtime},
+			</if>
+			<if test="log_type != null">
+				log_type=#{log_type},
+			</if>
+			<if test="log_result != null">
+				log_result=#{log_result},
+			</if>
+			<if test="log_state != null">
+				log_state=#{log_state},
+			</if>
+			<if test="log_gametype != null">
+				log_gametype=#{log_gametype},
+			</if>
+			<if test="log_username != null">
+				log_username=#{log_username}
+			</if>
+		</set>
+		where log_id=#{log_id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_logmsg set
+			platform_id=#{item.platform_id},log_createtime=#{item.log_createtime},log_type=#{item.log_type},log_result=#{item.log_result},log_state=#{item.log_state},log_gametype=#{item.log_gametype},log_username=#{item.log_username}
+			where log_id =#{item.log_id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_logmsg a where a.log_id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_logmsg a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_logmsg a
+		<where>
+			<if test="log_id != null">
+				a.log_id=#{log_id}
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id=#{platform_id}
+			</if>
+			<if test="log_createtime != null">
+				and a.log_createtime=#{log_createtime}
+			</if>
+			<if test="log_type != null">
+				and a.log_type=#{log_type}
+			</if>
+			<if test="log_result != null">
+				and a.log_result=#{log_result}
+			</if>
+			<if test="log_state != null">
+				and a.log_state=#{log_state}
+			</if>
+			<if test="log_gametype != null">
+				and a.log_gametype=#{log_gametype}
+			</if>
+			<if test="log_username != null">
+				and a.log_username=#{log_username}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.log_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_logmsg a
+		<where>
+			<if test="log_id != null">
+				 a.log_id like '%${log_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.log_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="log_type != null">
+				and a.log_type like '%${log_type}%'
+			</if>
+			<if test="log_result != null">
+				and a.log_result like '%${log_result}%'
+			</if>
+			<if test="log_state != null">
+				and a.log_state like '%${log_state}%'
+			</if>
+			<if test="log_gametype != null">
+				and a.log_gametype like '%${log_gametype}%'
+			</if>
+			<if test="log_username != null">
+				and a.log_username like '%${log_username}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.log_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_logmsg a
+		<where>
+			<if test="log_id != null">
+				 a.log_id like '%${log_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.log_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="log_type != null">
+				and a.log_type like '%${log_type}%'
+			</if>
+			<if test="log_result != null">
+				and a.log_result like '%${log_result}%'
+			</if>
+			<if test="log_state != null">
+				and a.log_state like '%${log_state}%'
+			</if>
+			<if test="log_gametype != null">
+				and a.log_gametype like '%${log_gametype}%'
+			</if>
+			<if test="log_username != null">
+				and a.log_username like '%${log_username}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.log_id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_logmsg a
+		<where>
+			<if test="log_id != null">
+				 a.log_id like '%${log_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.log_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="log_type != null">
+				and a.log_type like '%${log_type}%'
+			</if>
+			<if test="log_result != null">
+				and a.log_result like '%${log_result}%'
+			</if>
+			<if test="log_state != null">
+				and a.log_state like '%${log_state}%'
+			</if>
+			<if test="log_gametype != null">
+				and a.log_gametype like '%${log_gametype}%'
+			</if>
+			<if test="log_username != null">
+				and a.log_username like '%${log_username}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_logmsg a
+		<where>
+			<if test="log_id != null">
+				 a.log_id like '%${log_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.log_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="log_type != null">
+				and a.log_type like '%${log_type}%'
+			</if>
+			<if test="log_result != null">
+				and a.log_result like '%${log_result}%'
+			</if>
+			<if test="log_state != null">
+				and a.log_state like '%${log_state}%'
+			</if>
+			<if test="log_gametype != null">
+				and a.log_gametype like '%${log_gametype}%'
+			</if>
+			<if test="log_username != null">
+				and a.log_username like '%${log_username}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

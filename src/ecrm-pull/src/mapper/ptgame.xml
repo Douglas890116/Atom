@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.api_ptgameMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_ptgame(code,ename,cname,state,type,id)  values (#{code},#{ename},#{cname},#{state},#{type},#{id})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_ptgame(code,ename,cname,state,type,id)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.code},#{item.ename},#{item.cname},#{item.state},#{item.type},#{item.id})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_ptgame
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="code != null">
+				code,
+			</if>
+			<if test="ename != null">
+				ename,
+			</if>
+			<if test="cname != null">
+				cname,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="id != null">
+				id
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="code != null">
+				#{code},
+			</if>
+			<if test="ename != null">
+				#{ename},
+			</if>
+			<if test="cname != null">
+				#{cname},
+			</if>
+			<if test="state != null">
+				#{state},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="id != null">
+				#{id}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_ptgame
+		<where>
+			<if test="code != null">
+				code=#{code}
+			</if>
+			<if test="ename != null">
+				and ename=#{ename}
+			</if>
+			<if test="cname != null">
+				and cname=#{cname}
+			</if>
+			<if test="state != null">
+				and state=#{state}
+			</if>
+			<if test="type != null">
+				and type=#{type}
+			</if>
+			<if test="id != null">
+				and id=#{id}
+			</if>
+			<if test="ids != null">
+				and id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_ptgame
+		<set>
+			<if test="ename != null">
+				ename=#{ename},
+			</if>
+			<if test="cname != null">
+				cname=#{cname},
+			</if>
+			<if test="state != null">
+				state=#{state},
+			</if>
+			<if test="type != null">
+				type=#{type},
+			</if>
+			<if test="id != null">
+				id=#{id}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_ptgame set
+			ename=#{item.ename},cname=#{item.cname},state=#{item.state},type=#{item.type},id=#{item.id}
+			where id =#{item.id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_ptgame a where a.id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_ptgame a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_ptgame a
+		<where>
+			<if test="code != null">
+				a.code=#{code}
+			</if>
+			<if test="ename != null">
+				and a.ename=#{ename}
+			</if>
+			<if test="cname != null">
+				and a.cname=#{cname}
+			</if>
+			<if test="state != null">
+				and a.state=#{state}
+			</if>
+			<if test="type != null">
+				and a.type=#{type}
+			</if>
+			<if test="id != null">
+				and a.id=#{id}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_ptgame a
+		<where>
+			<if test="code != null">
+				 a.code like '%${code}%'
+			</if>
+			<if test="ename != null">
+				and a.ename like '%${ename}%'
+			</if>
+			<if test="cname != null">
+				and a.cname like '%${cname}%'
+			</if>
+			<if test="state != null">
+				and a.state like '%${state}%'
+			</if>
+			<if test="type != null">
+				and a.type like '%${type}%'
+			</if>
+			<if test="id != null">
+				and a.id=#{id}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_ptgame a
+		<where>
+			<if test="code != null">
+				 a.code like '%${code}%'
+			</if>
+			<if test="ename != null">
+				and a.ename like '%${ename}%'
+			</if>
+			<if test="cname != null">
+				and a.cname like '%${cname}%'
+			</if>
+			<if test="state != null">
+				and a.state like '%${state}%'
+			</if>
+			<if test="type != null">
+				and a.type like '%${type}%'
+			</if>
+			<if test="id != null">
+				and a.id=#{id}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_ptgame a
+		<where>
+			<if test="code != null">
+				 a.code like '%${code}%'
+			</if>
+			<if test="ename != null">
+				and a.ename like '%${ename}%'
+			</if>
+			<if test="cname != null">
+				and a.cname like '%${cname}%'
+			</if>
+			<if test="state != null">
+				and a.state like '%${state}%'
+			</if>
+			<if test="type != null">
+				and a.type like '%${type}%'
+			</if>
+			<if test="id != null">
+				and a.id=#{id}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_ptgame a
+		<where>
+			<if test="code != null">
+				 a.code like '%${code}%'
+			</if>
+			<if test="ename != null">
+				and a.ename like '%${ename}%'
+			</if>
+			<if test="cname != null">
+				and a.cname like '%${cname}%'
+			</if>
+			<if test="state != null">
+				and a.state like '%${state}%'
+			</if>
+			<if test="type != null">
+				and a.type like '%${type}%'
+			</if>
+			<if test="id != null">
+				and a.id=#{id}
+			</if>
+
+		</where>
+	</select>
+</mapper>

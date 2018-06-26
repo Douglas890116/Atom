@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.IbcGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_ibc_gameinfo(ibc_rowguid,ibc_ballid,ibc_balltime,ibc_content,ibc_curpl,ibc_ds,ibc_dxc,ibc_isbk,ibc_iscancel,ibc_isdanger,ibc_isjs,ibc_lose,ibc_matchid,ibc_moneyrate,ibc_orderid,ibc_recard,ibc_result,ibc_rqc,ibc_rqteam,ibc_sportid,ibc_tballtime,ibc_thisdate,ibc_truewin,ibc_tzip,ibc_tzmoney,ibc_tzteam,ibc_tztype,ibc_updatetime,ibc_username,ibc_win,ibc_zdbf,ibc_vendorid,ibc_createtime,Platformflag)  values (#{ibc_rowguid},#{ibc_ballid},#{ibc_balltime},#{ibc_content},#{ibc_curpl},#{ibc_ds},#{ibc_dxc},#{ibc_isbk},#{ibc_iscancel},#{ibc_isdanger},#{ibc_isjs},#{ibc_lose},#{ibc_matchid},#{ibc_moneyrate},#{ibc_orderid},#{ibc_recard},#{ibc_result},#{ibc_rqc},#{ibc_rqteam},#{ibc_sportid},#{ibc_tballtime},#{ibc_thisdate},#{ibc_truewin},#{ibc_tzip},#{ibc_tzmoney},#{ibc_tzteam},#{ibc_tztype},#{ibc_updatetime},#{ibc_username},#{ibc_win},#{ibc_zdbf},#{ibc_vendorid},#{ibc_createtime},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_ibc_gameinfo(ibc_rowguid,ibc_ballid,ibc_balltime,ibc_content,ibc_curpl,ibc_ds,ibc_dxc,ibc_isbk,ibc_iscancel,ibc_isdanger,ibc_isjs,ibc_lose,ibc_matchid,ibc_moneyrate,ibc_orderid,ibc_recard,ibc_result,ibc_rqc,ibc_rqteam,ibc_sportid,ibc_tballtime,ibc_thisdate,ibc_truewin,ibc_tzip,ibc_tzmoney,ibc_tzteam,ibc_tztype,ibc_updatetime,ibc_username,ibc_win,ibc_zdbf,ibc_vendorid,ibc_createtime,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.ibc_rowguid},#{item.ibc_ballid},#{item.ibc_balltime},#{item.ibc_content},#{item.ibc_curpl},#{item.ibc_ds},#{item.ibc_dxc},#{item.ibc_isbk},#{item.ibc_iscancel},#{item.ibc_isdanger},#{item.ibc_isjs},#{item.ibc_lose},#{item.ibc_matchid},#{item.ibc_moneyrate},#{item.ibc_orderid},#{item.ibc_recard},#{item.ibc_result},#{item.ibc_rqc},#{item.ibc_rqteam},#{item.ibc_sportid},#{item.ibc_tballtime},#{item.ibc_thisdate},#{item.ibc_truewin},#{item.ibc_tzip},#{item.ibc_tzmoney},#{item.ibc_tzteam},#{item.ibc_tztype},#{item.ibc_updatetime},#{item.ibc_username},#{item.ibc_win},#{item.ibc_zdbf},#{item.ibc_vendorid},#{item.ibc_createtime},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_ibc_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="ibc_rowguid != null">
+				ibc_rowguid,
+			</if>
+			<if test="ibc_ballid != null">
+				ibc_ballid,
+			</if>
+			<if test="ibc_balltime != null">
+				ibc_balltime,
+			</if>
+			<if test="ibc_content != null">
+				ibc_content,
+			</if>
+			<if test="ibc_curpl != null">
+				ibc_curpl,
+			</if>
+			<if test="ibc_ds != null">
+				ibc_ds,
+			</if>
+			<if test="ibc_dxc != null">
+				ibc_dxc,
+			</if>
+			<if test="ibc_isbk != null">
+				ibc_isbk,
+			</if>
+			<if test="ibc_iscancel != null">
+				ibc_iscancel,
+			</if>
+			<if test="ibc_isdanger != null">
+				ibc_isdanger,
+			</if>
+			<if test="ibc_isjs != null">
+				ibc_isjs,
+			</if>
+			<if test="ibc_lose != null">
+				ibc_lose,
+			</if>
+			<if test="ibc_matchid != null">
+				ibc_matchid,
+			</if>
+			<if test="ibc_moneyrate != null">
+				ibc_moneyrate,
+			</if>
+			<if test="ibc_orderid != null">
+				ibc_orderid,
+			</if>
+			<if test="ibc_recard != null">
+				ibc_recard,
+			</if>
+			<if test="ibc_result != null">
+				ibc_result,
+			</if>
+			<if test="ibc_rqc != null">
+				ibc_rqc,
+			</if>
+			<if test="ibc_rqteam != null">
+				ibc_rqteam,
+			</if>
+			<if test="ibc_sportid != null">
+				ibc_sportid,
+			</if>
+			<if test="ibc_tballtime != null">
+				ibc_tballtime,
+			</if>
+			<if test="ibc_thisdate != null">
+				ibc_thisdate,
+			</if>
+			<if test="ibc_truewin != null">
+				ibc_truewin,
+			</if>
+			<if test="ibc_tzip != null">
+				ibc_tzip,
+			</if>
+			<if test="ibc_tzmoney != null">
+				ibc_tzmoney,
+			</if>
+			<if test="ibc_tzteam != null">
+				ibc_tzteam,
+			</if>
+			<if test="ibc_tztype != null">
+				ibc_tztype,
+			</if>
+			<if test="ibc_updatetime != null">
+				ibc_updatetime,
+			</if>
+			<if test="ibc_username != null">
+				ibc_username,
+			</if>
+			<if test="ibc_win != null">
+				ibc_win,
+			</if>
+			<if test="ibc_zdbf != null">
+				ibc_zdbf,
+			</if>
+			<if test="ibc_vendorid != null">
+				ibc_vendorid,
+			</if>
+			<if test="ibc_createtime != null">
+				ibc_createtime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="ibc_rowguid != null">
+				#{ibc_rowguid},
+			</if>
+			<if test="ibc_ballid != null">
+				#{ibc_ballid},
+			</if>
+			<if test="ibc_balltime != null">
+				#{ibc_balltime},
+			</if>
+			<if test="ibc_content != null">
+				#{ibc_content},
+			</if>
+			<if test="ibc_curpl != null">
+				#{ibc_curpl},
+			</if>
+			<if test="ibc_ds != null">
+				#{ibc_ds},
+			</if>
+			<if test="ibc_dxc != null">
+				#{ibc_dxc},
+			</if>
+			<if test="ibc_isbk != null">
+				#{ibc_isbk},
+			</if>
+			<if test="ibc_iscancel != null">
+				#{ibc_iscancel},
+			</if>
+			<if test="ibc_isdanger != null">
+				#{ibc_isdanger},
+			</if>
+			<if test="ibc_isjs != null">
+				#{ibc_isjs},
+			</if>
+			<if test="ibc_lose != null">
+				#{ibc_lose},
+			</if>
+			<if test="ibc_matchid != null">
+				#{ibc_matchid},
+			</if>
+			<if test="ibc_moneyrate != null">
+				#{ibc_moneyrate},
+			</if>
+			<if test="ibc_orderid != null">
+				#{ibc_orderid},
+			</if>
+			<if test="ibc_recard != null">
+				#{ibc_recard},
+			</if>
+			<if test="ibc_result != null">
+				#{ibc_result},
+			</if>
+			<if test="ibc_rqc != null">
+				#{ibc_rqc},
+			</if>
+			<if test="ibc_rqteam != null">
+				#{ibc_rqteam},
+			</if>
+			<if test="ibc_sportid != null">
+				#{ibc_sportid},
+			</if>
+			<if test="ibc_tballtime != null">
+				#{ibc_tballtime},
+			</if>
+			<if test="ibc_thisdate != null">
+				#{ibc_thisdate},
+			</if>
+			<if test="ibc_truewin != null">
+				#{ibc_truewin},
+			</if>
+			<if test="ibc_tzip != null">
+				#{ibc_tzip},
+			</if>
+			<if test="ibc_tzmoney != null">
+				#{ibc_tzmoney},
+			</if>
+			<if test="ibc_tzteam != null">
+				#{ibc_tzteam},
+			</if>
+			<if test="ibc_tztype != null">
+				#{ibc_tztype},
+			</if>
+			<if test="ibc_updatetime != null">
+				#{ibc_updatetime},
+			</if>
+			<if test="ibc_username != null">
+				#{ibc_username},
+			</if>
+			<if test="ibc_win != null">
+				#{ibc_win},
+			</if>
+			<if test="ibc_zdbf != null">
+				#{ibc_zdbf},
+			</if>
+			<if test="ibc_vendorid != null">
+				#{ibc_vendorid},
+			</if>
+			<if test="ibc_createtime != null">
+				#{ibc_createtime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_ibc_gameinfo
+		<where>
+			<if test="ibc_rowguid != null">
+				ibc_rowguid=#{ibc_rowguid}
+			</if>
+			<if test="ibc_ballid != null">
+				and ibc_ballid=#{ibc_ballid}
+			</if>
+			<if test="ibc_balltime != null">
+				and ibc_balltime=#{ibc_balltime}
+			</if>
+			<if test="ibc_content != null">
+				and ibc_content=#{ibc_content}
+			</if>
+			<if test="ibc_curpl != null">
+				and ibc_curpl=#{ibc_curpl}
+			</if>
+			<if test="ibc_ds != null">
+				and ibc_ds=#{ibc_ds}
+			</if>
+			<if test="ibc_dxc != null">
+				and ibc_dxc=#{ibc_dxc}
+			</if>
+			<if test="ibc_isbk != null">
+				and ibc_isbk=#{ibc_isbk}
+			</if>
+			<if test="ibc_iscancel != null">
+				and ibc_iscancel=#{ibc_iscancel}
+			</if>
+			<if test="ibc_isdanger != null">
+				and ibc_isdanger=#{ibc_isdanger}
+			</if>
+			<if test="ibc_isjs != null">
+				and ibc_isjs=#{ibc_isjs}
+			</if>
+			<if test="ibc_lose != null">
+				and ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and ibc_matchid=#{ibc_matchid}
+			</if>
+			<if test="ibc_moneyrate != null">
+				and ibc_moneyrate=#{ibc_moneyrate}
+			</if>
+			<if test="ibc_orderid != null">
+				and ibc_orderid=#{ibc_orderid}
+			</if>
+			<if test="ibc_recard != null">
+				and ibc_recard=#{ibc_recard}
+			</if>
+			<if test="ibc_result != null">
+				and ibc_result=#{ibc_result}
+			</if>
+			<if test="ibc_rqc != null">
+				and ibc_rqc=#{ibc_rqc}
+			</if>
+			<if test="ibc_rqteam != null">
+				and ibc_rqteam=#{ibc_rqteam}
+			</if>
+			<if test="ibc_sportid != null">
+				and ibc_sportid=#{ibc_sportid}
+			</if>
+			<if test="ibc_tballtime != null">
+				and ibc_tballtime=#{ibc_tballtime}
+			</if>
+			<if test="ibc_thisdate != null">
+				and ibc_thisdate=#{ibc_thisdate}
+			</if>
+			<if test="ibc_truewin != null">
+				and ibc_truewin=#{ibc_truewin}
+			</if>
+			<if test="ibc_tzip != null">
+				and ibc_tzip=#{ibc_tzip}
+			</if>
+			<if test="ibc_tzmoney != null">
+				and ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and ibc_tzteam=#{ibc_tzteam}
+			</if>
+			<if test="ibc_tztype != null">
+				and ibc_tztype=#{ibc_tztype}
+			</if>
+			<if test="ibc_updatetime != null">
+				and ibc_updatetime=#{ibc_updatetime}
+			</if>
+			<if test="ibc_username != null">
+				and ibc_username=#{ibc_username}
+			</if>
+			<if test="ibc_win != null">
+				and ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and ibc_zdbf=#{ibc_zdbf}
+			</if>
+			<if test="ibc_vendorid != null">
+				and ibc_vendorid=#{ibc_vendorid}
+			</if>
+			<if test="ibc_createtime != null">
+				and ibc_createtime=#{ibc_createtime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and ibc_rowguid in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_ibc_gameinfo
+		<set>
+			<if test="ibc_ballid != null">
+				ibc_ballid=#{ibc_ballid},
+			</if>
+			<if test="ibc_balltime != null">
+				ibc_balltime=#{ibc_balltime},
+			</if>
+			<if test="ibc_content != null">
+				ibc_content=#{ibc_content},
+			</if>
+			<if test="ibc_curpl != null">
+				ibc_curpl=#{ibc_curpl},
+			</if>
+			<if test="ibc_ds != null">
+				ibc_ds=#{ibc_ds},
+			</if>
+			<if test="ibc_dxc != null">
+				ibc_dxc=#{ibc_dxc},
+			</if>
+			<if test="ibc_isbk != null">
+				ibc_isbk=#{ibc_isbk},
+			</if>
+			<if test="ibc_iscancel != null">
+				ibc_iscancel=#{ibc_iscancel},
+			</if>
+			<if test="ibc_isdanger != null">
+				ibc_isdanger=#{ibc_isdanger},
+			</if>
+			<if test="ibc_isjs != null">
+				ibc_isjs=#{ibc_isjs},
+			</if>
+			<if test="ibc_lose != null">
+				ibc_lose=#{ibc_lose},
+			</if>
+			<if test="ibc_matchid != null">
+				ibc_matchid=#{ibc_matchid},
+			</if>
+			<if test="ibc_moneyrate != null">
+				ibc_moneyrate=#{ibc_moneyrate},
+			</if>
+			<if test="ibc_orderid != null">
+				ibc_orderid=#{ibc_orderid},
+			</if>
+			<if test="ibc_recard != null">
+				ibc_recard=#{ibc_recard},
+			</if>
+			<if test="ibc_result != null">
+				ibc_result=#{ibc_result},
+			</if>
+			<if test="ibc_rqc != null">
+				ibc_rqc=#{ibc_rqc},
+			</if>
+			<if test="ibc_rqteam != null">
+				ibc_rqteam=#{ibc_rqteam},
+			</if>
+			<if test="ibc_sportid != null">
+				ibc_sportid=#{ibc_sportid},
+			</if>
+			<if test="ibc_tballtime != null">
+				ibc_tballtime=#{ibc_tballtime},
+			</if>
+			<if test="ibc_thisdate != null">
+				ibc_thisdate=#{ibc_thisdate},
+			</if>
+			<if test="ibc_truewin != null">
+				ibc_truewin=#{ibc_truewin},
+			</if>
+			<if test="ibc_tzip != null">
+				ibc_tzip=#{ibc_tzip},
+			</if>
+			<if test="ibc_tzmoney != null">
+				ibc_tzmoney=#{ibc_tzmoney},
+			</if>
+			<if test="ibc_tzteam != null">
+				ibc_tzteam=#{ibc_tzteam},
+			</if>
+			<if test="ibc_tztype != null">
+				ibc_tztype=#{ibc_tztype},
+			</if>
+			<if test="ibc_updatetime != null">
+				ibc_updatetime=#{ibc_updatetime},
+			</if>
+			<if test="ibc_username != null">
+				ibc_username=#{ibc_username},
+			</if>
+			<if test="ibc_win != null">
+				ibc_win=#{ibc_win},
+			</if>
+			<if test="ibc_zdbf != null">
+				ibc_zdbf=#{ibc_zdbf},
+			</if>
+			<if test="ibc_vendorid != null">
+				ibc_vendorid=#{ibc_vendorid},
+			</if>
+			<if test="ibc_createtime != null">
+				ibc_createtime=#{ibc_createtime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where ibc_rowguid=#{ibc_rowguid}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_ibc_gameinfo set
+			ibc_ballid=#{item.ibc_ballid},ibc_balltime=#{item.ibc_balltime},ibc_content=#{item.ibc_content},ibc_curpl=#{item.ibc_curpl},ibc_ds=#{item.ibc_ds},ibc_dxc=#{item.ibc_dxc},ibc_isbk=#{item.ibc_isbk},ibc_iscancel=#{item.ibc_iscancel},ibc_isdanger=#{item.ibc_isdanger},ibc_isjs=#{item.ibc_isjs},ibc_lose=#{item.ibc_lose},ibc_matchid=#{item.ibc_matchid},ibc_moneyrate=#{item.ibc_moneyrate},ibc_orderid=#{item.ibc_orderid},ibc_recard=#{item.ibc_recard},ibc_result=#{item.ibc_result},ibc_rqc=#{item.ibc_rqc},ibc_rqteam=#{item.ibc_rqteam},ibc_sportid=#{item.ibc_sportid},ibc_tballtime=#{item.ibc_tballtime},ibc_thisdate=#{item.ibc_thisdate},ibc_truewin=#{item.ibc_truewin},ibc_tzip=#{item.ibc_tzip},ibc_tzmoney=#{item.ibc_tzmoney},ibc_tzteam=#{item.ibc_tzteam},ibc_tztype=#{item.ibc_tztype},ibc_updatetime=#{item.ibc_updatetime},ibc_username=#{item.ibc_username},ibc_win=#{item.ibc_win},ibc_zdbf=#{item.ibc_zdbf},ibc_vendorid=#{item.ibc_vendorid},ibc_createtime=#{item.ibc_createtime},Platformflag=#{item.Platformflag}
+			where ibc_rowguid =#{item.ibc_rowguid}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_ibc_gameinfo a where a.ibc_rowguid=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_ibc_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				a.ibc_rowguid=#{ibc_rowguid}
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid=#{ibc_ballid}
+			</if>
+			<if test="ibc_balltime != null">
+				and a.ibc_balltime=#{ibc_balltime}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content=#{ibc_content}
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl=#{ibc_curpl}
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds=#{ibc_ds}
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc=#{ibc_dxc}
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk=#{ibc_isbk}
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel=#{ibc_iscancel}
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger=#{ibc_isdanger}
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs=#{ibc_isjs}
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid=#{ibc_matchid}
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate=#{ibc_moneyrate}
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid=#{ibc_orderid}
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard=#{ibc_recard}
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result=#{ibc_result}
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc=#{ibc_rqc}
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam=#{ibc_rqteam}
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid=#{ibc_sportid}
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime=#{ibc_tballtime}
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate=#{ibc_thisdate}
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin=#{ibc_truewin}
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip=#{ibc_tzip}
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam=#{ibc_tzteam}
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype=#{ibc_tztype}
+			</if>
+			<if test="ibc_updatetime != null">
+				and a.ibc_updatetime=#{ibc_updatetime}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username=#{ibc_username}
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf=#{ibc_zdbf}
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid=#{ibc_vendorid}
+			</if>
+			<if test="ibc_createtime != null">
+				and a.ibc_createtime=#{ibc_createtime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ibc_rowguid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				 a.ibc_rowguid like '%${ibc_rowguid}%'
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid like '%${ibc_ballid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_balltime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content like '%${ibc_content}%'
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl like '%${ibc_curpl}%'
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds like '%${ibc_ds}%'
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc like '%${ibc_dxc}%'
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk like '%${ibc_isbk}%'
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel like '%${ibc_iscancel}%'
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger like '%${ibc_isdanger}%'
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs like '%${ibc_isjs}%'
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid like '%${ibc_matchid}%'
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate like '%${ibc_moneyrate}%'
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid like '%${ibc_orderid}%'
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard like '%${ibc_recard}%'
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result like '%${ibc_result}%'
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc like '%${ibc_rqc}%'
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam like '%${ibc_rqteam}%'
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid like '%${ibc_sportid}%'
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime like '%${ibc_tballtime}%'
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate like '%${ibc_thisdate}%'
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin like '%${ibc_truewin}%'
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip like '%${ibc_tzip}%'
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam like '%${ibc_tzteam}%'
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype like '%${ibc_tztype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_updatetime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username like '%${ibc_username}%'
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf like '%${ibc_zdbf}%'
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid like '%${ibc_vendorid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ibc_rowguid asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				 a.ibc_rowguid like '%${ibc_rowguid}%'
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid like '%${ibc_ballid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_balltime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content like '%${ibc_content}%'
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl like '%${ibc_curpl}%'
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds like '%${ibc_ds}%'
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc like '%${ibc_dxc}%'
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk like '%${ibc_isbk}%'
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel like '%${ibc_iscancel}%'
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger like '%${ibc_isdanger}%'
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs like '%${ibc_isjs}%'
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid like '%${ibc_matchid}%'
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate like '%${ibc_moneyrate}%'
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid like '%${ibc_orderid}%'
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard like '%${ibc_recard}%'
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result like '%${ibc_result}%'
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc like '%${ibc_rqc}%'
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam like '%${ibc_rqteam}%'
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid like '%${ibc_sportid}%'
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime like '%${ibc_tballtime}%'
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate like '%${ibc_thisdate}%'
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin like '%${ibc_truewin}%'
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip like '%${ibc_tzip}%'
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam like '%${ibc_tzteam}%'
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype like '%${ibc_tztype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_updatetime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username like '%${ibc_username}%'
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf like '%${ibc_zdbf}%'
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid like '%${ibc_vendorid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.ibc_rowguid asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				 a.ibc_rowguid like '%${ibc_rowguid}%'
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid like '%${ibc_ballid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_balltime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content like '%${ibc_content}%'
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl like '%${ibc_curpl}%'
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds like '%${ibc_ds}%'
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc like '%${ibc_dxc}%'
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk like '%${ibc_isbk}%'
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel like '%${ibc_iscancel}%'
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger like '%${ibc_isdanger}%'
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs like '%${ibc_isjs}%'
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid like '%${ibc_matchid}%'
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate like '%${ibc_moneyrate}%'
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid like '%${ibc_orderid}%'
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard like '%${ibc_recard}%'
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result like '%${ibc_result}%'
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc like '%${ibc_rqc}%'
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam like '%${ibc_rqteam}%'
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid like '%${ibc_sportid}%'
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime like '%${ibc_tballtime}%'
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate like '%${ibc_thisdate}%'
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin like '%${ibc_truewin}%'
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip like '%${ibc_tzip}%'
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam like '%${ibc_tzteam}%'
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype like '%${ibc_tztype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_updatetime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username like '%${ibc_username}%'
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf like '%${ibc_zdbf}%'
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid like '%${ibc_vendorid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				 a.ibc_rowguid like '%${ibc_rowguid}%'
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid like '%${ibc_ballid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_balltime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content like '%${ibc_content}%'
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl like '%${ibc_curpl}%'
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds like '%${ibc_ds}%'
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc like '%${ibc_dxc}%'
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk like '%${ibc_isbk}%'
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel like '%${ibc_iscancel}%'
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger like '%${ibc_isdanger}%'
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs like '%${ibc_isjs}%'
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid like '%${ibc_matchid}%'
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate like '%${ibc_moneyrate}%'
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid like '%${ibc_orderid}%'
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard like '%${ibc_recard}%'
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result like '%${ibc_result}%'
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc like '%${ibc_rqc}%'
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam like '%${ibc_rqteam}%'
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid like '%${ibc_sportid}%'
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime like '%${ibc_tballtime}%'
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate like '%${ibc_thisdate}%'
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin like '%${ibc_truewin}%'
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip like '%${ibc_tzip}%'
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam like '%${ibc_tzteam}%'
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype like '%${ibc_tztype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_updatetime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username like '%${ibc_username}%'
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf like '%${ibc_zdbf}%'
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid like '%${ibc_vendorid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+	
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="max" resultType="string" parameterType="hashmap">
+		select max(a.ibc_vendorid) from api_ibc_gameinfo a
+		<where>
+			<if test="ibc_rowguid != null">
+				 a.ibc_rowguid like '%${ibc_rowguid}%'
+			</if>
+			<if test="ibc_ballid != null">
+				and a.ibc_ballid like '%${ibc_ballid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_balltime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_content != null">
+				and a.ibc_content like '%${ibc_content}%'
+			</if>
+			<if test="ibc_curpl != null">
+				and a.ibc_curpl like '%${ibc_curpl}%'
+			</if>
+			<if test="ibc_ds != null">
+				and a.ibc_ds like '%${ibc_ds}%'
+			</if>
+			<if test="ibc_dxc != null">
+				and a.ibc_dxc like '%${ibc_dxc}%'
+			</if>
+			<if test="ibc_isbk != null">
+				and a.ibc_isbk like '%${ibc_isbk}%'
+			</if>
+			<if test="ibc_iscancel != null">
+				and a.ibc_iscancel like '%${ibc_iscancel}%'
+			</if>
+			<if test="ibc_isdanger != null">
+				and a.ibc_isdanger like '%${ibc_isdanger}%'
+			</if>
+			<if test="ibc_isjs != null">
+				and a.ibc_isjs like '%${ibc_isjs}%'
+			</if>
+			<if test="ibc_lose != null">
+				and a.ibc_lose=#{ibc_lose}
+			</if>
+			<if test="ibc_matchid != null">
+				and a.ibc_matchid like '%${ibc_matchid}%'
+			</if>
+			<if test="ibc_moneyrate != null">
+				and a.ibc_moneyrate like '%${ibc_moneyrate}%'
+			</if>
+			<if test="ibc_orderid != null">
+				and a.ibc_orderid like '%${ibc_orderid}%'
+			</if>
+			<if test="ibc_recard != null">
+				and a.ibc_recard like '%${ibc_recard}%'
+			</if>
+			<if test="ibc_result != null">
+				and a.ibc_result like '%${ibc_result}%'
+			</if>
+			<if test="ibc_rqc != null">
+				and a.ibc_rqc like '%${ibc_rqc}%'
+			</if>
+			<if test="ibc_rqteam != null">
+				and a.ibc_rqteam like '%${ibc_rqteam}%'
+			</if>
+			<if test="ibc_sportid != null">
+				and a.ibc_sportid like '%${ibc_sportid}%'
+			</if>
+			<if test="ibc_tballtime != null">
+				and a.ibc_tballtime like '%${ibc_tballtime}%'
+			</if>
+			<if test="ibc_thisdate != null">
+				and a.ibc_thisdate like '%${ibc_thisdate}%'
+			</if>
+			<if test="ibc_truewin != null">
+				and a.ibc_truewin like '%${ibc_truewin}%'
+			</if>
+			<if test="ibc_tzip != null">
+				and a.ibc_tzip like '%${ibc_tzip}%'
+			</if>
+			<if test="ibc_tzmoney != null">
+				and a.ibc_tzmoney=#{ibc_tzmoney}
+			</if>
+			<if test="ibc_tzteam != null">
+				and a.ibc_tzteam like '%${ibc_tzteam}%'
+			</if>
+			<if test="ibc_tztype != null">
+				and a.ibc_tztype like '%${ibc_tztype}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_updatetime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="ibc_username != null">
+				and a.ibc_username like '%${ibc_username}%'
+			</if>
+			<if test="ibc_win != null">
+				and a.ibc_win=#{ibc_win}
+			</if>
+			<if test="ibc_zdbf != null">
+				and a.ibc_zdbf like '%${ibc_zdbf}%'
+			</if>
+			<if test="ibc_vendorid != null">
+				and a.ibc_vendorid like '%${ibc_vendorid}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.ibc_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+	</select>
+</mapper>

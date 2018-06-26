@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.TtgGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_ttg_gameinfo(transactionId,requestId,partnerId,playerId,amount,handId,transactionType,transactionSubType,currency,game,transactionDate,createtime,Platformflag)  values (#{transactionId},#{requestId},#{partnerId},#{playerId},#{amount},#{handId},#{transactionType},#{transactionSubType},#{currency},#{game},#{transactionDate},#{createtime},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_ttg_gameinfo(transactionId,requestId,partnerId,playerId,amount,handId,transactionType,transactionSubType,currency,game,transactionDate,createtime,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.transactionId},#{item.requestId},#{item.partnerId},#{item.playerId},#{item.amount},#{item.handId},#{item.transactionType},#{item.transactionSubType},#{item.currency},#{item.game},#{item.transactionDate},#{item.createtime},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_ttg_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="transactionId != null">
+				transactionId,
+			</if>
+			<if test="requestId != null">
+				requestId,
+			</if>
+			<if test="partnerId != null">
+				partnerId,
+			</if>
+			<if test="playerId != null">
+				playerId,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="handId != null">
+				handId,
+			</if>
+			<if test="transactionType != null">
+				transactionType,
+			</if>
+			<if test="transactionSubType != null">
+				transactionSubType,
+			</if>
+			<if test="currency != null">
+				currency,
+			</if>
+			<if test="game != null">
+				game,
+			</if>
+			<if test="transactionDate != null">
+				transactionDate,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="transactionId != null">
+				#{transactionId},
+			</if>
+			<if test="requestId != null">
+				#{requestId},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId},
+			</if>
+			<if test="playerId != null">
+				#{playerId},
+			</if>
+			<if test="amount != null">
+				#{amount},
+			</if>
+			<if test="handId != null">
+				#{handId},
+			</if>
+			<if test="transactionType != null">
+				#{transactionType},
+			</if>
+			<if test="transactionSubType != null">
+				#{transactionSubType},
+			</if>
+			<if test="currency != null">
+				#{currency},
+			</if>
+			<if test="game != null">
+				#{game},
+			</if>
+			<if test="transactionDate != null">
+				#{transactionDate},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_ttg_gameinfo
+		<where>
+			<if test="transactionId != null">
+				transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and requestId=#{requestId}
+			</if>
+			<if test="partnerId != null">
+				and partnerId=#{partnerId}
+			</if>
+			<if test="playerId != null">
+				and playerId=#{playerId}
+			</if>
+			<if test="amount != null">
+				and amount=#{amount}
+			</if>
+			<if test="handId != null">
+				and handId=#{handId}
+			</if>
+			<if test="transactionType != null">
+				and transactionType=#{transactionType}
+			</if>
+			<if test="transactionSubType != null">
+				and transactionSubType=#{transactionSubType}
+			</if>
+			<if test="currency != null">
+				and currency=#{currency}
+			</if>
+			<if test="game != null">
+				and game=#{game}
+			</if>
+			<if test="transactionDate != null">
+				and transactionDate=#{transactionDate}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and transactionId in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_ttg_gameinfo
+		<set>
+			<if test="requestId != null">
+				requestId=#{requestId},
+			</if>
+			<if test="partnerId != null">
+				partnerId=#{partnerId},
+			</if>
+			<if test="playerId != null">
+				playerId=#{playerId},
+			</if>
+			<if test="amount != null">
+				amount=#{amount},
+			</if>
+			<if test="handId != null">
+				handId=#{handId},
+			</if>
+			<if test="transactionType != null">
+				transactionType=#{transactionType},
+			</if>
+			<if test="transactionSubType != null">
+				transactionSubType=#{transactionSubType},
+			</if>
+			<if test="currency != null">
+				currency=#{currency},
+			</if>
+			<if test="game != null">
+				game=#{game},
+			</if>
+			<if test="transactionDate != null">
+				transactionDate=#{transactionDate},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where transactionId=#{transactionId}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_ttg_gameinfo set
+			requestId=#{item.requestId},partnerId=#{item.partnerId},playerId=#{item.playerId},amount=#{item.amount},handId=#{item.handId},transactionType=#{item.transactionType},transactionSubType=#{item.transactionSubType},currency=#{item.currency},game=#{item.game},transactionDate=#{item.transactionDate},createtime=#{item.createtime},Platformflag=#{item.Platformflag}
+			where transactionId =#{item.transactionId}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_ttg_gameinfo a where a.transactionId=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_ttg_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_ttg_gameinfo a
+		<where>
+			<if test="transactionId != null">
+				a.transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and a.requestId=#{requestId}
+			</if>
+			<if test="partnerId != null">
+				and a.partnerId=#{partnerId}
+			</if>
+			<if test="playerId != null">
+				and a.playerId=#{playerId}
+			</if>
+			<if test="amount != null">
+				and a.amount=#{amount}
+			</if>
+			<if test="handId != null">
+				and a.handId=#{handId}
+			</if>
+			<if test="transactionType != null">
+				and a.transactionType=#{transactionType}
+			</if>
+			<if test="transactionSubType != null">
+				and a.transactionSubType=#{transactionSubType}
+			</if>
+			<if test="currency != null">
+				and a.currency=#{currency}
+			</if>
+			<if test="game != null">
+				and a.game=#{game}
+			</if>
+			<if test="transactionDate != null">
+				and a.transactionDate=#{transactionDate}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionId asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_ttg_gameinfo a
+		<where>
+			<if test="transactionId != null">
+				 a.transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and a.requestId like '%${requestId}%'
+			</if>
+			<if test="partnerId != null">
+				and a.partnerId like '%${partnerId}%'
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="handId != null">
+				and a.handId like '%${handId}%'
+			</if>
+			<if test="transactionType != null">
+				and a.transactionType like '%${transactionType}%'
+			</if>
+			<if test="transactionSubType != null">
+				and a.transactionSubType like '%${transactionSubType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="transactionDate != null">
+				and a.transactionDate like '%${transactionDate}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionId asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_ttg_gameinfo a
+		<where>
+			<if test="transactionId != null">
+				 a.transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and a.requestId like '%${requestId}%'
+			</if>
+			<if test="partnerId != null">
+				and a.partnerId like '%${partnerId}%'
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="handId != null">
+				and a.handId like '%${handId}%'
+			</if>
+			<if test="transactionType != null">
+				and a.transactionType like '%${transactionType}%'
+			</if>
+			<if test="transactionSubType != null">
+				and a.transactionSubType like '%${transactionSubType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="transactionDate != null">
+				and a.transactionDate like '%${transactionDate}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.transactionId asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_ttg_gameinfo a
+		<where>
+			<if test="transactionId != null">
+				 a.transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and a.requestId like '%${requestId}%'
+			</if>
+			<if test="partnerId != null">
+				and a.partnerId like '%${partnerId}%'
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="handId != null">
+				and a.handId like '%${handId}%'
+			</if>
+			<if test="transactionType != null">
+				and a.transactionType like '%${transactionType}%'
+			</if>
+			<if test="transactionSubType != null">
+				and a.transactionSubType like '%${transactionSubType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="transactionDate != null">
+				and a.transactionDate like '%${transactionDate}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_ttg_gameinfo a
+		<where>
+			<if test="transactionId != null">
+				 a.transactionId=#{transactionId}
+			</if>
+			<if test="requestId != null">
+				and a.requestId like '%${requestId}%'
+			</if>
+			<if test="partnerId != null">
+				and a.partnerId like '%${partnerId}%'
+			</if>
+			<if test="playerId != null">
+				and a.playerId like '%${playerId}%'
+			</if>
+			<if test="amount != null">
+				and a.amount like '%${amount}%'
+			</if>
+			<if test="handId != null">
+				and a.handId like '%${handId}%'
+			</if>
+			<if test="transactionType != null">
+				and a.transactionType like '%${transactionType}%'
+			</if>
+			<if test="transactionSubType != null">
+				and a.transactionSubType like '%${transactionSubType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="game != null">
+				and a.game like '%${game}%'
+			</if>
+			<if test="transactionDate != null">
+				and a.transactionDate like '%${transactionDate}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

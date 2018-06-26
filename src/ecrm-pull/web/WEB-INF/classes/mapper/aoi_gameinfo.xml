@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.AoiGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_aoi_gameinfo(aoi_ProductID,aoi_UserName,aoi_GameRecordID,aoi_OrderNumber,aoi_TableID,aoi_Stage,aoi_Inning,aoi_GameNameID,aoi_GameBettingKind,aoi_GameBettingContent,aoi_ResultType,aoi_BettingAmount,aoi_CompensateRate,aoi_WinLoseAmount,aoi_Balance,aoi_AddTime,aoi_VendorId,aoi_ValidAmount,aoi_createtime,aoi_PlatformID,Platformflag)  values (#{aoi_ProductID},#{aoi_UserName},#{aoi_GameRecordID},#{aoi_OrderNumber},#{aoi_TableID},#{aoi_Stage},#{aoi_Inning},#{aoi_GameNameID},#{aoi_GameBettingKind},#{aoi_GameBettingContent},#{aoi_ResultType},#{aoi_BettingAmount},#{aoi_CompensateRate},#{aoi_WinLoseAmount},#{aoi_Balance},#{aoi_AddTime},#{aoi_VendorId},#{aoi_ValidAmount},#{aoi_createtime},#{aoi_PlatformID},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_aoi_gameinfo(aoi_ProductID,aoi_UserName,aoi_GameRecordID,aoi_OrderNumber,aoi_TableID,aoi_Stage,aoi_Inning,aoi_GameNameID,aoi_GameBettingKind,aoi_GameBettingContent,aoi_ResultType,aoi_BettingAmount,aoi_CompensateRate,aoi_WinLoseAmount,aoi_Balance,aoi_AddTime,aoi_VendorId,aoi_ValidAmount,aoi_createtime,aoi_PlatformID,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.aoi_ProductID},#{item.aoi_UserName},#{item.aoi_GameRecordID},#{item.aoi_OrderNumber},#{item.aoi_TableID},#{item.aoi_Stage},#{item.aoi_Inning},#{item.aoi_GameNameID},#{item.aoi_GameBettingKind},#{item.aoi_GameBettingContent},#{item.aoi_ResultType},#{item.aoi_BettingAmount},#{item.aoi_CompensateRate},#{item.aoi_WinLoseAmount},#{item.aoi_Balance},#{item.aoi_AddTime},#{item.aoi_VendorId},#{item.aoi_ValidAmount},#{item.aoi_createtime},#{item.aoi_PlatformID},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_aoi_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="aoi_ProductID != null">
+				aoi_ProductID,
+			</if>
+			<if test="aoi_UserName != null">
+				aoi_UserName,
+			</if>
+			<if test="aoi_GameRecordID != null">
+				aoi_GameRecordID,
+			</if>
+			<if test="aoi_OrderNumber != null">
+				aoi_OrderNumber,
+			</if>
+			<if test="aoi_TableID != null">
+				aoi_TableID,
+			</if>
+			<if test="aoi_Stage != null">
+				aoi_Stage,
+			</if>
+			<if test="aoi_Inning != null">
+				aoi_Inning,
+			</if>
+			<if test="aoi_GameNameID != null">
+				aoi_GameNameID,
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				aoi_GameBettingKind,
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				aoi_GameBettingContent,
+			</if>
+			<if test="aoi_ResultType != null">
+				aoi_ResultType,
+			</if>
+			<if test="aoi_BettingAmount != null">
+				aoi_BettingAmount,
+			</if>
+			<if test="aoi_CompensateRate != null">
+				aoi_CompensateRate,
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				aoi_WinLoseAmount,
+			</if>
+			<if test="aoi_Balance != null">
+				aoi_Balance,
+			</if>
+			<if test="aoi_AddTime != null">
+				aoi_AddTime,
+			</if>
+			<if test="aoi_VendorId != null">
+				aoi_VendorId,
+			</if>
+			<if test="aoi_ValidAmount != null">
+				aoi_ValidAmount,
+			</if>
+			<if test="aoi_createtime != null">
+				aoi_createtime,
+			</if>
+			<if test="aoi_PlatformID != null">
+				aoi_PlatformID,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="aoi_ProductID != null">
+				#{aoi_ProductID},
+			</if>
+			<if test="aoi_UserName != null">
+				#{aoi_UserName},
+			</if>
+			<if test="aoi_GameRecordID != null">
+				#{aoi_GameRecordID},
+			</if>
+			<if test="aoi_OrderNumber != null">
+				#{aoi_OrderNumber},
+			</if>
+			<if test="aoi_TableID != null">
+				#{aoi_TableID},
+			</if>
+			<if test="aoi_Stage != null">
+				#{aoi_Stage},
+			</if>
+			<if test="aoi_Inning != null">
+				#{aoi_Inning},
+			</if>
+			<if test="aoi_GameNameID != null">
+				#{aoi_GameNameID},
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				#{aoi_GameBettingKind},
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				#{aoi_GameBettingContent},
+			</if>
+			<if test="aoi_ResultType != null">
+				#{aoi_ResultType},
+			</if>
+			<if test="aoi_BettingAmount != null">
+				#{aoi_BettingAmount},
+			</if>
+			<if test="aoi_CompensateRate != null">
+				#{aoi_CompensateRate},
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				#{aoi_WinLoseAmount},
+			</if>
+			<if test="aoi_Balance != null">
+				#{aoi_Balance},
+			</if>
+			<if test="aoi_AddTime != null">
+				#{aoi_AddTime},
+			</if>
+			<if test="aoi_VendorId != null">
+				#{aoi_VendorId},
+			</if>
+			<if test="aoi_ValidAmount != null">
+				#{aoi_ValidAmount},
+			</if>
+			<if test="aoi_createtime != null">
+				#{aoi_createtime},
+			</if>
+			<if test="aoi_PlatformID != null">
+				#{aoi_PlatformID},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_aoi_gameinfo
+		<where>
+			<if test="aoi_ProductID != null">
+				aoi_ProductID=#{aoi_ProductID}
+			</if>
+			<if test="aoi_UserName != null">
+				and aoi_UserName=#{aoi_UserName}
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and aoi_GameRecordID=#{aoi_GameRecordID}
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and aoi_OrderNumber=#{aoi_OrderNumber}
+			</if>
+			<if test="aoi_TableID != null">
+				and aoi_TableID=#{aoi_TableID}
+			</if>
+			<if test="aoi_Stage != null">
+				and aoi_Stage=#{aoi_Stage}
+			</if>
+			<if test="aoi_Inning != null">
+				and aoi_Inning=#{aoi_Inning}
+			</if>
+			<if test="aoi_GameNameID != null">
+				and aoi_GameNameID=#{aoi_GameNameID}
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and aoi_GameBettingKind=#{aoi_GameBettingKind}
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and aoi_GameBettingContent=#{aoi_GameBettingContent}
+			</if>
+			<if test="aoi_ResultType != null">
+				and aoi_ResultType=#{aoi_ResultType}
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and aoi_CompensateRate=#{aoi_CompensateRate}
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="aoi_AddTime != null">
+				and aoi_AddTime=#{aoi_AddTime}
+			</if>
+			<if test="aoi_VendorId != null">
+				and aoi_VendorId=#{aoi_VendorId}
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="aoi_createtime != null">
+				and aoi_createtime=#{aoi_createtime}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and aoi_PlatformID=#{aoi_PlatformID}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and aoi_ProductID in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_aoi_gameinfo
+		<set>
+			<if test="aoi_UserName != null">
+				aoi_UserName=#{aoi_UserName},
+			</if>
+			<if test="aoi_GameRecordID != null">
+				aoi_GameRecordID=#{aoi_GameRecordID},
+			</if>
+			<if test="aoi_OrderNumber != null">
+				aoi_OrderNumber=#{aoi_OrderNumber},
+			</if>
+			<if test="aoi_TableID != null">
+				aoi_TableID=#{aoi_TableID},
+			</if>
+			<if test="aoi_Stage != null">
+				aoi_Stage=#{aoi_Stage},
+			</if>
+			<if test="aoi_Inning != null">
+				aoi_Inning=#{aoi_Inning},
+			</if>
+			<if test="aoi_GameNameID != null">
+				aoi_GameNameID=#{aoi_GameNameID},
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				aoi_GameBettingKind=#{aoi_GameBettingKind},
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				aoi_GameBettingContent=#{aoi_GameBettingContent},
+			</if>
+			<if test="aoi_ResultType != null">
+				aoi_ResultType=#{aoi_ResultType},
+			</if>
+			<if test="aoi_BettingAmount != null">
+				aoi_BettingAmount=#{aoi_BettingAmount},
+			</if>
+			<if test="aoi_CompensateRate != null">
+				aoi_CompensateRate=#{aoi_CompensateRate},
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				aoi_WinLoseAmount=#{aoi_WinLoseAmount},
+			</if>
+			<if test="aoi_Balance != null">
+				aoi_Balance=#{aoi_Balance},
+			</if>
+			<if test="aoi_AddTime != null">
+				aoi_AddTime=#{aoi_AddTime},
+			</if>
+			<if test="aoi_VendorId != null">
+				aoi_VendorId=#{aoi_VendorId},
+			</if>
+			<if test="aoi_ValidAmount != null">
+				aoi_ValidAmount=#{aoi_ValidAmount},
+			</if>
+			<if test="aoi_createtime != null">
+				aoi_createtime=#{aoi_createtime},
+			</if>
+			<if test="aoi_PlatformID != null">
+				aoi_PlatformID=#{aoi_PlatformID},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where aoi_ProductID=#{aoi_ProductID}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_aoi_gameinfo set
+			aoi_UserName=#{item.aoi_UserName},aoi_GameRecordID=#{item.aoi_GameRecordID},aoi_OrderNumber=#{item.aoi_OrderNumber},aoi_TableID=#{item.aoi_TableID},aoi_Stage=#{item.aoi_Stage},aoi_Inning=#{item.aoi_Inning},aoi_GameNameID=#{item.aoi_GameNameID},aoi_GameBettingKind=#{item.aoi_GameBettingKind},aoi_GameBettingContent=#{item.aoi_GameBettingContent},aoi_ResultType=#{item.aoi_ResultType},aoi_BettingAmount=#{item.aoi_BettingAmount},aoi_CompensateRate=#{item.aoi_CompensateRate},aoi_WinLoseAmount=#{item.aoi_WinLoseAmount},aoi_Balance=#{item.aoi_Balance},aoi_AddTime=#{item.aoi_AddTime},aoi_VendorId=#{item.aoi_VendorId},aoi_ValidAmount=#{item.aoi_ValidAmount},aoi_createtime=#{item.aoi_createtime},aoi_PlatformID=#{item.aoi_PlatformID},Platformflag=#{item.Platformflag}
+			where aoi_ProductID =#{item.aoi_ProductID}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_aoi_gameinfo a where a.aoi_ProductID=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_aoi_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				a.aoi_ProductID=#{aoi_ProductID}
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName=#{aoi_UserName}
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID=#{aoi_GameRecordID}
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber=#{aoi_OrderNumber}
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID=#{aoi_TableID}
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage=#{aoi_Stage}
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning=#{aoi_Inning}
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID=#{aoi_GameNameID}
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind=#{aoi_GameBettingKind}
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent=#{aoi_GameBettingContent}
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType=#{aoi_ResultType}
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate=#{aoi_CompensateRate}
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="aoi_AddTime != null">
+				and a.aoi_AddTime=#{aoi_AddTime}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId=#{aoi_VendorId}
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="aoi_createtime != null">
+				and a.aoi_createtime=#{aoi_createtime}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID=#{aoi_PlatformID}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.aoi_ProductID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				 a.aoi_ProductID like '%${aoi_ProductID}%'
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName like '%${aoi_UserName}%'
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID like '%${aoi_GameRecordID}%'
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber like '%${aoi_OrderNumber}%'
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID like '%${aoi_TableID}%'
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage like '%${aoi_Stage}%'
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning like '%${aoi_Inning}%'
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID like '%${aoi_GameNameID}%'
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind like '%${aoi_GameBettingKind}%'
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent like '%${aoi_GameBettingContent}%'
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType like '%${aoi_ResultType}%'
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate like '%${aoi_CompensateRate}%'
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_AddTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId like '%${aoi_VendorId}%'
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID like '%${aoi_PlatformID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.aoi_ProductID asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				 a.aoi_ProductID like '%${aoi_ProductID}%'
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName like '%${aoi_UserName}%'
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID like '%${aoi_GameRecordID}%'
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber like '%${aoi_OrderNumber}%'
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID like '%${aoi_TableID}%'
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage like '%${aoi_Stage}%'
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning like '%${aoi_Inning}%'
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID like '%${aoi_GameNameID}%'
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind like '%${aoi_GameBettingKind}%'
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent like '%${aoi_GameBettingContent}%'
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType like '%${aoi_ResultType}%'
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate like '%${aoi_CompensateRate}%'
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_AddTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId like '%${aoi_VendorId}%'
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID like '%${aoi_PlatformID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.aoi_ProductID asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				 a.aoi_ProductID like '%${aoi_ProductID}%'
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName like '%${aoi_UserName}%'
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID like '%${aoi_GameRecordID}%'
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber like '%${aoi_OrderNumber}%'
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID like '%${aoi_TableID}%'
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage like '%${aoi_Stage}%'
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning like '%${aoi_Inning}%'
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID like '%${aoi_GameNameID}%'
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind like '%${aoi_GameBettingKind}%'
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent like '%${aoi_GameBettingContent}%'
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType like '%${aoi_ResultType}%'
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate like '%${aoi_CompensateRate}%'
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_AddTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId like '%${aoi_VendorId}%'
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID like '%${aoi_PlatformID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				 a.aoi_ProductID like '%${aoi_ProductID}%'
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName like '%${aoi_UserName}%'
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID like '%${aoi_GameRecordID}%'
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber like '%${aoi_OrderNumber}%'
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID like '%${aoi_TableID}%'
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage like '%${aoi_Stage}%'
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning like '%${aoi_Inning}%'
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID like '%${aoi_GameNameID}%'
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind like '%${aoi_GameBettingKind}%'
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent like '%${aoi_GameBettingContent}%'
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType like '%${aoi_ResultType}%'
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate like '%${aoi_CompensateRate}%'
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_AddTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId like '%${aoi_VendorId}%'
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID like '%${aoi_PlatformID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+	
+	<!--通过实体字段检索结果按某个字段求最大值-->
+	<select id="max" resultType="string" parameterType="hashmap">
+		select max(a.aoi_VendorId) from api_aoi_gameinfo a
+		<where>
+			<if test="aoi_ProductID != null">
+				 a.aoi_ProductID like '%${aoi_ProductID}%'
+			</if>
+			<if test="aoi_UserName != null">
+				and a.aoi_UserName like '%${aoi_UserName}%'
+			</if>
+			<if test="aoi_GameRecordID != null">
+				and a.aoi_GameRecordID like '%${aoi_GameRecordID}%'
+			</if>
+			<if test="aoi_OrderNumber != null">
+				and a.aoi_OrderNumber like '%${aoi_OrderNumber}%'
+			</if>
+			<if test="aoi_TableID != null">
+				and a.aoi_TableID like '%${aoi_TableID}%'
+			</if>
+			<if test="aoi_Stage != null">
+				and a.aoi_Stage like '%${aoi_Stage}%'
+			</if>
+			<if test="aoi_Inning != null">
+				and a.aoi_Inning like '%${aoi_Inning}%'
+			</if>
+			<if test="aoi_GameNameID != null">
+				and a.aoi_GameNameID like '%${aoi_GameNameID}%'
+			</if>
+			<if test="aoi_GameBettingKind != null">
+				and a.aoi_GameBettingKind like '%${aoi_GameBettingKind}%'
+			</if>
+			<if test="aoi_GameBettingContent != null">
+				and a.aoi_GameBettingContent like '%${aoi_GameBettingContent}%'
+			</if>
+			<if test="aoi_ResultType != null">
+				and a.aoi_ResultType like '%${aoi_ResultType}%'
+			</if>
+			<if test="aoi_BettingAmount != null">
+				and a.aoi_BettingAmount=#{aoi_BettingAmount}
+			</if>
+			<if test="aoi_CompensateRate != null">
+				and a.aoi_CompensateRate like '%${aoi_CompensateRate}%'
+			</if>
+			<if test="aoi_WinLoseAmount != null">
+				and a.aoi_WinLoseAmount=#{aoi_WinLoseAmount}
+			</if>
+			<if test="aoi_Balance != null">
+				and a.aoi_Balance=#{aoi_Balance}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_AddTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_VendorId != null">
+				and a.aoi_VendorId like '%${aoi_VendorId}%'
+			</if>
+			<if test="aoi_ValidAmount != null">
+				and a.aoi_ValidAmount=#{aoi_ValidAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.aoi_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="aoi_PlatformID != null">
+				and a.aoi_PlatformID like '%${aoi_PlatformID}%'
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.TagGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		replace into api_tag_gameinfo(billNo,playerName,agentCode,gameCode,netAmount,betTime,gameType,betAmount,validBetAmount,flag,playType,currency,tableCode,loginIP,recalcuTime,platformId,platformType,stringex,remark,round,result,beforeCredit,deviceType,betAmountBase,betAmountBonus,netAmountBase,netAmountBonus,slottype,mainbillno,createtime,Platformflag)  values (#{billNo},#{playerName},#{agentCode},#{gameCode},#{netAmount},#{betTime},#{gameType},#{betAmount},#{validBetAmount},#{flag},#{playType},#{currency},#{tableCode},#{loginIP},#{recalcuTime},#{platformId},#{platformType},#{stringex},#{remark},#{round},#{result},#{beforeCredit},#{deviceType},#{betAmountBase},#{betAmountBonus},#{netAmountBase},#{netAmountBonus},#{slottype},#{mainbillno},#{createtime},#{Platformflag})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_tag_gameinfo(billNo,playerName,agentCode,gameCode,netAmount,betTime,gameType,betAmount,validBetAmount,flag,playType,currency,tableCode,loginIP,recalcuTime,platformId,platformType,stringex,remark,round,result,beforeCredit,deviceType,betAmountBase,betAmountBonus,netAmountBase,netAmountBonus,slottype,mainbillno,createtime,Platformflag)  values
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.billNo},#{item.playerName},#{item.agentCode},#{item.gameCode},#{item.netAmount},#{item.betTime},#{item.gameType},#{item.betAmount},#{item.validBetAmount},#{item.flag},#{item.playType},#{item.currency},#{item.tableCode},#{item.loginIP},#{item.recalcuTime},#{item.platformId},#{item.platformType},#{item.stringex},#{item.remark},#{item.round},#{item.result},#{item.beforeCredit},#{item.deviceType},#{item.betAmountBase},#{item.betAmountBonus},#{item.netAmountBase},#{item.netAmountBonus},#{item.slottype},#{item.mainbillno},#{item.createtime},#{item.Platformflag})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_tag_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="billNo != null">
+				billNo,
+			</if>
+			<if test="playerName != null">
+				playerName,
+			</if>
+			<if test="agentCode != null">
+				agentCode,
+			</if>
+			<if test="gameCode != null">
+				gameCode,
+			</if>
+			<if test="netAmount != null">
+				netAmount,
+			</if>
+			<if test="betTime != null">
+				betTime,
+			</if>
+			<if test="gameType != null">
+				gameType,
+			</if>
+			<if test="betAmount != null">
+				betAmount,
+			</if>
+			<if test="validBetAmount != null">
+				validBetAmount,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="playType != null">
+				playType,
+			</if>
+			<if test="currency != null">
+				currency,
+			</if>
+			<if test="tableCode != null">
+				tableCode,
+			</if>
+			<if test="loginIP != null">
+				loginIP,
+			</if>
+			<if test="recalcuTime != null">
+				recalcuTime,
+			</if>
+			<if test="platformId != null">
+				platformId,
+			</if>
+			<if test="platformType != null">
+				platformType,
+			</if>
+			<if test="stringex != null">
+				stringex,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="round != null">
+				round,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+			<if test="beforeCredit != null">
+				beforeCredit,
+			</if>
+			<if test="deviceType != null">
+				deviceType,
+			</if>
+			<if test="betAmountBase != null">
+				betAmountBase,
+			</if>
+			<if test="betAmountBonus != null">
+				betAmountBonus,
+			</if>
+			<if test="netAmountBase != null">
+				netAmountBase,
+			</if>
+			<if test="netAmountBonus != null">
+				netAmountBonus,
+			</if>
+			<if test="slottype != null">
+				slottype,
+			</if>
+			<if test="mainbillno != null">
+				mainbillno,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="Platformflag != null">
+				Platformflag
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="billNo != null">
+				#{billNo},
+			</if>
+			<if test="playerName != null">
+				#{playerName},
+			</if>
+			<if test="agentCode != null">
+				#{agentCode},
+			</if>
+			<if test="gameCode != null">
+				#{gameCode},
+			</if>
+			<if test="netAmount != null">
+				#{netAmount},
+			</if>
+			<if test="betTime != null">
+				#{betTime},
+			</if>
+			<if test="gameType != null">
+				#{gameType},
+			</if>
+			<if test="betAmount != null">
+				#{betAmount},
+			</if>
+			<if test="validBetAmount != null">
+				#{validBetAmount},
+			</if>
+			<if test="flag != null">
+				#{flag},
+			</if>
+			<if test="playType != null">
+				#{playType},
+			</if>
+			<if test="currency != null">
+				#{currency},
+			</if>
+			<if test="tableCode != null">
+				#{tableCode},
+			</if>
+			<if test="loginIP != null">
+				#{loginIP},
+			</if>
+			<if test="recalcuTime != null">
+				#{recalcuTime},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+			<if test="platformType != null">
+				#{platformType},
+			</if>
+			<if test="stringex != null">
+				#{stringex},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="round != null">
+				#{round},
+			</if>
+			<if test="result != null">
+				#{result},
+			</if>
+			<if test="beforeCredit != null">
+				#{beforeCredit},
+			</if>
+			<if test="deviceType != null">
+				#{deviceType},
+			</if>
+			<if test="betAmountBase != null">
+				#{betAmountBase},
+			</if>
+			<if test="betAmountBonus != null">
+				#{betAmountBonus},
+			</if>
+			<if test="netAmountBase != null">
+				#{netAmountBase},
+			</if>
+			<if test="netAmountBonus != null">
+				#{netAmountBonus},
+			</if>
+			<if test="slottype != null">
+				#{slottype},
+			</if>
+			<if test="mainbillno != null">
+				#{mainbillno},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				#{Platformflag}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_tag_gameinfo
+		<where>
+			<if test="billNo != null">
+				billNo=#{billNo}
+			</if>
+			<if test="playerName != null">
+				and playerName=#{playerName}
+			</if>
+			<if test="agentCode != null">
+				and agentCode=#{agentCode}
+			</if>
+			<if test="gameCode != null">
+				and gameCode=#{gameCode}
+			</if>
+			<if test="netAmount != null">
+				and netAmount=#{netAmount}
+			</if>
+			<if test="betTime != null">
+				and betTime=#{betTime}
+			</if>
+			<if test="gameType != null">
+				and gameType=#{gameType}
+			</if>
+			<if test="betAmount != null">
+				and betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and flag=#{flag}
+			</if>
+			<if test="playType != null">
+				and playType=#{playType}
+			</if>
+			<if test="currency != null">
+				and currency=#{currency}
+			</if>
+			<if test="tableCode != null">
+				and tableCode=#{tableCode}
+			</if>
+			<if test="loginIP != null">
+				and loginIP=#{loginIP}
+			</if>
+			<if test="recalcuTime != null">
+				and recalcuTime=#{recalcuTime}
+			</if>
+			<if test="platformId != null">
+				and platformId=#{platformId}
+			</if>
+			<if test="platformType != null">
+				and platformType=#{platformType}
+			</if>
+			<if test="stringex != null">
+				and stringex=#{stringex}
+			</if>
+			<if test="remark != null">
+				and remark=#{remark}
+			</if>
+			<if test="round != null">
+				and round=#{round}
+			</if>
+			<if test="result != null">
+				and result=#{result}
+			</if>
+			<if test="beforeCredit != null">
+				and beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and deviceType=#{deviceType}
+			</if>
+			<if test="betAmountBase != null">
+				and betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and slottype=#{slottype}
+			</if>
+			<if test="mainbillno != null">
+				and mainbillno=#{mainbillno}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and Platformflag=#{Platformflag}
+			</if>
+			<if test="ids != null">
+				and billNo in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_tag_gameinfo
+		<set>
+			<if test="playerName != null">
+				playerName=#{playerName},
+			</if>
+			<if test="agentCode != null">
+				agentCode=#{agentCode},
+			</if>
+			<if test="gameCode != null">
+				gameCode=#{gameCode},
+			</if>
+			<if test="netAmount != null">
+				netAmount=#{netAmount},
+			</if>
+			<if test="betTime != null">
+				betTime=#{betTime},
+			</if>
+			<if test="gameType != null">
+				gameType=#{gameType},
+			</if>
+			<if test="betAmount != null">
+				betAmount=#{betAmount},
+			</if>
+			<if test="validBetAmount != null">
+				validBetAmount=#{validBetAmount},
+			</if>
+			<if test="flag != null">
+				flag=#{flag},
+			</if>
+			<if test="playType != null">
+				playType=#{playType},
+			</if>
+			<if test="currency != null">
+				currency=#{currency},
+			</if>
+			<if test="tableCode != null">
+				tableCode=#{tableCode},
+			</if>
+			<if test="loginIP != null">
+				loginIP=#{loginIP},
+			</if>
+			<if test="recalcuTime != null">
+				recalcuTime=#{recalcuTime},
+			</if>
+			<if test="platformId != null">
+				platformId=#{platformId},
+			</if>
+			<if test="platformType != null">
+				platformType=#{platformType},
+			</if>
+			<if test="stringex != null">
+				stringex=#{stringex},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="round != null">
+				round=#{round},
+			</if>
+			<if test="result != null">
+				result=#{result},
+			</if>
+			<if test="beforeCredit != null">
+				beforeCredit=#{beforeCredit},
+			</if>
+			<if test="deviceType != null">
+				deviceType=#{deviceType},
+			</if>
+			<if test="betAmountBase != null">
+				betAmountBase=#{betAmountBase},
+			</if>
+			<if test="betAmountBonus != null">
+				betAmountBonus=#{betAmountBonus},
+			</if>
+			<if test="netAmountBase != null">
+				netAmountBase=#{netAmountBase},
+			</if>
+			<if test="netAmountBonus != null">
+				netAmountBonus=#{netAmountBonus},
+			</if>
+			<if test="slottype != null">
+				slottype=#{slottype},
+			</if>
+			<if test="mainbillno != null">
+				mainbillno=#{mainbillno},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="Platformflag != null">
+				Platformflag=#{Platformflag}
+			</if>
+		</set>
+		where billNo=#{billNo}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_tag_gameinfo set
+			playerName=#{item.playerName},agentCode=#{item.agentCode},gameCode=#{item.gameCode},netAmount=#{item.netAmount},betTime=#{item.betTime},gameType=#{item.gameType},betAmount=#{item.betAmount},validBetAmount=#{item.validBetAmount},flag=#{item.flag},playType=#{item.playType},currency=#{item.currency},tableCode=#{item.tableCode},loginIP=#{item.loginIP},recalcuTime=#{item.recalcuTime},platformId=#{item.platformId},platformType=#{item.platformType},stringex=#{item.stringex},remark=#{item.remark},round=#{item.round},result=#{item.result},beforeCredit=#{item.beforeCredit},deviceType=#{item.deviceType},betAmountBase=#{item.betAmountBase},betAmountBonus=#{item.betAmountBonus},netAmountBase=#{item.netAmountBase},netAmountBonus=#{item.netAmountBonus},slottype=#{item.slottype},mainbillno=#{item.mainbillno},createtime=#{item.createtime},Platformflag=#{item.Platformflag}
+			where billNo =#{item.billNo}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_tag_gameinfo a where a.billNo=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_tag_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_gameinfo a
+		<where>
+			<if test="billNo != null">
+				a.billNo=#{billNo}
+			</if>
+			<if test="playerName != null">
+				and a.playerName=#{playerName}
+			</if>
+			<if test="agentCode != null">
+				and a.agentCode=#{agentCode}
+			</if>
+			<if test="gameCode != null">
+				and a.gameCode=#{gameCode}
+			</if>
+			<if test="netAmount != null">
+				and a.netAmount=#{netAmount}
+			</if>
+			<if test="betTime != null">
+				and a.betTime=#{betTime}
+			</if>
+			<if test="gameType != null">
+				and a.gameType=#{gameType}
+			</if>
+			<if test="betAmount != null">
+				and a.betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and a.validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and a.flag=#{flag}
+			</if>
+			<if test="playType != null">
+				and a.playType=#{playType}
+			</if>
+			<if test="currency != null">
+				and a.currency=#{currency}
+			</if>
+			<if test="tableCode != null">
+				and a.tableCode=#{tableCode}
+			</if>
+			<if test="loginIP != null">
+				and a.loginIP=#{loginIP}
+			</if>
+			<if test="recalcuTime != null">
+				and a.recalcuTime=#{recalcuTime}
+			</if>
+			<if test="platformId != null">
+				and a.platformId=#{platformId}
+			</if>
+			<if test="platformType != null">
+				and a.platformType=#{platformType}
+			</if>
+			<if test="stringex != null">
+				and a.stringex=#{stringex}
+			</if>
+			<if test="remark != null">
+				and a.remark=#{remark}
+			</if>
+			<if test="round != null">
+				and a.round=#{round}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="beforeCredit != null">
+				and a.beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and a.deviceType=#{deviceType}
+			</if>
+			<if test="betAmountBase != null">
+				and a.betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and a.betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and a.netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and a.netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and a.slottype=#{slottype}
+			</if>
+			<if test="mainbillno != null">
+				and a.mainbillno=#{mainbillno}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag=#{Platformflag}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.billNo asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_gameinfo a
+		<where>
+			<if test="billNo != null">
+				 a.billNo like '%${billNo}%'
+			</if>
+			<if test="playerName != null">
+				and a.playerName like '%${playerName}%'
+			</if>
+			<if test="agentCode != null">
+				and a.agentCode like '%${agentCode}%'
+			</if>
+			<if test="gameCode != null">
+				and a.gameCode like '%${gameCode}%'
+			</if>
+			<if test="netAmount != null">
+				and a.netAmount=#{netAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gameType != null">
+				and a.gameType like '%${gameType}%'
+			</if>
+			<if test="betAmount != null">
+				and a.betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and a.validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and a.flag like '%${flag}%'
+			</if>
+			<if test="playType != null">
+				and a.playType like '%${playType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="tableCode != null">
+				and a.tableCode like '%${tableCode}%'
+			</if>
+			<if test="loginIP != null">
+				and a.loginIP like '%${loginIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.recalcuTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platformId != null">
+				and a.platformId like '%${platformId}%'
+			</if>
+			<if test="platformType != null">
+				and a.platformType like '%${platformType}%'
+			</if>
+			<if test="stringex != null">
+				and a.stringex like '%${stringex}%'
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+			<if test="round != null">
+				and a.round like '%${round}%'
+			</if>
+			<if test="result != null">
+				and a.result like '%${result}%'
+			</if>
+			<if test="beforeCredit != null">
+				and a.beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and a.deviceType like '%${deviceType}%'
+			</if>
+			<if test="betAmountBase != null">
+				and a.betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and a.betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and a.netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and a.netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and a.slottype like '%${slottype}%'
+			</if>
+			<if test="mainbillno != null">
+				and a.mainbillno like '%${mainbillno}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.billNo asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_tag_gameinfo a
+		<where>
+			<if test="billNo != null">
+				 a.billNo like '%${billNo}%'
+			</if>
+			<if test="playerName != null">
+				and a.playerName like '%${playerName}%'
+			</if>
+			<if test="agentCode != null">
+				and a.agentCode like '%${agentCode}%'
+			</if>
+			<if test="gameCode != null">
+				and a.gameCode like '%${gameCode}%'
+			</if>
+			<if test="netAmount != null">
+				and a.netAmount=#{netAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gameType != null">
+				and a.gameType like '%${gameType}%'
+			</if>
+			<if test="betAmount != null">
+				and a.betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and a.validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and a.flag like '%${flag}%'
+			</if>
+			<if test="playType != null">
+				and a.playType like '%${playType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="tableCode != null">
+				and a.tableCode like '%${tableCode}%'
+			</if>
+			<if test="loginIP != null">
+				and a.loginIP like '%${loginIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.recalcuTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platformId != null">
+				and a.platformId like '%${platformId}%'
+			</if>
+			<if test="platformType != null">
+				and a.platformType like '%${platformType}%'
+			</if>
+			<if test="stringex != null">
+				and a.stringex like '%${stringex}%'
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+			<if test="round != null">
+				and a.round like '%${round}%'
+			</if>
+			<if test="result != null">
+				and a.result like '%${result}%'
+			</if>
+			<if test="beforeCredit != null">
+				and a.beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and a.deviceType like '%${deviceType}%'
+			</if>
+			<if test="betAmountBase != null">
+				and a.betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and a.betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and a.netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and a.netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and a.slottype like '%${slottype}%'
+			</if>
+			<if test="mainbillno != null">
+				and a.mainbillno like '%${mainbillno}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.billNo asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_tag_gameinfo a
+		<where>
+			<if test="billNo != null">
+				 a.billNo like '%${billNo}%'
+			</if>
+			<if test="playerName != null">
+				and a.playerName like '%${playerName}%'
+			</if>
+			<if test="agentCode != null">
+				and a.agentCode like '%${agentCode}%'
+			</if>
+			<if test="gameCode != null">
+				and a.gameCode like '%${gameCode}%'
+			</if>
+			<if test="netAmount != null">
+				and a.netAmount=#{netAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gameType != null">
+				and a.gameType like '%${gameType}%'
+			</if>
+			<if test="betAmount != null">
+				and a.betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and a.validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and a.flag like '%${flag}%'
+			</if>
+			<if test="playType != null">
+				and a.playType like '%${playType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="tableCode != null">
+				and a.tableCode like '%${tableCode}%'
+			</if>
+			<if test="loginIP != null">
+				and a.loginIP like '%${loginIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.recalcuTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platformId != null">
+				and a.platformId like '%${platformId}%'
+			</if>
+			<if test="platformType != null">
+				and a.platformType like '%${platformType}%'
+			</if>
+			<if test="stringex != null">
+				and a.stringex like '%${stringex}%'
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+			<if test="round != null">
+				and a.round like '%${round}%'
+			</if>
+			<if test="result != null">
+				and a.result like '%${result}%'
+			</if>
+			<if test="beforeCredit != null">
+				and a.beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and a.deviceType like '%${deviceType}%'
+			</if>
+			<if test="betAmountBase != null">
+				and a.betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and a.betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and a.netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and a.netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and a.slottype like '%${slottype}%'
+			</if>
+			<if test="mainbillno != null">
+				and a.mainbillno like '%${mainbillno}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_tag_gameinfo a
+		<where>
+			<if test="billNo != null">
+				 a.billNo like '%${billNo}%'
+			</if>
+			<if test="playerName != null">
+				and a.playerName like '%${playerName}%'
+			</if>
+			<if test="agentCode != null">
+				and a.agentCode like '%${agentCode}%'
+			</if>
+			<if test="gameCode != null">
+				and a.gameCode like '%${gameCode}%'
+			</if>
+			<if test="netAmount != null">
+				and a.netAmount=#{netAmount}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.betTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="gameType != null">
+				and a.gameType like '%${gameType}%'
+			</if>
+			<if test="betAmount != null">
+				and a.betAmount=#{betAmount}
+			</if>
+			<if test="validBetAmount != null">
+				and a.validBetAmount=#{validBetAmount}
+			</if>
+			<if test="flag != null">
+				and a.flag like '%${flag}%'
+			</if>
+			<if test="playType != null">
+				and a.playType like '%${playType}%'
+			</if>
+			<if test="currency != null">
+				and a.currency like '%${currency}%'
+			</if>
+			<if test="tableCode != null">
+				and a.tableCode like '%${tableCode}%'
+			</if>
+			<if test="loginIP != null">
+				and a.loginIP like '%${loginIP}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.recalcuTime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platformId != null">
+				and a.platformId like '%${platformId}%'
+			</if>
+			<if test="platformType != null">
+				and a.platformType like '%${platformType}%'
+			</if>
+			<if test="stringex != null">
+				and a.stringex like '%${stringex}%'
+			</if>
+			<if test="remark != null">
+				and a.remark like '%${remark}%'
+			</if>
+			<if test="round != null">
+				and a.round like '%${round}%'
+			</if>
+			<if test="result != null">
+				and a.result like '%${result}%'
+			</if>
+			<if test="beforeCredit != null">
+				and a.beforeCredit=#{beforeCredit}
+			</if>
+			<if test="deviceType != null">
+				and a.deviceType like '%${deviceType}%'
+			</if>
+			<if test="betAmountBase != null">
+				and a.betAmountBase=#{betAmountBase}
+			</if>
+			<if test="betAmountBonus != null">
+				and a.betAmountBonus=#{betAmountBonus}
+			</if>
+			<if test="netAmountBase != null">
+				and a.netAmountBase=#{netAmountBase}
+			</if>
+			<if test="netAmountBonus != null">
+				and a.netAmountBonus=#{netAmountBonus}
+			</if>
+			<if test="slottype != null">
+				and a.slottype like '%${slottype}%'
+			</if>
+			<if test="mainbillno != null">
+				and a.mainbillno like '%${mainbillno}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="Platformflag != null">
+				and a.Platformflag like '%${Platformflag}%'
+			</if>
+
+		</where>
+	</select>
+
+	
+	
+</mapper>

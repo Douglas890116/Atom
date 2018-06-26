@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns flag="false">
+	<column name1="xcp_projectid" name2="xcp_projectid" />
+	<column name1="xcp_lotteryid" name2="xcp_lotteryid" />
+	<column name1="xcp_username" name2="xcp_username" />
+	<column name1="xcp_issue" name2="xcp_issue" />
+	<column name1="xcp_isgetprize" name2="xcp_isgetprize" />
+	<column name1="xcp_updatetime" name2="xcp_updatetime" />
+	<column name1="xcp_writetime" name2="xcp_writetime" />
+	<column name1="xcp_totalprice" name2="xcp_totalprice" />
+	<column name1="xcp_code" name2="xcp_code" />
+	<column name1="xcp_bonus" name2="xcp_bonus" />
+	<column name1="xcp_codetimes" name2="xcp_codetimes" />
+	<column name1="xcp_prize" name2="xcp_prize" />
+	<column name1="xcp_createtime" name2="xcp_createtime" />
+	<column name1="Platformflag" name2="Platformflag" />
+</columns>

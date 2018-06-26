@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.YagGameinfoMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_yag_gameinfo(betId,user,gameId,gameName,money,remarks,time,result,createtime,validMoney)  values (#{betId},#{user},#{gameId},#{gameName},#{money},#{remarks},#{time},#{result},#{createtime},#{validMoney})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		replace into api_yag_gameinfo(betId,user,gameId,gameName,money,remarks,time,result,createtime,validMoney)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.betId},#{item.user},#{item.gameId},#{item.gameName},#{item.money},#{item.remarks},#{item.time},#{item.result},#{item.createtime},#{item.validMoney})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_yag_gameinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="betId != null">
+				betId,
+			</if>
+			<if test="user != null">
+				user,
+			</if>
+			<if test="gameId != null">
+				gameId,
+			</if>
+			<if test="gameName != null">
+				gameName,
+			</if>
+			<if test="money != null">
+				money,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="time != null">
+				time,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="validMoney != null">
+				validMoney
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="betId != null">
+				#{betId},
+			</if>
+			<if test="user != null">
+				#{user},
+			</if>
+			<if test="gameId != null">
+				#{gameId},
+			</if>
+			<if test="gameName != null">
+				#{gameName},
+			</if>
+			<if test="money != null">
+				#{money},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="time != null">
+				#{time},
+			</if>
+			<if test="result != null">
+				#{result},
+			</if>
+			<if test="createtime != null">
+				#{createtime},
+			</if>
+			<if test="validMoney != null">
+				#{validMoney}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_yag_gameinfo
+		<where>
+			<if test="betId != null">
+				betId=#{betId}
+			</if>
+			<if test="user != null">
+				and user=#{user}
+			</if>
+			<if test="gameId != null">
+				and gameId=#{gameId}
+			</if>
+			<if test="gameName != null">
+				and gameName=#{gameName}
+			</if>
+			<if test="money != null">
+				and money=#{money}
+			</if>
+			<if test="remarks != null">
+				and remarks=#{remarks}
+			</if>
+			<if test="time != null">
+				and time=#{time}
+			</if>
+			<if test="result != null">
+				and result=#{result}
+			</if>
+			<if test="createtime != null">
+				and createtime=#{createtime}
+			</if>
+			<if test="validMoney != null">
+				and validMoney=#{validMoney}
+			</if>
+			<if test="ids != null">
+				and betId in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_yag_gameinfo
+		<set>
+			<if test="user != null">
+				user=#{user},
+			</if>
+			<if test="gameId != null">
+				gameId=#{gameId},
+			</if>
+			<if test="gameName != null">
+				gameName=#{gameName},
+			</if>
+			<if test="money != null">
+				money=#{money},
+			</if>
+			<if test="remarks != null">
+				remarks=#{remarks},
+			</if>
+			<if test="time != null">
+				time=#{time},
+			</if>
+			<if test="result != null">
+				result=#{result},
+			</if>
+			<if test="createtime != null">
+				createtime=#{createtime},
+			</if>
+			<if test="validMoney != null">
+				validMoney=#{validMoney}
+			</if>
+		</set>
+		where betId=#{betId}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_yag_gameinfo set
+			user=#{item.user},gameId=#{item.gameId},gameName=#{item.gameName},money=#{item.money},remarks=#{item.remarks},time=#{item.time},result=#{item.result},createtime=#{item.createtime},validMoney=#{item.validMoney}
+			where betId =#{item.betId}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_yag_gameinfo a where a.betId=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_yag_gameinfo a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_yag_gameinfo a
+		<where>
+			<if test="betId != null">
+				a.betId=#{betId}
+			</if>
+			<if test="user != null">
+				and a.user=#{user}
+			</if>
+			<if test="gameId != null">
+				and a.gameId=#{gameId}
+			</if>
+			<if test="gameName != null">
+				and a.gameName=#{gameName}
+			</if>
+			<if test="money != null">
+				and a.money=#{money}
+			</if>
+			<if test="remarks != null">
+				and a.remarks=#{remarks}
+			</if>
+			<if test="time != null">
+				and a.time=#{time}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="createtime != null">
+				and a.createtime=#{createtime}
+			</if>
+			<if test="validMoney != null">
+				and a.validMoney=#{validMoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.betId asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_yag_gameinfo a
+		<where>
+			<if test="betId != null">
+				 a.betId like '%${betId}%'
+			</if>
+			<if test="user != null">
+				and a.user like '%${user}%'
+			</if>
+			<if test="gameId != null">
+				and a.gameId like '%${gameId}%'
+			</if>
+			<if test="gameName != null">
+				and a.gameName like '%${gameName}%'
+			</if>
+			<if test="money != null">
+				and a.money=#{money}
+			</if>
+			<if test="remarks != null">
+				and a.remarks like '%${remarks}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.time between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validMoney != null">
+				and a.validMoney=#{validMoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.betId asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_yag_gameinfo a
+		<where>
+			<if test="betId != null">
+				 a.betId like '%${betId}%'
+			</if>
+			<if test="user != null">
+				and a.user like '%${user}%'
+			</if>
+			<if test="gameId != null">
+				and a.gameId like '%${gameId}%'
+			</if>
+			<if test="gameName != null">
+				and a.gameName like '%${gameName}%'
+			</if>
+			<if test="money != null">
+				and a.money=#{money}
+			</if>
+			<if test="remarks != null">
+				and a.remarks like '%${remarks}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.time between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validMoney != null">
+				and a.validMoney=#{validMoney}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.betId asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_yag_gameinfo a
+		<where>
+			<if test="betId != null">
+				 a.betId like '%${betId}%'
+			</if>
+			<if test="user != null">
+				and a.user like '%${user}%'
+			</if>
+			<if test="gameId != null">
+				and a.gameId like '%${gameId}%'
+			</if>
+			<if test="gameName != null">
+				and a.gameName like '%${gameName}%'
+			</if>
+			<if test="money != null">
+				and a.money=#{money}
+			</if>
+			<if test="remarks != null">
+				and a.remarks like '%${remarks}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.time between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validMoney != null">
+				and a.validMoney=#{validMoney}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_yag_gameinfo a
+		<where>
+			<if test="betId != null">
+				 a.betId like '%${betId}%'
+			</if>
+			<if test="user != null">
+				and a.user like '%${user}%'
+			</if>
+			<if test="gameId != null">
+				and a.gameId like '%${gameId}%'
+			</if>
+			<if test="gameName != null">
+				and a.gameName like '%${gameName}%'
+			</if>
+			<if test="money != null">
+				and a.money=#{money}
+			</if>
+			<if test="remarks != null">
+				and a.remarks like '%${remarks}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.time between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="result != null">
+				and a.result=#{result}
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="validMoney != null">
+				and a.validMoney=#{validMoney}
+			</if>
+
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.PlatformMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_platform(platform_id,platform_name,platform_deskey,platform_md5key,platform_createtime,platform_createuser,platform_username,platform_password,platform_remarks,platform_ip,platform_state,platform_type,platform_parentid)  values (#{platform_id},#{platform_name},#{platform_deskey},#{platform_md5key},#{platform_createtime},#{platform_createuser},#{platform_username},#{platform_password},#{platform_remarks},#{platform_ip},#{platform_state},#{platform_type},#{platform_parentid})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_platform(platform_id,platform_name,platform_deskey,platform_md5key,platform_createtime,platform_createuser,platform_username,platform_password,platform_remarks,platform_ip,platform_state,platform_type,platform_parentid)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.platform_id},#{item.platform_name},#{item.platform_deskey},#{item.platform_md5key},#{item.platform_createtime},#{item.platform_createuser},#{item.platform_username},#{item.platform_password},#{item.platform_remarks},#{item.platform_ip},#{item.platform_state},#{item.platform_type},#{item.platform_parentid})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_platform
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="platform_id != null">
+				platform_id,
+			</if>
+			<if test="platform_name != null">
+				platform_name,
+			</if>
+			<if test="platform_deskey != null">
+				platform_deskey,
+			</if>
+			<if test="platform_md5key != null">
+				platform_md5key,
+			</if>
+			<if test="platform_createtime != null">
+				platform_createtime,
+			</if>
+			<if test="platform_createuser != null">
+				platform_createuser,
+			</if>
+			<if test="platform_username != null">
+				platform_username,
+			</if>
+			<if test="platform_password != null">
+				platform_password,
+			</if>
+			<if test="platform_remarks != null">
+				platform_remarks,
+			</if>
+			<if test="platform_ip != null">
+				platform_ip,
+			</if>
+			<if test="platform_state != null">
+				platform_state,
+			</if>
+			<if test="platform_type != null">
+				platform_type,
+			</if>
+			<if test="platform_parentid != null">
+				platform_parentid
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="platform_id != null">
+				#{platform_id},
+			</if>
+			<if test="platform_name != null">
+				#{platform_name},
+			</if>
+			<if test="platform_deskey != null">
+				#{platform_deskey},
+			</if>
+			<if test="platform_md5key != null">
+				#{platform_md5key},
+			</if>
+			<if test="platform_createtime != null">
+				#{platform_createtime},
+			</if>
+			<if test="platform_createuser != null">
+				#{platform_createuser},
+			</if>
+			<if test="platform_username != null">
+				#{platform_username},
+			</if>
+			<if test="platform_password != null">
+				#{platform_password},
+			</if>
+			<if test="platform_remarks != null">
+				#{platform_remarks},
+			</if>
+			<if test="platform_ip != null">
+				#{platform_ip},
+			</if>
+			<if test="platform_state != null">
+				#{platform_state},
+			</if>
+			<if test="platform_type != null">
+				#{platform_type},
+			</if>
+			<if test="platform_parentid != null">
+				#{platform_parentid}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_platform
+		<where>
+			<if test="platform_id != null">
+				platform_id=#{platform_id}
+			</if>
+			<if test="platform_name != null">
+				and platform_name=#{platform_name}
+			</if>
+			<if test="platform_deskey != null">
+				and platform_deskey=#{platform_deskey}
+			</if>
+			<if test="platform_md5key != null">
+				and platform_md5key=#{platform_md5key}
+			</if>
+			<if test="platform_createtime != null">
+				and platform_createtime=#{platform_createtime}
+			</if>
+			<if test="platform_createuser != null">
+				and platform_createuser=#{platform_createuser}
+			</if>
+			<if test="platform_username != null">
+				and platform_username=#{platform_username}
+			</if>
+			<if test="platform_password != null">
+				and platform_password=#{platform_password}
+			</if>
+			<if test="platform_remarks != null">
+				and platform_remarks=#{platform_remarks}
+			</if>
+			<if test="platform_ip != null">
+				and platform_ip=#{platform_ip}
+			</if>
+			<if test="platform_state != null">
+				and platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and platform_type=#{platform_type}
+			</if>
+			<if test="platform_parentid != null">
+				and platform_parentid=#{platform_parentid}
+			</if>
+			<if test="ids != null">
+				and platform_id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_platform
+		<set>
+			<if test="platform_name != null">
+				platform_name=#{platform_name},
+			</if>
+			<if test="platform_deskey != null">
+				platform_deskey=#{platform_deskey},
+			</if>
+			<if test="platform_md5key != null">
+				platform_md5key=#{platform_md5key},
+			</if>
+			<if test="platform_createtime != null">
+				platform_createtime=#{platform_createtime},
+			</if>
+			<if test="platform_createuser != null">
+				platform_createuser=#{platform_createuser},
+			</if>
+			<if test="platform_username != null">
+				platform_username=#{platform_username},
+			</if>
+			<if test="platform_password != null">
+				platform_password=#{platform_password},
+			</if>
+			<if test="platform_remarks != null">
+				platform_remarks=#{platform_remarks},
+			</if>
+			<if test="platform_ip != null">
+				platform_ip=#{platform_ip},
+			</if>
+			<if test="platform_state != null">
+				platform_state=#{platform_state},
+			</if>
+			<if test="platform_type != null">
+				platform_type=#{platform_type},
+			</if>
+			<if test="platform_parentid != null">
+				platform_parentid=#{platform_parentid}
+			</if>
+		</set>
+		where platform_id=#{platform_id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_platform set
+			platform_name=#{item.platform_name},platform_deskey=#{item.platform_deskey},platform_md5key=#{item.platform_md5key},platform_createtime=#{item.platform_createtime},platform_createuser=#{item.platform_createuser},platform_username=#{item.platform_username},platform_password=#{item.platform_password},platform_remarks=#{item.platform_remarks},platform_ip=#{item.platform_ip},platform_state=#{item.platform_state},platform_type=#{item.platform_type},platform_parentid=#{item.platform_parentid}
+			where platform_id =#{item.platform_id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_platform a where a.platform_id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_platform a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform a
+		<where>
+			<if test="platform_id != null">
+				a.platform_id=#{platform_id}
+			</if>
+			<if test="platform_name != null">
+				and a.platform_name=#{platform_name}
+			</if>
+			<if test="platform_deskey != null">
+				and a.platform_deskey=#{platform_deskey}
+			</if>
+			<if test="platform_md5key != null">
+				and a.platform_md5key=#{platform_md5key}
+			</if>
+			<if test="platform_createtime != null">
+				and a.platform_createtime=#{platform_createtime}
+			</if>
+			<if test="platform_createuser != null">
+				and a.platform_createuser=#{platform_createuser}
+			</if>
+			<if test="platform_username != null">
+				and a.platform_username=#{platform_username}
+			</if>
+			<if test="platform_password != null">
+				and a.platform_password=#{platform_password}
+			</if>
+			<if test="platform_remarks != null">
+				and a.platform_remarks=#{platform_remarks}
+			</if>
+			<if test="platform_ip != null">
+				and a.platform_ip=#{platform_ip}
+			</if>
+			<if test="platform_state != null">
+				and a.platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and a.platform_type=#{platform_type}
+			</if>
+			<if test="platform_parentid != null">
+				and a.platform_parentid=#{platform_parentid}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.platform_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform a
+		<where>
+			<if test="platform_id != null">
+				 a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="platform_name != null">
+				and a.platform_name like '%${platform_name}%'
+			</if>
+			<if test="platform_deskey != null">
+				and a.platform_deskey like '%${platform_deskey}%'
+			</if>
+			<if test="platform_md5key != null">
+				and a.platform_md5key like '%${platform_md5key}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.platform_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platform_createuser != null">
+				and a.platform_createuser like '%${platform_createuser}%'
+			</if>
+			<if test="platform_username != null">
+				and a.platform_username like '%${platform_username}%'
+			</if>
+			<if test="platform_password != null">
+				and a.platform_password like '%${platform_password}%'
+			</if>
+			<if test="platform_remarks != null">
+				and a.platform_remarks like '%${platform_remarks}%'
+			</if>
+			<if test="platform_ip != null">
+				and a.platform_ip like '%${platform_ip}%'
+			</if>
+			<if test="platform_state != null">
+				and a.platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and a.platform_type like '%${platform_type}%'
+			</if>
+			<if test="platform_parentid != null">
+				and a.platform_parentid like '%${platform_parentid}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.platform_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform a
+		<where>
+			<if test="platform_id != null">
+				 a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="platform_name != null">
+				and a.platform_name like '%${platform_name}%'
+			</if>
+			<if test="platform_deskey != null">
+				and a.platform_deskey like '%${platform_deskey}%'
+			</if>
+			<if test="platform_md5key != null">
+				and a.platform_md5key like '%${platform_md5key}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.platform_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platform_createuser != null">
+				and a.platform_createuser like '%${platform_createuser}%'
+			</if>
+			<if test="platform_username != null">
+				and a.platform_username like '%${platform_username}%'
+			</if>
+			<if test="platform_password != null">
+				and a.platform_password like '%${platform_password}%'
+			</if>
+			<if test="platform_remarks != null">
+				and a.platform_remarks like '%${platform_remarks}%'
+			</if>
+			<if test="platform_ip != null">
+				and a.platform_ip like '%${platform_ip}%'
+			</if>
+			<if test="platform_state != null">
+				and a.platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and a.platform_type like '%${platform_type}%'
+			</if>
+			<if test="platform_parentid != null">
+				and a.platform_parentid like '%${platform_parentid}%'
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.platform_id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_platform a
+		<where>
+			<if test="platform_id != null">
+				 a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="platform_name != null">
+				and a.platform_name like '%${platform_name}%'
+			</if>
+			<if test="platform_deskey != null">
+				and a.platform_deskey like '%${platform_deskey}%'
+			</if>
+			<if test="platform_md5key != null">
+				and a.platform_md5key like '%${platform_md5key}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.platform_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platform_createuser != null">
+				and a.platform_createuser like '%${platform_createuser}%'
+			</if>
+			<if test="platform_username != null">
+				and a.platform_username like '%${platform_username}%'
+			</if>
+			<if test="platform_password != null">
+				and a.platform_password like '%${platform_password}%'
+			</if>
+			<if test="platform_remarks != null">
+				and a.platform_remarks like '%${platform_remarks}%'
+			</if>
+			<if test="platform_ip != null">
+				and a.platform_ip like '%${platform_ip}%'
+			</if>
+			<if test="platform_state != null">
+				and a.platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and a.platform_type like '%${platform_type}%'
+			</if>
+			<if test="platform_parentid != null">
+				and a.platform_parentid like '%${platform_parentid}%'
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_platform a
+		<where>
+			<if test="platform_id != null">
+				 a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="platform_name != null">
+				and a.platform_name like '%${platform_name}%'
+			</if>
+			<if test="platform_deskey != null">
+				and a.platform_deskey like '%${platform_deskey}%'
+			</if>
+			<if test="platform_md5key != null">
+				and a.platform_md5key like '%${platform_md5key}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.platform_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+			<if test="platform_createuser != null">
+				and a.platform_createuser like '%${platform_createuser}%'
+			</if>
+			<if test="platform_username != null">
+				and a.platform_username like '%${platform_username}%'
+			</if>
+			<if test="platform_password != null">
+				and a.platform_password like '%${platform_password}%'
+			</if>
+			<if test="platform_remarks != null">
+				and a.platform_remarks like '%${platform_remarks}%'
+			</if>
+			<if test="platform_ip != null">
+				and a.platform_ip like '%${platform_ip}%'
+			</if>
+			<if test="platform_state != null">
+				and a.platform_state=#{platform_state}
+			</if>
+			<if test="platform_type != null">
+				and a.platform_type like '%${platform_type}%'
+			</if>
+			<if test="platform_parentid != null">
+				and a.platform_parentid like '%${platform_parentid}%'
+			</if>
+
+		</where>
+	</select>
+</mapper>

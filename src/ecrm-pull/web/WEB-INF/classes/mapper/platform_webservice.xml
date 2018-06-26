@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.pull.mapper.PlatformWebserviceMapper">
+	<!--插入记录 -->
+	<insert id="insert" parameterType="hashmap">
+		insert into api_platform_webservice(webservice_id,platform_id,webservice_name,webservice_password,webservice_key,webservice_key2,webservice_gametype,webservice_url,webservice_url2,webservice_state,webservice_createuser,webservice_createtime)  values (#{webservice_id},#{platform_id},#{webservice_name},#{webservice_password},#{webservice_key},#{webservice_key2},#{webservice_gametype},#{webservice_url},#{webservice_url2},#{webservice_state},#{webservice_createuser},#{webservice_createtime})
+	</insert>
+
+	<!--批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		insert into api_platform_webservice(webservice_id,platform_id,webservice_name,webservice_password,webservice_key,webservice_key2,webservice_gametype,webservice_url,webservice_url2,webservice_state,webservice_createuser,webservice_createtime)  values
+		<foreach item="item" index="index" collection="array" separator=",">
+			(#{item.webservice_id},#{item.platform_id},#{item.webservice_name},#{item.webservice_password},#{item.webservice_key},#{item.webservice_key2},#{item.webservice_gametype},#{item.webservice_url},#{item.webservice_url2},#{item.webservice_state},#{item.webservice_createuser},#{item.webservice_createtime})
+		</foreach>
+	</insert>
+	
+	<!--选择插入记录 -->
+	<insert id="optInsert" parameterType="hashmap">
+		insert into api_platform_webservice
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="webservice_id != null">
+				webservice_id,
+			</if>
+			<if test="platform_id != null">
+				platform_id,
+			</if>
+			<if test="webservice_name != null">
+				webservice_name,
+			</if>
+			<if test="webservice_password != null">
+				webservice_password,
+			</if>
+			<if test="webservice_key != null">
+				webservice_key,
+			</if>
+			<if test="webservice_key2 != null">
+				webservice_key2,
+			</if>
+			<if test="webservice_gametype != null">
+				webservice_gametype,
+			</if>
+			<if test="webservice_url != null">
+				webservice_url,
+			</if>
+			<if test="webservice_url2 != null">
+				webservice_url2,
+			</if>
+			<if test="webservice_state != null">
+				webservice_state,
+			</if>
+			<if test="webservice_createuser != null">
+				webservice_createuser,
+			</if>
+			<if test="webservice_createtime != null">
+				webservice_createtime
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="webservice_id != null">
+				#{webservice_id},
+			</if>
+			<if test="platform_id != null">
+				#{platform_id},
+			</if>
+			<if test="webservice_name != null">
+				#{webservice_name},
+			</if>
+			<if test="webservice_password != null">
+				#{webservice_password},
+			</if>
+			<if test="webservice_key != null">
+				#{webservice_key},
+			</if>
+			<if test="webservice_key2 != null">
+				#{webservice_key2},
+			</if>
+			<if test="webservice_gametype != null">
+				#{webservice_gametype},
+			</if>
+			<if test="webservice_url != null">
+				#{webservice_url},
+			</if>
+			<if test="webservice_url2 != null">
+				#{webservice_url2},
+			</if>
+			<if test="webservice_state != null">
+				#{webservice_state},
+			</if>
+			<if test="webservice_createuser != null">
+				#{webservice_createuser},
+			</if>
+			<if test="webservice_createtime != null">
+				#{webservice_createtime}
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据实体删除记录 -->
+	<delete id="delete" parameterType="hashmap">
+		delete from api_platform_webservice
+		<where>
+			<if test="webservice_id != null">
+				webservice_id=#{webservice_id}
+			</if>
+			<if test="platform_id != null">
+				and platform_id=#{platform_id}
+			</if>
+			<if test="webservice_name != null">
+				and webservice_name=#{webservice_name}
+			</if>
+			<if test="webservice_password != null">
+				and webservice_password=#{webservice_password}
+			</if>
+			<if test="webservice_key != null">
+				and webservice_key=#{webservice_key}
+			</if>
+			<if test="webservice_key2 != null">
+				and webservice_key2=#{webservice_key2}
+			</if>
+			<if test="webservice_gametype != null">
+				and webservice_gametype=#{webservice_gametype}
+			</if>
+			<if test="webservice_url != null">
+				and webservice_url=#{webservice_url}
+			</if>
+			<if test="webservice_url2 != null">
+				and webservice_url2=#{webservice_url2}
+			</if>
+			<if test="webservice_state != null">
+				and webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and webservice_createuser=#{webservice_createuser}
+			</if>
+			<if test="webservice_createtime != null">
+				and webservice_createtime=#{webservice_createtime}
+			</if>
+			<if test="ids != null">
+				and webservice_id in (${ids})
+			</if>
+
+		</where>
+	</delete>
+
+	<!--更新数据操作 -->
+	<update id="update" parameterType="hashmap">
+		update api_platform_webservice
+		<set>
+			<if test="platform_id != null">
+				platform_id=#{platform_id},
+			</if>
+			<if test="webservice_name != null">
+				webservice_name=#{webservice_name},
+			</if>
+			<if test="webservice_password != null">
+				webservice_password=#{webservice_password},
+			</if>
+			<if test="webservice_key != null">
+				webservice_key=#{webservice_key},
+			</if>
+			<if test="webservice_key2 != null">
+				webservice_key2=#{webservice_key2},
+			</if>
+			<if test="webservice_gametype != null">
+				webservice_gametype=#{webservice_gametype},
+			</if>
+			<if test="webservice_url != null">
+				webservice_url=#{webservice_url},
+			</if>
+			<if test="webservice_url2 != null">
+				webservice_url2=#{webservice_url2},
+			</if>
+			<if test="webservice_state != null">
+				webservice_state=#{webservice_state},
+			</if>
+			<if test="webservice_createuser != null">
+				webservice_createuser=#{webservice_createuser},
+			</if>
+			<if test="webservice_createtime != null">
+				webservice_createtime=#{webservice_createtime}
+			</if>
+		</set>
+		where webservice_id=#{webservice_id}
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="list">
+		<foreach item="item" index="index" collection="array" separator=",">
+			update api_platform_webservice set
+			platform_id=#{item.platform_id},webservice_name=#{item.webservice_name},webservice_password=#{item.webservice_password},webservice_key=#{item.webservice_key},webservice_key2=#{item.webservice_key2},webservice_gametype=#{item.webservice_gametype},webservice_url=#{item.webservice_url},webservice_url2=#{item.webservice_url2},webservice_state=#{item.webservice_state},webservice_createuser=#{item.webservice_createuser},webservice_createtime=#{item.webservice_createtime}
+			where webservice_id =#{item.webservice_id}
+		</foreach>
+	</update>
+
+	<!--根据主键查询单条记录 -->
+	<select id="selectByPrimaryKey" resultType="hashmap" parameterType="string">
+		select * from api_platform_webservice a where a.webservice_id=#{key}
+	</select>
+
+	<!--查询所有记录 -->
+	<select id="selectAll" resultType="hashmap">
+		select * from api_platform_webservice a
+	</select>
+
+	<!--通过实体字段查询记录 -->
+	<select id="selectByEntity" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_webservice a
+		<where>
+			<if test="webservice_id != null">
+				a.webservice_id=#{webservice_id}
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id=#{platform_id}
+			</if>
+			<if test="webservice_name != null">
+				and a.webservice_name=#{webservice_name}
+			</if>
+			<if test="webservice_password != null">
+				and a.webservice_password=#{webservice_password}
+			</if>
+			<if test="webservice_key != null">
+				and a.webservice_key=#{webservice_key}
+			</if>
+			<if test="webservice_key2 != null">
+				and a.webservice_key2=#{webservice_key2}
+			</if>
+			<if test="webservice_gametype != null">
+				and a.webservice_gametype=#{webservice_gametype}
+			</if>
+			<if test="webservice_url != null">
+				and a.webservice_url=#{webservice_url}
+			</if>
+			<if test="webservice_url2 != null">
+				and a.webservice_url2=#{webservice_url2}
+			</if>
+			<if test="webservice_state != null">
+				and a.webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and a.webservice_createuser=#{webservice_createuser}
+			</if>
+			<if test="webservice_createtime != null">
+				and a.webservice_createtime=#{webservice_createtime}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.webservice_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录 -->
+	<select id="selectByEntityLike" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_webservice a
+		<where>
+			<if test="webservice_id != null">
+				 a.webservice_id like '%${webservice_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="webservice_name != null">
+				and a.webservice_name like '%${webservice_name}%'
+			</if>
+			<if test="webservice_password != null">
+				and a.webservice_password like '%${webservice_password}%'
+			</if>
+			<if test="webservice_key != null">
+				and a.webservice_key like '%${webservice_key}%'
+			</if>
+			<if test="webservice_key2 != null">
+				and a.webservice_key2 like '%${webservice_key2}%'
+			</if>
+			<if test="webservice_gametype != null">
+				and a.webservice_gametype like '%${webservice_gametype}%'
+			</if>
+			<if test="webservice_url != null">
+				and a.webservice_url like '%${webservice_url}%'
+			</if>
+			<if test="webservice_url2 != null">
+				and a.webservice_url2 like '%${webservice_url2}%'
+			</if>
+			<if test="webservice_state != null">
+				and a.webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and a.webservice_createuser like '%${webservice_createuser}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.webservice_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.webservice_id asc
+            </otherwise>  
+        </choose>
+	</select>
+
+	<!--通过实体字段模糊查询记录分页 -->
+	<select id="selectByEntityLikePage" parameterType="hashmap" resultType="hashmap">
+		select * from api_platform_webservice a
+		<where>
+			<if test="webservice_id != null">
+				 a.webservice_id like '%${webservice_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="webservice_name != null">
+				and a.webservice_name like '%${webservice_name}%'
+			</if>
+			<if test="webservice_password != null">
+				and a.webservice_password like '%${webservice_password}%'
+			</if>
+			<if test="webservice_key != null">
+				and a.webservice_key like '%${webservice_key}%'
+			</if>
+			<if test="webservice_key2 != null">
+				and a.webservice_key2 like '%${webservice_key2}%'
+			</if>
+			<if test="webservice_gametype != null">
+				and a.webservice_gametype like '%${webservice_gametype}%'
+			</if>
+			<if test="webservice_url != null">
+				and a.webservice_url like '%${webservice_url}%'
+			</if>
+			<if test="webservice_url2 != null">
+				and a.webservice_url2 like '%${webservice_url2}%'
+			</if>
+			<if test="webservice_state != null">
+				and a.webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and a.webservice_createuser like '%${webservice_createuser}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.webservice_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+		<choose>  
+            <when test="order != null ">  
+                order by a.${order}
+            </when >             
+            <otherwise>  
+            	order by a.webservice_id asc
+            </otherwise>  
+        </choose>
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+	<!--通过实体字段检索结果总数 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select count(*) as total from api_platform_webservice a
+		<where>
+			<if test="webservice_id != null">
+				 a.webservice_id like '%${webservice_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="webservice_name != null">
+				and a.webservice_name like '%${webservice_name}%'
+			</if>
+			<if test="webservice_password != null">
+				and a.webservice_password like '%${webservice_password}%'
+			</if>
+			<if test="webservice_key != null">
+				and a.webservice_key like '%${webservice_key}%'
+			</if>
+			<if test="webservice_key2 != null">
+				and a.webservice_key2 like '%${webservice_key2}%'
+			</if>
+			<if test="webservice_gametype != null">
+				and a.webservice_gametype like '%${webservice_gametype}%'
+			</if>
+			<if test="webservice_url != null">
+				and a.webservice_url like '%${webservice_url}%'
+			</if>
+			<if test="webservice_url2 != null">
+				and a.webservice_url2 like '%${webservice_url2}%'
+			</if>
+			<if test="webservice_state != null">
+				and a.webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and a.webservice_createuser like '%${webservice_createuser}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.webservice_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+	</select>
+
+	<!--通过实体字段检索结果按某个字段求和汇总 -->
+	<select id="sum" resultType="string" parameterType="hashmap">
+		select COALESCE(sum(${COLUMN}),0) from api_platform_webservice a
+		<where>
+			<if test="webservice_id != null">
+				 a.webservice_id like '%${webservice_id}%'
+			</if>
+			<if test="platform_id != null">
+				and a.platform_id like '%${platform_id}%'
+			</if>
+			<if test="webservice_name != null">
+				and a.webservice_name like '%${webservice_name}%'
+			</if>
+			<if test="webservice_password != null">
+				and a.webservice_password like '%${webservice_password}%'
+			</if>
+			<if test="webservice_key != null">
+				and a.webservice_key like '%${webservice_key}%'
+			</if>
+			<if test="webservice_key2 != null">
+				and a.webservice_key2 like '%${webservice_key2}%'
+			</if>
+			<if test="webservice_gametype != null">
+				and a.webservice_gametype like '%${webservice_gametype}%'
+			</if>
+			<if test="webservice_url != null">
+				and a.webservice_url like '%${webservice_url}%'
+			</if>
+			<if test="webservice_url2 != null">
+				and a.webservice_url2 like '%${webservice_url2}%'
+			</if>
+			<if test="webservice_state != null">
+				and a.webservice_state=#{webservice_state}
+			</if>
+			<if test="webservice_createuser != null">
+				and a.webservice_createuser like '%${webservice_createuser}%'
+			</if>
+			<if test="BEGIN_DATE != null and END_DATE != null">
+				and a.webservice_createtime between #{BEGIN_DATE} and #{END_DATE}
+			</if>
+
+		</where>
+	</select>
+</mapper>
