@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<Configuration status="DEBUG">    
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <!-- ${web:rootDir} -->
+	    <RollingFile name="DatLog" fileName="${web:rootDir}/logs/DataLog.log"  filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">    
+		      <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%xEx%n" charset="UTF-8" />    
+		      <SizeBasedTriggeringPolicy size="500 MB" />    
+	    </RollingFile>
+	    <RollingFile name="OparationLog" fileName="${web:rootDir}/logs/OparationLog.log"  filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">    
+		      <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%xEx%n" charset="UTF-8" />
+		      <SizeBasedTriggeringPolicy size="500 MB" />    
+	    </RollingFile>
+	    <RollingFile name="MainLog" fileName="${web:rootDir}/logs/Main.log"  filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">    
+		      <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss.SSS} [%t] %-5level %logger{36} %L %M - %msg%xEx%n" charset="UTF-8" />
+		      <SizeBasedTriggeringPolicy size="500 MB" />    
+	    </RollingFile>
+    </Appenders>
+    <Loggers>           
+        <Root level="DEBUG">
+            <AppenderRef ref="MainLog" />
+            <AppenderRef ref="Console" />
+        </Root>
+        <logger name="com.maven.controller" level="ALL" additivity="false">
+            <appender-ref ref="DatLog"/>
+            <AppenderRef ref="Console" />
+        </logger>
+        <logger name="com.maven.interceptor.OparetionLoggerInterceptor" level="ALL" additivity="false">
+            <appender-ref ref="OparationLog"/>
+            <AppenderRef ref="Console" />
+        </logger>
+        <logger name="MAIN" level="ALL" additivity="false">
+            <appender-ref ref="MainLog"/>
+            <AppenderRef ref="Console" />
+        </logger>
+    </Loggers>
+</Configuration>
