@@ -8,9 +8,9 @@
 	<version>0.0.3</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.4.RELEASE</spring.version>
+		<spring.version>4.1.1.RELEASE</spring.version>
 		<log4j.version>2.1</log4j.version>
-		<jackson.version>1.2.1</jackson.version>
+		<jackson.version>2.4.3</jackson.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -182,13 +182,13 @@
 
 		<!-- jackson -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-lgpl</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-lgpl</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 		<!-- jackson end -->
