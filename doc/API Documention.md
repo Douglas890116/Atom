@@ -94,42 +94,48 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 請求參數
 * params, 加密業務參數, 將業務參數的鍵值對(key=value)以&連接后, 進行AES加密, 再做URLEncode處理
 * signature, 業務參數簽名, 將業務參數的鍵值對(key=value)以&連接后, 緊接MD5密匙, 然後做MD5簽名
-* enterprisecode, 每個企業編碼
+* enterprisecode, 每個企業編碼, 用于配对对应的AES秘鑰與MD5秘鑰
 
  AES秘鑰與MD5秘鑰, 由平台生成, 每一個企業編碼對應一對AES秘鑰與MD5秘鑰
 
 #### API請求樣例
-originParams = "name=Lancelot&gender=male&age=30&job=saber";
-params = URLEncoder(AES(originParams, AES_KEY));
-signature = MD5(originParams + MD5_KEY);
+* originParams = "name=Lancelot&gender=male&age=30&job=saber";
+* params = URLEncoder(AES(originParams, AES_KEY));
+* signature = MD5(originParams + MD5_KEY);
 
 請求鏈接: ```http://域名/路徑?params=${params}&signature=${signature}&enterprisecode=${enterprisecode}```
 
 #### 返回數據
 接口返回數據為Json格式, 主要包含code與info兩個主要值
+
 * 當code值為1時, 表示請求成功, 那麼info里的值就是具體的數據
+
 ```
 {
 "code" : "1",
 "info" : Object
 }
 ```
+
 * 當code值不為1時, 表示出現錯誤, 那麼info里的值就是錯誤信息
+
 ```
 {
 "code" : "1001",
 "info" : "操作失敗，請稍後嘗試"
 }
 ```
-
+--------------------------------------------------
+**注: 以下接中的[參數]都是業務參數, 需要加密以及簽名**
 ### 會員站點相關接口
 
 #### 获取公司对应的key
-**此接口為固定通信接口, 加密/簽名的秘鑰為固定的系統給出, 並且需要用次對秘鑰對返回的結果進行解密/驗簽**
-**返回的數據為: ${MD5_KEY}&${AES_KEY}, 的加密與簽名, 需要前端進行解密/驗簽**
+此接口為固定通信接口, 加密/簽名的秘鑰為固定的系統給出, 並且需要用次對秘鑰對返回的結果進行解密/驗簽, 
+返回的數據為: ${MD5_KEY}&${AES_KEY}, 的加密與簽名, 需要前端進行解密/驗簽
+
 ```
 路徑: Domain/enterpriseInfo
-參數: enterprisecode
+參數: enterprisecode=${企業編碼}
 返回結果: {
     "params" : ${params},
     "signature" : ${signature}
@@ -139,28 +145,28 @@ signature = MD5(originParams + MD5_KEY);
 #### 获取所有网站标识
 ```
 路徑: Domain/TakeAllDomainConfig
-參數:
+參數: enterprisecode=${企業編碼}
 返回結果:
 示例:
 ```
 #### 获取单个网站标识
 ```
 路徑: Domain/TakeDomainConfig
-參數:
-返回結果:
+參數: domain=${查詢的會員站點域名}
+返回結果: 
 示例:
 ```
 #### 系统公告
 ```
 路徑: Notic/Notic
-參數:
+參數: enterprisecode=${企業編碼}&brandcode=${品牌編碼}&start=${分頁}&limit=${數量}
 返回結果:
 示例:
 ```
 #### 企业联络方式
 ```
 路徑: Domain/Contact
-參數:
+參數: brandcode=${品牌编码}
 返回結果:
 示例:
 ```
@@ -184,14 +190,14 @@ signature = MD5(originParams + MD5_KEY);
 #### 注册
 ```
 路徑: User/register
-參數:
+參數: brandcode=${品牌编码}&loginaccount=${用户名}&loginpassword=${登陸密碼}&fundpassword=${資金密碼}&displayalias=${玩家暱稱}&domain=${註冊地址}
 返回結果:
 示例:
 ```
 #### 登录
 ```
 路徑: User/login
-參數:
+參數: loginaccount=${用戶名}&loginpassword=${登陸密碼}&loginip=${登陸IP}&browserversion=${瀏覽器信息}&opratesystem=${操作系統信息}
 返回結果:
 示例:
 ```
@@ -199,20 +205,20 @@ signature = MD5(originParams + MD5_KEY);
 #### 根据用户编号获取用户信息
 ```
 路徑: User/takeEmployee
-參數:
-返回結果:
-示例:
-```
-#### 修改资金密码
-```
-路徑: User/updatefpwd
-參數:
+參數: employeecode=${用户编码}
 返回結果:
 示例:
 ```
 #### 修改登录密码
 ```
 路徑: User/updatepwd
+參數: employeecode=${用户编码}&oldloginpassword=${原始密碼}&newloginpassword=${新密碼}
+返回結果:
+示例:
+```
+#### 修改资金密码
+```
+路徑: User/updatefpwd
 參數:
 返回結果:
 示例:
