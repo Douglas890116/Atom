@@ -173,14 +173,14 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 获取手机验证码
 ```
 路徑: User/getVerifycode
-參數:
+參數: brandcode=${品牌編碼}&phoneno=${手機號碼}
 返回結果:
 示例:
 ```
 #### 获取品牌广告图
 ```
 路徑: EnterpriseBrand/banner
-參數:
+參數: brandcode=${品牌編碼}&bannertype=${banner類型: PC-PC端Banner, H5-移動端Banner}
 返回結果:
 示例:
 ```
@@ -219,42 +219,42 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 修改资金密码
 ```
 路徑: User/updatefpwd
-參數:
+參數: employeecode=${用戶編碼}&oldfundpassword=${原始資金密碼}&newfundpassword=${新資金密碼}
 返回結果:
 示例:
 ```
 #### 更新会员信息
 ```
 路徑: User/updateInfo
-參數:
+參數: employeecode=${用戶編碼}&qq=${用戶QQ號}&email=${用戶郵箱}&phoneno=${用戶電話}&verifycode=${手機驗證碼}
 返回結果:
 示例:
 ```
-#### 获取会员等级
+#### 获取企業会员等级
 ```
 路徑: User/findEmployeeLovel
-參數:
+參數: enterprisecode=${企業編碼}
 返回結果:
 示例:
 ```
 #### 用户未读站内信数量
 ```
 路徑: UserMessage/MessageCount
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
-#### 用户未读站内信数量
+#### 用户未读系統消息数量
 ```
 路徑: UserMessage/SysMessage
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
 #### 用户读取站内信的
 ```
 路徑: UserMessage/updateSysMessage
-參數:
+參數: employeecode=${用戶編碼}&messagecode=${消息編碼}
 返回結果:
 示例:
 ```
@@ -264,35 +264,42 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 进入游戏
 ```
 路徑: Game/play
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&gametype=${遊戲類型}
 返回結果:
 示例:
 ```
-#### 所有游戏余额
+#### 獲取玩家余额總數
 ```
 路徑: Game/balances
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
-#### 单个游戏余额
+#### 用戶所有遊戲及中心錢包餘額列表
+```
+路徑: Game/balancesAll
+參數: employeecode=${用戶編碼}
+返回結果:
+示例:
+```
+#### 獲取玩家单个游戏余额
 ```
 路徑: Game/balance
-參數:
+參數: employeecode=${用戶編碼}&gameType=${遊戲類型}
 返回結果:
 示例:
 ```
 #### 游戏试玩
 ```
 路徑: Game/tryPlay
-參數:
+參數: gametype=${遊戲編碼}
 返回結果:
 示例:
 ```
 #### 获取游戏平台状态
 ```
 路徑: Game/gamestatus
-參數:
+參數: brandcode=${品牌編碼}&gameType=${遊戲類型}
 返回結果:
 示例:
 ```
@@ -306,56 +313,58 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 获取全部游戏账号
 ```
 路徑: User/takeEmployeeAccount
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
 #### 获取PT游戏分类
+**此接口無需加密**
 ```
 路徑: Game/PtGameMenu
-參數:
+參數: 無
 返回結果:
 示例:
 ```
 #### 获取PT游戏分类详细信息
+**此接口無需加密**
 ```
 路徑: Game/PtGameDetailsMenu
-參數:
+參數: gameclasscode
 返回結果:
 示例:
 ```
 #### 获取PT账号
 ```
 路徑: Game/PtLogin
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
 #### 游戏纪录
 ```
 路徑: GRecords/Records
-參數:
+參數: employeecode=${用戶編碼}&gametype=${遊戲類型}&start=${分頁}&limit=${每頁數量}
 返回結果:
 示例:
 ```
 #### 游戏手动上分接口
 ```
 路徑: Game/upIntegralGame
-參數:
+參數: employeecode=${用戶編碼}&gametype=${遊戲類型}&brandcode=${品牌編碼}&money=${上分金額}
 返回結果:
 示例:
 ```
 #### 游戏手动下分接口
 ```
 路徑: Game/downIntegralGame
-參數:
+參數: employeecode=${用戶編碼}&gametype=${遊戲類型}&brandcode=${品牌編碼}&money=${下分金額}
 返回結果:
 示例:
 ```
 #### 可用的游戏列表
 ```
 路徑: GRecords/BrandGameAll
-參數:
+參數: brandcode=${品牌編碼}
 返回結果:
 示例:
 ```
@@ -365,34 +374,35 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 添加用户银行卡
 ```
 路徑: User/AddUBankCard
-參數:
+參數: employeecode=${用戶編碼}&fundpassword=${資金密碼}&paymentaccount=${賬戶卡號}&accountname=${賬戶名稱}&openningbank=${開戶行名稱}&bankcode=${銀行編碼}
 返回結果:
 示例:
 ```
 #### 编辑银行卡
 ```
 路徑: User/EditUBankCard
-參數:
+參數: employeecode=${用戶編碼}&informationcode=${用戶信息編碼}&fundpassword=${資金密碼}&paymentaccount=${賬戶卡號}&accountname=${賬戶名稱}&openningbank=${開戶行名稱}&qq=${用戶QQ號, 非必須}&skype=${用戶Skype, 非必須}&email=${用戶郵箱, 非必須}
 返回結果:
 示例:
 ```
 #### 删除银行卡
 ```
 路徑: User/DeleteUBankCard
-參數:
+參數: employeecode=${用戶編碼}&informationcode=${用戶信息編碼}&fundpassword=${資金密碼}
 返回結果:
 示例:
 ```
 #### 查询银行卡
 ```
 路徑: User/UBankCards
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
 #### 用户存款
 ```
 路徑: Funds/Saving
+brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金額}&enterpriseinformationcode=${用戶信息編碼}&employeepaymentbank=${支付用的銀行編碼}&employeepaymentaccount=${賬戶卡號}&employeepaymentname=${賬戶名稱}&traceip=${用戶IP}&ordercomment=${用戶留言}
 參數:
 返回結果:
 示例:
@@ -400,53 +410,61 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 用户取款
 ```
 路徑: Funds/Taking
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${取款金額}&ordercomment=${用戶留言}&informationcode=${用戶信息編碼}&traceip=${用戶IP}&fundpassword=${資金密碼}
 返回結果:
 示例:
 ```
 #### 存款记录
 ```
 路徑: Fetch/SaveOrder
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
 返回結果:
 示例:
 ```
 #### 取款记录
 ```
 路徑: Fetch/TakeOrder
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
 返回結果:
 示例:
 ```
 #### 用户账变记录
 ```
 路徑: User/findAccountChange
-參數:
+參數: employeecode=${用戶編碼}&start=${分頁}&limit=${數量}&startDate=${開始時間}&endDate=${結束時間}
+返回結果:
+示例:
+```
+#### 查询会员时间段内的存取款、优惠等数据統計
+```
+路徑: Game/allMoney
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
 #### 获取收款银行
 ```
 路徑: Funds/EBankCards
-參數:
+參數: enterprisecode=${企業編碼}
 返回結果:
 示例:
 ```
 #### 获取基础银行信息
+**此接口無需加密**
 ```
 路徑: Funds/Banks
-參數:
+參數: 無
 返回結果:
 示例:
 ```
 #### 获取获取企业第三方支付
 ```
 路徑: TPayment/EThirdpartys
-參數:
+參數: enterprisecode=${企業編碼}
 返回結果:
 示例:
 ```
-#### 获取企业第三方支付银行
+#### 获取企业第三方支付银行(已廢除)
 ```
 路徑: TPayment/TPayMentBank
 參數:
@@ -456,14 +474,7 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 提交第三方支付
 ```
 路徑: TPayment/ESaving
-參數:
-返回結果:
-示例:
-```
-#### 中心钱包金额
-```
-路徑: Game/balancesAll
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金額}&enterprisethirdpartycode=${企業第三方支付編碼}&traceip=${用戶IP}&paymenttypebankcode=${企業第三方支付銀行編碼}
 返回結果:
 示例:
 ```
@@ -473,7 +484,7 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 领取优惠活动
 ```
 路徑: MemBerActivity/trigger
-參數:
+參數: employeecode=${用戶編碼}&enterprisebrandactivitycode=${活動編碼}&loginip=${用戶IP}
 返回結果:
 示例:
 ```
@@ -494,21 +505,14 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 获取优惠活动内容
 ```
 路徑: BrandActivity/trigger
-參數:
+參數: brandcode=${品牌編碼}&way=${獲取方式}
 返回結果:
 示例:
 ```
 #### 用户存款时的优惠编码
 ```
 路徑: User/findUserFavourable
-參數:
-返回結果:
-示例:
-```
-#### 查询会员时间段内的存取款、优惠等数据
-```
-路徑: Game/allMoney
-參數:
+參數: employeecode=${用戶編碼}
 返回結果:
 示例:
 ```
@@ -532,21 +536,14 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 #### 获取用户账号密码模拟登录
 ```
 路徑: User/takeEmployeeLoginaccount
-參數:
+參數: loginaccount=${登錄賬號}
 返回結果:
 示例:
 ```
 #### 客户端上分接口
 ```
 路徑: Game/upIntegral
-參數:
-返回結果:
-示例:
-```
-#### app客户端存款接口
-```
-路徑: User/takeEmployeeLoginaccount2
-參數:
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&gametype=${遊戲類型}&application=h5
 返回結果:
 示例:
 ```
