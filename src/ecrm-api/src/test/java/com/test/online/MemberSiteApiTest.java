@@ -7,17 +7,18 @@ import junit.framework.TestCase;
 
 public class MemberSiteApiTest  extends TestCase {
 	
-	public static final  String URL = "http://api.hyzonghe.net/";
+//	public static final  String URL = "http://api.hyzonghe.net/";
+	public static final  String URL = "http://127.0.0.1:9090/ecrm-api";
 	
-	public static final String AES_KEY = "6Zc81eZlDT7Y1Yap";
+	public static final String AES_KEY = "GKQP3pbZqR07D1Fu";
 	
-	public static final String MD5_KEY = "1TpE5GlkMV6CABxZ";
+	public static final String MD5_KEY = "p7BGzPOFM60lvdPg";
 	
-	public static final String ENTERPRISECODE = "EN003X";
+	public static final String ENTERPRISECODE = "EN003K";
 	
-	public static final String BRANDCODE = "EB0000AV";
+	public static final String BRANDCODE = "EB0000BD";
 	
-	public static final String EMPLOYEECODE="E00000C3";
+	public static final String EMPLOYEECODE="E000JVHM";
 	
 	
 	public  void regesterAgent(){
@@ -35,7 +36,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void regesterMember(){
 		try {
 			String url = URL+"/User/register?enterprisecode="+ENTERPRISECODE;
-			String params = "brandcode="+BRANDCODE+"&loginaccount=testuser4&loginpassword=111222333&fundpassword=88888&displayalias=秦始皇&domain=http://www.google.com";
+			String params = "brandcode="+BRANDCODE+"&loginaccount=testuser4&loginpassword=111222333&fundpassword=88888&displayalias=秦始皇&domain=http://egg777.com";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("注册会员:"+url);
@@ -47,7 +48,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void login(){
 		try {
 			String url = URL+"/User/login?enterprisecode="+ENTERPRISECODE;
-			String params = "loginaccount=testuser&loginpassword=123456789&loginip=169.36.59.48&browserversion=firefox/45.0&opratesystem=Windows 10";
+			String params = "loginaccount=wuxinghui888&loginpassword=123456789&loginip=169.36.59.48&browserversion=firefox/45.0&opratesystem=Windows 10";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("用户登陆:"+url);
@@ -86,7 +87,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void isRunGame(){
 		try {
 			String url = "http://192.168.1.207:9090/ecrm/Game/gamestatus?enterprisecode="+ENTERPRISECODE;
-			String params = "gameType=PTGame&brandcode=EB00001L";
+			String params = "gameType=PTGame&brandcode=" + BRANDCODE;
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("游戏状态:"+url);
@@ -99,9 +100,9 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void play(){
 		try {
 			String url = URL+"/Game/play?enterprisecode="+ENTERPRISECODE;
-			String params = "employeecode=E000IF6Z&gametype=ZJGame&brandcode=EB000027";
-			String aesparams= Encrypt.AESEncrypt(params, "FSmrFkJOrPzFRdO5");
-			url += "&signature="+Encrypt.MD5(params+"aST5TdfmVokT35iJ")+"&params="+aesparams;
+			String params = "employeecode=" + EMPLOYEECODE + "&gametype=ZJGame&brandcode=" + BRANDCODE;
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("进入游戏:"+url);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,8 +160,9 @@ public class MemberSiteApiTest  extends TestCase {
 	
 	public  void gameOrders(){
 		try {
+//			gametype=TGPGame&
 			String url = URL+"/GRecords/Records?enterprisecode="+ENTERPRISECODE;
-			String params = "gametype=NHQGame&employeecode=E0000000&start=0&limit=10";
+			String params = "employeecode=" + EMPLOYEECODE + "&start=0&limit=10";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("游戏记录:"+url);
@@ -172,7 +174,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void takeEmployee(){
 		try {
 			String url = URL+"/User/takeEmployee?enterprisecode="+ENTERPRISECODE;
-			String params = "employeecode=E00000C3";
+			String params = "employeecode=E000JVHM";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("通过编号获取用户信息:"+url);
@@ -184,7 +186,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void updateLoginPassword(){
 		try {
 			String url = URL+"/User/updatepwd?enterprisecode="+ENTERPRISECODE;
-			String params = "employeecode=E00000C3&oldloginpassword=111222333&newloginpassword=111222333";
+			String params = "employeecode=E000JVHM&oldloginpassword=123456789&newloginpassword=987654321";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("修改登陆密码:"+url);
@@ -244,7 +246,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void sysMessage(){
 		try {
 			String url = URL+"/UserMessage/SysMessage?enterprisecode="+ENTERPRISECODE;
-			String params = "employeecode=E00000C3";
+			String params = "employeecode=" + EMPLOYEECODE;
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("系统消息:"+url);
@@ -268,7 +270,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void messageCount(){
 		try {
 			String url = URL+"/UserMessage/MessageCount?enterprisecode="+ENTERPRISECODE;
-			String params = "employeecode=E00000C3";
+			String params = "employeecode=" + EMPLOYEECODE;
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("未读消息:"+url);
@@ -458,7 +460,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void takeNotic(){
 		try {
 			String url = URL+"/Notic/Notic?enterprisecode="+ENTERPRISECODE;
-			String params = "enterprisecode=EN0000&brandcode="+BRANDCODE+"&start=0&limit=3";
+			String params = "enterprisecode=" + ENTERPRISECODE + "&brandcode="+BRANDCODE+"&start=0&limit=3";
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("获取公告:"+url);
@@ -482,7 +484,7 @@ public class MemberSiteApiTest  extends TestCase {
 	public  void contact(){
 		try {
 			String url = URL+"/Domain/Contact?enterprisecode="+ENTERPRISECODE;
-			String params = "brandcode=EB00001L";
+			String params = "brandcode=" + BRANDCODE;
 			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
 			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
 			System.out.println("品牌联系方式:"+url);
@@ -516,9 +518,52 @@ public class MemberSiteApiTest  extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
+	public  void banner(){
+		try {
+			String url = URL + "/EnterpriseBrand/banner?enterprisecode="+ENTERPRISECODE;
+			String params = "brandcode=" + BRANDCODE + "&bannertype=H5";
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
+			System.out.println("获取首页Banner:"+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void findEmployeeLovel() {
+		try {
+			String url = URL + "/User/findEmployeeLovel?enterprisecode="+ENTERPRISECODE;
+			String params = "enterprisecode=" + ENTERPRISECODE;
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
+			System.out.println("获取企業会员等级:"+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public  void updateSysMessage(){
+		try {
+			String url = URL + "/UserMessage/updateSysMessage?enterprisecode=" + ENTERPRISECODE;
+			String params = "employeecode=" + EMPLOYEECODE + "&messagecode=30883";
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
+			System.out.println("系统消息:"+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public  void BrandGameAll(){
+		try {
+			String url = URL + "/GRecords/BrandGameAll?enterprisecode=" + ENTERPRISECODE;
+			String params = "brandcode=" + BRANDCODE;
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params+MD5_KEY)+"&params="+aesparams;
+			System.out.println("可用的游戏列表  "+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		MemberSiteApiTest a = new MemberSiteApiTest();
-		a.eThirdpartys();
+		a.BrandGameAll();
 	}
 }
