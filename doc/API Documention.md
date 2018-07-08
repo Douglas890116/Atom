@@ -1,7 +1,16 @@
 # API 文档
 
 ## 文檔說明
+本文檔是包網系統API接口文檔, 幫助前端工程師能夠方便地接入.
+接口主要分為
+* 會員站點相關接口, 根據域名獲取相關會員站點信息, 然後生成會員站點, 展示給玩家
+* 會員玩家相關接口, 對玩家的一些操作的接口, 註冊/登錄/添加信息/修改密碼/讀取信息, 等等
+* 遊戲相關接口, 遊戲上分/下分/試玩/進入遊戲/遊戲數據查詢, 等等
+* 資金活動接口, 新增修改玩家銀行卡/存取款/查詢存取款記錄, 等等
+* 活動相關接口, 對於網站上的相關活動的接口, 領紅包等等
+* 其他接口, 有一些整理出來, 還未用上的接口
 
+注: 有些參數暫時不清楚具體含義, 故未寫說明, 但實際會用到的參數已基本說明含義, 會持續更新
 
 ## 版本記錄
 
@@ -10,6 +19,8 @@
 |1|V1.0.0|創建文檔|2018-06-17|Cloud.d||
 
 ## 錯誤碼列表
+接口返回數據, 為Json格式, 主要包括code與info兩個值, 前端在得到結果后, 先判斷code是否為1: 
+若為1, 根據需要是提示操作成功信息, 或者展示具體數據; 若不為1, 則直接提示錯誤信息info,
 
 ### 通用錯誤碼
 
@@ -1014,125 +1025,843 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 路徑: User/AddUBankCard
 參數: employeecode=${用戶編碼}&fundpassword=${資金密碼}&paymentaccount=${賬戶卡號}&accountname=${賬戶名稱}&openningbank=${開戶行名稱}&bankcode=${銀行編碼}
-返回結果:
-示例:
+返回結果: {
+    "code":"1",
+    "info":"成功"
+}
+示例: {
+    "code":"1003",
+    "info":"此银行卡号存在异常，请您核实之后与客服联系咨询"
+}
 ```
 #### 编辑银行卡
 ```
 路徑: User/EditUBankCard
 參數: employeecode=${用戶編碼}&informationcode=${用戶信息編碼}&fundpassword=${資金密碼}&paymentaccount=${賬戶卡號}&accountname=${賬戶名稱}&openningbank=${開戶行名稱}&qq=${用戶QQ號, 非必須}&skype=${用戶Skype, 非必須}&email=${用戶郵箱, 非必須}
-返回結果:
-示例:
+返回結果: {
+    "code":"1",
+    "info":"成功"
+}
+示例: {
+    "code":"1003",
+    "info":"此电话号码存在异常，请您核实之后与客服联系咨询"
+}
 ```
 #### 删除银行卡
 ```
 路徑: User/DeleteUBankCard
 參數: employeecode=${用戶編碼}&informationcode=${用戶信息編碼}&fundpassword=${資金密碼}
-返回結果:
-示例:
+返回結果: {
+    "code":"1",
+    "info":"成功"
+}
+示例: {
+    "code":"1003",
+    "info":"用户银行卡不存在"
+}
 ```
-#### 查询银行卡
+#### 查询用户银行卡
 ```
 路徑: User/UBankCards
 參數: employeecode=${用戶編碼}
-返回結果:
-示例:
-```
-#### 用户存款
-```
-路徑: Funds/Saving
-brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金額}&enterpriseinformationcode=${用戶信息編碼}&employeepaymentbank=${支付用的銀行編碼}&employeepaymentaccount=${賬戶卡號}&employeepaymentname=${賬戶名稱}&traceip=${用戶IP}&ordercomment=${用戶留言}
-參數:
-返回結果:
-示例:
-```
-#### 用户取款
-```
-路徑: Funds/Taking
-參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${取款金額}&ordercomment=${用戶留言}&informationcode=${用戶信息編碼}&traceip=${用戶IP}&fundpassword=${資金密碼}
-返回結果:
-示例:
-```
-#### 存款记录
-```
-路徑: Fetch/SaveOrder
-參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
-返回結果:
-示例:
-```
-#### 取款记录
-```
-路徑: Fetch/TakeOrder
-參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
-返回結果:
-示例:
-```
-#### 用户账变记录
-```
-路徑: User/findAccountChange
-參數: employeecode=${用戶編碼}&start=${分頁}&limit=${數量}&startDate=${開始時間}&endDate=${結束時間}
-返回結果:
-示例:
-```
-#### 查询会员时间段内的存取款、优惠等数据統計
-```
-路徑: Game/allMoney
-參數: employeecode=${用戶編碼}
-返回結果:
-示例:
+返回結果: {
+	"code": "1",
+	"info": [{
+		"accountname": ${用戶銀行賬戶名稱},
+		"balance": ${賬戶餘額},
+		"bankcode": ${銀行編碼},
+		"bankname": ${銀行名稱},
+		"brandcode": ${品牌編碼},
+		"depositTotal": ${存款次數},
+		"dividend": ${用戶分紅},
+		"email": ${用戶郵箱},
+		"employeecode": ${用戶編碼},
+		"enterprisecode": ${企業編碼},
+		"infomationcomment": ${用戶信息備註},
+		"informationcode": ${用戶信息編碼},
+		"ip": ${用戶IP},
+		"lastLoginDate": ${最後登錄時間},
+		"loginaccount": ${用戶賬戶},
+		"openningbank": "广东省惠州市吉隆镇中国工商银行惠东吉隆支行",
+		"parentemployeecode": ${上級用戶編碼},
+		"paymentaccount": ${用戶銀行賬戶卡號},
+		"phonenumber": ${用戶電話號碼},
+		"qq": ${用戶QQ號},
+		"registerDate": ${用戶註冊時間},
+		"share": ${用戶占成},
+		"skype": ${用戶Skype},
+		"status": ${用戶銀行卡狀態: 1-鎖定, 2-未鎖定},
+		"takeTotal": ${取款總額}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"accountname": "張三",
+		"balance": 0,
+		"bankcode": "B006",
+		"bankname": "中国工商银行",
+		"brandcode": "EB0000BD",
+		"depositTotal": 0,
+		"dividend": 0,
+		"email": "",
+		"employeecode": "E000JVHM",
+		"enterprisecode": "EN003K",
+		"infomationcomment": "",
+		"informationcode": "EEI00S23",
+		"ip": "",
+		"lastLoginDate": "",
+		"loginaccount": "",
+		"openningbank": "广东省惠州市吉隆镇中国工商银行惠东吉隆支行",
+		"parentemployeecode": "E000JVHL",
+		"paymentaccount": "621226200587444444",
+		"phonenumber": "",
+		"qq": "",
+		"registerDate": "",
+		"share": 0,
+		"skype": "",
+		"status": "1",
+		"takeTotal": 0
+	}]
+}
 ```
 #### 获取收款银行
 ```
 路徑: Funds/EBankCards
 參數: enterprisecode=${企業編碼}
-返回結果:
-示例:
+返回結果: {
+	"code": "1",
+	"info": [{
+		"accountname": ${收款銀行賬戶名稱},
+		"enterprisecode": ${企業編碼},
+		"openningaccount": ${收款銀行賬戶卡號},
+		"enterpriseinformationcode": ${企業信息編碼},
+		"bankname": ${銀行名稱},
+		"bankcode": ${銀行編碼},
+		"openningbank": ${收款銀行開戶張行}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"accountname": "王朋亮",
+		"enterprisecode": "EN003K",
+		"openningaccount": "6212260402025408715",
+		"enterpriseinformationcode": "EI00004H",
+		"bankname": "中国工商银行",
+		"bankcode": "B006",
+		"openningbank": "石家庄开发区支行营业室"
+	},
+	{
+		"accountname": "王朋亮",
+		"enterprisecode": "EN003K",
+		"openningaccount": "6214833116994263",
+		"enterpriseinformationcode": "EI00004I",
+		"bankname": "招商银行",
+		"bankcode": "B016",
+		"openningbank": "石家庄分行红旗大街支行"
+	}]
+}
 ```
+#### 用户存款
+```
+路徑: Funds/Saving
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金額}&enterpriseinformationcode=${用戶信息編碼}&employeepaymentbank=${支付用的銀行編碼}&employeepaymentaccount=${賬戶卡號}&employeepaymentname=${賬戶名稱}&traceip=${用戶IP}&ordercomment=${用戶留言}
+返回結果: {
+    "code":"1",
+    "info":"成功"
+}
+示例: {
+    "code":"10012",
+    "info":"企业银行卡不存在"
+}
+```
+#### 用户取款
+```
+路徑: Funds/Taking
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${取款金額}&ordercomment=${用戶留言}&informationcode=${用戶信息編碼}&traceip=${用戶IP}&fundpassword=${資金密碼}
+返回結果: {
+    "code":"1",
+    "info":"成功"
+}
+示例: {
+    "code":"1003",
+    "info":"当前余额小于提款金额，无法提交提款申请。"
+}
+```
+#### 存款记录
+```
+路徑: Fetch/SaveOrder
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
+返回結果: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": ${品牌名稱},
+			"creditrating": 0,
+			"delegatecode": ${審核流水號},
+			"depositNumber": 0,
+			"displayalias": ${用戶暱稱},
+			"employeecode": ${用戶編碼},
+			"employeepaymentaccount": ${用戶支付賬戶卡號},
+			"employeepaymentbank": ${用戶支付銀行},
+			"employeepaymentname": ${用戶支付賬戶姓名},
+			"end_date": "",
+			"enterprisecode": ${企業編碼},
+			"enterprisepaymentaccount": ${企業收款賬戶卡號},
+			"enterprisepaymentbank": ${企業收款銀行},
+			"enterprisepaymentname": ${企業收款賬戶名稱},
+			"exchangerate": ${匯率},
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": ${流程編碼},
+			"handleemployee": ${訂單處理人},
+			"handleovertime": ${訂單處理完成時間},
+			"loginaccount": ${用戶賬戶},
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": ${訂單金額},
+			"ordercomment": ${訂單備註},
+			"ordercreater": ${訂單創建人},
+			"orderdate": ${訂單時間},
+			"ordernumber": ${訂單單號},
+			"orderstatus": ${訂單狀態: 1-处理中, 2-已处理, 3-驳回, 4-拒绝, 5-待出款},
+			"ordertype": ${訂單類型: 1-存款, 2-取款},
+			"parentemployeeaccount": ${上級賬戶},
+			"parentemployeecode": ${上級賬戶編碼},
+			"paymenttypecode": ${支付類型: PM01-第三方支付, PM02-銀行轉賬支付},
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": ${發起支付的IP地址}
+		}],
+		"count": ${存款總次數},
+		"sumamount": ${存款總量}
+	}
+}
+示例: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": "金塔娱乐城",
+			"creditrating": 0,
+			"delegatecode": 49961,
+			"depositNumber": 0,
+			"displayalias": "daihuan1",
+			"employeecode": "E000JVHM",
+			"employeepaymentaccount": "",
+			"employeepaymentbank": "B019",
+			"employeepaymentname": "",
+			"end_date": "",
+			"enterprisecode": "EN003K",
+			"enterprisepaymentaccount": "EP00006S",
+			"enterprisepaymentbank": "P057",
+			"enterprisepaymentname": "众宝微信支付宝",
+			"exchangerate": 0,
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": "WF00003M",
+			"handleemployee": "",
+			"handleovertime": "2017-12-03 03:39:48",
+			"loginaccount": "daihuan123",
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": 200.31,
+			"ordercomment": "自动存款",
+			"ordercreater": "会员daihuan1",
+			"orderdate": "2017-12-03 03:39:14",
+			"ordernumber": "ABAF231EFF43E78F4CD72C64DB3D72",
+			"orderstatus": 2,
+			"ordertype": 1,
+			"parentemployeeaccount": "",
+			"parentemployeecode": "E000JVHL",
+			"paymenttypecode": "PM01",
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": "175.8.219.90"
+		},
+		{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": "金塔娱乐城",
+			"creditrating": 0,
+			"delegatecode": 49907,
+			"depositNumber": 0,
+			"displayalias": "daihuan1",
+			"employeecode": "E000JVHM",
+			"employeepaymentaccount": "",
+			"employeepaymentbank": "B019",
+			"employeepaymentname": "",
+			"end_date": "",
+			"enterprisecode": "EN003K",
+			"enterprisepaymentaccount": "EP00006Y",
+			"enterprisepaymentbank": "P059",
+			"enterprisepaymentname": "旺付通微信支付宝",
+			"exchangerate": 0,
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": "WF00003M",
+			"handleemployee": "",
+			"handleovertime": "2017-12-02 19:35:32",
+			"loginaccount": "daihuan123",
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": 200.57,
+			"ordercomment": "自动存款",
+			"ordercreater": "会员daihuan1",
+			"orderdate": "2017-12-02 19:35:16",
+			"ordernumber": "AF4E0B99F75A44DE95CC837CB2F157AF",
+			"orderstatus": 2,
+			"ordertype": 1,
+			"parentemployeeaccount": "",
+			"parentemployeecode": "E000JVHL",
+			"paymenttypecode": "PM01",
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": "175.8.219.90"
+		}],
+		"count": 12,
+		"sumamount": 1876.05
+	}
+}
+```
+#### 取款记录
+```
+路徑: Fetch/TakeOrder
+參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderstatus=${訂單狀態: 1-处理中,2-已处理,3-驳回,4-拒绝,5-待出款}&start=${分頁}&limit=${數量}&orderdate_begin=${開始時間}&orderdate_end=${結束時間}
+返回結果: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": ${品牌名稱},
+			"creditrating": 0,
+			"delegatecode": ${審核流水號},
+			"depositNumber": 0,
+			"displayalias": ${用戶暱稱},
+			"employeecode": ${用戶編碼},
+			"employeepaymentaccount": ${用戶取款賬戶卡號},
+			"employeepaymentbank": ${用戶支付銀行},
+			"employeepaymentname": ${用戶取款賬戶姓名},
+			"end_date": "",
+			"enterprisecode": ${企業編碼},
+			"enterprisepaymentaccount": ${企業出款賬戶卡號},
+			"enterprisepaymentbank": ${企業出款銀行},
+			"enterprisepaymentname": ${企業粗款賬戶名稱},
+			"exchangerate": ${匯率},
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": ${流程編碼},
+			"handleemployee": ${訂單處理人},
+			"handleovertime": ${訂單處理完成時間},
+			"loginaccount": ${用戶賬戶},
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": ${訂單金額},
+			"ordercomment": ${訂單備註},
+			"ordercreater": ${訂單創建人},
+			"orderdate": ${訂單時間},
+			"ordernumber": ${訂單單號},
+			"orderstatus": ${訂單狀態: 1-处理中, 2-已处理, 3-驳回, 4-拒绝, 5-待出款},
+			"ordertype": ${訂單類型: 1-存款, 2-取款},
+			"parentemployeeaccount": ${上級賬戶},
+			"parentemployeecode": ${上級賬戶編碼},
+			"paymenttypecode": ${支付類型: PM01-第三方支付, PM02-銀行轉賬支付},
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": ${發起支付的IP地址}
+		}],
+		"count": ${存款總次數},
+		"sumamount": ${存款總量}
+	}
+}
+示例: {
+	"code": "1",
+	"info": {
+		"count": 4,
+		"record": [{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": "金塔娱乐城",
+			"creditrating": 0,
+			"delegatecode": 49966,
+			"depositNumber": 0,
+			"displayalias": "daihuan1",
+			"employeecode": "E000JVHM",
+			"employeepaymentaccount": "6212262008020048386",
+			"employeepaymentbank": "B006",
+			"employeepaymentname": "戴欢",
+			"end_date": "",
+			"enterprisecode": "EN003K",
+			"enterprisepaymentaccount": "EP00006Q",
+			"enterprisepaymentbank": "",
+			"enterprisepaymentname": "星付代付",
+			"exchangerate": 0,
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": "00000000",
+			"handleemployee": "zoeycst",
+			"handleovertime": "2017-12-03 05:41:50",
+			"loginaccount": "daihuan123",
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": -800,
+			"ordercomment": "完成审批",
+			"ordercreater": "会员",
+			"orderdate": "2017-12-03 05:34:28",
+			"ordernumber": "8015122504680281009",
+			"orderstatus": 2,
+			"ordertype": 2,
+			"parentemployeeaccount": "",
+			"parentemployeecode": "E000JVHL",
+			"paymenttypecode": "PM01",
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": "175.8.219.90"
+		},
+		{
+			"allDepositMoney": 0,
+			"allTakeMoney": 0,
+			"betmoney": 0,
+			"brandcode": "金塔娱乐城",
+			"creditrating": 0,
+			"delegatecode": 49723,
+			"depositNumber": 0,
+			"displayalias": "daihuan1",
+			"employeecode": "E000JVHM",
+			"employeepaymentaccount": "6212262008020048386",
+			"employeepaymentbank": "B006",
+			"employeepaymentname": "戴欢",
+			"end_date": "",
+			"enterprisecode": "EN003K",
+			"enterprisepaymentaccount": "EP00006Q",
+			"enterprisepaymentbank": "",
+			"enterprisepaymentname": "星付代付",
+			"exchangerate": 0,
+			"favourableid": "",
+			"favourablename": "",
+			"flowcode": "00000000",
+			"handleemployee": "zoeycst",
+			"handleovertime": "2017-12-02 01:12:28",
+			"loginaccount": "daihuan123",
+			"mum": "",
+			"netmoney": 0,
+			"orderamount": -400,
+			"ordercomment": "完成审批",
+			"ordercreater": "会员",
+			"orderdate": "2017-12-02 01:09:57",
+			"ordernumber": "8015121481976631094",
+			"orderstatus": 2,
+			"ordertype": 2,
+			"parentemployeeaccount": "",
+			"parentemployeecode": "E000JVHL",
+			"paymenttypecode": "PM01",
+			"pcontent": "",
+			"platformtype": "",
+			"pmoney": "",
+			"ptime": "",
+			"ptype": "",
+			"quantity": 0,
+			"ratex": 0,
+			"savecount": 0,
+			"savemoney": 0,
+			"sign": "",
+			"start_date": "",
+			"takecount": 0,
+			"takemoney": 0,
+			"time": "",
+			"traceip": "175.8.219.90"
+		}],
+		"sumamount": -1900
+	}
+}
+```
+#### 用户账变记录
+```
+路徑: User/findAccountChange
+參數: employeecode=${用戶編碼}&start=${分頁}&limit=${數量}&startDate=${開始時間}&endDate=${結束時間}
+返回結果: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"afteramount": ${賬變后金額},
+			"currencycode": ${貨幣編碼},
+			"employeecode": ${用戶編碼},
+			"employeename": ${用戶賬戶},
+			"enterprisecode": ${企業編碼},
+			"loginaccount": ${用戶賬戶},
+			"moneyaddtype": ${金額增加類型},
+			"moneychangeamount": ${賬變金額},
+			"moneychangecode": ${賬變單號},
+			"moneychangedate": ${賬變時間},
+			"moneychangetypecode": ${賬變類型編碼},
+			"moneychangetypename": ${賬變類型名稱},
+			"moneyinoutcomment": ${賬變備註},
+			"ordernumber": ${訂單單號},
+			"parentemployeecode": ${上級用戶編碼},
+			"settlementamount": ${賬變前餘額},
+			"timesort": ${排序}
+		}],
+		"count": 99,
+		"sumamount": 0.69
+	}
+}
+示例: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"afteramount": 0.22,
+			"currencycode": "",
+			"employeecode": "E000JVHM",
+			"employeename": "daihuan1",
+			"enterprisecode": "EN003K",
+			"loginaccount": "daihuan123",
+			"moneyaddtype": "",
+			"moneychangeamount": -100,
+			"moneychangecode": "026A1120123947759B7BFA94AF0A498B",
+			"moneychangedate": "2017-11-10 17:20:08",
+			"moneychangetypecode": "AF0B2F04CCA64E3197F047402FEE5832",
+			"moneychangetypename": "游戏上分",
+			"moneyinoutcomment": "操作人:API 游戏上分【TAGGame】 批次号：9015103056081741023",
+			"ordernumber": "9015103056081741023",
+			"parentemployeecode": "E000JVHL",
+			"settlementamount": 100.22,
+			"timesort": 0
+		},
+		{
+			"afteramount": 0.17,
+			"currencycode": "",
+			"employeecode": "E000JVHM",
+			"employeename": "daihuan1",
+			"enterprisecode": "EN003K",
+			"loginaccount": "daihuan123",
+			"moneyaddtype": "",
+			"moneychangeamount": -4,
+			"moneychangecode": "03AB58D4F11247BD9636D89B66D342C6",
+			"moneychangedate": "2017-11-20 21:12:43",
+			"moneychangetypecode": "AF0B2F04CCA64E3197F047402FEE5832",
+			"moneychangetypename": "游戏上分",
+			"moneyinoutcomment": "操作人:API 游戏上分【NHQGame】 批次号：9015111835636311776",
+			"ordernumber": "9015111835636311776",
+			"parentemployeecode": "E000JVHL",
+			"settlementamount": 4.17,
+			"timesort": 0
+		}],
+		"count": 99,
+		"sumamount": 0.69
+	}
+}
+```
+#### 查询会员时间段内的存取款、优惠等数据統計
+```
+路徑: Game/allMoney
+參數: employeecode=${用戶編碼}
+返回結果: {
+	"code": "1",
+	"info": {
+		"total_net_money": ${輸贏總金額},
+		"total_activity_money": ${活動優惠總額},
+		"total_stream_money": ${應打碼總額},
+		"total_bet_money": ${投注總金額},
+		"total_take_money": ${取款總金額},
+		"total_deposit_money": ${存款總金額}
+	}
+}
+示例: {
+	"code": "1",
+	"info": {
+		"total_net_money": 288.25,
+		"total_activity_money": 0,
+		"total_stream_money": 9.64,
+		"total_bet_money": 9897.5,
+		"total_take_money": -1900,
+		"total_deposit_money": 1876.05
+	}
+}
+```
+
 #### 获取基础银行信息
 **此接口無需加密**
 ```
 路徑: Funds/Banks
 參數: 無
-返回結果:
-示例:
+返回結果: {
+	"code": "1",
+	"info": [{
+		"bankcode": ${銀行編碼},
+		"banklogo": ${銀行Logo地址},
+		"bankname": ${銀行名稱},
+		"bankurl": ${銀行官網地址},
+		"displayorder": ${排序}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"bankcode": "B006",
+		"banklogo": "/icon/bank/ICBC_OUT.gif",
+		"bankname": "中国工商银行",
+		"bankurl": "http://www.icbc.com.cn/icbc/",
+		"displayorder": 1
+	},
+	{
+		"bankcode": "B015",
+		"banklogo": "/icon/bank/CCB_OUT.gif",
+		"bankname": "中国建设银行",
+		"bankurl": "http://www.ccb.com/cn/home/indexv3.html",
+		"displayorder": 2
+	}]
+}
 ```
 #### 获取获取企业第三方支付
 ```
 路徑: TPayment/EThirdpartys
-參數: enterprisecode=${企業編碼}
-返回結果:
-示例:
+參數: enterprisecode=${企業編碼}&type=${支付類型: PC-PC端發起支付, H5-移動端發起支付}
+返回結果: {
+	"code": "1",
+	"info": [{
+		"thirdpartypaymenttypename": ${支付名稱},
+		"banks": [{
+			"bankcode": ${銀行編碼},
+			"bankname": ${銀行名稱},
+			"enable": ${是否可用: 1-可用, -1-不可用},
+			"id": ${銀行ID},
+			"paymenttypebankcode": ${第三方支付銀行編碼},
+			"sign": "",
+			"thirdpartypaymenttypecode": ${第三方支付編碼},
+			"thirdpartypaymenttypename": ${第三方支付名稱}
+		}],
+		"paycallbackurl": ${支付回調域名},
+		"minmoney": ${存款最小金額},
+		"maxmoney": ${存款最大金額},
+		"enterprisethirdpartycode": ${企業第三方支付編碼},
+		"callbackurl": ${第三方支付回調域名},
+		"thirdpartypaymenttypecode": ${第三方支付編碼}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"thirdpartypaymenttypename": "微信通道3",
+		"banks": [{
+			"bankcode": "B019",
+			"bankname": "微信",
+			"enable": "",
+			"id": 431,
+			"paymenttypebankcode": "1004",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P057",
+			"thirdpartypaymenttypename": ""
+		}],
+		"paycallbackurl": "http://127.0.0.1:9090/ecrm-api",
+		"minmoney": 50,
+		"maxmoney": 3000,
+		"enterprisethirdpartycode": "EP00006S",
+		"callbackurl": "http://api.jdpayment.com/",
+		"thirdpartypaymenttypecode": "P057"
+	},
+	{
+		"thirdpartypaymenttypename": "网银通道4",
+		"banks": [{
+			"bankcode": "B005",
+			"bankname": "中国农业银行",
+			"enable": "",
+			"id": 398,
+			"paymenttypebankcode": "ABC",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		},
+		{
+			"bankcode": "B006",
+			"bankname": "中国工商银行",
+			"enable": "",
+			"id": 399,
+			"paymenttypebankcode": "ICBC",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		},
+		{
+			"bankcode": "B015",
+			"bankname": "中国建设银行",
+			"enable": "",
+			"id": 400,
+			"paymenttypebankcode": "CCB",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		},
+		{
+			"bankcode": "B003",
+			"bankname": "交通银行",
+			"enable": "",
+			"id": 401,
+			"paymenttypebankcode": "BCOM",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		},
+		{
+			"bankcode": "B004",
+			"bankname": "中国银行",
+			"enable": "",
+			"id": 402,
+			"paymenttypebankcode": "BOC",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		},
+		{
+			"bankcode": "B016",
+			"bankname": "招商银行",
+			"enable": "",
+			"id": 403,
+			"paymenttypebankcode": "CMB",
+			"sign": "",
+			"thirdpartypaymenttypecode": "P058",
+			"thirdpartypaymenttypename": ""
+		}],
+		"paycallbackurl": "http://127.0.0.1:9090/ecrm-api",
+		"minmoney": 100,
+		"maxmoney": 50000,
+		"enterprisethirdpartycode": "EP00006X",
+		"callbackurl": "http://api.jdpayment.com/",
+		"thirdpartypaymenttypecode": "P058"
+	}]
+}
 ```
 #### 获取企业第三方支付银行(已廢除)
+**此接口無需加密**
 ```
 路徑: TPayment/TPayMentBank
-參數:
-返回結果:
-示例:
+參數: thirdpartypaymenttypecode=${第三方支付編碼}
+返回結果: {
+	"code": "1",
+	"info": [{
+		"paymenttypebankcode": ${第三方支付銀行編碼},
+		"bankname": ${銀行名稱},
+		"bankcode": ${銀行編碼}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"paymenttypebankcode": "ABC",
+		"bankname": "中国农业银行",
+		"bankcode": "B005"
+	},
+	{
+		"paymenttypebankcode": "ICBC",
+		"bankname": "中国工商银行",
+		"bankcode": "B006"
+	}]
+}
 ```
 #### 提交第三方支付
 ```
 路徑: TPayment/ESaving
 參數: brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金額}&enterprisethirdpartycode=${企業第三方支付編碼}&traceip=${用戶IP}&paymenttypebankcode=${企業第三方支付銀行編碼}
-返回結果:
-示例:
+返回結果: 無返回值, 直接跳轉到支付頁面
+示例: 無
 ```
 --------------------------------------------------
 ### 活動相關接口
 
-#### 领取优惠活动
+#### 领取优惠活动(請求結果根據活動不同, 返回結果)
 ```
 路徑: MemBerActivity/trigger
 參數: employeecode=${用戶編碼}&enterprisebrandactivitycode=${活動編碼}&loginip=${用戶IP}
-返回結果:
-示例:
+返回結果: {
+	"code": "1",
+	"info": ${具體活動的提示信息},
+}
+示例: {
+    "code":"1003",
+    "info":"活动模板不存在"
+}
 ```
 #### 获取优惠活动数据
 ```
 路徑: ActivityData/trigger
-參數:
-返回結果:
-示例:
+參數: employeecode=${用戶編碼}&enterprisebrandactivitycode=${活動編碼}
+返回結果: {
+	"code": "1",
+	"info": ${具體活動的結果數據, 待完善},
+}
+示例: {
+    "code":"1003",
+    "info":"活动模板不存在"
+}
 ```
 #### 获取优惠记录数据
 ```
@@ -1153,12 +1882,15 @@ brandcode=${品牌編碼}&employeecode=${用戶編碼}&orderamount=${存款金�
 路徑: User/findUserFavourable
 參數: employeecode=${用戶編碼}
 返回結果:
-示例:
+示例: {
+    "code":"1003",
+    "info":"活动未开始或已过期"
+}
 ```
 #### 获取会员注册红包纪录
 ```
 路徑: Redbag/Draw
-參數:
+參數: employeecode=${用戶編碼}&enterprisebrandactivitycode=${活動編碼}&loginip=${用戶IP}
 返回結果:
 示例:
 ```
