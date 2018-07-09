@@ -437,8 +437,14 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 路徑: User/getVerifycode
 參數: brandcode=${品牌編碼}&phoneno=${手機號碼}
-返回結果:
-示例:
+返回結果: {
+    "code" : "1",
+    "info" : ${驗證碼}
+}
+示例: {
+    "code" : "1",
+    "info" : "4375"
+}
 ```
 #### 获取品牌广告图
 ```
@@ -832,15 +838,43 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 路徑: Game/balances
 參數: employeecode=${用戶編碼}
-返回結果:
-示例:
+返回結果: {
+    "code":"1",
+    "info":${用戶賬戶總餘額(包括中心錢包+所有遊戲上的分數)}
+}
+示例: {
+    "code":"1",
+    "info":"1500.0"
+}
 ```
 #### 用戶所有遊戲及中心錢包餘額列表
 ```
 路徑: Game/balancesAll
 參數: employeecode=${用戶編碼}
-返回結果:
-示例:
+返回結果: {
+    "code":"1",
+    "info":[{
+        "gamecode":${遊戲編碼},
+        "gametype":${遊戲類型},
+        "gamename":${遊戲名稱},
+        "gamebalance":${遊戲上餘額}
+    }]
+}
+示例: {
+    "code":"1",
+    "info":[{
+        "gamecode":"00000",
+        "gametype":"CENTER",
+        "gamename":"我的钱包",
+        "gamebalance":"150"
+    },
+    {
+        "gamecode":"G021",
+        "gametype":"IDNGame",
+        "gamename":"IDN扑克",
+        "gamebalance":"25"
+    }]
+}
 ```
 #### 獲取玩家单个游戏余额
 ```
@@ -852,7 +886,7 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 }
 示例: {
     "code":"1",
-    "info":10
+    "info":"10.0"
 }
 ```
 #### 游戏试玩
@@ -881,13 +915,13 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
     "info":"平台维护或升级中！请联系客服咨询"
 }
 ```
-#### 获取游戏账号
+#### 获取單個游戏账号
 ```
 路徑: User/takeEmployeeAccountOne
 參數: employeecode=${用戶編碼}$gameType=${遊戲類型}
 返回結果: {
     "code":"1",
-    "info":${加密后的遊戲賬號}
+    "info":${加密后的遊戲賬號/密碼 = AES_ENCODE({"gamepassword=d0ZjIc04, gameaccount=vvvvvvv0}", AES_KEY)}
 }
 示例: {
     "code":"1",
@@ -898,31 +932,283 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 路徑: User/takeEmployeeAccount
 參數: employeecode=${用戶編碼}
-返回結果:
-示例:
+返回結果:  {
+    "code":"1",
+    "info":[{
+        "gametype":${遊戲類型},
+        "gamename":${遊戲名稱},
+        "gameaccount":${用戶遊戲賬號},
+        "gamepassword":${遊戲賬戶密碼}
+    }]
+}
+示例:  {
+    "code":"1",
+    "info":[{
+        "gametype":"TAGGame",
+        "gamename":"AG遊戲",
+        "gameaccount":"sa7ctPbT",
+        "gamepassword":"abc132"
+    },
+    {
+        "gametype":"NHQGame",
+        "gamename":"HY遊戲",
+        "gameaccount":"qwer1234",
+        "gamepassword":"abc555"
+    }]
+}
 ```
 #### 获取PT游戏分类
 **此接口無需加密**
 ```
 路徑: Game/PtGameMenu
 參數: 無
-返回結果:
-示例:
+返回結果: 參看示例, 結果固定
+示例: {
+	"code": "1",
+	"info": [{
+		"children": [{
+			"children": [],
+			"classchinaname": "奇迹大奖",
+			"classenglishname": "Miracle Award",
+			"gameclasscode": 1,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "1"
+		},
+		{
+			"children": [],
+			"classchinaname": "5-10条线",
+			"classenglishname": "5-10Line",
+			"gameclasscode": 2,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "2"
+		},
+		{
+			"children": [],
+			"classchinaname": "15-20条线",
+			"classenglishname": "12-20Line",
+			"gameclasscode": 3,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "3"
+		},
+		{
+			"children": [],
+			"classchinaname": "25+条线",
+			"classenglishname": "25+line",
+			"gameclasscode": 4,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "4"
+		},
+		{
+			"children": [],
+			"classchinaname": "多旋律",
+			"classenglishname": "Polyrhythms",
+			"gameclasscode": 5,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "5"
+		},
+		{
+			"children": [],
+			"classchinaname": "累计",
+			"classenglishname": "Grand total",
+			"gameclasscode": 6,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "6"
+		},
+		{
+			"children": [],
+			"classchinaname": "经典老虎机",
+			"classenglishname": "Classic Slot Machine",
+			"gameclasscode": 7,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "7"
+		},
+		{
+			"children": [],
+			"classchinaname": "视频扑克",
+			"classenglishname": "Video Poker",
+			"gameclasscode": 8,
+			"gametype": "PTGame",
+			"parentclasstype": "18",
+			"sort": "8"
+		}],
+		"classchinaname": "电动吃角子老虎",
+		"classenglishname": "",
+		"gameclasscode": 18,
+		"gametype": "PTGame",
+		"parentclasstype": "0",
+		"sort": "1"
+	},
+	{
+		"children": [{
+			"children": [],
+			"classchinaname": "老虎机-街机",
+			"classenglishname": "Slot Machines - Arcade",
+			"gameclasscode": 9,
+			"gametype": "PTGame",
+			"parentclasstype": "19",
+			"sort": "10"
+		},
+		{
+			"children": [],
+			"classchinaname": "基诺-数字",
+			"classenglishname": "Keno - Digital",
+			"gameclasscode": 10,
+			"gametype": "PTGame",
+			"parentclasstype": "19",
+			"sort": "11"
+		},
+		{
+			"children": [],
+			"classchinaname": "运动-虚拟",
+			"classenglishname": "Sports - Virtual",
+			"gameclasscode": 11,
+			"gametype": "PTGame",
+			"parentclasstype": "19",
+			"sort": "12"
+		}],
+		"classchinaname": "街机游戏",
+		"classenglishname": "",
+		"gameclasscode": 19,
+		"gametype": "PTGame",
+		"parentclasstype": "0",
+		"sort": "2"
+	},
+	{
+		"children": [{
+			"children": [],
+			"classchinaname": "吃角子老虎机游戏",
+			"classenglishname": "Slots Games",
+			"gameclasscode": 12,
+			"gametype": "PTGame",
+			"parentclasstype": "20",
+			"sort": "14"
+		},
+		{
+			"children": [],
+			"classchinaname": "其它",
+			"classenglishname": "Other",
+			"gameclasscode": 13,
+			"gametype": "PTGame",
+			"parentclasstype": "20",
+			"sort": "15"
+		}],
+		"classchinaname": "累计游戏",
+		"classenglishname": "",
+		"gameclasscode": 20,
+		"gametype": "PTGame",
+		"parentclasstype": "0",
+		"sort": "3"
+	},
+	{
+		"children": [{
+			"children": [],
+			"classchinaname": "21点",
+			"classenglishname": "21Point",
+			"gameclasscode": 14,
+			"gametype": "PTGame",
+			"parentclasstype": "21",
+			"sort": "16"
+		},
+		{
+			"children": [],
+			"classchinaname": "轮盘",
+			"classenglishname": "Rotary table",
+			"gameclasscode": 15,
+			"gametype": "PTGame",
+			"parentclasstype": "21",
+			"sort": "17"
+		},
+		{
+			"children": [],
+			"classchinaname": "刮刮乐",
+			"classenglishname": "Lottery",
+			"gameclasscode": 17,
+			"gametype": "PTGame",
+			"parentclasstype": "21",
+			"sort": "18"
+		},
+		{
+			"children": [],
+			"classchinaname": "其他",
+			"classenglishname": "Other",
+			"gameclasscode": 16,
+			"gametype": "PTGame",
+			"parentclasstype": "21",
+			"sort": "19"
+		}],
+		"classchinaname": "牌桌-纸牌游戏",
+		"classenglishname": "",
+		"gameclasscode": 21,
+		"gametype": "PTGame",
+		"parentclasstype": "0",
+		"sort": "4"
+	}]
+}
 ```
 #### 获取PT游戏分类详细信息
 **此接口無需加密**
 ```
 路徑: Game/PtGameDetailsMenu
-參數: gameclasscode
-返回結果:
-示例:
+參數: gameclasscode=${遊戲信息編碼}
+返回結果: {
+	"code": "1",
+	"info": [{
+		"classdetailscode": ${詳細信息編碼},
+		"classdetailsflag": ${詳細信息表示},
+		"detailschinaname": ${遊戲名稱},
+		"detailsenglishname": ${遊戲英文名稱},
+		"disable": ${是否可用: 1-可用, 0-不可用},
+		"gameclasscode": ${遊戲信息編碼},
+		"path": ${遊戲圖片logo路徑},
+		"picturename": ${遊戲圖片名稱},
+		"sort": ${排序}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"classdetailscode": 210,
+		"classdetailsflag": "bj",
+		"detailschinaname": "21点",
+		"detailsenglishname": "",
+		"disable": "1",
+		"gameclasscode": "14",
+		"path": "http://192.168.1.207:9090/ecrm-pic/ptgames/",
+		"picturename": "bj.jpg",
+		"sort": 1
+	},
+	{
+		"classdetailscode": 211,
+		"classdetailsflag": "bjsd",
+		"detailschinaname": "投降21点",
+		"detailsenglishname": "",
+		"disable": "1",
+		"gameclasscode": "14",
+		"path": "http://192.168.1.207:9090/ecrm-pic/ptgames/",
+		"picturename": "bjsd.jpg",
+		"sort": 2
+	}]
+}
 ```
 #### 获取PT账号
 ```
 路徑: Game/PtLogin
 參數: employeecode=${用戶編碼}
-返回結果:
-示例:
+ {
+    "code":"1",
+    "info":${加密后的遊戲賬號/密碼 = AES_ENCODE("user=d0ZjIc04&password=vvvvvvv0", AES_KEY)}
+}
+示例: {
+    "code":"1",
+    "info":""
+}
 ```
 #### 游戏纪录
 ```
@@ -1849,7 +2135,7 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 --------------------------------------------------
 ### 活動相關接口
 
-#### 领取优惠活动(請求結果根據活動不同, 返回結果)
+#### 领取优惠活动(請求結果根據活動不同, 返回結果, 今後根據活動詳情, 再進行接口對接)
 ```
 路徑: MemBerActivity/trigger
 參數: employeecode=${用戶編碼}&enterprisebrandactivitycode=${活動編碼}&loginip=${用戶IP}
