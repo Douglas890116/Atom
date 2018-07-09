@@ -1212,29 +1212,77 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 #### 游戏纪录
 ```
-路徑: GRecords/Records
-參數: employeecode=${用戶編碼}&gametype=${遊戲類型}&start=${分頁}&limit=${每頁數量}
+路徑: GRecords/RecordsAll
+參數: employeecode=${用戶編碼}&start=${分頁}&limit=${數量}&gamePlatform=${遊戲類型, 可選參數}&gameBigType=${遊戲大類: SX-視訊, DZ-電子, TY-體育, CP-彩票, QP-棋牌}&startDate=${開始時間}&endDate=${結束時間}
 返回結果: {
-    "code":"1",
-    "info":{
-        "winningCredits":${總投注額},
-        "washCodeCredits":${有效投注額},
-        "bettingCredits":${輸贏金額},
-        "record":[${具體數據}],
-        "count":0
-        
-    }
+	"code": "1",
+	"info": {
+		"betMoneyAll": ${總投注額},
+		"netMoneyAll": ${輸贏金額},
+		"record": [{
+			"betDay": ${投注時間},
+			"betMoney": ${投注金額},
+			"gameBigType": ${遊戲大類: SX-視訊, DZ-電子, TY-體育, CP-彩票, QP-棋牌},
+			"netMoney": ${輸贏金額},
+			"gamePlatform": ${遊戲名稱},
+			"userName": ${遊戲賬戶},
+			"validMoney": ${有效投注額}
+		}],
+		"count": ${數據量}
+	}
 }
 示例: {
-    "code":"1",
-    "info":{
-        "winningCredits":null,
-        "washCodeCredits":null,
-        "bettingCredits":null,
-        "record":[],
-        "count":0
-        
-    }
+	"code": "1",
+	"info": {
+		"betMoneyAll": 57,
+		"netMoneyAll": -37.5,
+		"record": [{
+			"betDay": "2017-11-02 18:05:59",
+			"betMoney": 17,
+			"gameBigType": "SX",
+			"netMoney": -17,
+			"gamePlatform": "BBIN波音",
+			"userName": "hrjtyl1388",
+			"validMoney": 17
+		},
+		{
+			"betDay": "2017-11-02 18:04:42",
+			"betMoney": 10,
+			"gameBigType": "SX",
+			"netMoney": -10,
+			"gamePlatform": "BBIN波音",
+			"userName": "hrjtyl1388",
+			"validMoney": 10
+		},
+		{
+			"betDay": "2017-11-02 18:03:58",
+			"betMoney": 10,
+			"gameBigType": "SX",
+			"netMoney": -10,
+			"gamePlatform": "BBIN波音",
+			"userName": "hrjtyl1388",
+			"validMoney": 10
+		},
+		{
+			"betDay": "2017-11-02 18:03:22",
+			"betMoney": 10,
+			"gameBigType": "SX",
+			"netMoney": 9.5,
+			"gamePlatform": "BBIN波音",
+			"userName": "hrjtyl1388",
+			"validMoney": 10
+		},
+		{
+			"betDay": "2017-11-02 18:02:39",
+			"betMoney": 10,
+			"gameBigType": "SX",
+			"netMoney": -10,
+			"gamePlatform": "BBIN波音",
+			"userName": "hrjtyl1388",
+			"validMoney": 10
+		}],
+		"count": 5
+	}
 }
 ```
 #### 游戏手动上分接口

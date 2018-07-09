@@ -612,8 +612,19 @@ public class MemberSiteApiTest  extends TestCase {
 			e.printStackTrace();
 		}
 	}
+	public  void RecordsAll(){
+		try {
+			String url = URL + "/GRecords/RecordsAll?enterprisecode=" + ENTERPRISECODE;
+			String params = "employeecode=" + "E000JURJ" + "&start=0&limit=10&gamePlatform=BBINGame&gameBigType=SX&startDate=2015-01-01&endDate=2018-01-01";
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params + MD5_KEY)+"&params="+aesparams;
+			System.out.println("会员存取款统计数据:"+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		MemberSiteApiTest a = new MemberSiteApiTest();
-		a.findUserFavourable();
+		a.RecordsAll();
 	}
 }
