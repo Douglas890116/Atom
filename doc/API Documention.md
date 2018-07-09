@@ -2181,8 +2181,6 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 示例: 無
 ```
 --------------------------------------------------
-
-# 以下接口還在完善中, 需要根據實際情況與前端對接, 後期繼續整理
 ### 活動相關接口
 
 #### 领取优惠活动(請求結果根據活動不同, 返回結果, 今後根據活動詳情, 再進行接口對接)
@@ -2215,24 +2213,186 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 ```
 路徑: ActivityData/benefitRecord
 參數:
-返回結果:
-示例:
+返回結果: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"activityname": ${優惠編碼},
+			"alreadybet": ${已打碼金額},
+			"betrecordcode": ${數據流水號},
+			"betrecordstatus": ${打碼狀態: 1-已完成, 0-未完成},
+			"brandcode": ${品牌編碼},
+			"createtime": ${创建創建時間},
+			"ecactivitycode": ${定制活動編碼},
+			"employeecode": ${用戶編碼},
+			"enterprisecode": ${企業編碼},
+			"finishtime": ${完成時間},
+			"loginaccount": ${用戶賬戶},
+			"mustbet": ${需打碼金額},
+			"ordernumber": ${業務單號},
+			"parentemployeeaccount": ${上級用戶賬戶},
+			"parentemployeecode": ${上級用戶編碼},
+			"recharge": ${充值金額}
+		}],
+		"count": ${数据量}
+	}
+}
+示例: {
+	"code": "1",
+	"info": {
+		"record": [{
+			"activityname": "存款所需流水",
+			"alreadybet": 0,
+			"betrecordcode": 6027,
+			"betrecordstatus": "0",
+			"brandcode": "EB0000BD",
+			"createtime": "2017-05-02 13:20:27",
+			"ecactivitycode": 0,
+			"employeecode": "E000IX3K",
+			"enterprisecode": "EN003K",
+			"finishtime": "",
+			"loginaccount": "ianwang",
+			"mustbet": 100,
+			"ordernumber": "",
+			"parentemployeeaccount": "eggagent",
+			"parentemployeecode": "E000IX1V",
+			"recharge": 100
+		},
+		{
+			"activityname": "存款所需流水",
+			"alreadybet": 0,
+			"betrecordcode": 6002,
+			"betrecordstatus": "0",
+			"brandcode": "EB0000BD",
+			"createtime": "2017-04-29 14:40:45",
+			"ecactivitycode": 0,
+			"employeecode": "E000IX3K",
+			"enterprisecode": "EN003K",
+			"finishtime": "",
+			"loginaccount": "ianwang",
+			"mustbet": 200,
+			"ordernumber": "",
+			"parentemployeeaccount": "eggagent",
+			"parentemployeecode": "E000IX1V",
+			"recharge": 200
+		},
+		{
+			"activityname": "存款所需流水",
+			"alreadybet": 0,
+			"betrecordcode": 6001,
+			"betrecordstatus": "0",
+			"brandcode": "EB0000BD",
+			"createtime": "2017-04-29 14:39:51",
+			"ecactivitycode": 0,
+			"employeecode": "E000IX3K",
+			"enterprisecode": "EN003K",
+			"finishtime": "",
+			"loginaccount": "ianwang",
+			"mustbet": 200,
+			"ordernumber": "",
+			"parentemployeeaccount": "eggagent",
+			"parentemployeecode": "E000IX1V",
+			"recharge": 200
+		}],
+		"count": 3
+	}
+}
 ```
 #### 获取优惠活动内容
 ```
 路徑: BrandActivity/trigger
-參數: brandcode=${品牌編碼}&way=${獲取方式}
-返回結果:
-示例:
+參數: brandcode=${品牌編碼}&way=${獲取方式: List, 固定值}
+返回結果: {
+	"code": "1",
+	"info": [{
+		"enterprisebrandactivitycode": ${活動編碼},
+		"endtime": ${活動結束時間},
+		"begintime": ${活動開始時間},
+		"activityname": ${活動名稱},
+		"activityimage": ${活動圖片},
+		"brandcode": ${品牌編碼},
+		"parameters": ${活動參數},
+		"activitycontent": ${活動內容, HTML, 可直接展示},
+		"activitynature": ${活動類型: 0-普通, 1-特殊}
+	}]
+}
+示例: {
+	"code": "1",
+	"info": [{
+		"enterprisebrandactivitycode": 139,
+		"endtime": "2018-07-07 23:59:59.0",
+		"begintime": "2017-11-01 00:00:00.0",
+		"activityname": "体育再存红利",
+		"activityimage": "https://img.hyzonghe.net/uploadfiles/1509531518070.jpg",
+		"brandcode": "EB0000BD",
+		"parameters": [],
+		"activitycontent": "<p>\r\n\t<br />\r\n</p>\r\n<p>\r\n\t<img src=\"http://img.hyzonghe.net:80/uploadfiles/1509532931386.png\" alt=\"\" /> \r\n</p>\r\n<p>\r\n\t<br />\r\n</p>\r\n<p class=\"MsoNormal\" align=\"left\" style=\"background:white;\">\r\n\t<span style=\"background-color:#FFFFFF;\"><strong>【</strong></span><strong>申请方式】</strong> \r\n</p>\r\n<p class=\"MsoNormal\" align=\"left\" style=\"background:white;\">\r\n\t所有申请过首存优惠及有过存款的会员，存款后联系在线客服办理\r\n</p>\r\n<p class=\"MsoNormal\" align=\"left\" style=\"background:white;\">\r\n\t<br />\r\n</p>\r\n<p class=\"MsoNormal\" align=\"left\" style=\"background:white;\">\r\n\t<strong>【活动条款及规则】</strong> \r\n</p>\r\n<p class=\"MsoNormal\" align=\"left\" style=\"margin-left:0cm;text-indent:-18pt;background:white;\">\r\n\t<br />\r\n</p>\r\n<ol>\r\n\t<li>\r\n\t\t1. <span>优惠开始于北京时间2017年11月1日00.00.01开始 结束时间为2017年12月31日23.59.59</span> \r\n\t</li>\r\n\t<li>\r\n\t\t2.   \r\n该优惠需要在存款后游戏前联系在线客服申请.该活动每位会员每周只可申请一次 此活动只适用于体育平台\r\n\t</li>\r\n\t<li>\r\n\t\t3.   \r\n如需取消再存优惠，必须在开始游戏前联系“在线客服”并待完全处理完毕后，方可开始游戏。\r\n\t</li>\r\n\t<li>\r\n\t\t4.   \r\n取消优惠申请后会员需投注存款金额的1倍流水可申请提款。\r\n\t</li>\r\n\t<li>\r\n\t\t5.   \r\n此优惠产生的所有投注额不予返水共享\r\n\t</li>\r\n\t<li>\r\n\t\t6.   \r\n申请再存优惠的同时不可参与其他优惠\r\n\t</li>\r\n\t<li>\r\n\t\t7.   \r\n金塔娱乐一般条款与规则适用于该优惠。\r\n\t</li>\r\n\t<li>\r\n\t\t8.   \r\n金塔娱乐保留随时停止该活动，且不需通知玩家的权利，并拥有活动最终解释权。\r\n\t</li>\r\n\t<li>\r\n\t\t活动期间，每位有效玩家，每一手机号码、电子邮件、相同银行卡，每一个IP地址，每一台电脑每周只能享受一次优惠\r\n\t</li>\r\n\t<li>\r\n\t\t1.   \r\n如发现有违规者或者进行无风险投注及倍投、梭哈，平台将保留无限期审核扣回红利及所产生的利润权利。本活动遵守金塔娱乐城的条款条规，同时每位玩家只能申请一种金塔娱乐城优惠活动，除非另有注明。所有平局，无效注单，投注输赢赛果的注单和低于1.70（欧洲盘）赔率的投注（马来盘赔率0.50；香港盘赔率0.70；印尼盘赔率-2.00）和非体育项目,百练赛以及虚拟运动，将不会计算在有效投注额内。\r\n\t</li>\r\n\t<li>\r\n\t\t2.   \r\n 此优惠所产生的所有投注额不予返水优惠共享\r\n\t</li>\r\n</ol>\r\n<p>\r\n\t<br />\r\n</p>\r\n<p class=\"MsoNormal\">\r\n\t<br />\r\n</p>\r\n<p class=\"MsoNormal\">\r\n\t<br />\r\n</p>\r\n<p class=\"MsoNormal\">\r\n\t<span> </span> \r\n</p>",
+		"activitynature": "0"
+	},
+	{
+		"enterprisebrandactivitycode": 160,
+		"endtime": "2018-07-07 23:59:59.0",
+		"begintime": "2017-11-01 00:00:00.0",
+		"activityname": "体育首存88%",
+		"activityimage": "https://img.hyzonghe.net/uploadfiles/1509440020079.jpg",
+		"brandcode": "EB0000BD",
+		"parameters": [],
+		"activitycontent": "<p>\r\n\t<br />\r\n</p>\r\n<p>\r\n\t<img src=\"http://img.hyzonghe.net:80/uploadfiles/1509597641491.png\" alt=\"\" /> \r\n</p>\r\n<p>\r\n\t<br />\r\n</p>\r\n<p>\r\n\t<strong>【领奖步骤】</strong> \r\n</p>\r\n1. 注册您的金塔娱乐城账户，进行有效存款；<br />\r\n2.通过在线聊天或者发送电子邮件给我们，并注明您的用户名，存款单号 和申请首存优惠的方案即可；<br />\r\n3.我们及时为您添加红利。<br />\r\n<br />\r\n<strong>【活动规则】</strong><br />\r\n1. 活动时间：2017/11/01  00:00:01 至2017/12/31  23:59:59 (GMT +8)；<br />\r\n2. 本优惠活动仅限于金塔娱乐城体育平台（投注于真人娱乐城和扑克平台不计算有效投注额）；<br />\r\n3. 活动期间，每位有效玩家，每一手机号码、电子邮箱、相同银行卡，每一个IP地址，每一台电脑者只能享受一次优惠<br />\r\n4.  如发现有违规者或则进行对冲投注、梭哈、倍投，我们将保留无限期审核扣回红利及所产生的利润权利；<br />\r\n5. 如果在未向客服申请红利之前已经投注，我们将视为您放弃本优惠享有权利；<br />\r\n6. 金塔娱乐城有权在任何时间修改和取消此优惠活动，并保留无须另行通知玩家的权利；<br />\r\n7. 本活动遵守金塔娱乐城的条款条规，同时每位玩家只能申请一种金塔娱乐城优惠活动，除非另有注明。所有平局，无效注单，投注输赢赛果的单和低于1.70（欧洲盘）赔率的投注（马来盘赔率0.50；香港盘赔率0.70；印尼盘赔率-2.00）和非体育项目,百练赛以及虚拟运动，将不会计算在有效投注额内。<br />\r\n8. 此优惠产生的所有投注额不予返水共享<br />",
+		"activitynature": "0"
+	}]
+}
 ```
 #### 用户存款时的优惠编码
 ```
 路徑: User/findUserFavourable
 參數: employeecode=${用戶編碼}
-返回結果:
+返回結果: {
+	"code": "1",
+	"info": [{
+		"employeecode": ${用戶編碼},
+		"endtime": ${優惠活動結束時間},
+		"enterprisecode": ${企業編碼},
+		"favourableid": ${優惠活動編碼},
+		"favourablename": ${優惠活動名稱},
+		"isdeault": ${是否默認: 1-默認, 0-非默認},
+		"isonce": ${是否一次性活動: 1-多次, 0-一次},
+		"loginaccount": ${用戶賬號},
+		"lsbs": ${流水倍數},
+		"lsh": ${流水號},
+		"starttime": ${優惠活動開始時間},
+		"status": ${狀態: 1-啟用, 0-禁用}
+	}]
+}
 示例: {
-    "code":"1003",
-    "info":"活动未开始或已过期"
+	"code": "1",
+	"info": [{
+		"employeecode": "E000JVHM",
+		"endtime": "2017-06-30 23:59:59",
+		"enterprisecode": "EN003K",
+		"favourableid": "36374f9c-1707-4419-857c-ce71de5f6e36",
+		"favourablename": "68%老虎机首存",
+		"isdeault": 0,
+		"isonce": 0,
+		"loginaccount": "daihuan123",
+		"lsbs": 20,
+		"lsh": "064f56c7-5225-499a-85c9-69588bb3cde6",
+		"starttime": "2017-05-01 00:00:00",
+		"status": 0
+	},
+	{
+		"employeecode": "E000JVHM",
+		"endtime": "2017-06-30 23:59:59",
+		"enterprisecode": "EN003K",
+		"favourableid": "df26d75b-f0ed-46dc-bd37-0f26bd0982b5",
+		"favourablename": "月月拿月月送",
+		"isdeault": 0,
+		"isonce": 1,
+		"loginaccount": "daihuan123",
+		"lsbs": 1,
+		"lsh": "0ad5f75d-da5d-4900-9e0b-e192d6137be9",
+		"starttime": "2017-05-01 00:00:00",
+		"status": 0
+	}]
 }
 ```
 #### 获取会员注册红包纪录
@@ -2243,6 +2403,7 @@ API請求採用[AES加密]和[MD5簽名]兩種方式
 示例:
 ```
 --------------------------------------------------
+# 以下接口還在開發完善中, 主要用於手機APP
 ### 其他接口
 
 #### 获取企业注册用户数和月充值数

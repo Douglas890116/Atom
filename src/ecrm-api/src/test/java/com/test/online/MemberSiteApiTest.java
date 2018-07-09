@@ -3,10 +3,13 @@ package com.test.online;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.maven.controller.member.HttpPostUtil;
 import com.maven.payment.yee.utils.DigestUtil;
 import com.maven.util.Encrypt;
 
 import junit.framework.TestCase;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class MemberSiteApiTest  extends TestCase {
 	
@@ -603,10 +606,10 @@ public class MemberSiteApiTest  extends TestCase {
 	}
 	public  void findUserFavourable(){
 		try {
-			String url = URL + "/User/findUserFavourable?enterprisecode=" + "EN003Q";
-			String params = "employeecode=" + "E000IXN7";
-			String aesparams= Encrypt.AESEncrypt(params, "cki7O6wHrFMc9ont");
-			url += "&signature="+Encrypt.MD5(params + "aRknqQn0Wb5I9fu6")+"&params="+aesparams;
+			String url = URL + "/User/findUserFavourable?enterprisecode=" + ENTERPRISECODE;
+			String params = "employeecode=" + EMPLOYEECODE;
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params + MD5_KEY)+"&params="+aesparams;
 			System.out.println("获取优惠组："+url);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -623,8 +626,31 @@ public class MemberSiteApiTest  extends TestCase {
 			e.printStackTrace();
 		}
 	}
+	public void testssss() {
+		try {
+			String url = URL + "/ActivityData/benefitRecord?enterprisecode=" + ENTERPRISECODE;
+			String params = "employeecode=E000IX3K&start=0&limit=10&createtime_begin=2015-01-01&createtime_end=2018-01-01";
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params + MD5_KEY)+"&params="+aesparams;
+			System.out.println("会员存取款统计数据:"+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	public  void findBrandActivity(){
+		try {
+			String url = URL + "/BrandActivity/trigger?enterprisecode=" + ENTERPRISECODE;
+			String params = "enterprisebrandcode=" + BRANDCODE + "&way=List";
+			String aesparams= Encrypt.AESEncrypt(params, AES_KEY);
+			url += "&signature="+Encrypt.MD5(params + MD5_KEY)+"&params="+aesparams;
+			System.out.println("获取企业品牌所有活动："+url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		MemberSiteApiTest a = new MemberSiteApiTest();
-		a.RecordsAll();
+		a.findUserFavourable();
 	}
 }

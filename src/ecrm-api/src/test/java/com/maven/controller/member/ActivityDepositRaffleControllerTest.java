@@ -58,7 +58,7 @@ public class ActivityDepositRaffleControllerTest extends TestCase {
 	
 	public void testssss() {
 		try {
-			String url = "http://127.0.0.1:8081/ecrm-api/ActivityData/benefitRecord";
+			String url = "http://127.0.0.1:9090/ecrm-api/ActivityData/benefitRecord";
 		
 			String params = "employeecode=E00000C3&pageIndex=3&limit=20";
 			String aesparams= Encrypt.AESEncodeEncrypt(params, "VUhEndOteNSQDAAK");
@@ -83,6 +83,6 @@ public class ActivityDepositRaffleControllerTest extends TestCase {
 	
 	public static void main(String[] args) {
 		ActivityDepositRaffleControllerTest test = new ActivityDepositRaffleControllerTest();
-		test.testRaffleData();
+		test.testssss();
 	}
 }
