@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.ecrm.util.DateUtils;
 
@@ -169,7 +170,7 @@ public class FileUploadServlet extends HttpServlet {
 				List<FileItem> items = null;
 				try {
 					// 解析request请求
-					items = upload.parseRequest(request);
+					items = upload.parseRequest((RequestContext) request);
 				} catch (FileUploadException e) {
 					e.printStackTrace();
 				}
