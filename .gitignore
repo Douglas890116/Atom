@@ -4,6 +4,8 @@
 # Log file
 *.log
 *.log.*
+log/
+logs/
 
 # BlueJ files
 *.ctxt
@@ -35,6 +37,8 @@ target
 target/
 bin
 bin/
+.idea/
+.idea
 
 .mymetadata
 .classpath
